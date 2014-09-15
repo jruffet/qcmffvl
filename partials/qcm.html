@@ -1,0 +1,22 @@
+<div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
+    <div ng-hide="loading" class="panel panel-default" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q)}">
+        <div class="panel-heading">
+            <div class="row question">
+                <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
+                <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers"> {{getPoints(q)}}</span>
+            </div>
+        </div>
+        <div class="panel-body answers">
+            <div ng-repeat="answer in q.ans">
+                <div class="checkbox">
+                    <input type="checkbox" ng-disabled="main.checkAnswers" ng-model="answer.checked">
+                        <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer)}">
+                            <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
+                            <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers" ng-bind="answer.pts"></span>
+                        </div>
+                    </input>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
