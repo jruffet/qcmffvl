@@ -109,8 +109,8 @@ body {
 
 .loader {
 	width:30%;
-display: block;
-  margin-left: auto;
-  margin-right: auto;
-	margin-top:50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
 }

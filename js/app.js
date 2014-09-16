@@ -28,7 +28,8 @@ config(['$routeProvider', function($routeProvider) {
     $translateProvider.translations('fr',{
         DIALOGS_CONFIRMATION: "Confirmation",
         DIALOGS_YES: "Oui",
-        DIALOGS_NO: "Non"
+        DIALOGS_NO: "Non",
+        DIALOGS_CLOSE: "Fermer"
     });
 
     $translateProvider.preferredLanguage('fr');

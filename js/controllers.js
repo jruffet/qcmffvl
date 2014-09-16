@@ -32,16 +32,19 @@ angular.module('qcmffvl.controllers', [])
     }
     $scope.main.limit = $scope.main.nbquestions.checked;
     $scope.reloadQCM = false;
-    console.log("setting");
     $scope.loading = true;
 
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
         //console.log("loading JSON");
         $http.get('http://qcmffvl.sativouf.net/json/qcm.json')
-        .then(function(res){
+        .success(function(res){
             $scope.qcm = API.newQCM(res.data);
             // $scope.addMoreQuestions();
+        })
+        .error(function() {
+            var dlg = dialogs.error('Erreur','Impossible de charger le questionnaire depuis le JSON');
+            dlg.result();
         });
     }
 
@@ -106,10 +109,10 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
-    $scope.$watch("loading", function(){
-        console.log("main : ", $scope.loading);
+    // $scope.$watch("loading", function(){
+    //     console.log("main : ", $scope.loading);
 
-    });
+    // });
 
 })
 
@@ -196,7 +199,6 @@ angular.module('qcmffvl.controllers', [])
 .controller('AboutCtrl', function($scope) {
     $scope.$parent.navCollapsed = true;
     $scope.$parent.loading = false;
-    console.log("modifying");
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 });
