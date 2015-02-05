@@ -78,6 +78,12 @@ body {
 .good-answer {
     color: #3c763d;
 }
+.good-score {
+    color: #5EA05F;
+}
+.bad-score {
+    color: #CC5250;
+}
 .bad-answer {
     color: #a94442;
 }

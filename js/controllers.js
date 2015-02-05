@@ -60,9 +60,9 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.scoreClass = function(score) {
         if (score.percentage > 75) {
-            return "good-answer";
+            return "good-score";
         } else {
-            return "bad-answer";
+            return "bad-score";
         }
     }
     $scope.resetQCMDisplay = function() {
