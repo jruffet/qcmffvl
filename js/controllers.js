@@ -59,7 +59,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.scoreClass = function(score) {
-        if (score.percentage > 75) {
+        if (score.percentage >= 75) {
             return "good-score";
         } else {
             return "bad-score";
