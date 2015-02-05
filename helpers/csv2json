@@ -1,0 +1,28 @@
+#!/usr/bin/python
+import sys
+import csv
+import json
+
+csvfile  = sys.argv[1]
+jsonfile = sys.argv[2]
+
+niveaux = [ "Vert", "Bleu", "Marron" ]
+ansdict = { "ans1": "pts1", "ans2": "pts2", "ans3": "pts3", "ans4": "pts4" }
+
+content = []
+with open (jsonfile, 'w') as outfile:
+    with open (csvfile) as infile:
+        reader = csv.DictReader(infile)
+        for row in reader:
+            row['num_niveau'] = niveaux.index(row['num_niveau'])
+            anslist = []
+            for ans in ansdict.keys():
+                if row[ans]:
+                    anslist.append({"text":row[ans], "pts":row[ansdict[ans]]})
+                del row[ans]
+                del row[ansdict[ans]]
+
+            row['ans'] = anslist
+            content.append(row)
+
+    outfile.write(json.dumps(content))
