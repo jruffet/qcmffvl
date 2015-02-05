@@ -37,7 +37,7 @@ angular.module('qcmffvl.controllers', [])
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
         //console.log("loading JSON");
-        $http.get('http://qcmffvl.sativouf.net/json/qcm.json')
+        $http.get('http://qcmffvl.sativouf.net/json/qcm2014.json')
         .success(function(data, status, headers, config){
             $scope.qcm = API.newQCM(data);
             // $scope.addMoreQuestions();
@@ -125,7 +125,7 @@ angular.module('qcmffvl.controllers', [])
         var total = 0;
         for (var i = 0; i < question.ans.length; i++) {
             if (question.ans[i].checked) {
-                total += question.ans[i].pts;
+                total += parseInt(question.ans[i].pts);
             }
         }
         if (total < 0) {
