@@ -39,6 +39,8 @@ trap clean_exit SIGINT
 mdbfile=$1
 jsonfile=$2
 
+[ -z "$mdbfile" -o -z "$jsonfile" ] && usage
+
 [ -r $mdbfile ] || fail "Cannot open \"$mdbfile\" for reading"
 touch $jsonfile || fail "Cannot open \"$jsonfile\" for writing"
 
