@@ -1,0 +1,3 @@
+#!/bin/bash
+cd $(dirname $0)/..
+tar czf qcmffvl.tgz  --transform 's,^,/qcmffvl/,' $(ls | grep -v bower)
