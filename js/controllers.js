@@ -37,7 +37,7 @@ angular.module('qcmffvl.controllers', [])
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
         //console.log("loading JSON");
-        $http.get('http://qcmffvl.sativouf.net/json/qcm2014.json')
+        $http.get('http://qcmffvl.sativouf.net/json/qcm2014-1.json')
         .success(function(data, status, headers, config){
             $scope.qcm = API.newQCM(data);
             // $scope.addMoreQuestions();
