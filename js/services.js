@@ -37,7 +37,7 @@ angular.module('qcmffvl.services', [])
         loadQCM: function() {
             var API = this;
             var result = { content:null };
-            $http.get('http://qcmffvl.sativouf.net/json/qcm2014-1.json')
+            $http.get('/json/qcm2014-1.json')
             .then(function(res){
                 result.content = API.shuffle(res.data);
             });
