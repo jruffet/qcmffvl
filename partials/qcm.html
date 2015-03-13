@@ -1,5 +1,5 @@
 <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
-    <div ng-hide="loading" class="panel panel-default" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q)}">
+    <div ng-hide="loading" class="panel panel-default" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q)}" ng-click="collapseNav()">
         <div class="panel-heading">
             <div class="row question">
                 <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>

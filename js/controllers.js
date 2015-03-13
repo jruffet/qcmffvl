@@ -116,10 +116,14 @@ angular.module('qcmffvl.controllers', [])
     $scope.$parent.resetQCMDisplay();
 
     $scope.toggleCheck = function(answer) {
-        if (!$scope.main.checkAnswers) {
+        if ($scope.$parent.navCollapsed && !$scope.main.checkAnswers) {
             answer.checked = !answer.checked;
         }
     }
+
+	$scope.collapseNav = function() {
+		$scope.$parent.navCollapsed = true;
+	}
 
     $scope.getPoints = function(question) {
         var total = 0;
