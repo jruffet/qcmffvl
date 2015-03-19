@@ -66,6 +66,7 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.resetQCMDisplay = function() {
+		$location.path('/qcm')
   		$('html').trigger('click');
 		$scope.loading = true;
 		$scope.navCollapsed = true;

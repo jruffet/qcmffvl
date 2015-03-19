@@ -1,5 +1,11 @@
+Version 1.2
+===========
+bugfix
+------
+Changer les options en étant dans la page "à propos" redirige vers la page QCM au lieu d'afficher "Chargement..." au milieu de la page.
+
 Version 1.1
-=============
+===========
 Améliorations
 -------------
 En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)
