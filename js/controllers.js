@@ -195,6 +195,33 @@ angular.module('qcmffvl.controllers', [])
 
 })
 
+.controller('SelfTestCtrl', function($scope, API) {
+    $scope.$parent.loading = false;
+	$scope.selftest = [];
+	$scope.selftest.numitems   = 300;
+	$scope.selftest.numruns    = 10000;
+	$scope.selftest.showperrun = 30;
+
+	$scope.selftest.qcm = [];
+	for(var i = 1; i <= $scope.selftest.numitems; i++) {
+		var obj = { question : i , ans : "x", shown : 0 };
+		$scope.selftest.qcm.push(obj);
+	}
+//	console.log($scope.selftest.qcm);
+	for(var i = 1; i <= $scope.selftest.numruns; i++){
+//		console.log("run " + i );
+		$scope.selftest.qcm = API.newQCM($scope.selftest.qcm);
+//		console.log($scope.selftest.qcm);
+		for(var j = 0; j < $scope.main.nbquestions.checked ; j++){
+			$scope.selftest.qcm[j].shown++;
+		}
+	}
+	for(var i = 0; i < $scope.selftest.numitems; i++) {
+		$scope.selftest.qcm[i].percent = Math.round(($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100);
+	}
+
+})
+
 .controller('AboutCtrl', function($scope) {
     $scope.$parent.navCollapsed = true;
     $scope.$parent.loading = false;

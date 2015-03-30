@@ -1,0 +1,4 @@
+<h3>set of {{selftest.numitems}} questions : {{selftest.numruns}} runs, showing {{selftest.showperrun}} questions each run</h3>
+<div ng-repeat="q in selftest.qcm | orderBy:'shown'">
+	Question #{{q.question}} : shown {{q.shown}} times ({{q.percent}}%)
+</div>
