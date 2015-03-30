@@ -217,7 +217,7 @@ angular.module('qcmffvl.controllers', [])
 		}
 	}
 	for(var i = 0; i < $scope.selftest.numitems; i++) {
-		$scope.selftest.qcm[i].percent = Math.round(($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100);
+		$scope.selftest.qcm[i].percent = (($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100).toFixed(2);;
 	}
 
 })
