@@ -1,22 +1,43 @@
-<div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
-    <div ng-hide="loading" class="panel panel-default" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q)}" ng-click="collapseNav()">
-        <div class="panel-heading">
-            <div class="row question">
-                <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
-                <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers"> {{getPoints(q)}}</span>
-            </div>
+<div ng-hide="loading">
+    <div ng-hide="main.examPapier && !browserChrome()">
+        <div class="qcm-title" ng-show="main.examMode">
+            <span class="qcm-title-left">
+                <span class="qcm-title-print" ng-show="main.examPapier"> [A IMPRIMER]</span>
+                QCM {{main.category.checked}} {{main.level.checked}} <span ng-show="main.examPapier">(Exemplaire {{main.targetExam.checked}})</span>
+                <span class="pull-right qcm-title-right">ID: {{main.QCMID}}</span>
+            </span>
         </div>
-        <div class="panel-body answers">
-            <div ng-repeat="answer in q.ans">
-                <div class="checkbox">
-                    <input type="checkbox" ng-disabled="main.checkAnswers" ng-model="answer.checked">
-                        <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer)}">
-                            <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
-                            <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers" ng-bind="answer.pts"></span>
+        <div class="qcm-body">
+            <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
+
+                <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q)}" ng-click="collapseNav()">
+                    <div class="panel-heading ">
+                        <div class="row question ">
+                            <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
+                            <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.examMode"> {{getPoints(q)}}</span>
                         </div>
-                    </input>
+                    </div>
+                    <div class="panel-body answers">
+                        <div ng-repeat="answer in q.ans">
+                            <div class="checkbox">
+                            <!-- TODO : replace checkbox with points -->
+                                <input type="checkbox" ng-disabled="main.examPapierCandidat ||
+                                                                    (main.checkAnswers && !main.examPapierExaminateur) ||
+                                                                    (main.examPapierExaminateur && !answer.checked) ||
+                                                                    (main.examPapierExaminateur && answer.pts==0)" ng-model="answer.checked">
+                                    <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer)}">
+                                            <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
+                                            <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers" ng-bind="answer.pts"></span>
+                                    </div>
+                                </input>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div ng-show="main.examPapier && !browserChrome()">
+        <div class="qcm-title">Merci d'utiliser le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
     </div>
 </div>

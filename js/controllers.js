@@ -5,6 +5,7 @@
 angular.module('qcmffvl.controllers', [])
 
 .controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, dialogs) {
+
     $scope.main = {
         category: {
             options: [ "Parapente" ],
@@ -15,8 +16,18 @@ angular.module('qcmffvl.controllers', [])
             checked: "Brevet de Pilote"
         },
         nbquestions: {
-        	options: [ "10", "30", "60", "90", "toutes les" ],
+        	options: [ "10", "30", "60", "90", "Toutes les" ],
         	checked: "30"
+        },
+        // TODO: ajouter "révision" et prepend "examen"
+        typeExam: {
+            options: [ "Révision", "Examen papier" ],
+            // options: [ "Révision", "Examen papier", "Examen numérique"],
+            checked: "Examen papier"
+        },
+        targetExam: {
+            options: [ "Candidat", "Examinateur" ],
+            checked: "Candidat"
         },
         displayLimit: 10000,
         checkAnswers: false,
@@ -26,6 +37,12 @@ angular.module('qcmffvl.controllers', [])
             percentage: 0,
             user: 0
         },
+        examMode: false,
+        examPapier: false,
+        examNumerique: false,
+        examPapierCandidat: false,
+        examPapierExaminateur: false,
+        QCMID: ""
     }
     $scope.main.search  = {
     	num_niveau: $scope.main.level.options.indexOf($scope.main.level.checked)
@@ -39,8 +56,9 @@ angular.module('qcmffvl.controllers', [])
         //console.log("loading JSON");
         $http.get('/json/qcm2014-1.json')
         .success(function(data, status, headers, config){
-            $scope.qcm = API.newQCM(data);
-            // $scope.addMoreQuestions();
+            $scope.qcm = data;
+            $scope.qcmOrig = angular.copy($scope.qcm);
+            $scope.generateQCM();
         })
         .error(function() {
             var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
@@ -48,6 +66,10 @@ angular.module('qcmffvl.controllers', [])
         });
     }
 
+    $scope.generateQCM = function(QCMID) {
+        // $scope.main.QCMID = API.generateQCM($scope.qcm, (Math.pow(2, 32)-1));
+        $scope.main.QCMID = API.generateQCM($scope.qcm, QCMID);
+    }
 
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire (ceci effacera vos réponses) ?');
@@ -66,14 +88,53 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.resetQCMDisplay = function() {
-		$location.path('/qcm')
-  		$('html').trigger('click');
+// TODO: if /exam, keep /exam
+		// $location.path('/qcm')
+        $scope.collapseNav();
 		$scope.loading = true;
-		$scope.navCollapsed = true;
 		$scope.main.displayLimit = 0;
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
+    }
+
+    $scope.collapseNav = function() {
+        $('html').trigger('click');
+        $scope.navCollapsed = true;
+    }
+
+    $scope.fillQCMAnswers = function() {
+        $scope.main.checkAnswers = true;
+        API.tickAnswers($scope.qcm);
+    }
+
+    $scope.unfillQCMAnswers = function() {
+        $scope.main.checkAnswers = false;
+        API.untickAnswers($scope.qcm);
+    }
+
+    $scope.updateExamVariables = function() {
+        $scope.main.examMode = ($scope.main.typeExam.checked.indexOf("Examen") != -1);
+        if ($scope.main.examMode) {
+            $scope.main.examPapier = ($scope.main.typeExam.checked == "Examen papier");
+            $scope.main.examNumerique = !$scope.main.examPapier;
+            $scope.targetCandidat = ($scope.main.targetExam.checked == "Candidat");
+            $scope.main.examPapierCandidat = ($scope.main.examPapier && $scope.targetCandidat);
+            $scope.main.examPapierExaminateur = ($scope.main.examPapier && !$scope.targetCandidat);
+        } else {
+            $scope.main.examPapierExaminateur = $scope.main.examPapierCandidat = $scope.main.examPapier = $scope.main.examNumerique =  false;
+        }
+        if ($scope.qcm) {
+            if ($scope.main.examPapierExaminateur) {
+                $scope.fillQCMAnswers();
+            } else {
+                $scope.unfillQCMAnswers();
+            }
+        }
+    }
+
+    $scope.browserChrome = function() {
+        return (navigator.appVersion.indexOf("Chrome") != -1);
     }
 
     $scope.$watch("reloadQCM", function(newval, oldval) {
@@ -81,8 +142,10 @@ angular.module('qcmffvl.controllers', [])
     		$timeout(function() {
     			$scope.reloadQCM = false;
     			$scope.resetQCMDisplay();
-		    	$scope.qcm = API.newQCM($scope.qcm);
-		        $location.path("qcm");
+                $scope.qcm = angular.copy($scope.qcmOrig)
+		    	$scope.generateQCM();
+                // TODO: check if OK to disable
+		        // $location.path("qcm");
 		        $route.reload();
     		},500);
 	    }
@@ -93,7 +156,7 @@ angular.module('qcmffvl.controllers', [])
         	$timeout(function() {
         		$scope.resetQCMDisplay();
         		var limit = $scope.main.nbquestions.checked;
-        		if (limit === "toutes les") {
+        		if (limit === "Toutes les") {
         			limit = 10000;
         		}
         		$scope.main.limit = limit;
@@ -109,10 +172,36 @@ angular.module('qcmffvl.controllers', [])
         	},100);
         }
     });
-})
+
+    $scope.$watch('main.typeExam.checked', function(newval, oldval) {
+        if (newval != oldval) {
+            $timeout(function() {
+                $scope.collapseNav();
+            },100);
+        }
+        $scope.updateExamVariables();
+    });
+
+    $scope.$watch('main.targetExam.checked', function(newval, oldval) {
+        if (newval != oldval) {
+            $timeout(function() {
+                $scope.collapseNav();
+            },100);
+        }
+        $scope.updateExamVariables();
+    });
+
+    $scope.$watch('main.examMode', function(newval, oldval) {
+        if (newval != oldval) {
+            $scope.updateExamVariables();
+        }
+    });
+
+ })
 
 .controller('QCMCtrl', function($scope, $filter, $timeout, API, filterFilter) {
     $scope.main.checkAnswers = false;
+    $scope.main.examMode = false;
     $scope.questions = [];
     $scope.$parent.resetQCMDisplay();
 
@@ -168,19 +257,19 @@ angular.module('qcmffvl.controllers', [])
     //     }
     // }
     $scope.successQuestion = function(question) {
-        return ($scope.main.checkAnswers && $scope.getPoints(question) === 6);
+        return ($scope.main.checkAnswers && $scope.getPoints(question) === 6 && !$scope.main.examPapier);
     }
 
     $scope.failedQuestion = function(question) {
-        return ($scope.main.checkAnswers && !$scope.successQuestion(question));
+        return ($scope.main.checkAnswers && !$scope.successQuestion(question) && !$scope.main.examPapier);
     }
 
     $scope.goodAnswer = function(answer) {
-        return ($scope.main.checkAnswers && answer.pts > 0);
+        return ($scope.main.checkAnswers && answer.pts > 0 && !$scope.main.examPapier);
     }
 
     $scope.badAnswer = function(answer) {
-        return ($scope.main.checkAnswers && answer.pts < 0);
+        return ($scope.main.checkAnswers && answer.pts < 0 && !$scope.main.examPapier);
     }
 
     $scope.updateScore = function() {
@@ -198,9 +287,9 @@ angular.module('qcmffvl.controllers', [])
 .controller('SelfTestCtrl', function($scope, API) {
     $scope.$parent.loading = false;
 	$scope.selftest = [];
-	$scope.selftest.numitems   = 300;
+	$scope.selftest.numitems   = 600;
 	$scope.selftest.numruns    = 10000;
-	$scope.selftest.showperrun = 30;
+	$scope.selftest.showperrun = 60;
 
 	$scope.selftest.qcm = [];
 	for(var i = 1; i <= $scope.selftest.numitems; i++) {
@@ -210,7 +299,7 @@ angular.module('qcmffvl.controllers', [])
 //	console.log($scope.selftest.qcm);
 	for(var i = 1; i <= $scope.selftest.numruns; i++){
 //		console.log("run " + i );
-		$scope.selftest.qcm = API.newQCM($scope.selftest.qcm);
+		API.generateQCM($scope.selftest.qcm);
 //		console.log($scope.selftest.qcm);
 		for(var j = 0; j < $scope.main.nbquestions.checked ; j++){
 			$scope.selftest.qcm[j].shown++;
@@ -220,6 +309,12 @@ angular.module('qcmffvl.controllers', [])
 		$scope.selftest.qcm[i].percent = (($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100).toFixed(2);;
 	}
 
+})
+
+.controller('ExamCtrl', function($scope) {
+    $scope.$parent.main.examMode = true;
+    $scope.$parent.main.checkAnswers = false;
+    $scope.$parent.updateExamVariables();
 })
 
 .controller('AboutCtrl', function($scope) {
