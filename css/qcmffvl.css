@@ -12,13 +12,20 @@
     .panel-heading {
         padding: 2px 10px;
     }
-
+    .panel-default {
+        border-color: #555;
+    }
+    .panel-default > .panel-heading {
+        border-color: #555;
+    }
     .radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
         /*float: left;*/
         margin-left: -27px;
         -moz-transform: scale(0.7);
     }
-
+    /*input[type="checkbox"] {
+        TODO : find a way to remove background;
+    */}
     .qcm-body {
         padding-top: 0;
         font-size: 11px;
