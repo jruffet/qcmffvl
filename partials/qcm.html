@@ -4,7 +4,7 @@
             <span class="qcm-title-left">
                 <span class="qcm-title-print" ng-show="main.examPapier"> [A IMPRIMER]</span>
                 {{main.category.checked}} {{main.level.checked}} <span ng-show="main.examPapier">(Exemplaire {{main.targetExam.checked}})</span>
-                <span class="pull-right qcm-title-right">ID: {{main.QCMID | threeSpace}}</span>
+                <span class="pull-right qcm-title-right">ID: {{main.QCMID | groupNumberByThree}}</span>
             </span>
         </div>
         <div class="qcm-body">

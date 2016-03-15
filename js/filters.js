@@ -9,7 +9,7 @@ angular.module('qcmffvl.filters', [])
     };
   }])
 
-.filter('threeSpace', function() {
+.filter('groupNumberByThree', function() {
     return function(input) {
         return input.replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
     }
