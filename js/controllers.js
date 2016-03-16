@@ -4,7 +4,7 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, dialogs) {
+.controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, $filter, dialogs) {
 
     $scope.main = {
         category: {
@@ -23,7 +23,7 @@ angular.module('qcmffvl.controllers', [])
         typeExam: {
             options: [ "Révision", "Examen papier" ],
             // options: [ "Révision", "Examen papier", "Examen numérique"],
-            checked: "Examen papier"
+            checked: "Révision"
         },
         targetExam: {
             options: [ "Candidat", "Examinateur" ],
@@ -42,14 +42,18 @@ angular.module('qcmffvl.controllers', [])
         examNumerique: false,
         examPapierCandidat: false,
         examPapierExaminateur: false,
-        QCMID: ""
+        QCMID: "",
+        QCMIDUser: ""
     }
     $scope.main.search  = {
     	num_niveau: $scope.main.level.options.indexOf($scope.main.level.checked)
     }
     $scope.main.limit = $scope.main.nbquestions.checked;
     $scope.reloadQCM = false;
+    // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
+    // to force the loading state, regardless of scope.loading
+    $scope.forceloading = true;
 
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
@@ -66,11 +70,39 @@ angular.module('qcmffvl.controllers', [])
         });
     }
 
+    $scope.optionsToArray = function() {
+        var opt = [];
+        opt[0] = $scope.main.category.options.indexOf($scope.main.category.checked)
+        opt[1] = $scope.main.level.options.indexOf($scope.main.level.checked)
+        opt[2] = $scope.main.nbquestions.options.indexOf($scope.main.nbquestions.checked)
+        return opt;
+    },
+    $scope.arrayToOptions = function(opt) {
+        $scope.main.category.checked = $scope.main.category.options[opt[0]];
+        $scope.main.level.checked = $scope.main.level.options[opt[1]];
+        $scope.main.nbquestions.checked = $scope.main.nbquestions.options[opt[2]];
+    },
     $scope.generateQCM = function(QCMID) {
-        // $scope.main.QCMID = API.generateQCM($scope.qcm, (Math.pow(2, 32)-1));
-        $scope.main.QCMID = API.generateQCM($scope.qcm, QCMID);
-    }
+        $scope.forceloading = true;
 
+        $timeout(function() {
+            if (QCMID)
+                $scope.arrayToOptions(API.uncomputeID(QCMID).options);
+            $scope.qcm = angular.copy($scope.qcmOrig);
+            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
+        }, 100);
+        $timeout(function() {
+            $scope.forceloading = false;
+        }, 100);
+
+        // TODO: remove from here, and move to genQCMfromID()
+        // console.debug(API.uncomputeID($scope.main.QCMID));
+        // $scope.arrayToOptions(API.uncomputeID($scope.main.QCMID).options);
+    },
+    $scope.updateQCMID = function() {
+        var num = API.uncomputeID($scope.main.QCMID).num;
+        $scope.main.QCMID = API.computeID(num, $scope.optionsToArray());
+    },
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire (ceci effacera vos réponses) ?');
         dlg.result.then(function(btn){
@@ -88,8 +120,6 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.resetQCMDisplay = function() {
-// TODO: if /exam, keep /exam
-		// $location.path('/qcm')
         $scope.collapseNav();
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
@@ -137,12 +167,16 @@ angular.module('qcmffvl.controllers', [])
         return (navigator.appVersion.indexOf("Chrome") != -1);
     }
 
+    $scope.verifyQCMIDUser = function() {
+        return API.verifyChecksum($scope.main.QCMIDUser);
+    }
+
+    // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
     	if (newval) {
     		$timeout(function() {
     			$scope.reloadQCM = false;
     			$scope.resetQCMDisplay();
-                $scope.qcm = angular.copy($scope.qcmOrig)
 		    	$scope.generateQCM();
                 // TODO: check if OK to disable
 		        // $location.path("qcm");
@@ -155,6 +189,7 @@ angular.module('qcmffvl.controllers', [])
         if (newval != oldval) {
         	$timeout(function() {
         		$scope.resetQCMDisplay();
+                $scope.updateQCMID();
         		var limit = $scope.main.nbquestions.checked;
         		if (limit === "Toutes les") {
         			limit = 10000;
@@ -168,6 +203,7 @@ angular.module('qcmffvl.controllers', [])
         if (newval != oldval) {
         	$timeout(function() {
         		$scope.resetQCMDisplay();
+                $scope.updateQCMID();
         		$scope.main.search.num_niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
         	},100);
         }
@@ -196,6 +232,28 @@ angular.module('qcmffvl.controllers', [])
             $scope.updateExamVariables();
         }
     });
+
+    $scope.$watch('main.QCMID', function(newval, oldval) {
+        if (newval != oldval) {
+            // reset dirtiness on form
+            $scope.QCMIDUserForm.$setPristine();
+            if ($scope.main.QCMIDUser != $scope.main.QCMID) {
+                $scope.main.QCMIDUser = $scope.main.QCMID;
+                $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
+            }
+        }
+    });
+
+    $scope.$watch('main.formattedQCMIDUser', function(newval, oldval) {
+        if (newval != oldval) {
+            $scope.main.QCMIDUser = $filter('removeSpaces')(newval);
+            $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
+            if ($scope.main.QCMIDUser != $scope.main.QCMID  && API.verifyChecksum($scope.main.QCMIDUser)) {
+                $scope.generateQCM($scope.main.QCMIDUser);
+            }
+        }
+    });
+
 
  })
 
