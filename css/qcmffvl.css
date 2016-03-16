@@ -230,3 +230,7 @@
 .btn-reload {
     margin-right: 10px;
 }
+
+.has-error {
+    color:#C30B08;
+}
