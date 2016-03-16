@@ -90,14 +90,10 @@ angular.module('qcmffvl.controllers', [])
                 $scope.arrayToOptions(API.uncomputeID(QCMID).options);
             $scope.qcm = angular.copy($scope.qcmOrig);
             $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
-        }, 100);
+        }, 500);
         $timeout(function() {
             $scope.forceloading = false;
-        }, 100);
-
-        // TODO: remove from here, and move to genQCMfromID()
-        // console.debug(API.uncomputeID($scope.main.QCMID));
-        // $scope.arrayToOptions(API.uncomputeID($scope.main.QCMID).options);
+        }, 1000);
     },
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
