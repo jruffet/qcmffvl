@@ -89,14 +89,14 @@ angular.module('qcmffvl.services', [])
             var optnum = API.pad(API.computeOptions(options),2);
             var ck = API.pad(API.checksum(num, optnum),3);
 
-            return padnum + optnum + ck;
+            return ck + padnum + optnum;
         },
         uncomputeID: function(ID) {
             var API = this;
-            var num = parseInt(ID.substr(0,10),10);
-            var optnum = parseInt(ID.substr(10,2),10);
+            var ck = parseInt(ID.substr(0,3),10);
+            var num = parseInt(ID.substr(3,10),10);
+            var optnum = parseInt(ID.substr(13,2),10);
             var opt = API.uncomputeOptions(optnum);
-            var ck = parseInt(ID.substr(12),10);
             return { "ck":ck, "options":opt, "num":num, "optnum":optnum }
         },
         computeOptions: function(opt) {
