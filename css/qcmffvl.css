@@ -213,3 +213,20 @@
 .qcm-title-print {
     color: red;
 }
+.qcmID {
+    margin-left: 15px;
+    margin-top: 8px;
+}
+
+.qcmID label {
+    margin-right: 5px;
+}
+
+.qcmID .form-control {
+    width: 180px;
+    text-align: center;
+}
+
+.btn-reload {
+    margin-right: 10px;
+}
