@@ -108,7 +108,6 @@
 									<li ng-repeat="targetExam in main.targetExam.options">
 										<a ng-click="main.targetExam.checked = targetExam">{{targetExam}}</a>
 									</li>
-
 								</ul>
 							</li>
 						</li>
@@ -120,7 +119,14 @@
 							<button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
 							<button class="btn btn-default navbar-btn " print-btn ng-show="main.examPapier">Imprimer</button>
 						</li>
-
+						<li>
+						<form class="form-inline" name="QCMIDUserForm">
+							<div class="form-group qcmID"  ng-class="{ 'has-error':QCMIDUserForm.ID.$dirty && !verifyQCMIDUser() }">
+							  <label for="usr">QCM ID</label>
+							  <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" maxlength="19">
+							</div>
+							</form>
+						</li>
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
@@ -129,7 +135,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="loader" ng-show="loading" >Chargement...</div>
+		<div class="loader" ng-show="loading || forceloading" >Chargement...</div>
 		<div ng-view></div>
 
 	</div>
