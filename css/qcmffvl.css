@@ -71,17 +71,9 @@
 
 
 @media screen and (max-width: 767px) {
-/*    .navbar-fixed-top {
-	    position: relative;
-	    top: auto;
-    }*/
     .question .points {
     	padding-left:0;
     }
-/*    .panel {
-		margin-left: 1px;
-		margin-right: 1px;
-    }*/
     .container-fluid {
         padding-right: 30px;
     }
@@ -92,17 +84,6 @@
 
 }
 
-@media screen and (min-width: 768px) {
-    .col-xs-6, .col-xs-12 {
-        position: inherit;
-        min-height: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        float: inherit;
-        width: inherit;
-    }
-}
-
 @media screen {
     body {
         max-width: 700px;
@@ -110,23 +91,7 @@
         overflow: scroll;
         padding-top: 60px;
     }
-/*
-	.qcm-title-left {
-		margin-bottom: 10px;
-		padding-left: 2px;
-	}
-	.qcm-title-right {
-		padding-right: 2px;
-	}*/
-}
-/*
-@-moz-document url-prefix() {
-    .answer {
-        padding-top: 3px;
-        padding-left: 5px;
-    }
-}
-*/
+
 .score {
 	font-weight: bold;
 }
@@ -199,8 +164,6 @@
 .dialog-header-wait span, .dialog-header-wait h4,
 .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
 
-/* Ease Display */
-
 .pad { padding: 25px; }
 
 .loader {
@@ -212,7 +175,6 @@
 }
 
 .qcm-title {
-    /*display: block!important;*/
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 15px;
@@ -239,7 +201,6 @@
     width: 180px;
     text-align: center;
     margin-right: 20px;
-
 }
 
 .btn-reload {
