@@ -133,14 +133,21 @@
 .good-answer {
     color: #3c763d;
 }
+.bad-answer {
+    color: #BB2926;
+}
+.panel-warning .panel-heading {
+    background-color: #FFE6C4;
+    color:#AA6C00;
+}
+.warning-answer {
+    color: #CA7200;
+}
 .good-score {
     color: #5EA05F;
 }
 .bad-score {
     color: #CC5250;
-}
-.bad-answer {
-    color: #a94442;
 }
 
 .modal {
@@ -216,4 +223,5 @@
 
 .glyphicon {
     top: 2px;
+    /*padding-right: 5px;*/
 }

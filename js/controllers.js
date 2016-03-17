@@ -300,19 +300,64 @@ angular.module('qcmffvl.controllers', [])
     //     }
     // }
     $scope.successQuestion = function(question) {
-        return ($scope.main.checkAnswers && $scope.getPoints(question) === 6 && !$scope.main.examPapier);
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        if ($scope.getPoints(question) === 6) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     $scope.failedQuestion = function(question) {
-        return ($scope.main.checkAnswers && !$scope.successQuestion(question) && !$scope.main.examPapier);
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        if ($scope.getPoints(question) === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $scope.warningQuestion = function(question) {
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        var points = $scope.getPoints(question);
+        if (points >= 1 && points <=5) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     $scope.goodAnswer = function(answer) {
-        return ($scope.main.checkAnswers && answer.pts > 0 && !$scope.main.examPapier);
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        if (answer.pts >= 0 && answer.checked || answer.pts < 0 && !answer.checked) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     $scope.badAnswer = function(answer) {
-        return ($scope.main.checkAnswers && answer.pts < 0 && !$scope.main.examPapier);
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        if (answer.pts < 0 && answer.checked) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $scope.warningAnswer = function(answer) {
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        if (answer.pts > 0 && !answer.checked) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     $scope.updateScore = function() {
