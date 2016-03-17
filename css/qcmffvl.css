@@ -88,6 +88,14 @@
 }
 
 @media screen and (min-width: 768px) {
+    .col-xs-6, .col-xs-12 {
+        position: inherit;
+        min-height: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        float: inherit;
+        width: inherit;
+    }
 }
 
 @media screen {
@@ -225,10 +233,11 @@
 .qcmID .form-control {
     width: 180px;
     text-align: center;
+    margin-right: 20px;
+
 }
 
 .btn-reload {
-    margin-right: 10px;
 }
 
 .has-error {
