@@ -1,3 +1,16 @@
+Version 2.0
+===========
+Améliorations
+-------------
+- ajout QCM ID, qui identifie de manière unique un questionnaire + categorie + niveau + nbre questions (avec checksum intégré)
+- ajout mode examen papier (candidat / examinateur), avec CSS pour l'impression. Les questionnaires sont identifiables par leur code CRC.
+
+Bugfix
+------
+- affichage sur la même ligne des points (après correction) sur les mobiles
+- collapse de la navbar à 1200px pour éviter de manger la 1ere question sur toutes les tailles (retravail de la navbar pour rentrer dans 1200 px)
+
+
 Version 1.2
 ===========
 bugfix
