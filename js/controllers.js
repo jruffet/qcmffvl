@@ -116,7 +116,6 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.resetQCMDisplay = function() {
-        $scope.collapseNav();
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
 		$timeout(function() {
@@ -167,12 +166,18 @@ angular.module('qcmffvl.controllers', [])
         return API.verifyChecksum($scope.main.QCMIDUser);
     }
 
+    $scope.resetQCMIDUser = function() {
+        $scope.main.QCMIDUser = $scope.main.QCMID;
+        $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
+    }
+
     // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
     	if (newval) {
     		$timeout(function() {
     			$scope.reloadQCM = false;
     			$scope.resetQCMDisplay();
+                $scope.collapseNav();
 		    	$scope.generateQCM();
                 // TODO: check if OK to disable
 		        // $location.path("qcm");
@@ -206,20 +211,10 @@ angular.module('qcmffvl.controllers', [])
     });
 
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
-        if (newval != oldval) {
-            $timeout(function() {
-                $scope.collapseNav();
-            },100);
-        }
         $scope.updateExamVariables();
     });
 
     $scope.$watch('main.targetExam.checked', function(newval, oldval) {
-        if (newval != oldval) {
-            $timeout(function() {
-                $scope.collapseNav();
-            },100);
-        }
         $scope.updateExamVariables();
     });
 
@@ -234,8 +229,7 @@ angular.module('qcmffvl.controllers', [])
             // reset dirtiness on form
             $scope.QCMIDUserForm.$setPristine();
             if ($scope.main.QCMIDUser != $scope.main.QCMID) {
-                $scope.main.QCMIDUser = $scope.main.QCMID;
-                $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
+                $scope.resetQCMIDUser();
             }
         }
     });
