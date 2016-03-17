@@ -231,6 +231,7 @@ angular.module('qcmffvl.controllers', [])
             if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                 $scope.resetQCMIDUser();
             }
+            $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
         }
     });
 

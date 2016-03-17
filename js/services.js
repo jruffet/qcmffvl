@@ -162,6 +162,9 @@ angular.module('qcmffvl.services', [])
         pad: function(num, size) {
             return ('00000000000000000000000' + num).substr(-size);
         },
+        crc: function(txt) {
+            return crc32(txt).toUpperCase();
+        }
 
         //TODO : move selftest here
     };
