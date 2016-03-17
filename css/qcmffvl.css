@@ -248,3 +248,7 @@
 .has-error {
     color:#C30B08;
 }
+
+.radio, .checkbox {
+    margin-left: 17px;
+}

@@ -61,7 +61,7 @@
 				</div>
 				<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 					<ul class="nav navbar-nav">
-						<li class="dropdown col-xs-6" is-open="isOpen.category">
+						<li class="dropdown col-xs-6 col-md-6" is-open="isOpen.category">
 							<a class="dropdown-toggle" data-toggle="dropdown">{{main.category.checked}} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
 								<li ng-repeat="category in main.category.options">
@@ -71,7 +71,7 @@
 							</ul>
 						</li>
 
-						<li class="dropdown col-xs-6" is-open="isOpen.level">
+						<li class="dropdown col-xs-6 col-md-6" is-open="isOpen.level">
 							<a class="dropdown-toggle" data-toggle="dropdown">{{main.level.checked}} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
 								<li ng-repeat="level in main.level.options">
@@ -80,7 +80,7 @@
 							</ul>
 						</li>
 						<li>
-							<li class="dropdown col-xs-6" is-open="isOpen.nbquestions">
+							<li class="dropdown col-xs-6 col-md-6" is-open="isOpen.nbquestions">
 								<a class="dropdown-toggle" data-toggle="dropdown">{{main.nbquestions.checked}} questions <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
 									<li ng-repeat="nbquestions in main.nbquestions.options">
@@ -91,7 +91,7 @@
 							</li>
 						</li>
 						<li>
-							<li class="dropdown col-xs-6" is-open="isOpen.typeExam">
+							<li class="dropdown col-xs-6 col-md-6" is-open="isOpen.typeExam">
 								<a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
 									<li ng-repeat="typeExam in main.typeExam.options">
@@ -103,7 +103,7 @@
 
 						</li>
 						<li>
-							<li class="dropdown col-xs-6" ng-show="main.examMode" is-open="isOpen.targetExam">
+							<li class="dropdown col-xs-6 col-md-6" ng-show="main.examMode" is-open="isOpen.targetExam">
 								<a class="dropdown-toggle" data-toggle="dropdown">{{main.targetExam.checked}} <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.targetExam = false">
 									<li ng-repeat="targetExam in main.targetExam.options">
@@ -113,14 +113,14 @@
 							</li>
 						</li>
 						<li>
-							<form class="form-inline col-xs-12" name="QCMIDUserForm" >
+							<form class="form-inline col-xs-12 col-md-12" name="QCMIDUserForm" >
 								<div class="form-group qcmID" ng-class="{ 'has-error':QCMIDUserForm.ID.$dirty && !verifyQCMIDUser() }">
 									<label>QCM ID</label>
 									<input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="resetQCMIDUser()" maxlength="19" select-on-focus>
 								</div>
 							</form>
 						</li>
-						<li class="col-xs-12">
+						<li class="col-xs-12 col-md-12">
 							<button ng-hide="main.examMode" ng-click="main.checkAnswers = true" ng-hide="main.checkAnswers" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
 							<div ng-show="main.checkAnswers && !main.examPapier"  class="navbar-text">
 								<span class="score" ng-class="scoreClass(main.score)">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</span>
