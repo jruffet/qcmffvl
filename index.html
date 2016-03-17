@@ -121,7 +121,7 @@
 							</form>
 						</li>
 						<li class="">
-							<button ng-hide="main.examMode" ng-click="main.checkAnswers = true" ng-hide="main.checkAnswers" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
+							<button ng-hide="main.examMode || main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
 							<div ng-show="main.checkAnswers && !main.examPapier"  class="navbar-text">
 								<span class="score" ng-class="scoreClass(main.score)">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</span>
 							</div>
