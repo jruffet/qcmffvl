@@ -16,19 +16,16 @@ angular.module('qcmffvl.controllers', [])
             checked: "Brevet de Pilote"
         },
         nbquestions: {
-        	options: [ "10", "30", "60", "90", "Toutes les" ],
+        	options: [ "10", "30", "60", "90", "Toutes" ],
         	checked: "30"
         },
         // TODO: ajouter "révision" et prepend "examen"
         typeExam: {
-            options: [ "Révision", "Examen papier" ],
+            options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
             // options: [ "Révision", "Examen papier", "Examen numérique"],
-            checked: "Révision"
+            checked: "Examen papier (examinateur)"
         },
-        targetExam: {
-            options: [ "Candidat", "Examinateur" ],
-            checked: "Candidat"
-        },
+        targetExam: "Examinateur",
         displayLimit: 10000,
         checkAnswers: false,
         score: {
@@ -141,9 +138,14 @@ angular.module('qcmffvl.controllers', [])
     $scope.updateExamVariables = function() {
         $scope.main.examMode = ($scope.main.typeExam.checked.indexOf("Examen") != -1);
         if ($scope.main.examMode) {
-            $scope.main.examPapier = ($scope.main.typeExam.checked == "Examen papier");
+            $scope.main.examPapier = ($scope.main.typeExam.checked.indexOf("Examen papier") != -1);
             $scope.main.examNumerique = !$scope.main.examPapier;
-            $scope.targetCandidat = ($scope.main.targetExam.checked == "Candidat");
+            $scope.targetCandidat = ($scope.main.typeExam.checked.indexOf("candidat") != -1);
+            if ($scope.targetCandidat) {
+                $scope.main.targetExam = "Candidat";
+            } else {
+                $scope.main.targetExam = "Examinateur";
+            }
             $scope.main.examPapierCandidat = ($scope.main.examPapier && $scope.targetCandidat);
             $scope.main.examPapierExaminateur = ($scope.main.examPapier && !$scope.targetCandidat);
         } else {
@@ -192,7 +194,7 @@ angular.module('qcmffvl.controllers', [])
         		$scope.resetQCMDisplay();
                 $scope.updateQCMID();
         		var limit = $scope.main.nbquestions.checked;
-        		if (limit === "Toutes les") {
+        		if (limit === "Toutes") {
         			limit = 10000;
         		}
         		$scope.main.limit = limit;
@@ -212,16 +214,6 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         $scope.updateExamVariables();
-    });
-
-    $scope.$watch('main.targetExam.checked', function(newval, oldval) {
-        $scope.updateExamVariables();
-    });
-
-    $scope.$watch('main.examMode', function(newval, oldval) {
-        if (newval != oldval) {
-            $scope.updateExamVariables();
-        }
     });
 
     $scope.$watch('main.QCMID', function(newval, oldval) {
@@ -250,7 +242,6 @@ angular.module('qcmffvl.controllers', [])
 
 .controller('QCMCtrl', function($scope, $filter, $timeout, API, filterFilter) {
     $scope.main.checkAnswers = false;
-    $scope.main.examMode = false;
     $scope.questions = [];
     $scope.$parent.resetQCMDisplay();
 
@@ -358,12 +349,6 @@ angular.module('qcmffvl.controllers', [])
 		$scope.selftest.qcm[i].percent = (($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100).toFixed(2);;
 	}
 
-})
-
-.controller('ExamCtrl', function($scope) {
-    $scope.$parent.main.examMode = true;
-    $scope.$parent.main.checkAnswers = false;
-    $scope.$parent.updateExamVariables();
 })
 
 .controller('AboutCtrl', function($scope) {

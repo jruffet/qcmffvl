@@ -252,3 +252,7 @@
 .radio, .checkbox {
     margin-left: 17px;
 }
+
+.glyphicon {
+    top: 2px;
+}
