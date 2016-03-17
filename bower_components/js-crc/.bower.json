@@ -1,0 +1,22 @@
+{
+  "name": "js-crc",
+  "version": "0.1.0",
+  "main": [
+    "build/crc.min.js"
+  ],
+  "ignore": [
+    "samples",
+    "tests"
+  ],
+  "homepage": "https://github.com/emn178/js-crc",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "43e9e4541a717441ecd23e3703a5ce5d66837968"
+  },
+  "_source": "git://github.com/emn178/js-crc.git",
+  "_target": "^0.1.0",
+  "_originalSource": "js-crc",
+  "_direct": true
+}
