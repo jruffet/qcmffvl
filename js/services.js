@@ -147,7 +147,7 @@ angular.module('qcmffvl.services', [])
             }
             csum = parseInt(pbits.join(""), 2);
             if (ck && ck != csum) {
-                return -1
+                return -1;
             }
             return csum;
         },
