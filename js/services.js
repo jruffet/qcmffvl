@@ -153,7 +153,7 @@ angular.module('qcmffvl.services', [])
         },
         verifyChecksum: function(ID) {
             var API = this;
-            if (ID.length != 15) {
+            if (!ID || ID.length != 15) {
                 return false;
             }
             var IDdict = API.uncomputeID(ID);
