@@ -251,3 +251,22 @@
 .glyphicon {
     top: 2px;
 }
+
+.changelog-version-title {
+    padding-bottom: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.changelog-title {
+    font-weight: bold;
+}
+
+.changelog-content {
+    padding-top: 15px;
+}
+
+.changelog-version {
+    margin-bottom: 10px;
+}

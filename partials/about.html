@@ -1,39 +1,100 @@
 <div class="panel panel-default">
     <div class="panel-heading">A propos : QCM FFVL version 2.0  -  Questionnaire officiel 2014.1</div>
     <div class="panel-body">
-    Auteur : Jérémy Ruffet (<a href="mailto:sat@airnux.fr">sat@airnux.fr</a>)
-    <br/><br/>
-	Cet application web est open source et accessible sur github (<a href="https://github.com/sativouf/qcmffvl">https://github.com/sativouf/qcmffvl</a>)</a>
-    <br/><br/>
-    Elle a été conçue pour être multi-support (mobile / tablette / PC / MAC...).
-    <br/><br/>
-    La totalité du questionnaire n'est chargé qu'une seule fois d'un point de vue réseau.
-    <br/>
-    Cela veut dire qu'il vous suffit de charger la page sur votre mobile avant de partir, et vous pourrez vous faire d'innombrables QCMs FFVL, sans avoir jamais besoin de connexion data !
-	<br/><br/>
-    Cette "appli web" a été testée comme fonctionnant correctement avec Chrome et Firefox.
-    <br/>
-    Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
-    <br/><br/>
-    Pour l'instant, seul le navigateur Chrome est compatible avec le mode "Examen Papier", cela sera probablement amené à évoluer dans le futur.
-    <br/><br/>
-    N'hésitez pas à m'envoyer des rapports de bugs ou des suggestions par mail.
-    <br/>
-    Et bien entendu, les bières de remerciement sont les bienvenues ! :)
+        Auteur : Jérémy Ruffet (<a href="mailto:sat@airnux.fr">sat@airnux.fr</a>)
+        <br/><br/>
+        Cet application web est open source et accessible sur github (<a href="https://github.com/sativouf/qcmffvl">https://github.com/sativouf/qcmffvl</a>)</a>
+        <br/><br/>
+        Elle a été conçue pour être multi-support (mobile / tablette / PC / MAC...).
+        <br/><br/>
+        La totalité du questionnaire n'est chargé qu'une seule fois d'un point de vue réseau.
+        <br/>
+        Cela veut dire qu'il vous suffit de charger la page sur votre mobile avant de partir, et vous pourrez vous faire d'innombrables QCMs FFVL, sans avoir jamais besoin de connexion data !
+        <br/><br/>
+        Cette "appli web" a été testée comme fonctionnant correctement avec Chrome et Firefox.
+        <br/>
+        Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
+        <br/><br/>
+        Pour l'instant, seul le navigateur Chrome est compatible avec le mode "Examen Papier", cela sera probablement amené à évoluer dans le futur.
+        <br/><br/>
+        N'hésitez pas à m'envoyer des rapports de bugs ou des suggestions par mail.
+        <br/>
+        Et bien entendu, les bières de remerciement sont les bienvenues ! :)
     </div>
 </div>
 
-<!-- <div class="panel panel-default">
-    <div class="panel-heading">Outils utilisés</div>
+<div class="panel panel-default">
+    <div class="panel-heading">CHANGELOG</div>
     <div class="panel-body">
-    Web :
-    <br/>
-    <a href="https://angularjs.org/">AngularJS</a>
-    <br/>
-    <a href="http://jquery.com/">JQuery</a>
-    <br/>
-    <a href="http://getbootstrap.com/">Twitter Bootstrap</a>
-    <br/>
+        <div class="changelog-version row">
+            <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 2.0</span>
+            <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations</div>
+                <ul class="changelog-content">
+                    <li>Nouveau code couleur de correction plus intuitif (vert, orange, rouge, en fonction des réponses)</li>
+                    <li>Ajout QCM ID, qui identifie de manière unique un questionnaire + categorie + niveau + nbre_questions (avec checksum intégré)</li>
+                    <li>Ajout mode examen papier (candidat / examinateur), avec CSS pour l'impression. <br/>
+                        Les questionnaires sont identifiables par leur code CRC.</li>
+                </ul>
+            </div>
+            <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfix</div>
+                <ul class="changelog-content">
+                    <li>Affichage sur la même ligne des points (après correction) sur les mobiles</li>
+                    <li>Collapse de la navbar à 1200px pour éviter de manger la 1ere question sur toutes les tailles (retravail de la navbar pour rentrer dans 1200 px)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="changelog-version row">
+            <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.2</span>
+            <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfix</div>
+                <ul class="changelog-content">
+                    <li>Changer les options en étant dans la page "à propos" redirige vers la page QCM au lieu d'afficher "Chargement..." au milieu de la page.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="changelog-version row">
+            <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.1</span>
+            <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations</div>
+                <ul class="changelog-content">
+                    <li>En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="changelog-version row">
+            <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.0</span>
+            <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                <span class="col-xs-12 col-md-12 col-lg-12">Première version !</span>
+            </div>
+        </div>
     </div>
+</div>
 
-</div> -->
+<!--
+===========
+Améliorations
+-------------
+
+Bugfix
+------
+
+
+Version 1.2
+===========
+bugfix
+------
+Changer les options en étant dans la page "à propos" redirige vers la page QCM au lieu d'afficher "Chargement..." au milieu de la page.
+
+Version 1.1
+===========
+Améliorations
+-------------
+En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)
+
+version 1.0
+===========
+first version !
+
+-->
