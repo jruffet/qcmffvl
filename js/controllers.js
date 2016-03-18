@@ -289,77 +289,41 @@ angular.module('qcmffvl.controllers', [])
         return score;
     }
 
-    // $scope.addMoreQuestions = function() {
-    //     var limit = $scope.limit;
-    //     var arr = filterFilter($scope.qcm, $scope.search);
-    //     arr = $filter('limitTo')(arr, limit);
-
-    //     var size = $scope.questions.length;
-    //     var loadable = limit - size;
-    //     if(loadable > 5) { loadable = 5 }
-    //     for (var i=size; i<size+loadable; i++) {
-    //         $scope.questions.push(arr[i]);
-    //     }
-    // }
     $scope.successQuestion = function(question) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        if ($scope.getPoints(question) === 6) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($scope.getPoints(question) === 6);
     }
 
     $scope.failedQuestion = function(question) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        if ($scope.getPoints(question) === 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($scope.getPoints(question) === 0);
     }
 
     $scope.warningQuestion = function(question) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
         var points = $scope.getPoints(question);
-        if (points >= 1 && points <=5) {
-            return true;
-        } else {
-            return false;
-        }
+        return (points >= 1 && points <=5);
     }
 
     $scope.goodAnswer = function(answer) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        if (answer.pts >= 0 && answer.checked || answer.pts < 0 && !answer.checked) {
-            return true;
-        } else {
-            return false;
-        }
+        return (answer.pts >= 0 && answer.checked || answer.pts <= 0 && !answer.checked);
     }
 
     $scope.badAnswer = function(answer) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        if (answer.pts < 0 && answer.checked) {
-            return true;
-        } else {
-            return false;
-        }
+        return (answer.pts < 0 && answer.checked || answer.pts == 6 && !answer.checked);
     }
 
     $scope.warningAnswer = function(answer) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        if (answer.pts > 0 && !answer.checked) {
-            return true;
-        } else {
-            return false;
-        }
+        return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
     }
 
     $scope.updateScore = function() {

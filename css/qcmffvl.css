@@ -149,7 +149,10 @@
     color: #3c763d;
 }
 .bad-answer {
-    color: #C13F3C;
+    color: #C13030;
+}
+.warning-answer {
+    color: #CD7400;
 }
 .panel-warning .panel-heading {
     background-color: #FFE5C1;
