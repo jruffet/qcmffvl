@@ -102,7 +102,7 @@
 
 @-moz-document regexp(".*") {
     .row {
-        padding-top: 2px;
+        padding-top: 3px;
         padding-left: 10px;
     }
 }
