@@ -311,7 +311,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.goodAnswer = function(answer) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
-        return (answer.pts >= 0 && answer.checked || answer.pts <= 0 && !answer.checked);
+        return (answer.pts >= 0 && answer.checked);
     }
 
     $scope.badAnswer = function(answer) {
@@ -324,6 +324,12 @@ angular.module('qcmffvl.controllers', [])
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
             return false;
         return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
+    }
+
+    $scope.goodNotCheckedAnswer = function(answer) {
+        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+            return false;
+        return (answer.pts < 0 && !answer.checked);
     }
 
     $scope.updateScore = function() {

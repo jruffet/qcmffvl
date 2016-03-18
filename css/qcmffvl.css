@@ -154,6 +154,9 @@
 .warning-answer {
     color: #CD7400;
 }
+.good-not-checked-answer {
+    color: #666;
+}
 .panel-warning .panel-heading {
     background-color: #FFE5C1;
     color:#AA6C00;
@@ -247,5 +250,4 @@
 
 .glyphicon {
     top: 2px;
-    padding-right: 5px;
 }
