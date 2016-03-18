@@ -2,6 +2,7 @@ Version 2.0
 ===========
 Améliorations
 -------------
+- nouveau code couleur de correction plus intuitif
 - ajout QCM ID, qui identifie de manière unique un questionnaire + categorie + niveau + nbre questions (avec checksum intégré)
 - ajout mode examen papier (candidat / examinateur), avec CSS pour l'impression. Les questionnaires sont identifiables par leur code CRC.
 
