@@ -154,7 +154,13 @@
 .panel-warning .panel-heading {
     background-color: #FFE5C1;
     color:#AA6C00;
+    border-color: #FED4AA;
 }
+
+.panel-warning {
+    border-color: #FED4AA;
+}
+
 .warning-answer {
     color: #CD7400;
 }
