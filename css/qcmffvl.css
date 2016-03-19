@@ -46,6 +46,7 @@
     .answer {
         padding-right: 1px;
         padding-top: 2px;
+        padding-left: 5px;
     }
 
     .question {
@@ -89,6 +90,10 @@
     .navbar-form {
         margin-right: 0;
     }
+        .answer {
+    	padding-top: 2px;
+    	padding-left: 2px;
+    }
 
 }
 
@@ -106,6 +111,7 @@
         padding-left: 10px;
     }
 }
+
 
 .score {
 	font-weight: bold;
@@ -259,14 +265,15 @@
     font-size: 16px;
 }
 
-.changelog-title {
+.changelog-title, .about-title {
     font-weight: bold;
 }
 
-.changelog-content {
+.changelog-content, .about-content {
     padding-top: 15px;
 }
 
 .changelog-version {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
+
