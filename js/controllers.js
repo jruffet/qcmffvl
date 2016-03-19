@@ -176,6 +176,10 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
     }
 
+    $scope.isDevURL = function() {
+        return ($location.absUrl().indexOf("/dev") != -1);
+    }
+
     // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
     	if (newval) {
