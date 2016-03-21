@@ -180,6 +180,13 @@ angular.module('qcmffvl.controllers', [])
         return ($location.absUrl().indexOf("/dev") != -1);
     }
 
+    $scope.gotoMainURL = function() {
+        if ($location.url().indexOf("/qcm") == -1) {
+            console.debug($location.url());
+            $location.url("/qcm");
+        }
+    }
+
     // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
     	if (newval) {
