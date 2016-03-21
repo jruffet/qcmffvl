@@ -156,13 +156,6 @@ angular.module('qcmffvl.controllers', [])
         } else {
             $scope.main.examPapierExaminateur = $scope.main.examPapierCandidat = $scope.main.examPapier = $scope.main.examNumerique =  false;
         }
-        if ($scope.qcm) {
-            if ($scope.main.examPapierExaminateur) {
-                $scope.fillQCMAnswers();
-            } else {
-                $scope.unfillQCMAnswers();
-            }
-        }
     }
 
     $scope.browserChrome = function() {
@@ -199,9 +192,10 @@ angular.module('qcmffvl.controllers', [])
 		    	$scope.generateQCM();
                 // TODO: check if OK to disable
 		        // $location.path("qcm");
-		        $route.reload();
+		        // $route.reload();
     		},500);
 	    }
+        $scope.updateExamVariables();
     })
 
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
@@ -254,8 +248,6 @@ angular.module('qcmffvl.controllers', [])
             }
         }
     });
-
-
  })
 
 .controller('QCMCtrl', function($scope, $filter, $timeout, API, filterFilter) {
@@ -301,6 +293,11 @@ angular.module('qcmffvl.controllers', [])
             score.percentage = Math.round(score.user / score.total * 100);
         }
         return score;
+    }
+
+    $scope.tickIfExamPapierExaminateur = function(answer) {
+        if ($scope.main.examPapierExaminateur && answer.pts >=0)
+            answer.checked = true;
     }
 
     $scope.successQuestion = function(question) {
