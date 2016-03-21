@@ -51,6 +51,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     // to force the loading state, regardless of scope.loading
     $scope.forceloading = true;
+    $scope.hideNavbarButtons = true;
 
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
@@ -260,6 +261,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.main.checkAnswers = false;
     $scope.questions = [];
     $scope.$parent.resetQCMDisplay();
+    $scope.$parent.hideNavbarButtons = false;
 
     $scope.toggleCheck = function(answer) {
         if ($scope.$parent.navCollapsed && !$scope.main.checkAnswers) {
@@ -385,6 +387,7 @@ angular.module('qcmffvl.controllers', [])
 .controller('AboutCtrl', function($scope) {
     $scope.$parent.navCollapsed = true;
     $scope.$parent.loading = false;
+    $scope.$parent.hideNavbarButtons = true;
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 });
