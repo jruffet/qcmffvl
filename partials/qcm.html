@@ -13,7 +13,7 @@
         <div class="qcm-body">
             <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
 
-                <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q)}" ng-click="collapseNav()">
+                <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q)}">
                     <div class="panel-heading ">
                         <div class="row question ">
                             <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
