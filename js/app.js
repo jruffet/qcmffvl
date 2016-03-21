@@ -7,6 +7,7 @@ angular.module('qcmffvl', [
   'ui.bootstrap',
   'dialogs.main',
   'AngularPrint',
+  'ng.deviceDetector',
   // 'pasvaz.bindonce',
   'pascalprecht.translate',
   'qcmffvl.filters',

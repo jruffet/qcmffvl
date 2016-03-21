@@ -4,7 +4,7 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, $filter, dialogs) {
+.controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, $filter, dialogs, deviceDetector) {
 
     $scope.main = {
         category: {
@@ -159,7 +159,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.browserChrome = function() {
-        return (navigator.appVersion.indexOf("Chrome") != -1);
+        return (deviceDetector.browser == "chrome");
     }
 
     $scope.verifyQCMIDUser = function() {

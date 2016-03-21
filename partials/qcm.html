@@ -1,6 +1,6 @@
 <div class="loader" ng-show="loading || forceloading" >Chargement...</div>
-<div ng-hide="loading || forceloading">
-    <div ng-hide="main.examPapier && !browserChrome()">
+<div ng-hide="loading || forceloading || (main.examPapier && !browserChrome())">
+    <div >
         <div class="qcm-title" ng-show="main.examPapier">
             <div class="row">
             <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>
