@@ -1,12 +1,14 @@
 <div class="loader" ng-show="loading || forceloading" >Chargement...</div>
 <div ng-hide="loading || forceloading">
     <div ng-hide="main.examPapier && !browserChrome()">
-        <div class="qcm-title" ng-show="main.examMode">
-            <span class="qcm-title-left">
-                <span class="qcm-title-print" ng-show="main.examPapier"> [A IMPRIMER]</span>
-                QCM FFVL {{main.category.checked}} {{main.level.checked | formatQCMTitle}} <span ng-show="main.examPapier">(Exemplaire {{main.targetExam}})</span>
-                <span class="pull-right qcm-title-right">Code: {{main.QCMIDCRC}}</span>
-            </span>
+        <div class="qcm-title" ng-show="main.examPapier">
+            <div class="row">
+            <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>
+            </div>
+
+                <span>QCM FFVL {{main.category.checked}} {{main.level.checked}} (Exemplaire {{main.targetExam}})</span>
+                <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
+            </div>
         </div>
         <div class="qcm-body">
             <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>

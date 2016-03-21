@@ -119,9 +119,10 @@ angular.module('qcmffvl.controllers', [])
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
-        if ($scope.qcm)
+        if ($scope.qcm && !$scope.main.examMode) {
             API.untickAnswers($scope.qcm);
-        $scope.main.checkAnswers = false;
+            $scope.main.checkAnswers = false;
+        }
     }
 
     $scope.collapseNav = function() {

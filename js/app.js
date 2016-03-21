@@ -6,6 +6,7 @@ angular.module('qcmffvl', [
   'ngRoute',
   'ui.bootstrap',
   'dialogs.main',
+  'AngularPrint',
   // 'pasvaz.bindonce',
   'pascalprecht.translate',
   'qcmffvl.filters',

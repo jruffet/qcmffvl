@@ -72,8 +72,12 @@
     	margin-bottom: 10px;
         margin-left: 5px;
         margin-right: 17px;
+        font-weight: bold;
     }
-    .qcm-title-print {
+    .qcm-title-noprint {
+        display: none;
+    }
+    .btn-print {
         display: none;
     }
 }
@@ -259,8 +263,9 @@
         text-align: right;
     }
 
-    .qcm-title-print {
+    .qcm-title-noprint {
         color: red;
+        text-align: center;
     }
     .qcmID {
         margin-left: 15px;
@@ -321,4 +326,8 @@
         min-width: 78px;
         pointer-events:none;
     }
+    .btn-print {
+        margin-bottom: 15px;
+    }
 }
+
