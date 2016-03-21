@@ -21,24 +21,23 @@
                     <div class="panel-body answers">
                         <div ng-repeat="answer in q.ans">
                             <div class="checkbox">
-                            <!-- TODO : replace checkbox with points -->
+                                <!-- TODO : replace checkbox with points -->
                                 <input type="checkbox" ng-disabled="main.examPapierCandidat ||
-                                                                    (main.checkAnswers && !main.examPapierExaminateur) ||
-                                                                    (main.examPapierExaminateur && !answer.checked) ||
-                                                                    (main.examPapierExaminateur && answer.pts==0)" ng-model="answer.checked">
-                                    <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'warning-answer':warningAnswer(answer), 'good-not-checked-answer':goodNotCheckedAnswer(answer)}">
-                                            <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
-                                            <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers" ng-bind="answer.pts"></span>
-                                    </div>
-                                </input>
-                            </div>
+                                (main.checkAnswers && !main.examPapierExaminateur) ||
+                                (main.examPapierExaminateur && !answer.checked) ||
+                                (main.examPapierExaminateur && answer.pts==0)" ng-model="answer.checked">
+                                <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'warning-answer':warningAnswer(answer), 'good-not-checked-answer':goodNotCheckedAnswer(answer)}">
+                                    <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
+                                    <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers" ng-bind="answer.pts"></span>
+                                </div>
+                            </input>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div ng-show="main.examPapier && !browserChrome()">
-        <div class="qcm-title">Merci d'utiliser le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
-    </div>
+</div>
+<div ng-show="main.examPapier && !browserChrome()">
+    <div class="qcm-title">Merci d'utiliser le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
 </div>
