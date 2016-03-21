@@ -225,6 +225,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
             $scope.updateExamVariables();
+            if (!$scope.main.examPapierExaminateur)
+                $scope.unfillQCMAnswers();
         }
     });
 
