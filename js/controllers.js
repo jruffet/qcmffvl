@@ -182,6 +182,9 @@ angular.module('qcmffvl.controllers', [])
         API.untickAnswers($scope.qcm);
     }
 
+    $scope.verifyQCMIDUser = function() {
+        return API.verifyChecksum($scope.main.QCMIDUser);
+    }
     // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
         if (newval) {
@@ -259,9 +262,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.$parent.resetQCMDisplay();
     $scope.$parent.hideNavbarButtons = false;
 
-    $scope.verifyQCMIDUser = function() {
-        return API.verifyChecksum($scope.main.QCMIDUser);
-    }
 
     $scope.toggleCheck = function(answer) {
         if ($scope.$parent.navCollapsed && !$scope.main.checkAnswers) {
