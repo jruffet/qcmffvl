@@ -119,7 +119,7 @@ angular.module('qcmffvl.controllers', [])
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
-        if ($scope.qcm && !$scope.main.examMode) {
+        if ($scope.qcm && !$scope.main.examMode && $scope.main.checkAnswers) {
             API.untickAnswers($scope.qcm);
             $scope.main.checkAnswers = false;
         }
