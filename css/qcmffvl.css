@@ -189,10 +189,10 @@
         color: #3c763d;
     }
     .bad-answer {
-        color: #C13030;
+        color: #AD3D3B;
     }
     .warning-answer {
-        color: #CD7400;
+        color: #B97909;
     }
     .good-not-checked-answer {
         color: #666;
@@ -207,9 +207,6 @@
         border-color: #FED4AA;
     }
 
-    .warning-answer {
-        color: #CD7400;
-    }
     .good-score {
         color: #5EA05F;
         border-color: #5EA05F;
