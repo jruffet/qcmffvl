@@ -1,5 +1,5 @@
 <div class="loader" ng-show="loading || forceloading" >Chargement...</div>
-<div ng-hide="loading || forceloading || (main.examPapier && !browserChrome())">
+<div ng-hide="loading || forceloading || (main.examPapier && !browserChrome() && !browserCheckOverride)">
     <div >
         <div class="qcm-title" ng-show="main.examPapier">
             <div class="row">
@@ -40,6 +40,7 @@
         </div>
     </div>
 </div>
-<div ng-show="main.examPapier && !browserChrome()">
+<div ng-show="main.examPapier && !browserChrome() && !browserCheckOverride">
     <div class="qcm-title">Merci d'utiliser le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
+    <div>Si vous souhaitez forcer l'impression de l'examen papier avec votre navigateur, en sachant que c'est une mauvaise idée, appuyez <a ng-click="browserCheckOverride=true">ici</a>.</div>
 </div>

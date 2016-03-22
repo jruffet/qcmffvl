@@ -52,6 +52,7 @@ angular.module('qcmffvl.controllers', [])
     // to force the loading state, regardless of scope.loading
     $scope.forceloading = true;
     $scope.hideNavbarButtons = true;
+    $scope.browserCheckOverride = false;
 
     // store qcm in $parent to allow for offline usage
     if (!$scope.qcm) {
@@ -149,6 +150,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.browserChrome = function() {
+        console.log(deviceDetector);
         return (deviceDetector.browser == "chrome");
     }
 
