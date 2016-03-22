@@ -130,16 +130,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.navCollapsed = true;
     }
 
-    $scope.fillQCMAnswers = function() {
-        $scope.main.checkAnswers = true;
-        API.tickAnswers($scope.qcm);
-    }
-
-    $scope.unfillQCMAnswers = function() {
-        $scope.main.checkAnswers = false;
-        API.untickAnswers($scope.qcm);
-    }
-
     $scope.updateExamVariables = function() {
         $scope.main.examMode = ($scope.main.typeExam.checked.indexOf("Examen") != -1);
         if ($scope.main.examMode) {
@@ -162,15 +152,6 @@ angular.module('qcmffvl.controllers', [])
         return (deviceDetector.browser == "chrome");
     }
 
-    $scope.verifyQCMIDUser = function() {
-        return API.verifyChecksum($scope.main.QCMIDUser);
-    }
-
-    $scope.resetQCMIDUser = function() {
-        $scope.main.QCMIDUser = $scope.main.QCMID;
-        $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
-    }
-
     $scope.isDevURL = function() {
         return ($location.absUrl().indexOf("/dev") != -1);
     }
@@ -182,49 +163,69 @@ angular.module('qcmffvl.controllers', [])
         }
     }
 
+    $scope.collapseNav = function() {
+        $scope.navCollapsed = true;
+    }
+
+    $scope.resetQCMIDUser = function() {
+        $scope.main.QCMIDUser = $scope.main.QCMID;
+        $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
+    }
+
+    $scope.fillQCMAnswers = function() {
+        $scope.main.checkAnswers = true;
+        API.tickAnswers($scope.qcm);
+    }
+
+    $scope.unfillQCMAnswers = function() {
+        $scope.main.checkAnswers = false;
+        API.untickAnswers($scope.qcm);
+    }
+
     // TODO : put that weird thing in a function, no need for a watch here ?
     $scope.$watch("reloadQCM", function(newval, oldval) {
-    	if (newval) {
-    		$timeout(function() {
-    			$scope.reloadQCM = false;
-    			$scope.resetQCMDisplay();
+        if (newval) {
+            $timeout(function() {
+                $scope.reloadQCM = false;
+                $scope.resetQCMDisplay();
                 $scope.collapseNav();
-		    	$scope.generateQCM();
+                $scope.generateQCM();
                 // TODO: check if OK to disable
-		        // $location.path("qcm");
-		        // $route.reload();
-    		},500);
-	    }
+                // $location.path("qcm");
+                // $route.reload();
+            },500);
+        }
         $scope.updateExamVariables();
     })
 
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
         if (newval != oldval) {
-        	$timeout(function() {
-        		$scope.resetQCMDisplay();
+            $timeout(function() {
+                $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-        		var limit = $scope.main.nbquestions.checked;
-        		if (limit === "Toutes") {
-        			limit = 10000;
-        		}
-        		$scope.main.limit = limit;
-        	},100);
+                var limit = $scope.main.nbquestions.checked;
+                if (limit === "Toutes") {
+                    limit = 10000;
+                }
+                $scope.main.limit = limit;
+            },100);
         }
     })
 
     $scope.$watch('main.level.checked', function(newval, oldval) {
         if (newval != oldval) {
-        	$timeout(function() {
-        		$scope.resetQCMDisplay();
+            $timeout(function() {
+                $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-        		$scope.main.search.num_niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
-        	},100);
+                $scope.main.search.num_niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
+            },100);
         }
     });
 
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
             $scope.updateExamVariables();
+            // back from examPapierExaminateur, we want to erase the answers ticked
             if (!$scope.main.examPapierExaminateur)
                 $scope.unfillQCMAnswers();
         }
@@ -258,15 +259,15 @@ angular.module('qcmffvl.controllers', [])
     $scope.$parent.resetQCMDisplay();
     $scope.$parent.hideNavbarButtons = false;
 
+    $scope.verifyQCMIDUser = function() {
+        return API.verifyChecksum($scope.main.QCMIDUser);
+    }
+
     $scope.toggleCheck = function(answer) {
         if ($scope.$parent.navCollapsed && !$scope.main.checkAnswers) {
             answer.checked = !answer.checked;
         }
     }
-
-	$scope.collapseNav = function() {
-		$scope.$parent.navCollapsed = true;
-	}
 
     $scope.getPoints = function(question) {
         var total = 0;
@@ -296,6 +297,7 @@ angular.module('qcmffvl.controllers', [])
         }
         return score;
     }
+
 
     $scope.tickIfExamPapierExaminateur = function(answer) {
         if ($scope.main.examPapierExaminateur && answer.pts >=0)
