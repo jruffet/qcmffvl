@@ -108,16 +108,14 @@ angular.module('qcmffvl.services', [])
             // level : 3 options
             // nbquestions : 5 options
             // encode everything into a 2*3*5 number
-            var optnum = opt[0]*3*5 + opt[1]*5 + opt[2]+1;
+            var optnum = opt[0]*3*5 + opt[1]*5 + opt[2];
             return optnum;
         },
         uncomputeOptions: function(num) {
             var opt = [];
-            var tmp;
-            opt[0] = Math.floor((num-1)/(3*5));
-            tmp = (num-1)%(3*5);
-            opt[1] = Math.floor(tmp / 5);
-            opt[2] = Math.floor(tmp % 5);
+            opt[0] = Math.floor(num/(3*5)); 
+            opt[1] = Math.floor((num-opt[0]*3*5)/5);
+            opt[2] = num-opt[0]*3*5-opt[1]*5; 
             return opt;
         },
         // returns :
