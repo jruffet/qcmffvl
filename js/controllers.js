@@ -159,7 +159,6 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.gotoMainURL = function() {
         if ($location.url().indexOf("/qcm") == -1) {
-            console.debug($location.url());
             $location.url("/qcm");
         }
     }
