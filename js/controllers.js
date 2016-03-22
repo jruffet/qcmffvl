@@ -150,7 +150,6 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.browserChrome = function() {
-        console.log(deviceDetector);
         return (deviceDetector.browser == "chrome");
     }
 
