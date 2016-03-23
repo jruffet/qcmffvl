@@ -153,8 +153,14 @@ angular.module('qcmffvl.controllers', [])
         return (deviceDetector.browser == "chrome");
     }
 
+    // show magic button when in /dev
     $scope.isDevURL = function() {
         return ($location.absUrl().indexOf("/dev") != -1);
+    }
+
+    // we are in a stable version only when a push to prod has been done
+    $scope.isProdURL = function() {
+        return ($location.absUrl().indexOf("qcm.ffvl.fr") != -1);
     }
 
     $scope.gotoMainURL = function() {
