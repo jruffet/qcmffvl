@@ -1,1 +1,7 @@
-QCM FFVL, an angular app based on http://parapente.ffvl.fr/node/1101
+QCM FFVL
+
+This is the official web app used by the French FreeFlying Federation for its MCQ test.
+It includes a rehersal mode and an exam mode.
+
+It's based on angularJS, jquery, and bootstrap (and much more).
+
