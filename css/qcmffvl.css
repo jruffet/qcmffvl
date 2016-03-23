@@ -332,6 +332,9 @@
     .navbar-default .navbar-nav .open .dropdown-menu>li>a {
         color: #666;
     }
+    .navbar-default .navbar-toggle {
+        border-color: #ccc;
+    }
 
     .btn-score {
         background-color: #F8F8F8;
