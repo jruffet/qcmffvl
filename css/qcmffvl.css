@@ -289,7 +289,7 @@
         margin-left: 17px;
     }
     .btn-score {
-        background-color: #F8F8F8;
+        background-color: #f4f4f4;
         cursor: not-allowed;
         min-width: 78px;
         pointer-events:none;
