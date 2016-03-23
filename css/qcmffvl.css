@@ -326,6 +326,12 @@
     .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
         background-color: #e0e0e0;
     }
+    .navbar-default .navbar-nav>li>a {
+        color: #666;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #666;
+    }
 
     .btn-score {
         background-color: #F8F8F8;
