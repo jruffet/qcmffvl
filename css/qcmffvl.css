@@ -136,22 +136,58 @@
 }
 
 @media screen {
+    /******** general ********/
     body {
         max-width: 700px;
         margin:10px auto 0 auto;
         overflow: scroll;
         padding-top: 60px;
     }
-
-
-    .score {
-        font-weight: bold;
+    a {
+        cursor:pointer;
+    }
+    .dim {
+        opacity: 0.3;
     }
 
+    /******** Custom dialog/modal ********/
+    .dialog-header-error { background-color: #d2322d; }
+    .dialog-header-wait { background-color: #428bca; }
+    .dialog-header-notify { background-color: #eeeeee; }
+    .dialog-header-confirm { background-color: #333333; }
+    .dialog-header-error span, .dialog-header-error h4,
+    .dialog-header-wait span, .dialog-header-wait h4,
+    .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
+    .modal {
+        display: block;
+    }
+
+    /******** navbar ********/
+    .navbar-brand {
+        cursor: pointer;
+    }
+    .navbar-default {
+        background-color: #eee;
+        border-color: #ccc;
+    }
+    .navbar-default .navbar-collapse {
+        border-color: #ddd;
+    }
+    .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+        background-color: #e0e0e0;
+    }
+    .navbar-default .navbar-nav>li>a {
+        color: #666;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #666;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #ccc;
+    }
     .navbar-left {
         margin-left:0;
     }
-
     .navbar-text,
     .navbar-btn {
         margin-left:15px;
@@ -159,16 +195,6 @@
     .navbar-collapsed-btn {
         margin-left:5px;
     }
-
-    .answers {
-        padding: 0px 15px;
-    }
-
-    .answer-text,
-    .dropdown {
-        cursor: pointer;
-    }
-
     .form-group .navbar-search .form-control {
         width:45px;
     }
@@ -177,6 +203,39 @@
 
         margin-left: 5px;
         margin-top: 7px;
+    }
+    .modal-open {
+        overflow: auto;
+    }
+    .navbar-questions-text {
+        margin-left: 0;
+    }
+    .qcmID {
+        margin-left: 15px;
+        margin-top: 8px;
+    }
+    .qcmID label {
+        margin-right: 5px;
+    }
+    .qcmID .form-control {
+        width: 180px;
+        text-align: center;
+        margin-right: 20px;
+    }
+    .glyphicon {
+        top: 2px;
+    }
+
+    /******** QCM stuff ********/
+    .score {
+        font-weight: bold;
+    }
+    .answers {
+        padding: 0px 15px;
+    }
+    .answer-text,
+    .dropdown {
+        cursor: pointer;
     }
     .points {
         margin-left: -50px;
@@ -202,11 +261,9 @@
         color:#AA6C00;
         border-color: #FED4AA;
     }
-
     .panel-warning {
         border-color: #FED4AA;
     }
-
     .good-score {
         color: #5EA05F;
         border-color: #5EA05F;
@@ -217,30 +274,6 @@
         border-color: #CC5250;
         font-weight: bold;
     }
-
-    .modal {
-        display: block;
-    }
-    .modal-open {
-        overflow: auto;
-    }
-
-    .navbar-questions-text {
-        margin-left: 0;
-    }
-
-    /* Custom dialog/modal headers */
-
-    .dialog-header-error { background-color: #d2322d; }
-    .dialog-header-wait { background-color: #428bca; }
-    .dialog-header-notify { background-color: #eeeeee; }
-    .dialog-header-confirm { background-color: #333333; }
-    .dialog-header-error span, .dialog-header-error h4,
-    .dialog-header-wait span, .dialog-header-wait h4,
-    .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
-
-    .pad { padding: 25px; }
-
     .loader {
         width:30%;
         display: block;
@@ -248,94 +281,25 @@
         margin-right: auto;
         margin-top:50px;
     }
-
     .qcm-title {
         font-size: 15px;
         font-weight: bold;
         padding-bottom: 15px;
         padding-right: 0px;
     }
-
     .qcm-title-right {
         text-align: right;
     }
-
     .qcm-title-noprint {
         color: red;
         text-align: center;
     }
-    .qcmID {
-        margin-left: 15px;
-        margin-top: 8px;
-    }
-
-    .qcmID label {
-        margin-right: 5px;
-    }
-
-    .qcmID .form-control {
-        width: 180px;
-        text-align: center;
-        margin-right: 20px;
-    }
-
-    .btn-reload {
-    }
-
     .has-error {
         color:#C30B08;
     }
-
     .radio, .checkbox {
         margin-left: 17px;
     }
-
-    .glyphicon {
-        top: 2px;
-    }
-
-    .changelog-version-title {
-        padding-bottom: 15px;
-        padding-top: 10px;
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-    .changelog-title, .about-title {
-        font-weight: bold;
-    }
-
-    .changelog-content, .about-content {
-        padding-top: 15px;
-    }
-
-    .changelog-version {
-        margin-bottom: 15px;
-    }
-
-    .navbar-brand {
-        cursor: pointer;
-    }
-    .navbar-default {
-        background-color: #eee;
-        border-color: #ccc;
-    }
-    .navbar-default .navbar-collapse {
-        border-color: #ddd;
-    }
-    .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-        background-color: #e0e0e0;
-    }
-    .navbar-default .navbar-nav>li>a {
-        color: #666;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
-        color: #666;
-    }
-    .navbar-default .navbar-toggle {
-        border-color: #ccc;
-    }
-
     .btn-score {
         background-color: #F8F8F8;
         cursor: not-allowed;
@@ -345,10 +309,21 @@
     .btn-print {
         margin-bottom: 15px;
     }
-    a {
-        cursor:pointer;
+
+    /******** about ********/
+    .changelog-version-title {
+        padding-bottom: 15px;
+        padding-top: 10px;
+        font-weight: bold;
+        font-size: 16px;
     }
-    .dim {
-        opacity: 0.3;
+    .changelog-title, .about-title {
+        font-weight: bold;
+    }
+    .changelog-content, .about-content {
+        padding-top: 15px;
+    }
+    .changelog-version {
+        margin-bottom: 15px;
     }
 }
