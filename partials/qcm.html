@@ -2,17 +2,13 @@
 <div ng-hide="loading || forceloading || (main.examPapier && !browserChrome() && !browserCheckOverride)">
     <div >
         <div class="qcm-title" ng-show="main.examPapier">
-            <div class="row">
-            <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>
-            </div>
-
+                <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>
                 <span>QCM FFVL {{main.category.checked}} {{main.level.checked}} (Exemplaire {{main.targetExam}})</span>
                 <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
             </div>
         </div>
         <div class="qcm-body">
             <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
-
                 <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q)}">
                     <div class="panel-heading ">
                         <div class="row question ">
