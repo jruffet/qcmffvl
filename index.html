@@ -153,11 +153,7 @@
 
 						<li class="">
 							<button ng-hide="main.examMode || main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
-							<div ng-show="main.checkAnswers && !main.examPapier"  class="navbar-text">
-								<span class="score" ng-class="scoreClass(main.score)">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</span>
-
-							</div>
-							<!-- TODO -->
+      						<button ng-show="main.examMode || main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</button>
 							<button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
 							<button ng-show="isDevURL()" ng-click="fillQCMAnswers(); main.checkAnswers=false" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-heart-empty"></span></button>
 						</li>
