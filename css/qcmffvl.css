@@ -316,6 +316,16 @@
     .navbar-brand {
         cursor: pointer;
     }
+    .navbar-default {
+        background-color: #eee;
+        border-color: #ccc;
+    }
+    .navbar-default .navbar-collapse {
+        border-color: #ddd;
+    }
+    .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+        background-color: #e0e0e0;
+    }
 
     .btn-score {
         background-color: #F8F8F8;
