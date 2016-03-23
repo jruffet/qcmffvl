@@ -249,7 +249,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.$watch('main.QCMID', function(newval, oldval) {
         if (newval != oldval) {
             // reset dirtiness on form
-            $scope.QCMIDUserForm.$setPristine();
+            $scope.QCMIDUserForm1.$setPristine();
+            $scope.QCMIDUserForm2.$setPristine();
             if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                 $scope.resetQCMIDUser();
             }
