@@ -170,6 +170,9 @@
         background-color: #f2f2f2;
         border-color: #ccc;
     }
+    .navbar-default .navbar-toggle {
+        border-color: #ccc;
+    }
     .navbar-left {
         margin-left:0;
     }
