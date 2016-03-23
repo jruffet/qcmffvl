@@ -270,9 +270,7 @@ angular.module('qcmffvl.controllers', [])
  })
 
 .controller('QCMCtrl', function($scope, $filter, $timeout, API, filterFilter) {
-    $scope.main.checkAnswers = false;
     $scope.questions = [];
-    $scope.$parent.resetQCMDisplay();
     $scope.$parent.hideNavbarButtons = false;
 
 
