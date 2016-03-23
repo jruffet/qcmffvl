@@ -329,4 +329,7 @@
     a {
         cursor:pointer;
     }
+    .dim {
+        opacity: 0.3;
+    }
 }
