@@ -45,7 +45,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     // to force the loading state, regardless of scope.loading
     $scope.forceloading = true;
-    $scope.hideNavbarButtons = true;
+    $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
 
     // store qcm in $parent to allow for offline usage
