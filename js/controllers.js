@@ -217,6 +217,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
             $scope.main.exam = [];
+            $scope.main.checkAnswers = false;
             if (newval.indexOf("Examen papier") != -1) {
                 $scope.main.exam.mode = true;
                 $scope.main.exam.papier = true;
