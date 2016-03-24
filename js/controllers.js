@@ -19,10 +19,8 @@ angular.module('qcmffvl.controllers', [])
         	options: [ "10", "30", "60", "90", "Toutes" ],
         	checked: "30"
         },
-        // TODO: ajouter "révision" et prepend "examen"
         typeExam: {
             options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
-            // options: [ "Révision", "Examen papier", "Examen numérique"],
             checked: "Révision"
         },
         targetExam: "Examinateur",
@@ -34,11 +32,7 @@ angular.module('qcmffvl.controllers', [])
             percentage: 0,
             user: 0
         },
-        examMode: false,
-        examPapier: false,
-        examNumerique: false,
-        examPapierCandidat: false,
-        examPapierExaminateur: false,
+        exam: [],
         QCMID: "",
         QCMIDUser: ""
     }
@@ -89,6 +83,8 @@ angular.module('qcmffvl.controllers', [])
                 $scope.arrayToOptions(API.uncomputeID(QCMID).options);
             $scope.qcm = angular.copy($scope.qcmOrig);
             $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
+            if ($scope.main.exam.papierExaminateur)
+                API.tickAnswers($scope.qcm);
         }, 500);
         $timeout(function() {
             $scope.forceloading = false;
@@ -120,7 +116,7 @@ angular.module('qcmffvl.controllers', [])
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
-        if ($scope.qcm && !$scope.main.examMode && $scope.main.checkAnswers) {
+        if ($scope.qcm && !$scope.main.exam.mode && $scope.main.checkAnswers) {
             API.untickAnswers($scope.qcm);
             $scope.main.checkAnswers = false;
         }
@@ -129,24 +125,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.collapseNav = function() {
         $('html').trigger('click');
         $scope.navCollapsed = true;
-    }
-
-    $scope.updateExamVariables = function() {
-        $scope.main.examMode = ($scope.main.typeExam.checked.indexOf("Examen") != -1);
-        if ($scope.main.examMode) {
-            $scope.main.examPapier = ($scope.main.typeExam.checked.indexOf("Examen papier") != -1);
-            $scope.main.examNumerique = !$scope.main.examPapier;
-            $scope.targetCandidat = ($scope.main.typeExam.checked.indexOf("candidat") != -1);
-            if ($scope.targetCandidat) {
-                $scope.main.targetExam = "Candidat";
-            } else {
-                $scope.main.targetExam = "Examinateur";
-            }
-            $scope.main.examPapierCandidat = ($scope.main.examPapier && $scope.targetCandidat);
-            $scope.main.examPapierExaminateur = ($scope.main.examPapier && !$scope.targetCandidat);
-        } else {
-            $scope.main.examPapierExaminateur = $scope.main.examPapierCandidat = $scope.main.examPapier = $scope.main.examNumerique =  false;
-        }
     }
 
     $scope.browserChrome = function() {
@@ -210,7 +188,6 @@ angular.module('qcmffvl.controllers', [])
                 // $route.reload();
             },500);
         }
-        $scope.updateExamVariables();
     })
 
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
@@ -239,10 +216,22 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
-            $scope.updateExamVariables();
+            $scope.main.exam = [];
+            if (newval.indexOf("Examen papier") != -1) {
+                $scope.main.exam.mode = true;
+                $scope.main.exam.papier = true;
+            }
+            if (newval == "Examen papier (candidat)") {
+                $scope.main.exam.papierCandidat = true;
+            } else if (newval == "Examen papier (examinateur)") {
+                $scope.main.exam.papierExaminateur = true;
+            }
             // back from examPapierExaminateur, we want to erase the answers ticked
-            if (!$scope.main.examPapierExaminateur)
+            if ($scope.main.exam.papierExaminateur) {
+                API.tickAnswers($scope.qcm);
+            } else {
                 $scope.unfillQCMAnswers();
+            }
         }
     });
 
@@ -303,11 +292,6 @@ angular.module('qcmffvl.controllers', [])
         return score;
     }
 
-
-    $scope.tickIfExamPapierExaminateur = function(answer) {
-        if ($scope.main.examPapierExaminateur && answer.pts >=0)
-            answer.checked = true;
-    }
 
     $scope.successQuestion = function(question) {
         if ($scope.main.examPapier || !$scope.main.checkAnswers)
