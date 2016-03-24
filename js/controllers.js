@@ -228,10 +228,9 @@ angular.module('qcmffvl.controllers', [])
                 $scope.main.exam.papierExaminateur = true;
             }
             // back from examPapierExaminateur, we want to erase the answers ticked
+            $scope.unfillQCMAnswers();
             if ($scope.main.exam.papierExaminateur) {
                 API.tickAnswers($scope.qcm);
-            } else {
-                $scope.unfillQCMAnswers();
             }
         }
     });
