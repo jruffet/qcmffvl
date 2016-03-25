@@ -22,7 +22,6 @@ angular.module('qcmffvl.services', [])
 
             // generate from a known QCM ID
             if (QCMID) {
-                // TODO: handle
                 if (API.verifyChecksum(QCMID) == -1) {
                     return -1;
                 }
@@ -32,8 +31,6 @@ angular.module('qcmffvl.services', [])
 
                 seed = QCMID % max32;
                 surseed = Math.floor(QCMID / max32);
-                // console.debug(seed);
-                // console.debug(surseed);
             } else {
                 // generate random value between 0 and 2^32 - 1
                 seed = Math.floor(Math.random() * (max32 + 1));
@@ -113,9 +110,9 @@ angular.module('qcmffvl.services', [])
         },
         uncomputeOptions: function(num) {
             var opt = [];
-            opt[0] = Math.floor(num/(3*5)); 
+            opt[0] = Math.floor(num/(3*5));
             opt[1] = Math.floor((num-opt[0]*3*5)/5);
-            opt[2] = num-opt[0]*3*5-opt[1]*5; 
+            opt[2] = num-opt[0]*3*5-opt[1]*5;
             return opt;
         },
         // returns :

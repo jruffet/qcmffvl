@@ -183,9 +183,6 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMDisplay();
                 $scope.collapseNav();
                 $scope.generateQCM();
-                // TODO: check if OK to disable
-                // $location.path("qcm");
-                // $route.reload();
             },500);
         }
     })
