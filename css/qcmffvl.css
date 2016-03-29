@@ -92,7 +92,7 @@
 }
 @media print and (max-width: 767px) and (-webkit-min-device-pixel-ratio:0) {
     .answer {
-        padding-top: 4px;
+        padding-top: 5px;
         padding-left: 2px;
     }
 }
