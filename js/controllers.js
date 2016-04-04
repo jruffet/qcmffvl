@@ -138,7 +138,7 @@ angular.module('qcmffvl.controllers', [])
 
     // we are in a stable version only when a push to prod has been done
     $scope.isProdURL = function() {
-        return ($location.absUrl().indexOf("qcm.ffvl.fr") != -1);
+        return ($location.absUrl().indexOf("sativouf.net") == -1);
     }
 
     $scope.gotoMainURL = function() {
