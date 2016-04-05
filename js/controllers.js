@@ -171,7 +171,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.toggleCheck = function(answer) {
-        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.examPapier) {
+        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papierCandidat) {
             answer.checked = !answer.checked;
         }
     }
@@ -292,44 +292,44 @@ angular.module('qcmffvl.controllers', [])
 
 
     $scope.successQuestion = function(question) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return ($scope.getPoints(question) === 6);
     }
 
     $scope.failedQuestion = function(question) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return ($scope.getPoints(question) === 0);
     }
 
     $scope.warningQuestion = function(question) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         var points = $scope.getPoints(question);
         return (points >= 1 && points <=5);
     }
 
     $scope.goodAnswer = function(answer) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return (answer.pts >= 0 && answer.checked);
     }
 
     $scope.badAnswer = function(answer) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return (answer.pts < 0 && answer.checked || answer.pts == 6 && !answer.checked);
     }
 
     $scope.warningAnswer = function(answer) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
     }
 
     $scope.goodNotCheckedAnswer = function(answer) {
-        if ($scope.main.examPapier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
         return (answer.pts < 0 && !answer.checked);
     }
