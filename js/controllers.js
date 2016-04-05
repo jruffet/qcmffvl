@@ -171,7 +171,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.toggleCheck = function(answer) {
-        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papierCandidat) {
+        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier) {
             answer.checked = !answer.checked;
         }
     }
