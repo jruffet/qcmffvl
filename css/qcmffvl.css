@@ -24,7 +24,7 @@
     }
     .radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
         margin-left: -27px;
-        -moz-transform: scale(0.7);
+        /*-moz-transform: scale(0.7);*/
     }
     /*
     input[type="checkbox"] {
