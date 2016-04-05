@@ -23,7 +23,6 @@
         padding: 0 15px;
     }
     .radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
-        /*float: left;*/
         margin-left: -27px;
         -moz-transform: scale(0.7);
     }
@@ -45,8 +44,8 @@
 
     .answer {
         padding-right: 1px;
-        padding-top: 2px;
-        padding-left: 5px;
+        padding-top: 3px;
+        padding-left: 2px;
     }
 
     .question {
@@ -84,16 +83,9 @@
 
 /* target Chrome */
 /* should probably be done in JS with ng-class and browserDetect() */
-@media screen and (max-width: 767px) and (-webkit-min-device-pixel-ratio:0) {
-    .answer {
+@media screen and (max-width: 767px) {
+    .answer-text {
     	padding-top: 3px;
-    	padding-left: 2px;
-    }
-}
-@media print and (max-width: 767px) and (-webkit-min-device-pixel-ratio:0) {
-    .answer {
-        padding-top: 5px;
-        padding-left: 2px;
     }
 }
 
@@ -107,13 +99,6 @@
     .navbar-form {
         margin-right: 0;
     }
-/*    @-moz-document regexp(".*") {
-        .row {
-            padding-top: 3px;
-            padding-left: 10px;
-        }
-    }
-    */
 }
 
 /* XXS sized device */
