@@ -23,7 +23,6 @@ angular.module('qcmffvl.controllers', [])
             options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
             checked: "Révision"
         },
-        targetExam: "Examinateur",
         displayLimit: 10000,
         checkAnswers: false,
         score: {
