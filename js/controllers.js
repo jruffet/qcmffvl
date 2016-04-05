@@ -229,6 +229,7 @@ angular.module('qcmffvl.controllers', [])
             if ($scope.main.exam.papierExaminateur) {
                 API.tickAnswers($scope.qcm);
             }
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
     });
 
