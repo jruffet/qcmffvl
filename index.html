@@ -54,10 +54,10 @@
       				<div class="navbar-brand" ng-click="gotoMainURL()">
       					QCM FFVL
       				</div>
-      				<span class="hide-xxs hide-lg" ng-hide="main.examMode">
+      				<span class="hide-xxs hide-lg" ng-hide="main.exam.mode">
       					<span ng-hide="hideNavbarButtons">
-      						<button ng-hide="main.examMode || main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
-      						<button ng-show="main.examMode || main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
+      						<button ng-hide="main.exam.mode || main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
+      						<button ng-show="main.exam.mode || main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
 
       						<button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
       					</span>
