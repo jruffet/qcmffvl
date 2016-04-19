@@ -128,7 +128,7 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.gotoMainURL = function() {
         if ($location.url().indexOf("/qcm") == -1) {
-            $location.url("/qcm");
+            $location.url("/qcm/" + $scope.main.QCMID);
         }
     }
 
@@ -246,10 +246,18 @@ angular.module('qcmffvl.controllers', [])
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
 
-
-    // store qcm in $parent to allow for offline usage
-    if (!$scope.$parent.qcm) {
-        //console.log("loading JSON");
+    var QCMID = $routeParams.param1;
+    if (QCMID) {
+        if (API.verifyChecksum(QCMID)) {
+            $scope.$parent.main.QCMID = QCMID;
+        } else {
+            dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
+            $location.path("/qcm/" + $scope.$parent.main.QCMID, false);
+        }
+    }
+    if ($scope.$parent.qcm) {
+        $scope.$parent.generateQCM($scope.$parent.main.QCMID);
+    } else {
         $http.get('/json/qcm2014-1.json')
         .success(function(data, status, headers, config){
             $scope.$parent.qcm = data;
@@ -262,16 +270,6 @@ angular.module('qcmffvl.controllers', [])
         });
     }
 
-    var QCMID = $routeParams.param1;
-    console.log(QCMID);
-    if (QCMID) {
-        if (API.verifyChecksum(QCMID)) {
-            $scope.$parent.main.QCMID = QCMID;
-        } else {
-            dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
-            $location.path("/qcm/" + $scope.$parent.main.QCMID, false);
-        }
-    }
     $scope.getPoints = function(question) {
         var total = 0;
         for (var i = 0; i < question.ans.length; i++) {
