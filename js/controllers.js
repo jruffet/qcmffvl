@@ -389,10 +389,8 @@ angular.module('qcmffvl.controllers', [])
 
 .controller('QCMIDDialogCtrl', function($scope, $modalInstance, data, API) {
     $scope.main = data;
-    console.log(data);
 
     $scope.savedFormattedQCMIDUser = angular.copy($scope.main.formattedQCMIDUser);
-    // TODO : remove redundant in main()
     $scope.verifyQCMIDUser = function() {
         if ($scope.main.formattedQCMIDUser != $scope.savedFormattedQCMIDUser) {
             return API.verifyChecksum($scope.main.QCMIDUser);
