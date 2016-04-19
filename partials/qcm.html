@@ -25,7 +25,7 @@
                                 (main.exam.papierExaminateur && answer.pts==0) ||
                                 !navCollapsed"
                                 ng-model="answer.checked" />
-                                <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'warning-answer':warningAnswer(answer), 'good-not-checked-answer':goodNotCheckedAnswer(answer)}">
+                                <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer)}">
                                     <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
                                     <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
                                 </div>

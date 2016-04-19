@@ -47,20 +47,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
 
-    // store qcm in $parent to allow for offline usage
-    if (!$scope.qcm) {
-        //console.log("loading JSON");
-        $http.get('/json/qcm2014-1.json')
-        .success(function(data, status, headers, config){
-            $scope.qcm = data;
-            $scope.qcmOrig = angular.copy($scope.qcm);
-            $scope.generateQCM();
-        })
-        .error(function() {
-            var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
-            dlg.result();
-        });
-    }
 
     $scope.optionsToArray = function() {
         var opt = [];
@@ -241,6 +227,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
+            $location.path("/qcm/" + $scope.main.QCMID, false);
         }
     });
 
@@ -255,11 +242,36 @@ angular.module('qcmffvl.controllers', [])
     });
  })
 
-.controller('QCMCtrl', function($scope, $filter, $timeout, API, filterFilter) {
+.controller('QCMCtrl', function($scope, $filter, $timeout, $routeParams, $location, $http, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
 
 
+    // store qcm in $parent to allow for offline usage
+    if (!$scope.$parent.qcm) {
+        //console.log("loading JSON");
+        $http.get('/json/qcm2014-1.json')
+        .success(function(data, status, headers, config){
+            $scope.$parent.qcm = data;
+            $scope.$parent.qcmOrig = angular.copy($scope.$parent.qcm);
+            $scope.$parent.generateQCM($scope.$parent.main.QCMID);
+        })
+        .error(function() {
+            var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
+            dlg.result();
+        });
+    }
+
+    var QCMID = $routeParams.param1;
+    console.log(QCMID);
+    if (QCMID) {
+        if (API.verifyChecksum(QCMID)) {
+            $scope.$parent.main.QCMID = QCMID;
+        } else {
+            dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
+            $location.path("/qcm/" + $scope.$parent.main.QCMID, false);
+        }
+    }
     $scope.getPoints = function(question) {
         var total = 0;
         for (var i = 0; i < question.ans.length; i++) {
@@ -318,19 +330,19 @@ angular.module('qcmffvl.controllers', [])
     $scope.badAnswer = function(answer) {
         if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
-        return (answer.pts < 0 && answer.checked || answer.pts == 6 && !answer.checked);
+        return (answer.pts < 0 && answer.checked);
     }
 
-    $scope.warningAnswer = function(answer) {
-        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
-            return false;
-        return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
-    }
+    // $scope.warningAnswer = function(answer) {
+    //     if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+    //         return false;
+    //     return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
+    // }
 
-    $scope.goodNotCheckedAnswer = function(answer) {
+    $scope.goodAnswerNotChecked = function(answer) {
         if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
-        return (answer.pts < 0 && !answer.checked);
+        return (answer.pts > 0 && !answer.checked);
     }
 
     $scope.updateScore = function() {
