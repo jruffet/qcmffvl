@@ -4,7 +4,7 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $route, $http, $location, $timeout, $filter, dialogs, deviceDetector) {
+.controller('MainCtrl', function($scope, API, $location, $timeout, $filter, dialogs, deviceDetector) {
 
     $scope.main = {
         category: {
@@ -73,7 +73,7 @@ angular.module('qcmffvl.controllers', [])
         }, 500);
         $timeout(function() {
             $scope.forceloading = false;
-        }, 1000);
+        }, 1500);
     },
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
