@@ -163,4 +163,8 @@ angular.module('qcmffvl.services', [])
 
         //TODO : move selftest here
     };
+
+})
+.factory('shared', function($http){
+    return { QCMID: '' };
 });

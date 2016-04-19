@@ -9,6 +9,7 @@ angular.module('qcmffvl', [
   'AngularPrint',
   'ng.deviceDetector',
   'pascalprecht.translate',
+  'angular-clipboard',
   'qcmffvl.filters',
   'qcmffvl.services',
   'qcmffvl.directives',
@@ -30,6 +31,7 @@ config(['$routeProvider', function($routeProvider) {
     $translateProvider.translations('fr',{
         DIALOGS_CONFIRMATION: "Confirmation",
         DIALOGS_YES: "Oui",
+        DIALOGS_OK: "OK",
         DIALOGS_NO: "Non",
         DIALOGS_CLOSE: "Fermer"
     });

@@ -39,7 +39,7 @@ angular.module('qcmffvl.controllers', [])
     	num_niveau: $scope.main.level.options.indexOf($scope.main.level.checked)
     }
     $scope.main.limit = $scope.main.nbquestions.checked;
-    $scope.reloadQCM = false;
+    $scope.main.reloadQCM = false;
     // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
     // to force the loading state, regardless of scope.loading
@@ -82,7 +82,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire (ceci effacera vos réponses) ?');
         dlg.result.then(function(btn){
-        	$scope.reloadQCM = true;
+            $scope.main.QCMID = '';
+        	$scope.main.reloadQCM = true;
         },function(btn){
             //cancel
         });
@@ -132,10 +133,6 @@ angular.module('qcmffvl.controllers', [])
         }
     }
 
-    $scope.collapseNav = function() {
-        $scope.navCollapsed = true;
-    }
-
     $scope.resetQCMIDUser = function() {
         $scope.main.QCMIDUser = $scope.main.QCMID;
         $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
@@ -151,23 +148,31 @@ angular.module('qcmffvl.controllers', [])
         API.untickAnswers($scope.qcm);
     }
 
-    $scope.verifyQCMIDUser = function() {
-        return API.verifyChecksum($scope.main.QCMIDUser);
-    }
-
     $scope.toggleCheck = function(answer) {
         if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier) {
             answer.checked = !answer.checked;
         }
     }
+    $scope.dialogQCMID = function() {
+        var prepend = "";
+        if ($scope.isDevURL())
+            prepend = "/dev"
+        var dlg = dialogs.create(prepend + '/dialogs/qcmid.html','QCMIDDialogCtrl',$scope.main, {size:'lg'});
+                    dlg.result.then(function(name){
+                        $scope.name = name;
+                    },function(){
+                        if(angular.equals($scope.name,''))
+                            $scope.name = 'You did not enter in your name!';
+                    });
+    }
 
-    $scope.$watch("reloadQCM", function(newval, oldval) {
-        if (newval) {
+    $scope.$watch("main.reloadQCM", function(newval, oldval) {
+        if (newval == true) {
             $timeout(function() {
-                $scope.reloadQCM = false;
+                $scope.main.reloadQCM = false;
                 $scope.resetQCMDisplay();
                 $scope.collapseNav();
-                $scope.generateQCM();
+                $scope.generateQCM($scope.main.QCMID);
             },500);
         }
     })
@@ -220,14 +225,11 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.$watch('main.QCMID', function(newval, oldval) {
         if (newval != oldval) {
-            // reset dirtiness on form
-            $scope.QCMIDUserForm1.$setPristine();
-            $scope.QCMIDUserForm2.$setPristine();
             if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            $location.path("/qcm/" + $scope.main.QCMID, false);
+            $scope.main.QCMIDURL = $location.absUrl() + "/" + $scope.main.QCMID;
         }
     });
 
@@ -235,24 +237,25 @@ angular.module('qcmffvl.controllers', [])
         if (newval != oldval) {
             $scope.main.QCMIDUser = $filter('removeSpaces')(newval);
             $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
-            if ($scope.main.QCMIDUser != $scope.main.QCMID  && API.verifyChecksum($scope.main.QCMIDUser)) {
-                $scope.generateQCM($scope.main.QCMIDUser);
-            }
         }
     });
+
  })
 
 .controller('QCMCtrl', function($scope, $filter, $timeout, $routeParams, $location, $http, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
+    $scope.$parent.main.checkAnswers = false;
+    $scope.$parent.collapseNav();
 
     var QCMID = $routeParams.param1;
+    $location.path("/qcm", false);
+
     if (QCMID) {
         if (API.verifyChecksum(QCMID)) {
             $scope.$parent.main.QCMID = QCMID;
         } else {
             dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
-            $location.path("/qcm/" + $scope.$parent.main.QCMID, false);
         }
     }
     if ($scope.$parent.qcm) {
@@ -331,12 +334,6 @@ angular.module('qcmffvl.controllers', [])
         return (answer.pts < 0 && answer.checked);
     }
 
-    // $scope.warningAnswer = function(answer) {
-    //     if ($scope.main.exam.papier || !$scope.main.checkAnswers)
-    //         return false;
-    //     return (answer.pts > 0 && answer.pts < 6 && !answer.checked);
-    // }
-
     $scope.goodAnswerNotChecked = function(answer) {
         if ($scope.main.exam.papier || !$scope.main.checkAnswers)
             return false;
@@ -388,4 +385,31 @@ angular.module('qcmffvl.controllers', [])
     $scope.$parent.hideNavbarButtons = true;
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+})
+
+.controller('QCMIDDialogCtrl', function($scope, $modalInstance, data, API) {
+    $scope.main = data;
+    console.log(data);
+
+    $scope.savedFormattedQCMIDUser = angular.copy($scope.main.formattedQCMIDUser);
+    // TODO : remove redundant in main()
+    $scope.verifyQCMIDUser = function() {
+        if ($scope.main.formattedQCMIDUser != $scope.savedFormattedQCMIDUser) {
+            return API.verifyChecksum($scope.main.QCMIDUser);
+        } else {
+            return true;
+        }
+    }
+    $scope.cancelIDChanges = function() {
+        if (! $scope.verifyQCMIDUser)
+            $scope.main.formattedQCMIDUser = angular.copy($scope.savedFormattedQCMIDUser);
+    }
+    $scope.loadQCMID = function() {
+        $modalInstance.dismiss('OK');
+        $scope.main.QCMID = $scope.main.QCMIDUser;
+        $scope.main.reloadQCM = true;
+    }
+    $scope.ok = function(){
+        $modalInstance.dismiss('OK');
+    };
 });

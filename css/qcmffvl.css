@@ -189,13 +189,6 @@
     .navbar-questions-text {
         margin-left: 0;
     }
-    .qcmID {
-        margin-left: 15px;
-        margin-top: 8px;
-    }
-    .qcmID label {
-        margin-right: 5px;
-    }
     .qcmID .form-control {
         width: 180px;
         text-align: center;
@@ -229,15 +222,9 @@
     .bad-answer {
         color: #AD3D3B;
     }
-    .warning-answer {
-        color: #B97909;
-    }
     .good-answer-not-checked {
         font-weight: bold;
-        color: #666;
-    }
-    .good-not-checked-answer {
-        color: #666;
+        color: #555;
     }
     .panel-warning .panel-heading {
         background-color: #FFE5C1;
@@ -291,6 +278,12 @@
     }
     .btn-print {
         margin-bottom: 15px;
+    }
+    .btn-load-ID {
+        margin-top: 15px;
+    }
+    .url {
+        color:#337ab7;
     }
 
     /******** about ********/
