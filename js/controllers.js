@@ -39,9 +39,8 @@ angular.module('qcmffvl.controllers', [])
     	num_niveau: $scope.main.level.options.indexOf($scope.main.level.checked)
     }
     $scope.main.limit = $scope.main.nbquestions.checked;
-    $scope.main.reloadQCM = false;
     // automatically removed by a directive when the QCM is loaded
-    $scope.loading = false;
+    $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
 
@@ -92,7 +91,15 @@ angular.module('qcmffvl.controllers', [])
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
             $scope.main.QCMID = '';
-        	$scope.main.reloadQCM = true;
+            $scope.main.checkAnswers = false;
+            // wait for modal to close
+            $timeout(function() {
+                $scope.loading = true;
+            }, 500);
+            $timeout(function() {
+                $scope.collapseNav();
+                $scope.generateQCM($scope.main.QCMID);
+            },700);
         },function(btn){
             //cancel
         });
@@ -164,35 +171,18 @@ angular.module('qcmffvl.controllers', [])
     }
     $scope.dialogQCMID = function() {
         var dlg = dialogs.create('qcmid.html','QCMIDDialogCtrl',$scope.main,{size:"lg"});
-                    dlg.result.then(function(name){
-                        if ($scope.main.QCMIDUser != $scope.main.QCMID) {
-                            $scope.collapseNav();
-                            $scope.loading = true;
-                            $scope.qcm = [];
-                            $timeout(function() {
-                                $location.path("/qcm/" + $scope.main.QCMIDUser);
-                            },300);
-                        }
-                    },function(){
-                    });
-    }
-
-    // "called" by modals
-    $scope.$watch("main.reloadQCM", function(newval, oldval) {
-        if (newval == true) {
-            $scope.main.checkAnswers = false;
-            // wait for modal to close
-            $timeout(function() {
-                $scope.loading = true;
-            }, 500);
-            $timeout(function() {
-                $scope.main.reloadQCM = false;
+        dlg.result.then(function(name){
+            if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                 $scope.collapseNav();
-                $scope.generateQCM($scope.main.QCMID);
-            },700);
-        }
-    })
-
+                $scope.loading = true;
+                $scope.qcm = [];
+                $timeout(function() {
+                    $location.path("/qcm/" + $scope.main.QCMIDUser);
+                },300);
+            }
+        },function(){
+        });
+    }
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
@@ -278,7 +268,10 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     if ($scope.$parent.qcm) {
-        $scope.$parent.generateQCM($scope.$parent.main.QCMID);
+        $scope.$parent.loading = true;
+        $timeout(function() {
+            $scope.$parent.generateQCM($scope.$parent.main.QCMID);
+        },500);
     } else {
         $scope.$parent.loadJSON();
     }
