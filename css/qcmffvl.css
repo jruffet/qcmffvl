@@ -81,50 +81,6 @@
     }
 }
 
-/* target Chrome */
-/* should probably be done in JS with ng-class and browserDetect() */
-@media screen and (max-width: 767px) {
-    .answer {
-    	padding-top: 3px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .question .points {
-        padding-left:0;
-    }
-    .container-fluid {
-        padding-right: 15px;
-    }
-    .navbar-form {
-        margin-right: 0;
-    }
-}
-
-/* XXS sized device */
-@media screen and (max-width: 319px) {
-    .hide-xxs {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-	.form-inline .form-group {
-		margin-bottom: 15px;
-	}
-}
-
-@media screen and (min-width: 1200px) {
-    .hide-lg {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .hide-xs-md {
-        display: none;
-    }
-}
 
 @media screen {
     /******** general ********/
@@ -224,7 +180,7 @@
     }
     .good-answer-not-checked {
         font-weight: bold;
-        color: #333;
+        color: #555;
     }
     .panel-warning .panel-heading {
         background-color: #FFE5C1;
@@ -301,5 +257,53 @@
     }
     .changelog-version {
         margin-bottom: 15px;
+    }
+}
+
+/* target Chrome */
+/* should probably be done in JS with ng-class and browserDetect() */
+@media screen and (max-width: 767px) {
+    .answer {
+        padding-top: 3px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .question .points {
+        padding-left:0;
+    }
+    .container-fluid {
+        padding-right: 15px;
+    }
+    .navbar-form {
+        margin-right: 0;
+    }
+    .good-answer-not-checked {
+        color: #333;
+    }
+}
+
+/* XXS sized device */
+@media screen and (max-width: 319px) {
+    .hide-xxs {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .form-inline .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .hide-lg {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .hide-xs-md {
+        display: none;
     }
 }
