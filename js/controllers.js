@@ -16,7 +16,7 @@ angular.module('qcmffvl.controllers', [])
             checked: "Brevet de Pilote"
         },
         nbquestions: {
-        	options: [ "10", "30", "60", "90", "Toutes" ],
+        	options: [ "10", "30", "60", "90", "Toutes les" ],
         	checked: "30"
         },
         typeExam: {
@@ -89,7 +89,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.QCMID = API.computeID(num, $scope.optionsToArray());
     },
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire (ceci effacera vos réponses) ?');
+        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?', {size:"lg"});
         dlg.result.then(function(btn){
             $scope.main.QCMID = '';
         	$scope.main.reloadQCM = true;
@@ -168,6 +168,10 @@ angular.module('qcmffvl.controllers', [])
             prepend = "/dev"
         var dlg = dialogs.create(prepend + '/dialogs/qcmid.html','QCMIDDialogCtrl',$scope.main, {size:'lg'});
                     dlg.result.then(function(name){
+                        if ($scope.main.QCMIDUser != $scope.main.QCMID) {
+                            $scope.collapseNav();
+                            $location.path("/qcm/" + $scope.main.QCMIDUser);
+                        }
                     },function(){
                     });
     }
@@ -194,7 +198,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMDisplay();
                 $scope.updateQCMID();
                 var limit = $scope.main.nbquestions.checked;
-                if (limit === "Toutes") {
+                if (limit === "Toutes les") {
                     limit = 10000;
                 }
                 $scope.main.limit = limit;
@@ -259,7 +263,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
     $scope.$parent.main.checkAnswers = false;
-    $scope.$parent.collapseNav();
 
     var QCMID = $routeParams.param1;
 
@@ -392,7 +395,7 @@ angular.module('qcmffvl.controllers', [])
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 
-.controller('QCMIDDialogCtrl', function($scope, $modalInstance, data, API) {
+.controller('QCMIDDialogCtrl', function($scope, $modalInstance, $location, $timeout, data, API) {
     $scope.main = data;
 
     $scope.savedFormattedQCMIDUser = angular.copy($scope.main.formattedQCMIDUser);
@@ -408,11 +411,9 @@ angular.module('qcmffvl.controllers', [])
             $scope.main.formattedQCMIDUser = angular.copy($scope.savedFormattedQCMIDUser);
     }
     $scope.loadQCMID = function() {
-        $modalInstance.dismiss('OK');
-        $scope.main.QCMID = $scope.main.QCMIDUser;
-        $scope.main.reloadQCM = true;
+        $modalInstance.close();
     }
     $scope.ok = function(){
-        $modalInstance.dismiss('OK');
+        $modalInstance.dismiss();
     };
 });
