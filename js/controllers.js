@@ -4,7 +4,7 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $location, $timeout, $filter, dialogs, deviceDetector) {
+.controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, dialogs, deviceDetector) {
 
     $scope.main = {
         category: {
@@ -41,12 +41,24 @@ angular.module('qcmffvl.controllers', [])
     $scope.main.limit = $scope.main.nbquestions.checked;
     $scope.main.reloadQCM = false;
     // automatically removed by a directive when the QCM is loaded
-    $scope.loading = true;
-    // to force the loading state, regardless of scope.loading
-    $scope.forceloading = true;
+    $scope.loading = false;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
 
+    $scope.loadJSON = function() {
+        $scope.loading = true;
+        $timeout(function() {
+            $http.get('/json/qcm2014-1.json')
+            .success(function(data, status, headers, config){
+                $scope.qcmOrig = angular.copy(data);
+                $scope.generateQCM($scope.main.QCMID);
+            })
+            .error(function() {
+                var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
+                dlg.result();
+            });
+        }, 100);
+    }
 
     $scope.optionsToArray = function() {
         var opt = [];
@@ -61,19 +73,16 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.nbquestions.checked = $scope.main.nbquestions.options[opt[2]];
     },
     $scope.generateQCM = function(QCMID) {
-        $scope.forceloading = true;
-
+        $scope.loading = true;
+        if (QCMID) {
+            $scope.arrayToOptions(API.uncomputeID(QCMID).options);
+        }
         $timeout(function() {
-            if (QCMID)
-                $scope.arrayToOptions(API.uncomputeID(QCMID).options);
             $scope.qcm = angular.copy($scope.qcmOrig);
             $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
-        }, 500);
-        $timeout(function() {
-            $scope.forceloading = false;
-        }, 1500);
+        },300);
     },
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
@@ -97,6 +106,7 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.resetQCMDisplay = function() {
+        // is unset in the directive "removeLoaderWhenReady()"
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
 		$timeout(function() {
@@ -129,7 +139,7 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.gotoMainURL = function() {
         if ($location.url().indexOf("/qcm") == -1) {
-            $location.url("/qcm/" + $scope.main.QCMID);
+            $location.url("/qcm/");
         }
     }
 
@@ -159,25 +169,26 @@ angular.module('qcmffvl.controllers', [])
             prepend = "/dev"
         var dlg = dialogs.create(prepend + '/dialogs/qcmid.html','QCMIDDialogCtrl',$scope.main, {size:'lg'});
                     dlg.result.then(function(name){
-                        $scope.name = name;
                     },function(){
-                        if(angular.equals($scope.name,''))
-                            $scope.name = 'You did not enter in your name!';
                     });
     }
 
     $scope.$watch("main.reloadQCM", function(newval, oldval) {
         if (newval == true) {
+            // wait for modal to close
+            $timeout(function() {
+                $scope.loading = true;
+            }, 500);
             $timeout(function() {
                 $scope.main.reloadQCM = false;
-                $scope.resetQCMDisplay();
                 $scope.collapseNav();
                 $scope.generateQCM($scope.main.QCMID);
-            },500);
+            },700);
         }
     })
 
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
+        $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
@@ -192,6 +203,7 @@ angular.module('qcmffvl.controllers', [])
     })
 
     $scope.$watch('main.level.checked', function(newval, oldval) {
+        $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
@@ -240,19 +252,21 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
+
  })
 
-.controller('QCMCtrl', function($scope, $filter, $timeout, $routeParams, $location, $http, dialogs, API, filterFilter) {
+.controller('QCMCtrl', function($scope, $filter, $timeout, $routeParams, $location, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
     $scope.$parent.main.checkAnswers = false;
     $scope.$parent.collapseNav();
 
     var QCMID = $routeParams.param1;
-    $location.path("/qcm", false);
 
     if (QCMID) {
+        $location.path("/qcm", false);
         if (API.verifyChecksum(QCMID)) {
+            // used by loadJSON()
             $scope.$parent.main.QCMID = QCMID;
         } else {
             dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
@@ -261,16 +275,7 @@ angular.module('qcmffvl.controllers', [])
     if ($scope.$parent.qcm) {
         $scope.$parent.generateQCM($scope.$parent.main.QCMID);
     } else {
-        $http.get('/json/qcm2014-1.json')
-        .success(function(data, status, headers, config){
-            $scope.$parent.qcm = data;
-            $scope.$parent.qcmOrig = angular.copy($scope.$parent.qcm);
-            $scope.$parent.generateQCM($scope.$parent.main.QCMID);
-        })
-        .error(function() {
-            var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
-            dlg.result();
-        });
+        $scope.$parent.loadJSON();
     }
 
     $scope.getPoints = function(question) {
