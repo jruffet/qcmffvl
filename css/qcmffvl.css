@@ -84,7 +84,7 @@
 /* target Chrome */
 /* should probably be done in JS with ng-class and browserDetect() */
 @media screen and (max-width: 767px) {
-    .answer-text {
+    .answer {
     	padding-top: 3px;
     }
 }
@@ -224,7 +224,7 @@
     }
     .good-answer-not-checked {
         font-weight: bold;
-        color: #555;
+        color: #333;
     }
     .panel-warning .panel-heading {
         background-color: #FFE5C1;
