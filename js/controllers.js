@@ -46,7 +46,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
 
-
     $scope.loadQCMID = function(QCMID) {
         if (QCMID) {
             if (API.verifyChecksum(QCMID)) {
@@ -61,12 +60,11 @@ angular.module('qcmffvl.controllers', [])
                 $scope.loading = true;
                 $timeout(function() {
                     $scope.generateQCM($scope.main.QCMID);
-                },500);
+                },100);
             }
         } else {
             $scope.loadJSON();
         }
-        $location.path("/qcm", false);
     }
 
     $scope.loadJSON = function() {
@@ -274,8 +272,13 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
+    $scope.$watch('loading', function(newval, oldval){
+        if (newval == false && $location.path().indexOf("/load") != -1) {
+            $location.path("/qcm", false);
+        }
+    })
  })
-.controller('LoadCtrl', function($scope, $routeParams) {
+.controller('LoadCtrl', function($scope, $routeParams, $timeout) {
     $scope.$parent.loadQCMID($routeParams.qcmid);
 })
 
