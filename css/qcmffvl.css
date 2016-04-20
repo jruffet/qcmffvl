@@ -296,14 +296,8 @@
     }
 }
 
-@media screen and (min-width: 1200px) {
-    .hide-lg {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .hide-xs-md {
+@media screen and (min-width: 992px) {
+    .hide-md {
         display: none;
     }
 }
