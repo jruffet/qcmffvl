@@ -417,8 +417,7 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.cancelIDChanges = function() {
-        if (! $scope.verifyQCMIDUser)
-            $scope.main.formattedQCMIDUser = angular.copy($scope.savedFormattedQCMIDUser);
+        $scope.main.formattedQCMIDUser = angular.copy($scope.savedFormattedQCMIDUser);
     }
     $scope.loadQCMID = function() {
         $modalInstance.close();
