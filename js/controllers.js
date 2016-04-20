@@ -89,7 +89,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.QCMID = API.computeID(num, $scope.optionsToArray());
     },
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?', {size:"lg"});
+        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
             $scope.main.QCMID = '';
         	$scope.main.reloadQCM = true;
@@ -163,14 +163,15 @@ angular.module('qcmffvl.controllers', [])
         }
     }
     $scope.dialogQCMID = function() {
-        var prepend = "";
-        if ($scope.isDevURL())
-            prepend = "/dev"
-        var dlg = dialogs.create(prepend + '/dialogs/qcmid.html','QCMIDDialogCtrl',$scope.main, {size:'lg'});
+        var dlg = dialogs.create('qcmid.html','QCMIDDialogCtrl',$scope.main,{size:"lg"});
                     dlg.result.then(function(name){
                         if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                             $scope.collapseNav();
-                            $location.path("/qcm/" + $scope.main.QCMIDUser);
+                            $scope.loading = true;
+                            $scope.qcm = [];
+                            $timeout(function() {
+                                $location.path("/qcm/" + $scope.main.QCMIDUser);
+                            },300);
                         }
                     },function(){
                     });
@@ -416,4 +417,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.ok = function(){
         $modalInstance.dismiss();
     };
+})
+
+.run(function($templateCache) {
+  $templateCache.put('qcmid.html', '<div class="modal-header">    <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Chargement / Partage du QCM</h4></div><div class="modal-body">    <ng-form name="nameDialog" novalidate role="form">        <span class="help-block">Le numéro d\'identification "ID" identifie de manière unique un questionnaire (questions, nombre, niveau...)</span>        <div class="form-group qcmID" ng-class="{ \'has-error\': !verifyQCMIDUser() }">            <label class="control-label" for="course">QCM ID:</label>            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="cancelIDChanges()" maxlength="19" select-on-focus>            <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>        </div>    </ng-form>    <hr>    <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>    <span class="help-block url">{{main.QCMIDURL}}</span>    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l\'adresse</button></div><div class="modal-footer">    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button></div>');
 });

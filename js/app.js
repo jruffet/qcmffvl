@@ -26,7 +26,7 @@ config(['$routeProvider', function($routeProvider) {
     dialogsProvider.useBackdrop('static');
     dialogsProvider.useEscClose(true);
     dialogsProvider.useCopy(false);
-    dialogsProvider.setSize('sm');
+    dialogsProvider.setSize('md');
 
     $translateProvider.translations('fr',{
         DIALOGS_CONFIRMATION: "Confirmation",
