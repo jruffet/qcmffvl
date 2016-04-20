@@ -180,6 +180,7 @@ angular.module('qcmffvl.controllers', [])
     // "called" by modals
     $scope.$watch("main.reloadQCM", function(newval, oldval) {
         if (newval == true) {
+            $scope.main.checkAnswers = false;
             // wait for modal to close
             $timeout(function() {
                 $scope.loading = true;
