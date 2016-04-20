@@ -32,7 +32,9 @@ angular.module('qcmffvl.controllers', [])
             user: 0
         },
         exam: [],
+        // QCMID is set by API.generateQCM(), or from QCMIDUser when loading a previous QCM
         QCMID: "",
+        // QCMIDUser is set by the user, via formattedQCMIDUser
         QCMIDUser: ""
     }
     $scope.main.search  = {
@@ -43,6 +45,29 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
+
+
+    $scope.loadQCMID = function(QCMID) {
+        if (QCMID) {
+            if (API.verifyChecksum(QCMID)) {
+                // used by loadJSON()
+                $scope.main.QCMID = QCMID;
+            } else {
+                dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
+            }
+        }
+        if ($scope.qcm) {
+            if (QCMID) {
+                $scope.loading = true;
+                $timeout(function() {
+                    $scope.generateQCM($scope.main.QCMID);
+                },500);
+            }
+        } else {
+            $scope.loadJSON();
+        }
+        $location.path("/qcm", false);
+    }
 
     $scope.loadJSON = function() {
         $scope.loading = true;
@@ -92,7 +117,7 @@ angular.module('qcmffvl.controllers', [])
         dlg.result.then(function(btn){
             $scope.main.QCMID = '';
             $scope.main.checkAnswers = false;
-            // wait for modal to close
+            // wait for modal to close to avoid weird effects
             $timeout(function() {
                 $scope.loading = true;
             }, 500);
@@ -177,7 +202,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.loading = true;
                 $scope.qcm = [];
                 $timeout(function() {
-                    $location.path("/qcm/" + $scope.main.QCMIDUser);
+                    $scope.loadQCMID($scope.main.QCMIDUser);
                 },300);
             }
         },function(){
@@ -237,7 +262,8 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            $scope.main.QCMIDURL = $location.absUrl() + "/" + $scope.main.QCMID;
+            var url = $location.absUrl();
+            $scope.main.QCMIDURL = url.replace("#/qcm","#/load") + "/" + $scope.main.QCMID;
         }
     });
 
@@ -248,31 +274,17 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
-
  })
+.controller('LoadCtrl', function($scope, $routeParams) {
+    $scope.$parent.loadQCMID($routeParams.qcmid);
+})
 
-.controller('QCMCtrl', function($scope, $filter, $timeout, $routeParams, $location, dialogs, API, filterFilter) {
+.controller('QCMCtrl', function($scope, $filter, $timeout, $location, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
     $scope.$parent.main.checkAnswers = false;
 
-    var QCMID = $routeParams.param1;
-
-    if (QCMID) {
-        $location.path("/qcm", false);
-        if (API.verifyChecksum(QCMID)) {
-            // used by loadJSON()
-            $scope.$parent.main.QCMID = QCMID;
-        } else {
-            dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
-        }
-    }
-    if ($scope.$parent.qcm) {
-        $scope.$parent.loading = true;
-        $timeout(function() {
-            $scope.$parent.generateQCM($scope.$parent.main.QCMID);
-        },500);
-    } else {
+    if (!$scope.$parent.qcm) {
         $scope.$parent.loadJSON();
     }
 
