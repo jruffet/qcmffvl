@@ -58,8 +58,20 @@ angular.module('qcmffvl.controllers', [])
                 dlg.result();
             });
         }, 100);
-    }
-
+    },
+    $scope.generateQCM = function(QCMID) {
+        $scope.loading = true;
+        $scope.main.checkAnswers = false;
+        if (QCMID) {
+            $scope.arrayToOptions(API.uncomputeID(QCMID).options);
+        }
+        $timeout(function() {
+            $scope.qcm = angular.copy($scope.qcmOrig);
+            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
+            if ($scope.main.exam.papierExaminateur)
+                API.tickAnswers($scope.qcm);
+        },300);
+    },
     $scope.optionsToArray = function() {
         var opt = [];
         opt[0] = $scope.main.category.options.indexOf($scope.main.category.checked)
@@ -71,18 +83,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.category.checked = $scope.main.category.options[opt[0]];
         $scope.main.level.checked = $scope.main.level.options[opt[1]];
         $scope.main.nbquestions.checked = $scope.main.nbquestions.options[opt[2]];
-    },
-    $scope.generateQCM = function(QCMID) {
-        $scope.loading = true;
-        if (QCMID) {
-            $scope.arrayToOptions(API.uncomputeID(QCMID).options);
-        }
-        $timeout(function() {
-            $scope.qcm = angular.copy($scope.qcmOrig);
-            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
-            if ($scope.main.exam.papierExaminateur)
-                API.tickAnswers($scope.qcm);
-        },300);
     },
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
@@ -97,7 +97,6 @@ angular.module('qcmffvl.controllers', [])
             //cancel
         });
     }
-
     $scope.scoreClass = function(score) {
         if (score.percentage >= 75) {
             return "good-score";
@@ -173,6 +172,7 @@ angular.module('qcmffvl.controllers', [])
                     });
     }
 
+    // "called" by modals
     $scope.$watch("main.reloadQCM", function(newval, oldval) {
         if (newval == true) {
             // wait for modal to close
