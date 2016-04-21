@@ -83,7 +83,9 @@ angular.module('qcmffvl.services', [])
         computeID: function(num, options) {
             var API = this;
             var padnum = API.pad(num, 10);
-            var optnum = API.pad(API.computeOptions(options),2);
+            var optnum = 0;
+            if (options)
+                optnum = API.pad(API.computeOptions(options),2);
             var ck = API.pad(API.checksum(num, optnum),3);
 
             return ck + padnum + optnum;
