@@ -194,14 +194,16 @@ angular.module('qcmffvl.controllers', [])
     $scope.dialogQCMID = function() {
         var dlg = dialogs.create('qcmid.html','QCMIDDialogCtrl',$scope.main,{size:"lg"});
         dlg.result.then(function(name){
-            if ($scope.main.QCMIDUser != $scope.main.QCMID) {
-                $scope.collapseNav();
-                $scope.loading = true;
-                $scope.qcm = [];
-                $timeout(function() {
-                    $scope.loadQCMID($scope.main.QCMIDUser);
-                },300);
-            }
+            $timeout(function() {
+                if ($scope.main.QCMIDUser != $scope.main.QCMID) {
+                    $scope.collapseNav();
+                    $scope.loading = true;
+                    $scope.qcm = [];
+                    $timeout(function() {
+                        $scope.loadQCMID($scope.main.QCMIDUser);
+                    },300);
+                }
+            },300);
         },function(){
         });
     }
