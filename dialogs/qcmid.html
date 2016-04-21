@@ -7,7 +7,7 @@
 
         <div class="form-group qcmID" ng-class="{ 'has-error': !verifyQCMIDUser() }">
             <label class="control-label" for="course">QCM ID:</label>
-            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="cancelIDChanges()" maxlength="19" select-on-focus>
+            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="19" select-on-focus>
             <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>
         </div>
 
