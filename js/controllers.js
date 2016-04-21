@@ -4,7 +4,7 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, dialogs, deviceDetector) {
+.controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, dialogs, deviceDetector) {
 
     $scope.main = {
         category: {
@@ -206,6 +206,14 @@ angular.module('qcmffvl.controllers', [])
         },function(){
         });
     }
+    $scope.tooLongOptionsForWidth = function() {
+        if ($window.innerWidth > 992 && $window.innerWidth < 1200) {
+            return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.main.nbquestions.checked.indexOf("Toutes") != -1);
+        } else {
+            return false;
+        }
+    }
+
     $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
