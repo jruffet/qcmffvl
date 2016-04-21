@@ -120,7 +120,7 @@ angular.module('qcmffvl.controllers', [])
             $timeout(function() {
                 $scope.main.checkAnswers = false;
                 $scope.collapseNav();
-                $scope.generateQCM($scope.main.QCMID);
+                $scope.generateQCM();
             }, 500);
         },function(btn){
             //cancel
