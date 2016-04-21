@@ -113,16 +113,15 @@ angular.module('qcmffvl.controllers', [])
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
-            $scope.main.QCMID = '';
-            $scope.main.checkAnswers = false;
             // wait for modal to close to avoid weird effects
             $timeout(function() {
                 $scope.loading = true;
-            }, 500);
+            }, 300);
             $timeout(function() {
+                $scope.main.checkAnswers = false;
                 $scope.collapseNav();
                 $scope.generateQCM($scope.main.QCMID);
-            },700);
+            },500);
         },function(btn){
             //cancel
         });
