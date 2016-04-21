@@ -206,7 +206,7 @@ angular.module('qcmffvl.controllers', [])
         },function(){
         });
     }
-    $scope.tooLongOptionsForWidth = function() {
+    $scope.optionsTooLongForWidth = function() {
         if ($window.innerWidth > 992 && $window.innerWidth < 1200) {
             return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.main.nbquestions.checked.indexOf("Toutes") != -1);
         } else {
