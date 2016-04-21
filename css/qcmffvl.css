@@ -260,10 +260,8 @@
     }
 }
 
-/* target Chrome */
-/* should probably be done in JS with ng-class and browserDetect() */
 @media screen and (max-width: 767px) {
-    .answer {
+    .answer.chrome {
         padding-top: 3px;
     }
 }
