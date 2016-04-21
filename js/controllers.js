@@ -121,7 +121,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.main.checkAnswers = false;
                 $scope.collapseNav();
                 $scope.generateQCM($scope.main.QCMID);
-            },500);
+            }, 500);
         },function(btn){
             //cancel
         });
@@ -285,11 +285,11 @@ angular.module('qcmffvl.controllers', [])
         }
     })
  })
-.controller('LoadCtrl', function($scope, $routeParams, $timeout) {
+.controller('LoadCtrl', function($scope, $routeParams) {
     $scope.$parent.loadQCMID($routeParams.qcmid);
 })
 
-.controller('QCMCtrl', function($scope, $filter, $timeout, $location, dialogs, API, filterFilter) {
+.controller('QCMCtrl', function($scope, $filter, $location, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
     $scope.$parent.main.checkAnswers = false;
@@ -412,7 +412,7 @@ angular.module('qcmffvl.controllers', [])
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 
-.controller('QCMIDDialogCtrl', function($scope, $modalInstance, $location, $timeout, data, API) {
+.controller('QCMIDDialogCtrl', function($scope, $modalInstance, $location, data, API) {
     $scope.main = data;
 
     $scope.savedFormattedQCMIDUser = angular.copy($scope.main.formattedQCMIDUser);
