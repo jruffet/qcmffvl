@@ -1,5 +1,5 @@
 <div class="loader" ng-show="loading" >Chargement...</div>
-<div ng-hide="loading || !main.QCMID || (main.exam.papier && !browserChrome() && !browserCheckOverride)">
+<div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride)">
     <div >
         <div class="qcm-title" ng-show="main.exam.papier">
                 <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>

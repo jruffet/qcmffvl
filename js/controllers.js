@@ -286,7 +286,8 @@ angular.module('qcmffvl.controllers', [])
             $location.path("/qcm", false);
         }
     })
- })
+})
+
 .controller('LoadCtrl', function($scope, $routeParams) {
     $scope.$parent.loadQCMID($routeParams.qcmid);
 })
