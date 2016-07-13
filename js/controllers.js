@@ -298,7 +298,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            var url = $location.absUrl();
+            var url = $location.absUrl().replace(/#.*/, "");
             $scope.main.QCMIDURL = url.replace("#/qcm","#/load") + "/" + $scope.main.QCMID;
         }
     });
