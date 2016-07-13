@@ -7,7 +7,7 @@ angular.module('qcmffvl.controllers', [])
 .controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, dialogs, deviceDetector) {
 
     $scope.main = {
-        version: "2.2",
+        version: "3.0",
         category: {
             options: [ "Parapente", "Delta" ],
             checked: "Parapente"
@@ -56,7 +56,11 @@ angular.module('qcmffvl.controllers', [])
                 // used by loadJSON()
                 $scope.main.QCMID = QCMID;
             } else {
-                dialogs.error('Erreur','ID QCM invalide : ' + QCMID);
+                var optionnalMsg = "";
+                if (QCMID.length == 15) {
+                    optionnalMsg = "<br/>Votre ID QCM n'est pas compatible avec les version 3.X et supérieur.";
+                }
+                dialogs.error('Erreur','ID QCM invalide : ' + QCMID + optionnalMsg);
             }
         }
         if ($scope.qcm) {
@@ -78,7 +82,8 @@ angular.module('qcmffvl.controllers', [])
             $http.get('/dev/json/qcm_ffvl_1.0.json')
             .success(function(data, status, headers, config){
                 $scope.main.qcmDate = data.date;
-                $scope.main.qcmVersion = data.version;
+                $scope.qcmVersion = data.version;
+                $scope.qcmVer = data.ver;
                 $scope.qcmOrig = angular.copy(data.questions);
                 $scope.generateQCM($scope.main.QCMID);
             })
@@ -96,7 +101,7 @@ angular.module('qcmffvl.controllers', [])
         }
         $timeout(function() {
             $scope.qcm = angular.copy($scope.qcmOrig);
-            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.optionsToArray(), QCMID);
+            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmVer, $scope.optionsToArray(), QCMID);
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
         },300);
@@ -115,7 +120,7 @@ angular.module('qcmffvl.controllers', [])
     },
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
-        $scope.main.QCMID = API.computeID(num, $scope.optionsToArray());
+        $scope.main.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
     },
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.main.category.checked + '</b> niveau <b>' + $scope.main.level.checked + '</b> avec <b>' + $scope.main.nbquestions.checked.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
@@ -464,6 +469,6 @@ angular.module('qcmffvl.controllers', [])
 
 .run(function($templateCache) {
     // avoid huge latency on high TTL connections
-    $templateCache.put('qcmid.html', '<div class="modal-header">    <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Partage du QCM</h4></div><div class="modal-body">    <ng-form name="nameDialog" novalidate role="form">        <span class="help-block">Le numéro d\'identification "ID" identifie de manière unique un questionnaire (questions, nombre, niveau...)</span>  <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>      <div class="form-group qcmID" ng-class="{ \'has-error\': !verifyQCMIDUser() }">            <label class="control-label" for="course">QCM ID:</label>            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="19" select-on-focus>            <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>        </div>    </ng-form>    <hr>    <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>    <span class="help-block url">{{main.QCMIDURL}}</span>    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l\'adresse</button></div><div class="modal-footer">    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button></div>');
+    $templateCache.put('qcmid.html', '<div class="modal-header">    <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Partage du QCM</h4></div><div class="modal-body">    <ng-form name="nameDialog" novalidate role="form">        <span class="help-block">Le numéro d\'identification "ID" identifie de manière unique un questionnaire (questions, nombre, niveau...)</span>  <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>      <div class="form-group qcmID" ng-class="{ \'has-error\': !verifyQCMIDUser() }">            <label class="control-label" for="course">QCM ID:</label>            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="22" select-on-focus>            <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>        </div>    </ng-form>    <hr>    <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>    <span class="help-block url">{{main.QCMIDURL}}</span>    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l\'adresse</button></div><div class="modal-footer">    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button></div>');
 });
 
