@@ -58,7 +58,7 @@ angular.module('qcmffvl.controllers', [])
             } else {
                 var optionnalMsg = "";
                 if (QCMID.length == 15) {
-                    optionnalMsg = "<br/>Votre ID QCM n'est pas compatible avec les version 3.X et supérieur.";
+                    optionnalMsg = "<br/>Les ID QCM à 15 chiffres ne sont plus compatibles avec les versions 3.X et supérieur.";
                 }
                 dialogs.error('Erreur','ID QCM invalide : ' + QCMID + optionnalMsg);
             }
