@@ -9,9 +9,10 @@ jsonfile = sys.argv[2]
 
 content = {
 	"questions": [],
-	"version": "1.0",
+    "version": "1.0",
 	"date": datetime.datetime.now().strftime("%d/%m/%Y")
 }
+content["ver"] = content["version"].replace("\.", "")
 niveaux = ["V", "B", "M"]
 tmpi = 0
 pratique = {
