@@ -9,7 +9,7 @@ angular.module('qcmffvl.services', [])
 
 .factory('API', function($http){
     return {
-        generateQCM: function(array, options, QCMID) {
+        generateQCM: function(array, qcmVer, options, QCMID) {
             var API = this;
             // we want to have 10 numbers tops to define the QCM ID,
             // so 2^33, which is 2^32 for the seed, and 1 bit to
@@ -60,7 +60,7 @@ angular.module('qcmffvl.services', [])
             }
             API.untickAnswers(array);
             // return QCM ID
-            return API.computeID(seed + max32 * surseed, options);
+            return API.computeID(seed + max32 * surseed, qcmVer, options);
         },
         tickAnswers: function(array) {
             var m = array.length;
@@ -80,23 +80,23 @@ angular.module('qcmffvl.services', [])
                 }
             }
         },
-        computeID: function(num, options) {
+        computeID: function(num, qcmVer, options) {
             var API = this;
             var padnum = API.pad(num, 10);
             var optnum = 0;
             if (options)
                 optnum = API.pad(API.computeOptions(options),2);
-            var ck = API.pad(API.checksum(num, optnum),3);
-
-            return ck + padnum + optnum;
+            var ck = API.pad(API.checksum(num, qcmVer, optnum),3);
+            return ck + padnum + qcmVer + optnum;
         },
         uncomputeID: function(ID) {
             var API = this;
             var ck = parseInt(ID.substr(0,3),10);
             var num = parseInt(ID.substr(3,10),10);
-            var optnum = parseInt(ID.substr(13,2),10);
+            var qcmVer = parseInt(ID.substr(13,2),10);
+            var optnum = parseInt(ID.substr(15,2),10);
             var opt = API.uncomputeOptions(optnum);
-            return { "ck":ck, "options":opt, "num":num, "optnum":optnum }
+            return { "ck":ck, "options":opt, "num":num, "optnum":optnum, "qcmVer":qcmVer }
         },
         computeOptions: function(opt) {
             var API = this;
@@ -118,14 +118,14 @@ angular.module('qcmffvl.services', [])
             return opt;
         },
         // returns :
-        // checksum if none given
-        // -1 if the one given is bogus
-        checksum: function(num, optnum, ck) {
+        // checksum if none given or if checksum matches "ck"
+        // -1 if the one given ("ck") is bogus
+        checksum: function(num, qcmVer, optnum, ck) {
             // space 10^3 for parity bits : 2^9 < 10^3 < 2^10 : so 9 parity bits
             var nbits = 9;
             var pbits = [];
-            // num is on 10 digits, calculate the checksum for "optnum" + "num" (concatenated like strings)
-            var b2num = (num+optnum*Math.pow(10,10)).toString(2);
+            // num is on 10 digits, calculate the checksum for "num" + "qcmVer" + "optnum" (concatenated like strings)
+            var b2num = (num+qcmVer*Math.pow(10,10)+optnum*Math.pow(12,10)).toString(2);
             var b2numlen = b2num.length;
             var step = Math.floor(b2numlen / nbits);
             var remaining = b2numlen % nbits;
@@ -150,11 +150,21 @@ angular.module('qcmffvl.services', [])
         },
         verifyChecksum: function(ID) {
             var API = this;
-            if (!ID || ID.length != 15) {
+            if (!ID) {
                 return false;
             }
             var IDdict = API.uncomputeID(ID);
-            return (API.checksum(IDdict.num, IDdict.optnum, IDdict.ck) != -1);
+            return (API.checksum(IDdict.num, IDdict.qcmVer, IDdict.optnum, IDdict.ck) != -1);
+        },
+        verifyVersion: function(ID, qcmVer) {
+            var API = this;
+            var IDdict = API.uncomputeID(ID);
+            return (IDdict.qcmVer == qcmVer);
+        },
+        extractVersion: function(ID) {
+            var API = this;
+            var IDdict = API.uncomputeID(ID);
+            return IDdict.qcmVer;
         },
         pad: function(num, size) {
             return ('00000000000000000000000' + num).substr(-size);
