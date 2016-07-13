@@ -124,7 +124,7 @@ angular.module('qcmffvl.services', [])
             // space 10^3 for parity bits : 2^9 < 10^3 < 2^10 : so 9 parity bits
             var nbits = 9;
             var pbits = [];
-            // num is on 10 digits, calculate the checksum for optnum + num (if they were strings)
+            // num is on 10 digits, calculate the checksum for "optnum" + "num" (concatenated like strings)
             var b2num = (num+optnum*Math.pow(10,10)).toString(2);
             var b2numlen = b2num.length;
             var step = Math.floor(b2numlen / nbits);

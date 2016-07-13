@@ -79,9 +79,18 @@
       				</ul>
 
       				<ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
+                                    <li class="dropdown" is-open="isOpen.category">
+                                          <a class="dropdown-toggle" data-toggle="dropdown">{{main.category.checked}} <span class="caret"></span></a>
+                                          <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
+                                                <li ng-repeat="category in main.category.options">
+                                                      <a ng-click="main.category.checked = category">{{category}}</a>
+                                                </li>
+                                          </ul>
+                                    </li>
+
 
 						<li class="dropdown" is-open="isOpen.level">
-							<a class="dropdown-toggle" data-toggle="dropdown">Parapente <span ng-show="optionsTooLongForWidth()">{{main.level.checked|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{main.level.checked}}</span><span class="caret"></span></a>
+							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{main.level.checked|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{main.level.checked}}</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
 								<li ng-repeat="level in main.level.options">
 									<a ng-click="main.level.checked = level">{{level}}</a>

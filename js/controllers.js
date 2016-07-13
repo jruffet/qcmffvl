@@ -7,8 +7,9 @@ angular.module('qcmffvl.controllers', [])
 .controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, dialogs, deviceDetector) {
 
     $scope.main = {
+        version: "2.2",
         category: {
-            options: [ "Parapente" ],
+            options: [ "Parapente", "Delta" ],
             checked: "Parapente"
         },
         level: {
@@ -38,7 +39,10 @@ angular.module('qcmffvl.controllers', [])
         QCMIDUser: ""
     }
     $scope.main.search  = {
-    	num_niveau: $scope.main.level.options.indexOf($scope.main.level.checked)
+    	niveau: $scope.main.level.options.indexOf($scope.main.level.checked),
+        parapente: true,
+        // delta not set here. parapente should never be set to true at the same time as delta is.
+        // delta: true + parapente: true would select only the generic questions
     }
     $scope.main.limit = $scope.main.nbquestions.checked;
     // automatically removed by a directive when the QCM is loaded
@@ -70,9 +74,12 @@ angular.module('qcmffvl.controllers', [])
     $scope.loadJSON = function() {
         $scope.loading = true;
         $timeout(function() {
-            $http.get('/json/qcm2014-1.json')
+            // TODO
+            $http.get('/dev/json/qcm_ffvl_1.0.json')
             .success(function(data, status, headers, config){
-                $scope.qcmOrig = angular.copy(data);
+                $scope.main.qcmDate = data.date;
+                $scope.main.qcmVersion = data.version;
+                $scope.qcmOrig = angular.copy(data.questions);
                 $scope.generateQCM($scope.main.QCMID);
             })
             .error(function() {
@@ -111,7 +118,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.QCMID = API.computeID(num, $scope.optionsToArray());
     },
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire ' + $scope.main.category.checked + ' niveau "' + $scope.main.level.checked + '" avec ' + $scope.main.nbquestions.checked.toLowerCase() + ' questions (et effacer vos réponses) ?');
+        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.main.category.checked + '</b> niveau <b>' + $scope.main.level.checked + '</b> avec <b>' + $scope.main.nbquestions.checked.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
             // wait for modal to close to avoid weird effects
             $timeout(function() {
@@ -230,13 +237,30 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
+    $scope.$watch('main.category.checked', function(newval, oldval) {
+        $scope.loading = true;
+        if (newval != oldval) {
+            $timeout(function() {
+                $scope.resetQCMDisplay();
+                $scope.updateQCMID();
+                if ($scope.main.category.checked == "Parapente") {
+                    $scope.main.search.parapente = true;
+                    delete $scope.main.search.delta;
+                } else {
+                    $scope.main.search.delta = true;
+                    delete $scope.main.search.parapente;
+                }
+            },100);
+        }
+    });
+
     $scope.$watch('main.level.checked', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-                $scope.main.search.num_niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
+                $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
             },100);
         }
     });
@@ -442,3 +466,4 @@ angular.module('qcmffvl.controllers', [])
     // avoid huge latency on high TTL connections
     $templateCache.put('qcmid.html', '<div class="modal-header">    <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Partage du QCM</h4></div><div class="modal-body">    <ng-form name="nameDialog" novalidate role="form">        <span class="help-block">Le numéro d\'identification "ID" identifie de manière unique un questionnaire (questions, nombre, niveau...)</span>  <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>      <div class="form-group qcmID" ng-class="{ \'has-error\': !verifyQCMIDUser() }">            <label class="control-label" for="course">QCM ID:</label>            <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="19" select-on-focus>            <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>        </div>    </ng-form>    <hr>    <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>    <span class="help-block url">{{main.QCMIDURL}}</span>    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l\'adresse</button></div><div class="modal-footer">    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button></div>');
 });
+
