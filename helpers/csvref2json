@@ -1,0 +1,83 @@
+#!/usr/bin/python3
+import csv
+import sys
+import json
+import datetime
+
+csvfile  = sys.argv[1]
+jsonfile = sys.argv[2]
+
+content = {
+	"questions": [],
+	"version": "1.0",
+	"date": datetime.datetime.now().strftime("%d/%m/%Y")
+}
+niveaux = ["V", "B", "M"]
+tmpi = 0
+pratique = {
+    "general": ["A","E","L","S","U"],
+    "parapente": ["G", "N", "W"],
+    "delta": ["H", "R", "X"]
+}
+with open (jsonfile, 'w') as outfile:
+    with open(csvfile) as infile:
+        reader = csv.reader(infile)
+        for row in reader:
+            if row[0]:
+                code = row[0].strip().upper()
+                question = row[1]
+                ans = []
+                for i in range(2,9,2):
+                    if row[i]:
+                        ans.append({"text": row[i], "pts":row[i+1]})
+
+                niveau_letter = code[-1]
+                niveau = niveaux.index(niveau_letter)
+
+                if code[0] in pratique["general"]:
+                    delta = parapente = True
+                elif code[0] in pratique["parapente"]:
+                    parapente = True
+                    delta = False
+                elif code[0] in pratique["delta"]:
+                    parapente = False
+                    delta = True
+
+                content["questions"].append({"code":code, "question":question, "ans":ans, "niveau":niveau, "parapente":parapente, "delta":delta})
+    outfile.write(json.dumps(content))
+
+
+'''
+Questions météo
+A
+--
+Mécavol général
+E
+--
+Mécavol parapente
+G
+--
+mécavol delta
+H
+--
+Matériel général
+L
+--
+Matériel parapente
+N
+--
+Matériel Delta
+R
+--
+Réglementation
+S
+--
+Pilotage général
+U
+--
+Pilotage parapente
+W
+--
+Pilotage Delta
+X
+'''
