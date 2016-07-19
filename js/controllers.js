@@ -7,7 +7,6 @@ angular.module('qcmffvl.controllers', [])
 .controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, dialogs, deviceDetector) {
 
     $scope.main = {
-        version: "3.0",
         category: {
             options: [ "Parapente", "Delta" ],
             checked: "Parapente"
@@ -49,6 +48,9 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
+    $scope.version = "3.0";
+    $scope.qcmVersion = "1.0";
+    $scope.qcmVer = $scope.qcmVersion.replace(".", "");
 
     $scope.loadQCMID = function(QCMID) {
         if (QCMID) {
@@ -78,18 +80,20 @@ angular.module('qcmffvl.controllers', [])
     $scope.loadJSON = function() {
         $scope.loading = true;
         $timeout(function() {
-            // TODO
-            $http.get('/dev/json/qcm_ffvl_1.0.json')
+            $http.get('/dev/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
             .success(function(data, status, headers, config){
                 $scope.main.qcmDate = data.date;
-                $scope.qcmVersion = data.version;
-                $scope.qcmVer = data.ver;
-                $scope.qcmOrig = angular.copy(data.questions);
-                $scope.generateQCM($scope.main.QCMID);
+                if ($scope.qcmVersion != data.version) {
+                    var dlg = dialogs.error('Erreur','La version de questionnaire chargée ne correspond pas à la version annoncée par le JSON.<br/>Cette erreur ne devrait pas se produire, merci de me contacter (cf "A propos") en indiquant les informations suivantes :<br/>qcmVersion (scope) : ' + $scope.qcmVersion + '<br/>qcmVersion (qcm) : ' + data.version);
+                    // dlg.result();
+                } else {
+                    $scope.qcmOrig = angular.copy(data.questions);
+                    $scope.generateQCM($scope.main.QCMID);
+                }
             })
             .error(function() {
                 var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
-                dlg.result();
+                // dlg.result();
             });
         }, 100);
     },
@@ -102,6 +106,7 @@ angular.module('qcmffvl.controllers', [])
         $timeout(function() {
             $scope.qcm = angular.copy($scope.qcmOrig);
             $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmVer, $scope.optionsToArray(), QCMID);
+
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
         },300);
