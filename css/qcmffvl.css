@@ -142,6 +142,9 @@
     .modal-open {
         overflow: auto;
     }
+    .modal-title {
+        font-weight: bold;
+    }
     .navbar-questions-text {
         margin-left: 0;
     }

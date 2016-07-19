@@ -60,9 +60,9 @@ angular.module('qcmffvl.controllers', [])
             } else {
                 var optionnalMsg = "";
                 if (QCMID.length == 15) {
-                    optionnalMsg = "<br/>Note : Les ID QCM à 15 chiffres ne sont plus compatibles avec les versions 3.X (ou versions supérieures).";
+                    optionnalMsg = "<br/><br/>Note : Les ID QCM à 15 chiffres ne sont plus compatibles avec les versions 3.X (ou versions supérieures).";
                 }
-                dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ') ' + optionnalMsg);
+                dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ')<br/> Le questionnaire précédent a été rechargé.' + optionnalMsg);
             }
         }
         if ($scope.qcm) {
