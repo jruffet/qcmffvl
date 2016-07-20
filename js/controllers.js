@@ -80,7 +80,11 @@ angular.module('qcmffvl.controllers', [])
     $scope.loadJSON = function() {
         $scope.loading = true;
         $timeout(function() {
-            $http.get('/dev/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
+            var url_prepend = "";
+            if ($scope.isDevURL()) {
+                url_prepend = "/dev";
+            }
+            $http.get(url_prepend + '/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
             .success(function(data, status, headers, config){
                 $scope.main.qcmDate = data.date;
                 if ($scope.qcmVersion != data.version) {
