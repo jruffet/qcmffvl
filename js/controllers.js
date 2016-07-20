@@ -62,7 +62,7 @@ angular.module('qcmffvl.controllers', [])
                 if (QCMID.length == 15) {
                     optionnalMsg = "<br/><br/>Note : Les ID QCM à 15 chiffres ne sont plus compatibles avec les versions 3.X (ou versions supérieures).";
                 }
-                dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ')<br/> Le questionnaire précédent a été rechargé.' + optionnalMsg);
+                dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ')</b><br/> Le questionnaire actuel a été rechargé.' + optionnalMsg);
             }
         }
         if ($scope.qcm) {
