@@ -153,11 +153,11 @@ angular.module('qcmffvl.services', [])
             }
 
             API.untickAnswers(array);
+            API.untickHelp(array);
             // return QCM ID
             return API.computeID(seed + max32 * surseed, qcmVer, options);
         },
         tickAnswers: function(array) {
-            var m = array.length;
             for (var i=0; i<array.length; i++) {
                 for (var j=0; j<array[i].ans.length; j++) {
                     if (array[i].ans[j].pts >= 0) {
@@ -167,11 +167,15 @@ angular.module('qcmffvl.services', [])
             }
         },
         untickAnswers: function(array) {
-            var m = array.length;
             for (var i=0; i<array.length; i++) {
                 for (var j=0; j<array[i].ans.length; j++) {
                     delete(array[i].ans[j].checked);
                 }
+            }
+        },
+        untickHelp: function(array) {
+            for (var i=0; i<array.length; i++) {
+                delete (array[i].help);
             }
         },
         computeID: function(num, qcmVer, options) {

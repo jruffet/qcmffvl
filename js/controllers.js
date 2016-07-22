@@ -53,7 +53,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
     // wether to display help info (link to request-qcm@ffvl.fr) for a question or not
-    $scope.questionHelp = 0;
 
     $scope.loadQCMID = function(QCMID) {
         if (QCMID) {
@@ -171,6 +170,7 @@ angular.module('qcmffvl.controllers', [])
             API.untickAnswers($scope.qcm);
             $scope.main.checkAnswers = false;
         }
+        API.untickHelp($scope.qcm);
     }
 
     $scope.collapseNav = function() {
@@ -218,6 +218,7 @@ angular.module('qcmffvl.controllers', [])
             answer.checked = !answer.checked;
         }
     }
+
     $scope.dialogQCMID = function() {
         var dlg = dialogs.create('qcmid.html','QCMIDDialogCtrl',$scope.main,{size:"lg"});
         dlg.result.then(function(name){
@@ -377,22 +378,26 @@ angular.module('qcmffvl.controllers', [])
 
 
     $scope.successQuestion = function(question) {
-        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers || question.help)
             return false;
         return ($scope.getPoints(question) === 6);
     }
 
     $scope.failedQuestion = function(question) {
-        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers || question.help)
             return false;
         return ($scope.getPoints(question) === 0);
     }
 
     $scope.warningQuestion = function(question) {
-        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers || question.help)
             return false;
         var points = $scope.getPoints(question);
         return (points >= 1 && points <=5);
+    }
+
+    $scope.helpQuestion = function(question) {
+        return (question.help && !$scope.main.exam.papier);
     }
 
     $scope.goodAnswer = function(answer) {
@@ -417,6 +422,21 @@ angular.module('qcmffvl.controllers', [])
         if ($scope.main.checkAnswers) {
             $scope.main.score = $scope.getScore();
         }
+    }
+
+    $scope.helpQuestionToggle = function(q) {
+        if (!$scope.main.exam.papier) {
+            if (q.help) {
+                q.help = !q.help;
+            } else {
+                q.help = true;
+            }
+        }
+    }
+    $scope.mailtoclick = function(q) {
+        // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
+        q.help = 0;
+        window.location.href = "mailto:request-qcm@ffvl.fr?subject=question " + q.code + "   [QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
     }
 
     $scope.$watch('main.checkAnswers', function() {

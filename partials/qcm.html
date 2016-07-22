@@ -9,14 +9,19 @@
         </div>
         <div class="qcm-body">
             <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
-                <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q)}">
-                    <div class="panel-heading ">
+                <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':helpQuestion(q)}">
+                    <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="q.help && !main.exam.mode">
+                        <div class="row question ">
+                            <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Signaler un problème avec cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="mailtoclick(q)"></a></span>
+                        </div>
+                    </div>
+                    <div class="panel-heading" ng-click="helpQuestionToggle(q)">
                         <div class="row question ">
                             <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
                             <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.exam.mode"> {{getPoints(q)}}</span>
                         </div>
                     </div>
-                    <div class="panel-body answers">
+                    <div class="panel-body answers" ng-click="q.help = 0">
                         <div ng-repeat="answer in q.ans">
                             <div class="checkbox">
                                 <input type="checkbox" ng-disabled="main.exam.papierCandidat ||
@@ -25,7 +30,7 @@
                                 (main.exam.papierExaminateur && answer.pts==0) ||
                                 !navCollapsed"
                                 ng-model="answer.checked" />
-                                <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'chrome':browserChrome()}">
+                                <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'help-answer':helpQuestion(q), 'chrome':browserChrome()}">
                                     <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(answer)" ng-bind="answer.text"></span>
                                     <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
                                 </div>
