@@ -51,6 +51,9 @@ angular.module('qcmffvl.controllers', [])
     $scope.version = "3.0";
     $scope.qcmVersion = "1.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
+    $scope.qcmOptions = {};
+    // wether to display help info (link to request-qcm@ffvl.fr) for a question or not
+    $scope.questionHelp = 0;
 
     $scope.loadQCMID = function(QCMID) {
         if (QCMID) {
@@ -92,6 +95,9 @@ angular.module('qcmffvl.controllers', [])
                     // dlg.result();
                 } else {
                     $scope.qcmOrig = angular.copy(data.questions);
+                    $scope.qcmOptions.catDistrib = data.catDistrib;
+                    $scope.qcmOptions.catFallback = data.catFallback;
+                    $scope.qcmOptions.corresTable = data.corresTable;
                     $scope.generateQCM($scope.main.QCMID);
                 }
             })
@@ -109,7 +115,7 @@ angular.module('qcmffvl.controllers', [])
         }
         $timeout(function() {
             $scope.qcm = angular.copy($scope.qcmOrig);
-            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmVer, $scope.optionsToArray(), QCMID);
+            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmOptions, $scope.qcmVer, $scope.optionsToArray(), QCMID);
 
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
