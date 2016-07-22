@@ -8,9 +8,42 @@ csvfile  = sys.argv[1]
 jsonfile = sys.argv[2]
 
 content = {
-	"questions": [],
+    "questions": [],
     "version": "1.0",
-	"date": datetime.datetime.now().strftime("%d/%m/%Y")
+    "date": datetime.datetime.now().strftime("%d/%m/%Y"),
+    # Distribution :
+    # 10% Matériel général (L)+ matériel PP ou D (N ou R) selon discipline
+    # 20% mécavol général (E) + mécavol PP ou D (G ou H)
+    # 20% pilotage général (U)+ pilotage PP ou D (W ou X)
+    # 20% réglementation/cadre de pratique (S)
+    # 30% météo (A)
+    "catDistrib": [["L","NR"], ["E","GH"], ["E","GH"], ["U", "WX"], ["U", "WX"], ["S"], ["S"], ["A"], ["A"], ["A"]],
+    "catFallback": {
+        "L": [["N","R"],"E","U","S","A",["N","R","G","H","W","X"]],
+        "N": ["L","E","U","S","A",["N","R","G","H","W","X"]],
+        "R": ["L","E","U","S","A",["N","R","G","H","W","X"]],
+        "E": [["G","H"],"E","U","S","A",["N","R","G","H","W","X"]],
+        "G": ["E","L","U","S","A",["N","R","G","H","W","X"]],
+        "H": ["E","L","U","S","A",["N","R","G","H","W","X"]],
+        "U": [["W","X"],"E","L","S","A",["N","R","G","H","W","X"]],
+        "W": ["U","E","L","S","A",["N","R","G","H","W","X"]],
+        "X": ["U","E","L","S","A",["N","R","G","H","W","X"]],
+        "S": ["L","E","U","A",["N","R","G","H","W","X"]],
+        "A": ["L","E","U","S",["N","R","G","H","W","X"]]
+    },
+    "corresTable": {
+        "A": [[],[],[]],
+        "E": [[],[],[]],
+        "L": [[],[],[]],
+        "S": [[],[],[]],
+        "U": [[],[],[]],
+        "G": [[],[],[]],
+        "N": [[],[],[]],
+        "W": [[],[],[]],
+        "H": [[],[],[]],
+        "R": [[],[],[]],
+        "X": [[],[],[]]
+    }
 }
 content["ver"] = content["version"].replace("\.", "")
 niveaux = ["V", "B", "M"]
@@ -20,6 +53,7 @@ pratique = {
     "parapente": ["G", "N", "W"],
     "delta": ["H", "R", "X"]
 }
+index = 0
 with open (jsonfile, 'w') as outfile:
     with open(csvfile) as infile:
         reader = csv.reader(infile)
@@ -34,17 +68,19 @@ with open (jsonfile, 'w') as outfile:
 
                 niveau_letter = code[-1]
                 niveau = niveaux.index(niveau_letter)
+                cat = code[0]
 
-                if code[0] in pratique["general"]:
+                if cat in pratique["general"]:
                     delta = parapente = True
-                elif code[0] in pratique["parapente"]:
+                elif cat in pratique["parapente"]:
                     parapente = True
                     delta = False
-                elif code[0] in pratique["delta"]:
+                elif cat in pratique["delta"]:
                     parapente = False
                     delta = True
-
                 content["questions"].append({"code":code, "question":question, "ans":ans, "niveau":niveau, "parapente":parapente, "delta":delta})
+                content["corresTable"][cat][niveau].append(index)
+                index += 1
     outfile.write(json.dumps(content))
 
 
