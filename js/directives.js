@@ -17,7 +17,7 @@ angular.module('qcmffvl.directives', []).
             if (scope.$parent) {
               scope.$parent.$parent.loading = false;
             }
-          }, 500);
+          }, 1000);
 	    }
   	}
 }])

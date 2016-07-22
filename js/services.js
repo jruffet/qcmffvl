@@ -5,18 +5,70 @@
 
 angular.module('qcmffvl.services', [])
 
-.value('version', '1.3')
-
 .factory('API', function($http){
     return {
-        generateQCM: function(array, qcmVer, options, QCMID) {
+        // newCatDistrib() returns an array with the categories to be displayed,
+        // using the wanted percentage distribution per category, as expressed by
+        // baseCatDistrib like : [["L","N","R"], ["E"], ["GH"], ...]
+        // (contains 10 items, each one being a category, to express percentage)
+        // We add para and delta, because both won't ever show up at the same time
+        newCatDistrib(baseCatDistrib, randnum) {
+            var seed = Math.floor(randnum*10000);
+            var mymt = new MersenneTwister(seed);
+            var distrib = [];
+            for (var i=0; i<baseCatDistrib.length; i++) {
+                var item = baseCatDistrib[i];
+                // only one category
+                if (item.length == 1) {
+                    distrib.push(item[0]);
+                } else {
+                    // choose any item, statistically even.
+                    // randomized to avoid, in case of ["L", "NR"]
+                    // L N L N L N, where for 30 questions we always get 2 general and 1 specific
+                    var choice = Math.floor(mymt.random() * item.length);
+                    // item[choice] is a string
+                    if (item[choice].length > 1) {
+                        for (var j=0; j<item[choice].length; j++) {
+                            distrib.push(item[choice][j]);
+                        }
+                    } else {
+                        distrib.push(item[choice][0]); // [0] is optionnal
+                    }
+                }
+            }
+            // shuffle distrib, so we have the correct percentage but placement is randomized
+            var m = distrib.length;
+            var i,t;
+            // While there are elements to shuffle...
+            while (m) {
+                // Pick a remaining element...
+                i = Math.floor(mymt.random() * m--);
+                // And swap it with the current element.
+                t = distrib[m];
+                distrib[m] = distrib[i];
+                distrib[i] = t;
+            }
+            // console.log("distribution : " + distrib);
+            return distrib;
+        },
+
+        generateQCM: function(array, qcmOptions, qcmVer, options, QCMID) {
             var API = this;
+            // TODO : change calls to generateQCM()
+            //
+            // baseCatDistrib : category distribution (cf newCatDistrib)
+            var baseCatDistrib = qcmOptions.catDistrib;
+            // corresTable : correspondance table between cat+level and questions indexes
+            var corresTable = angular.copy(qcmOptions.corresTable);
+            // catFallback : which category to fallback to when one is/becomes empty
+            var catFallback = qcmOptions.catFallback;
+
             // we want to have 10 numbers tops to define the QCM ID,
             // so 2^33, which is 2^32 for the seed, and 1 bit to
             // define if we shall advance in the PRNG
             var seed, surseed;
 
-            // 0 to 2^3x
+            // 0 to 2^3X
             var max32 = Math.pow(2,32) -1;
             var max33 = Math.pow(2,33) -1;
 
@@ -46,18 +98,60 @@ angular.module('qcmffvl.services', [])
                 }
             }
 
-            var t, i;
-            var m = array.length;
-            // While there are elements to shuffle...
-            while (m) {
-                // Pick a remaining element...
-                i = Math.floor(mt.random() * m--);
+            var resArray = [];
+            var endoflevel = [false,false,false];
 
-                // And swap it with the current element.
-                t = array[m];
-                array[m] = array[i];
-                array[i] = t;
+            while (resArray.length != array.length && (endoflevel[0] == false || endoflevel[1] == false || endoflevel[2] == false)) {
+                // category distribution
+                var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
+                for (var c = 0; c < catDistrib.length; c++) {
+                    var cat = catDistrib[c];
+                    for (var level = 0; level <= 2; level++) {
+                        if (endoflevel[level]) {
+                            continue;
+                        }
+                        var cats = [cat];
+
+                        if (corresTable[cat][level].length == 0) {
+                            var fc;
+                            var found = false;
+                            for (var j=0; j<catFallback[cat].length && !found; j++) {
+                                fc = catFallback[cat][j];
+                                // if 2 categories given
+                                if (fc.length > 1) {
+                                    for (var k=0; k<fc.length; k++) {
+                                        if (corresTable[fc[k]][level].length > 0) {
+                                            found = true;
+                                        }
+                                    }
+                                } else if (corresTable[fc][level].length > 0) {
+                                    found = true;
+                                }
+                            }
+                            if (found) {
+                                cats = fc;
+                            } else {
+                                endoflevel[level] = true;
+                                continue;
+                            }
+                        }
+                        for (var k=0; k<cats.length; k++) {
+                            var mycat = cats[k];
+                            if (corresTable[mycat][level].length > 0) {
+                                var num = Math.floor(mt.random() * corresTable[mycat][level].length);
+                                var index = corresTable[mycat][level][num];
+                                resArray.push(array[index]);
+                                corresTable[mycat][level].splice(num, 1);
+                            }
+                        }
+                    }
+                }
             }
+            // modify original array
+            for (var i=0; i<array.length; i++) {
+                array[i] = resArray[i];
+            }
+
             API.untickAnswers(array);
             // return QCM ID
             return API.computeID(seed + max32 * surseed, qcmVer, options);
