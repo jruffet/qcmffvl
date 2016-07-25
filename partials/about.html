@@ -1,5 +1,6 @@
+<div class="about">
 <div class="panel panel-default">
-    <div class="panel-heading">A propos : QCM FFVL version {{main.version}}</span>  -  Questionnaire officiel</div>
+    <div class="panel-heading">QCM FFVL version {{version}}</span>  -  Questionnaire officiel</div>
     <div class="panel-body">
         Auteur : Jérémy Ruffet (<a href="mailto:sat@airnux.fr">sat@airnux.fr</a>)
         <br/><br/>
@@ -7,11 +8,9 @@
         <br/><br/>
         Cet application web est développée bénévolement.
         <br/>
-        Elle est open source et accessible sur github (<a href="https://github.com/sativouf/qcmffvl">https://github.com/sativouf/qcmffvl</a>).</a>
+        Elle est sous licence libre (cf plus bas) et accessible sur github (<a href="https://github.com/sativouf/qcmffvl">https://github.com/sativouf/qcmffvl</a>).</a>
         <br/>
         N'hésitez pas à m'envoyer des rapports de bugs, problèmes d'affichage ou des suggestions par mail.
-        <br/>
-        A noter que dans la vie je ne suis pas du tout dev web, et tout conseil de quelqu'un de métier est le bienvenu.
         <br/><br/>
         Cette web app a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / MAC...).
         <br/><br/>
@@ -35,9 +34,11 @@
             <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                 <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
                 <ul class="changelog-content">
-                    <li>Ajout du support des questions Delta (et retour à un navbar collapse sur 1200px).</li>
+                    <li>Support des questions Delta.</li>
                     <li>Possibilité de signaler un problème avec une question en cliquant sur l'encart de la question.</li>
+                    <li>Nouvelle répartition des questions suivant un pourcentage par type de catégorie.</li>
                     <li>L'ID QCM (bouton partage) est maintenant lié à la version de QCM, les anciens IDs QCM ne sont plus compatibles avec les versions 3.X (ou versions supérieures), qui intègrent cette fonctionnalité.</li>
+                    <li>Retour à un navbar collapse sur 1200px</li>
                 </ul>
             </div>
             <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
@@ -52,7 +53,7 @@
             <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                 <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
                 <ul class="changelog-content">
-                    <li>Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge)</li>
+                    <li>Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge).</li>
                     <li>Ajout d'une modale pour partager le QCM ID, et permettre le chargement d'un questionnaire donné via une URL.</li>
                 </ul>
             </div>
@@ -119,8 +120,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">Remerciements</div>
     <div class="panel-body">
-        <div class="about row">
-            <div class="about-part col-xs-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12">
                 <div class="about-title col-xs-12 col-md-12 col-lg-12">Augustin</div>
                 <ul class="about-content">
                     <li>Suggestion du nouveau code couleur (version 2.0)</li>
@@ -129,4 +130,21 @@
             </div>
         </div>
     </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Licence</div>
+    <div class="panel-body">
+        "THE BEER-WARE LICENSE" (Revision 42) :
+        <br/><br/>
+        As long as you retain this notice you can do whatever you want with this stuff.
+        <br/>
+        If we meet some day, and you think this stuff is worth it, you can buy me a beer in return.
+        <br/><br/>
+        Tant que vous conservez cet avertissement, vous pouvez faire ce que vous voulez de ce truc.
+        <br/>
+        Si on se rencontre un jour et que vous pensez que ce truc vaut le coup, vous pouvez me payer une bière en retour.
+        <br/><br/>
+        Jérémy Ruffet
+    </div>
+</div>
 </div>
