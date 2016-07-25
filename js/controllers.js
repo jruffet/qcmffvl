@@ -5,7 +5,6 @@
 angular.module('qcmffvl.controllers', [])
 
 .controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, dialogs, deviceDetector) {
-
     $scope.main = {
         category: {
             options: [ "Parapente", "Delta" ],
@@ -213,8 +212,8 @@ angular.module('qcmffvl.controllers', [])
         API.untickAnswers($scope.qcm);
     }
 
-    $scope.toggleCheck = function(answer) {
-        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier) {
+    $scope.toggleCheck = function(q, answer) {
+        if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier && !q.help) {
             answer.checked = !answer.checked;
         }
     }
