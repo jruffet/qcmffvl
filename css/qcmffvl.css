@@ -276,6 +276,9 @@
     .changelog-version {
         margin-bottom: 15px;
     }
+    .about .panel-heading {
+        font-weight: bold;
+    }
 }
 
 @media screen and (max-width: 767px) {
