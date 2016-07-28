@@ -437,13 +437,15 @@ angular.module('qcmffvl.controllers', [])
             return false;
         }
     }
-    $scope.resetHelpQuestion = function() {
-        $scope.helpQuestion = "";
+    $scope.resetHelpQuestion = function(q) {
+        if ($scope.helpQuestion == q.code) {
+            $scope.helpQuestion = "";
+        }
     }
 
     $scope.mailtoclick = function(q) {
         // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
-        $scope.resetHelpQuestion();
+        $scope.resetHelpQuestion(q);
         window.location.href = "mailto:request-qcm@ffvl.fr?subject=question " + q.code + "   [QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
     }
 

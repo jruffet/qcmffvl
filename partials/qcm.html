@@ -21,7 +21,7 @@
                             <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.exam.mode"> {{getPoints(q)}}</span>
                         </div>
                     </div>
-                    <div class="panel-body answers" ng-click="resetHelpQuestion()">
+                    <div class="panel-body answers" ng-click="resetHelpQuestion(q)">
                         <div ng-repeat="answer in q.ans">
                             <div class="checkbox">
                                 <input type="checkbox" ng-disabled="main.exam.papierCandidat ||
