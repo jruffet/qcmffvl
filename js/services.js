@@ -147,6 +147,18 @@ angular.module('qcmffvl.services', [])
                     }
                 }
             }
+            // randomize answers order (per question)
+            for (var i=0; i<resArray.length; i++) {
+                var anslen = resArray[i].ans.length;
+                for (var j=0; j<anslen; j++) {
+                    var rand = Math.floor(mt.random() * anslen);
+                    if (rand != j) {
+                        var tmp = resArray[i].ans[j];
+                        resArray[i].ans[j] = resArray[i].ans[rand];
+                        resArray[i].ans[rand] = tmp;
+                    }
+                }
+            }
             // modify original array
             for (var i=0; i<array.length; i++) {
                 array[i] = resArray[i];
