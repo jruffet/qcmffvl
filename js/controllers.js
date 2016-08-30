@@ -34,7 +34,8 @@ angular.module('qcmffvl.controllers', [])
         // QCMID is set by API.generateQCM(), or from QCMIDUser when loading a previous QCM
         QCMID: "",
         // QCMIDUser is set by the user, via formattedQCMIDUser
-        QCMIDUser: ""
+        QCMIDUser: "",
+        helpQuestion: ""
     }
     $scope.main.search  = {
     	niveau: $scope.main.level.options.indexOf($scope.main.level.checked),
@@ -108,6 +109,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.generateQCM = function(QCMID) {
         $scope.loading = true;
         $scope.main.checkAnswers = false;
+        $scope.main.helpQuestion = "";
         if (QCMID) {
             $scope.arrayToOptions(API.uncomputeID(QCMID).options);
         }
@@ -162,6 +164,7 @@ angular.module('qcmffvl.controllers', [])
         // is unset in the directive "removeLoaderWhenReady()"
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
+        $scope.main.helpQuestion = "";
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
@@ -333,7 +336,6 @@ angular.module('qcmffvl.controllers', [])
 
 .controller('QCMCtrl', function($scope, $filter, $location, dialogs, API, filterFilter) {
     $scope.questions = [];
-    $scope.helpQuestion = "";
     $scope.$parent.hideNavbarButtons = false;
     $scope.$parent.main.checkAnswers = false;
 
@@ -422,25 +424,23 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.helpQuestionToggle = function(q) {
         if (!$scope.main.exam.papier) {
-            if ($scope.helpQuestion == q.code) {
-                $scope.helpQuestion = "";
+            if ($scope.main.helpQuestion == q.code) {
+                $scope.main.helpQuestion = "";
             } else {
-                $scope.helpQuestion = q.code;
+                $scope.main.helpQuestion = q.code;
             }
         }
     }
 
     $scope.isHelpQuestion = function(q) {
         if (q && !$scope.main.exam.papier) {
-            return (q.code == $scope.helpQuestion);
+            return (q.code == $scope.main.helpQuestion);
         } else {
             return false;
         }
     }
-    $scope.resetHelpQuestion = function(q) {
-        if ($scope.helpQuestion == q.code) {
-            $scope.helpQuestion = "";
-        }
+    $scope.resetHelpQuestion = function() {
+            $scope.main.helpQuestion = "";
     }
 
     $scope.mailtoclick = function(q) {
