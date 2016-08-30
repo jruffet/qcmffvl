@@ -102,7 +102,7 @@ angular.module('qcmffvl.services', [])
             var endoflevel = [false,false,false];
 
             while (resArray.length != array.length && (endoflevel[0] == false || endoflevel[1] == false || endoflevel[2] == false)) {
-                // category distribution
+                // category distribution (returns 10 items)
                 var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
                 for (var c = 0; c < catDistrib.length; c++) {
                     var cat = catDistrib[c];
@@ -112,6 +112,8 @@ angular.module('qcmffvl.services', [])
                         }
                         var cats = [cat];
 
+                        // if we are out of questions for the requested category,
+                        // fallback to the first available category, as described by catFallback[]
                         if (corresTable[cat][level].length == 0) {
                             var fc;
                             var found = false;
