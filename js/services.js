@@ -12,7 +12,7 @@ angular.module('qcmffvl.services', [])
         // baseCatDistrib like : [["L","N","R"], ["E"], ["GH"], ...]
         // (contains 10 items, each one being a category, to express percentage)
         // We add para and delta, because both won't ever show up at the same time
-        newCatDistrib(baseCatDistrib, randnum) {
+        newCatDistrib: function(baseCatDistrib, randnum) {
             var seed = Math.floor(randnum*10000);
             var mymt = new MersenneTwister(seed);
             var distrib = [];
