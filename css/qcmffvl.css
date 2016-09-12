@@ -7,11 +7,11 @@
         margin-right: 5px;
         margin-bottom: 10px;
         page-break-inside: avoid !important;
-        /*background-color: grey;*/
     }
 
     .panel-heading {
         padding: 5px 10px;
+        border-bottom: hidden;
     }
     .panel-default {
         border-color: #555;
@@ -21,21 +21,16 @@
     }
     .panel-body {
         padding: 0 15px;
+        border-top: 1px solid;
+        border-color: #555;
     }
     .radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
         margin-left: -27px;
-        /*-moz-transform: scale(0.7);*/
     }
-    /*
-    input[type="checkbox"] {
-        TODO : find a way to remove background;
-    }
-    */
     .qcm-body {
         padding-top: 0;
         font-size: 11px;
     }
-
     .radio, .checkbox {
         margin-top: 8px;
         margin-bottom: 8px;
@@ -80,7 +75,6 @@
         display: none;
     }
 }
-
 
 @media screen {
     /******** general ********/
@@ -329,3 +323,9 @@
         display: none;
     }
 }
+
+/*
+    input[type="checkbox"] {
+        TODO : find a way to remove background;
+    }
+*/
