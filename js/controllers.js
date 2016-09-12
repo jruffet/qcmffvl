@@ -422,7 +422,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.helpQuestionToggle = function(q) {
-        if (!$scope.main.exam.papier) {
+        if ($scope.navCollapsed && !$scope.main.exam.papier) {
             if ($scope.main.helpQuestion == q.code) {
                 $scope.main.helpQuestion = "";
             } else {
