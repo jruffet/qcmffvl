@@ -54,8 +54,6 @@ angular.module('qcmffvl.services', [])
 
         generateQCM: function(array, qcmOptions, qcmVer, options, QCMID) {
             var API = this;
-            // TODO : change calls to generateQCM()
-            //
             // baseCatDistrib : category distribution (cf newCatDistrib)
             var baseCatDistrib = qcmOptions.catDistrib;
             // corresTable : correspondance table between cat+level and questions indexes
