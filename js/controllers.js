@@ -39,7 +39,7 @@ angular.module('qcmffvl.controllers', [])
     }
     $scope.main.search  = {
     	// niveau: $scope.main.level.options.indexOf($scope.main.level.checked),
-        // parapente: true,
+        parapente: true
         // delta not set here. parapente should never be set to true at the same time as delta is.
         // delta: true + parapente: true would select only the generic questions
     }
