@@ -255,11 +255,14 @@
         margin-left: 8px;
     }
     /******** about ********/
-    .changelog-version-title {
+    .changelog-version-title, .about-category-title {
         padding-bottom: 15px;
         padding-top: 10px;
         font-weight: bold;
         font-size: 16px;
+    }
+    .about-category-title {
+        text-align: center;
     }
     .changelog-title, .about-title {
         font-weight: bold;
@@ -273,6 +276,7 @@
     .about .panel-heading {
         font-weight: bold;
     }
+
 }
 
 @media screen and (max-width: 767px) {
