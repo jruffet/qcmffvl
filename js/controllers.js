@@ -179,6 +179,10 @@ angular.module('qcmffvl.controllers', [])
         $scope.navCollapsed = true;
     }
 
+    $scope.isAndroidApp = function() {
+        return (deviceDetector.raw.userAgent.indexOf("QCMFFVL Android App") != -1);
+    }
+
     $scope.browserChrome = function() {
         return (deviceDetector.browser == "chrome");
     }
