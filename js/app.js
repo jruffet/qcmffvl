@@ -18,7 +18,7 @@ angular.module('qcmffvl', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/load/:qcmid', {templateUrl: 'partials/qcm.html', controller: 'LoadCtrl'});
   $routeProvider.when('/qcm', {templateUrl: 'partials/qcm.html', controller: 'QCMCtrl'});
-  $routeProvider.when('/about', {templateUrl: 'partials/about.html', controller: 'AboutCtrl'});
+  $routeProvider.when('/about', {templateUrl: 'about.html', controller: 'AboutCtrl'});
   $routeProvider.when('/selftest', {templateUrl: 'partials/selftest.html', controller: 'SelfTestCtrl'});
   $routeProvider.otherwise({redirectTo: '/qcm'});
 }])
