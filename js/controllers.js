@@ -457,7 +457,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.mailtoclick = function(q) {
         // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
         $scope.resetHelpQuestion(q);
-        window.location.href = "mailto:request-qcm@ffvl.fr?subject=question " + q.code + "   [QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
+        window.location.href = "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   [QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
     }
 
     $scope.$watch('main.checkAnswers', function() {
