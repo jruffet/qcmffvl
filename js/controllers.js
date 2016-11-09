@@ -311,6 +311,7 @@ angular.module('qcmffvl.controllers', [])
                 API.tickAnswers($scope.qcm);
             }
             document.body.scrollTop = document.documentElement.scrollTop = 0;
+            $scope.main.typeExamNum = $scope.main.typeExam.options.indexOf($scope.main.typeExam.checked);
         }
     });
 
@@ -320,10 +321,8 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            // var url = $location.absUrl().replace(/\/[0-9]+$/, "");
-
-            // $scope.main.QCMIDURL = url.replace("#/qcm","#/load") + "/" + $scope.main.QCMID;
-            $scope.main.QCMIDURL = "http://qcm.ffvl.fr/#/load/" + $scope.main.QCMID;
+            var baseUrl = $scope.isDevURL() ? "qcmffvl.sativouf.net/dev" : "qcm.ffvl.fr";
+            $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.main.QCMID;
         }
     });
 
@@ -343,6 +342,9 @@ angular.module('qcmffvl.controllers', [])
 
 .controller('LoadCtrl', function($scope, $routeParams) {
     $scope.$parent.loadQCMID($routeParams.qcmid);
+    if ($routeParams.typeExamNum) {
+        $scope.$parent.main.typeExam.checked = $scope.$parent.main.typeExam.options[$routeParams.typeExamNum]
+    }
 })
 
 .controller('QCMCtrl', function($scope, $filter, $location, dialogs, API, filterFilter) {

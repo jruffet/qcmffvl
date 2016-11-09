@@ -109,7 +109,7 @@
 							</li>
 						</li>
 						<li>
-							<li class="dropdown" is-open="isOpen.typeExam" ng-hide="isAndroidApp()">
+							<li class="dropdown" is-open="isOpen.typeExam">
 								<a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
 									<li ng-repeat="typeExam in main.typeExam.options">
@@ -179,10 +179,10 @@
 <script type="text/ng-template" id="qcm.html">
 
       <div class="loader" ng-show="loading" >Chargement...</div>
-      <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride)">
+      <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride) || (main.exam.papier && isAndroidApp())">
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
-                      <button print-btn class="btn btn-default btn-print center-block">Imprimer</button>
+                      <button class="btn btn-default btn-print center-block">Imprimer</button>
                       <span>QCM FFVL {{main.category.checked}} {{main.level.checked}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
@@ -223,9 +223,12 @@
               </div>
           </div>
       </div>
-      <div ng-show="main.exam.papier && !browserChrome() && !browserCheckOverride">
+      <div ng-show="main.exam.papier && !browserChrome() && !browserCheckOverride && !isAndroidApp()">
           <div class="qcm-title">Merci d'utiliser de préférence le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
           <div>Si vous souhaitez forcer l'impression de l'examen papier avec votre navigateur, appuyez <a ng-click="browserCheckOverride=true">ici</a>.</div>
+      </div>
+      <div ng-show="main.exam.papier && isAndroidApp()">
+          <div class="qcm-title">Le mode "{{main.typeExam.checked}}" n'est pas disponible depuis l'application Android. <br/>Merci de suivre <a href="{{main.QCMIDURL}}/{{main.typeExamNum}}"><b>ce lien</b></a>.</div>
       </div>
 </script>
 
@@ -273,10 +276,8 @@
                           L'application Android encapsule une version complètement hors ligne de cet outil de révision.
                           <br/>
                           Elle ne requiert aucune permission spéciale, et n'a pas besoin d'accès à internet pour fonctionner.
-                          <br/>
-                          L'expérience ultime pour la révision de la partie théorique des brevets de pilote : n'importe où, n'importe quand !
                           <br/><br/>
-                          <b>Note : Seul le mode révision est disponible depuis l'appli Android pour le moment.</b>
+                          L'expérience ultime pour la révision de la partie théorique des brevets de pilote : n'importe où, n'importe quand !
                       </div>
                   </div>
               </div>
