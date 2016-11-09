@@ -169,18 +169,22 @@ angular.module('qcmffvl.services', [])
             return API.computeID(seed + max32 * surseed, qcmVer, options);
         },
         tickAnswers: function(array) {
-            for (var i=0; i<array.length; i++) {
-                for (var j=0; j<array[i].ans.length; j++) {
-                    if (array[i].ans[j].pts >= 0) {
-                        array[i].ans[j].checked = true;
+            if (array) {
+                for (var i=0; i<array.length; i++) {
+                    for (var j=0; j<array[i].ans.length; j++) {
+                        if (array[i].ans[j].pts >= 0) {
+                            array[i].ans[j].checked = true;
+                        }
                     }
                 }
             }
         },
         untickAnswers: function(array) {
-            for (var i=0; i<array.length; i++) {
-                for (var j=0; j<array[i].ans.length; j++) {
-                    delete(array[i].ans[j].checked);
+            if (array) {
+                for (var i=0; i<array.length; i++) {
+                    for (var j=0; j<array[i].ans.length; j++) {
+                        delete(array[i].ans[j].checked);
+                    }
                 }
             }
         },
