@@ -321,7 +321,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            var baseUrl = $scope.isDevURL() ? "qcmffvl.sativouf.net/dev" : "qcm.ffvl.fr";
+            var baseUrl = $scope.isProdURL() ? "qcm.ffvl.fr" : "qcmffvl.sativouf.net/dev";
             $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.main.QCMID;
         }
     });
@@ -456,10 +456,23 @@ angular.module('qcmffvl.controllers', [])
             $scope.main.helpQuestion = "";
     }
 
-    $scope.mailtoclick = function(q) {
+    $scope.mailtoclick = function(q, index) {
         // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
         $scope.resetHelpQuestion(q);
-        window.location.href = "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   [QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
+        var separator = "---------------------------------" + "%0A"
+        var uri =   "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   " + 
+                "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]" +
+                "&body=" +
+                separator +
+                "Question " + q.code + "%0A" +
+                "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "%0A" +
+                separator +
+                index + ". " + q.question + "%0A%0A";
+        for (var i=0; i<q.ans.length; i++) {
+            uri += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")%0A";
+        }
+        uri += separator;
+        window.location.href = uri;
     }
 
     $scope.$watch('main.checkAnswers', function() {
