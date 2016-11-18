@@ -121,6 +121,7 @@
     .navbar-btn {
         margin-left:15px;
     }
+    /* navbar-right not working for this button, in header */
     .navbar-collapsed-btn {
         margin-left:5px;
     }
@@ -242,6 +243,10 @@
     }
     .btn-load-ID {
         margin-top: 15px;
+    }
+    .btn-retour-apropos {
+        float: right;
+        margin-right: 15px;
     }
     .url {
         color:#337ab7;

@@ -59,7 +59,7 @@
       						<button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
       					</span>
       					<span ng-hide="!hideNavbarButtons || loading">
-      						<button ng-click="gotoMainURL()" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Retour QCM</button>
+      						<button ng-click="gotoMainURL()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-retour-apropos">Retour QCM</button>
       					</span>
       				</span>
 
@@ -126,10 +126,9 @@
 							<button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
 							<button ng-show="isDevURL()" ng-click="fillQCMAnswers(); main.checkAnswers=false" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-heart-empty"></span></button>
 						</li>
-                        <li>
-                            <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-share"><span class="glyphicon glyphicon-share"></span> Partager</button>
-
-                        </li>
+                                    <li>
+                                        <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-share"><span class="glyphicon glyphicon-share"></span> Partager</button>
+                                    </li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
 						<li><a href="#about">A propos</a></li>
