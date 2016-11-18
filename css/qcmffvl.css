@@ -211,7 +211,12 @@
         font-size: 15px;
         font-weight: bold;
         padding-bottom: 15px;
-        padding-right: 0px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .qcm-subtitle {
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .qcm-title-right {
         text-align: right;
