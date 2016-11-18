@@ -317,6 +317,7 @@ angular.module('qcmffvl.controllers', [])
             }
             document.body.scrollTop = document.documentElement.scrollTop = 0;
             $scope.main.typeExamNum = $scope.main.typeExam.options.indexOf($scope.main.typeExam.checked);
+            $scope.navCollapsed = true;
         }
     });
 
