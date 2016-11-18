@@ -6,7 +6,6 @@ angular.module('qcmffvl', [
   'ngRoute',
   'ui.bootstrap',
   'dialogs.main',
-  'AngularPrint',
   'ng.deviceDetector',
   'pascalprecht.translate',
   'angular-clipboard',

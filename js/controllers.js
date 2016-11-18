@@ -55,6 +55,11 @@ angular.module('qcmffvl.controllers', [])
     // wether to display help info (link to request-qcm@ffvl.fr) for a question or not
 
 
+    $scope.printQCM = function() {
+        console.log("print");
+        window.print();
+    }
+
     $scope.isAndroidApp = function() {
         return (deviceDetector.raw.userAgent.indexOf("QCMFFVL Android App") != -1);
     }
