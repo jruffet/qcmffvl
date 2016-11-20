@@ -125,7 +125,8 @@ angular.module('qcmffvl.controllers', [])
                 });
             }
         }, 100);
-    },
+    }
+
     $scope.generateQCM = function(QCMID) {
         $scope.loading = true;
         $scope.main.checkAnswers = false;
@@ -140,23 +141,27 @@ angular.module('qcmffvl.controllers', [])
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
         },300);
-    },
+    }
+
     $scope.optionsToArray = function() {
         var opt = [];
         opt[0] = $scope.main.category.options.indexOf($scope.main.category.checked)
         opt[1] = $scope.main.level.options.indexOf($scope.main.level.checked)
         opt[2] = $scope.main.nbquestions.options.indexOf($scope.main.nbquestions.checked)
         return opt;
-    },
+    }
+
     $scope.arrayToOptions = function(opt) {
         $scope.main.category.checked = $scope.main.category.options[opt[0]];
         $scope.main.level.checked = $scope.main.level.options[opt[1]];
         $scope.main.nbquestions.checked = $scope.main.nbquestions.options[opt[2]];
-    },
+    }
+
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
         $scope.main.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
-    },
+    }
+
     $scope.reload = function() {
         var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.main.category.checked + '</b> niveau <b>' + $scope.main.level.checked + '</b> avec <b>' + $scope.main.nbquestions.checked.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
@@ -250,6 +255,7 @@ angular.module('qcmffvl.controllers', [])
         },function(){
         });
     }
+
     $scope.optionsTooLongForWidth = function() {
         if ($window.innerWidth > 992 && $window.innerWidth < 1200) {
             return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.main.nbquestions.checked.indexOf("Toutes") != -1);
@@ -271,7 +277,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.main.limit = limit;
             },100);
         }
-    })
+    });
 
     $scope.$watch('$storage.category', function(newval, oldval) {
         $scope.loading = true;
@@ -347,7 +353,7 @@ angular.module('qcmffvl.controllers', [])
         if (newval == false && $location.path().indexOf("/load") != -1) {
             $location.path("/qcm", false);
         }
-    })
+    });
 })
 
 .controller('LoadCtrl', function($scope, $routeParams) {
@@ -487,7 +493,7 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.$watch('main.checkAnswers', function() {
         $scope.updateScore();
-    })
+    });
 
 })
 
@@ -547,9 +553,9 @@ angular.module('qcmffvl.controllers', [])
     $scope.loadQCMID = function() {
         $modalInstance.close();
     }
-    $scope.ok = function(){
+    $scope.ok = function() {
         $modalInstance.dismiss();
-    };
+    }
 })
 
 .run(function($templateCache) {
