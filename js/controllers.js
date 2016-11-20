@@ -61,7 +61,6 @@ angular.module('qcmffvl.controllers', [])
 
 
     $scope.printQCM = function() {
-        console.log("print");
         window.print();
     }
 
