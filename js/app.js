@@ -4,6 +4,7 @@
 // Declare app level module which depends on filters, and services
 angular.module('qcmffvl', [
   'ngRoute',
+  'ngStorage',
   'ui.bootstrap',
   'dialogs.main',
   'ng.deviceDetector',

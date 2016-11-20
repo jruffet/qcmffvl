@@ -37,6 +37,7 @@
       <script src="js/lib/dialogs.js"></script>
       <script src="js/lib/ng-device-detector.min.js"></script>
       <script src="js/lib/re-tree.min.js"></script>
+      <script src="js/lib/ngStorage.min.js"></script>
       <script src="js/app.js"></script>
       <script src="js/services.js"></script>
       <script src="js/controllers.js"></script>
@@ -81,29 +82,29 @@
 
       				<ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
                                     <li class="dropdown" is-open="isOpen.category">
-                                          <a class="dropdown-toggle" data-toggle="dropdown">{{main.category.checked}} <span class="caret"></span></a>
+                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.category}} <span class="caret"></span></a>
                                           <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
                                                 <li ng-repeat="category in main.category.options">
-                                                      <a ng-click="main.category.checked = category">{{category}}</a>
+                                                      <a ng-click="$storage.category = category">{{category}}</a>
                                                 </li>
                                           </ul>
                                     </li>
 
 
 						<li class="dropdown" is-open="isOpen.level">
-							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{main.level.checked|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{main.level.checked}}</span> <span class="caret"></span></a>
+							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{$storage.level|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{$storage.level}}</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
 								<li ng-repeat="level in main.level.options">
-									<a ng-click="main.level.checked = level">{{level}}</a>
+									<a ng-click="$storage.level = level">{{level}}</a>
 								</li>
 							</ul>
 						</li>
 						<li>
 							<li class="dropdown" is-open="isOpen.nbquestions">
-								<a class="dropdown-toggle" data-toggle="dropdown">{{main.nbquestions.checked}} questions <span class="caret"></span></a>
+								<a class="dropdown-toggle" data-toggle="dropdown">{{$storage.nbquestions}} questions <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
 									<li ng-repeat="nbquestions in main.nbquestions.options">
-										<a ng-click="main.nbquestions.checked = nbquestions">{{nbquestions}} questions</a>
+										<a ng-click="$storage.nbquestions = nbquestions">{{nbquestions}} questions</a>
 									</li>
 
 								</ul>
@@ -183,7 +184,7 @@
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
                       <button class="btn btn-default center-block btn-print" ng-click="printQCM()">Imprimer</button>
-                      <span>QCM FFVL {{main.category.checked}} {{main.level.checked}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
+                      <span>QCM FFVL {{$storage.category}} {{$storage.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
               </div>
@@ -292,8 +293,9 @@
                           <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
                           <ul class="changelog-content">
                               <li>Création de l'application Android, pour une meilleure expérience hors ligne.</li>
-                              <li>Changement de licence (pour la MIT, très permissive toujours).</li>
+                              <li>Enregistrement de la catégorie, du niveau, et du nombre de questions localement par le navigateur, pour revenir sur la configuration précédente à chaque nouveau lancement.</li>
                               <li>Amélioration de la préparation du mail quand l'utilisateur clique sur l'enveloppe (signaler un problème...).</li>
+                              <li>Changement de licence (pour la MIT, très permissive toujours).</li>
                               <li>Quelques petites améliorations d'affichage.</li> 
                           </ul>
                       </div>

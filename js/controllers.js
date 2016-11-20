@@ -4,19 +4,25 @@
 
 angular.module('qcmffvl.controllers', [])
 
-.controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, $templateCache, dialogs, deviceDetector) {
+.controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, $templateCache, $localStorage, dialogs, deviceDetector) {
+    $scope.$storage = $localStorage.$default({
+        category: "Parapente",
+        level:"Brevet de Pilote",
+        nbquestions:"30"
+    });
+
     $scope.main = {
         category: {
             options: [ "Parapente", "Delta" ],
-            checked: "Parapente"
+            checked: $scope.$storage.category
         },
         level: {
             options: [ "Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé"],
-            checked: "Brevet de Pilote"
+            checked: $scope.$storage.level
         },
         nbquestions: {
         	options: [ "10", "30", "60", "90", "Toutes les" ],
-        	checked: "30"
+        	checked: $scope.$storage.nbquestions
         },
         typeExam: {
             options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
@@ -52,7 +58,6 @@ angular.module('qcmffvl.controllers', [])
     $scope.qcmVersion = "1.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
-    // wether to display help info (link to request-qcm@ffvl.fr) for a question or not
 
 
     $scope.printQCM = function() {
@@ -254,13 +259,13 @@ angular.module('qcmffvl.controllers', [])
         }
     }
 
-    $scope.$watch('main.nbquestions.checked', function(newval, oldval) {
+    $scope.$watch('$storage.nbquestions', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-                var limit = $scope.main.nbquestions.checked;
+                var limit = $scope.$storage.nbquestions;
                 if (limit === "Toutes les") {
                     limit = 10000;
                 }
@@ -269,13 +274,13 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
-    $scope.$watch('main.category.checked', function(newval, oldval) {
+    $scope.$watch('$storage.category', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-                if ($scope.main.category.checked == "Parapente") {
+                if ($scope.$storage.category == "Parapente") {
                     $scope.main.search.parapente = true;
                     delete $scope.main.search.delta;
                 } else {
@@ -286,13 +291,13 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
-    $scope.$watch('main.level.checked', function(newval, oldval) {
+    $scope.$watch('$storage.level', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay();
                 $scope.updateQCMID();
-                $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.main.level.checked);
+                $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.level);
             },100);
         }
     });
