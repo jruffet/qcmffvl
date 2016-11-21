@@ -44,12 +44,12 @@ angular.module('qcmffvl.controllers', [])
         helpQuestion: ""
     }
     $scope.main.search  = {
-    	niveau: $scope.main.level.options.indexOf($scope.main.level.checked),
+    	niveau: $scope.main.level.options.indexOf($scope.$storage.level),
         parapente: true
         // delta not set here. parapente should never be set to true at the same time as delta is.
         // delta: true + parapente: true would select only the generic questions
     }
-    $scope.main.limit = $scope.main.nbquestions.checked;
+    $scope.main.limit = $scope.$storage.nbquestions;
     // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
@@ -145,16 +145,16 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.optionsToArray = function() {
         var opt = [];
-        opt[0] = $scope.main.category.options.indexOf($scope.main.category.checked)
-        opt[1] = $scope.main.level.options.indexOf($scope.main.level.checked)
-        opt[2] = $scope.main.nbquestions.options.indexOf($scope.main.nbquestions.checked)
+        opt[0] = $scope.main.category.options.indexOf($scope.$storage.category)
+        opt[1] = $scope.main.level.options.indexOf($scope.$storage.level)
+        opt[2] = $scope.main.nbquestions.options.indexOf($scope.$storage.nbquestions)
         return opt;
     }
 
     $scope.arrayToOptions = function(opt) {
-        $scope.main.category.checked = $scope.main.category.options[opt[0]];
-        $scope.main.level.checked = $scope.main.level.options[opt[1]];
-        $scope.main.nbquestions.checked = $scope.main.nbquestions.options[opt[2]];
+        $scope.$storage.category = $scope.main.category.options[opt[0]];
+        $scope.$storage.level = $scope.main.level.options[opt[1]];
+        $scope.$storage.nbquestions = $scope.main.nbquestions.options[opt[2]];
     }
 
     $scope.updateQCMID = function() {
@@ -163,7 +163,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.main.category.checked + '</b> niveau <b>' + $scope.main.level.checked + '</b> avec <b>' + $scope.main.nbquestions.checked.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
+        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.$storage.category + '</b> niveau <b>' + $scope.$storage.level + '</b> avec <b>' + $scope.$storage.nbquestions.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
             // wait for modal to close to avoid weird effects
             $timeout(function() {
@@ -258,7 +258,7 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.optionsTooLongForWidth = function() {
         if ($window.innerWidth > 992 && $window.innerWidth < 1200) {
-            return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.main.nbquestions.checked.indexOf("Toutes") != -1);
+            return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.$storage.nbquestions.indexOf("Toutes") != -1);
         } else {
             return false;
         }
@@ -517,7 +517,7 @@ angular.module('qcmffvl.controllers', [])
 // //		console.log("run " + i );
 // 		API.generateQCM($scope.selftest.qcm);
 // //		console.log($scope.selftest.qcm);
-// 		for(var j = 0; j < $scope.main.nbquestions.checked ; j++){
+// 		for(var j = 0; j < $scope.$storage.nbquestions ; j++){
 // 			$scope.selftest.qcm[j].shown++;
 // 		}
 // 	}
