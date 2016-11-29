@@ -289,6 +289,19 @@ angular.module('qcmffvl.controllers', [])
         });
     }
 
+    $scope.warnTypeExamChange = function() {
+        if ($scope.main.typeExam != "Révision" && $scope.$storage.QCMID && $scope.isOpen.typeExam) {
+            var dlg = dialogs.notify('Information','Passer en mode examen effacera vos réponses.');
+            dlg.result.then(function(btn){
+                $timeout(function() {
+                    $scope.isOpen.typeExam = true;
+                }, 1);
+            },function(btn){
+                // cancel
+            });
+        }
+    }
+
     $scope.optionsTooLongForWidth = function() {
         if ($window.innerWidth > 992 && $window.innerWidth < 1200) {
             return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || ($scope.$storage.conf.nbquestions.indexOf("Toutes") != -1);
@@ -416,6 +429,8 @@ angular.module('qcmffvl.controllers', [])
                     index = i;
                 }
             }
+            // code to store answers in local storage
+            // if there are no more answers checked, then delete stored QCMID
             if (answer.checked) {
                 if (!$scope.$storage.answers[q.code])
                     $scope.$storage.answers[q.code] = [];
