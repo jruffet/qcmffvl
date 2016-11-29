@@ -82,29 +82,29 @@
 
       				<ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
                                     <li class="dropdown" is-open="isOpen.category">
-                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.category}} <span class="caret"></span></a>
+                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
                                           <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
                                                 <li ng-repeat="category in main.category.options">
-                                                      <a ng-click="$storage.category = category">{{category}}</a>
+                                                      <a ng-click="$storage.conf.category = category">{{category}}</a>
                                                 </li>
                                           </ul>
                                     </li>
 
 
 						<li class="dropdown" is-open="isOpen.level">
-							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{$storage.level|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{$storage.level}}</span> <span class="caret"></span></a>
+							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
 								<li ng-repeat="level in main.level.options">
-									<a ng-click="$storage.level = level">{{level}}</a>
+									<a ng-click="$storage.conf.level = level">{{level}}</a>
 								</li>
 							</ul>
 						</li>
 						<li>
 							<li class="dropdown" is-open="isOpen.nbquestions">
-								<a class="dropdown-toggle" data-toggle="dropdown">{{$storage.nbquestions}} questions <span class="caret"></span></a>
+								<a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.nbquestions}} questions <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
 									<li ng-repeat="nbquestions in main.nbquestions.options">
-										<a ng-click="$storage.nbquestions = nbquestions">{{nbquestions}} questions</a>
+										<a ng-click="$storage.conf.nbquestions = nbquestions">{{nbquestions}} questions</a>
 									</li>
 
 								</ul>
@@ -184,7 +184,7 @@
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
                       <button class="btn btn-default center-block btn-print" ng-click="printQCM()">Imprimer</button>
-                      <span>QCM FFVL {{$storage.category}} {{$storage.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
+                      <span>QCM FFVL {{$storage.conf.category}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
               </div>
