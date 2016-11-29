@@ -46,12 +46,6 @@ angular.module('qcmffvl.controllers', [])
         QCMIDUser: "",
         helpQuestion: ""
     }
-    $scope.main.search  = {
-    	niveau: $scope.main.level.options.indexOf($scope.$storage.conf.level),
-        parapente: true
-        // delta not set here. parapente should never be set to true at the same time as delta is.
-        // delta: true + parapente: true would select only the generic questions
-    }
     $scope.main.limit = $scope.$storage.conf.nbquestions;
     // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
@@ -63,7 +57,15 @@ angular.module('qcmffvl.controllers', [])
     $scope.qcmOptions = {};
     // show the QCM view ?
     $scope.showQCM = true;
-
+    $scope.main.search = {};
+    $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+    // parapente should never be set to true at the same time as delta is.
+    // delta: true + parapente: true would select only the generic questions
+    if ($scope.$storage.conf.category == "Parapente") {
+        $scope.main.search.parapente = true;
+    } else {
+        $scope.main.search.delta = true;
+    }
 
     // User has already set some answers in an unfinished MCQ, see if he wants to go on
     if ($scope.$storage.QCMID) {
