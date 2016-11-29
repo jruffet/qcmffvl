@@ -197,7 +197,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
         $scope.main.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
-        $scope.$storage.QCMID = $scope.main.QCMID;
+        if (Object.keys($scope.$storage.answers).length > 0)
+            $scope.$storage.QCMID = $scope.main.QCMID;
     }
 
     $scope.reload = function() {
