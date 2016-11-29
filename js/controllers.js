@@ -11,7 +11,6 @@ angular.module('qcmffvl.controllers', [])
             level:"Brevet de Pilote",
             nbquestions:"30"
         },
-        QCMID:"",
         answers:{}
     });
 
@@ -62,6 +61,32 @@ angular.module('qcmffvl.controllers', [])
     $scope.qcmVersion = "1.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
+    // show the QCM view ?
+    $scope.showQCM = true;
+
+
+    // User has already set some answers in an uncorrected MCQ, see if he wants to go on
+    if ($scope.$storage.QCMID) {
+        $scope.showQCM = false;
+        var dlg = dialogs.confirm('Chargement du dernier QCM','Charger le dernier questionnaire inachevé (avec vos réponses) ?');
+        dlg.result.then(function(btn){
+            // wait for modal to close to avoid weird effects
+            $timeout(function() {
+                $scope.loadQCMID($scope.$storage.QCMID, $scope.$storage.answers);
+                $scope.showQCM = true;
+            }, 300);
+        },function(btn){
+            // user wants a new MCQ
+            $scope.deleteStoredAnswers();
+            $scope.showQCM = true;
+        });
+    }
+
+
+    $scope.deleteStoredAnswers = function() {
+        $scope.$storage.QCMID = "";
+        $scope.$storage.answers = {};
+    }
 
     $scope.printQCM = function() {
         window.print();
@@ -71,11 +96,12 @@ angular.module('qcmffvl.controllers', [])
         return (deviceDetector.raw.userAgent.indexOf("QCMFFVL Android App") != -1);
     }
 
-    $scope.loadQCMID = function(QCMID) {
+    // load specific QCM ID (+ optionnal answers)
+    $scope.loadQCMID = function(QCMID, answers) {
         if (QCMID) {
             if (API.verifyChecksum(QCMID)) {
                 // used by loadJSON()
-                $scope.$storage.QCMID = QCMID;
+                $scope.main.QCMID = QCMID;
             } else {
                 var optionnalMsg = "";
                 if (QCMID.length == 15) {
@@ -88,11 +114,14 @@ angular.module('qcmffvl.controllers', [])
             if (QCMID) {
                 $scope.loading = true;
                 $timeout(function() {
-                    $scope.generateQCM($scope.$storage.QCMID);
+                    $scope.generateQCM($scope.main.QCMID, answers);
                 },100);
             }
         } else {
             $scope.loadJSON();
+        }
+        if (!answers) {
+            $scope.deleteStoredAnswers();
         }
     }
 
@@ -101,7 +130,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.qcmOptions.catDistrib = data.catDistrib;
         $scope.qcmOptions.catFallback = data.catFallback;
         $scope.qcmOptions.corresTable = data.corresTable;
-        $scope.generateQCM($scope.$storage.QCMID);
+        $scope.generateQCM($scope.main.QCMID);
     }
 
     $scope.loadJSON = function() {
@@ -130,7 +159,7 @@ angular.module('qcmffvl.controllers', [])
         }, 100);
     }
 
-    $scope.generateQCM = function(QCMID) {
+    $scope.generateQCM = function(QCMID, answers) {
         $scope.loading = true;
         $scope.main.checkAnswers = false;
         $scope.main.helpQuestion = "";
@@ -139,9 +168,7 @@ angular.module('qcmffvl.controllers', [])
         }
         $timeout(function() {
             $scope.qcm = angular.copy($scope.qcmOrig);
-            $scope.$storage.QCMID = API.generateQCM($scope.qcm, $scope.qcmOptions, $scope.qcmVer, $scope.optionsToArray(), QCMID);
-            $scope.$storage.answers = {};
-
+            $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmOptions, $scope.qcmVer, $scope.optionsToArray(), QCMID, answers);
             if ($scope.main.exam.papierExaminateur)
                 API.tickAnswers($scope.qcm);
         },300);
@@ -162,8 +189,8 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.updateQCMID = function() {
-        var num = API.uncomputeID($scope.$storage.QCMID).num;
-        $scope.$storage.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
+        var num = API.uncomputeID($scope.main.QCMID).num;
+        $scope.main.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
     }
 
     $scope.reload = function() {
@@ -177,6 +204,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.main.checkAnswers = false;
                 $scope.collapseNav();
                 $scope.generateQCM();
+                $scope.deleteStoredAnswers();
             }, 500);
         },function(btn){
             //cancel
@@ -229,7 +257,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.resetQCMIDUser = function() {
-        $scope.main.QCMIDUser = $scope.$storage.QCMID;
+        $scope.main.QCMIDUser = $scope.main.QCMID;
         $scope.main.formattedQCMIDUser = $filter('formatQCMID')($scope.main.QCMIDUser);
     }
 
@@ -247,7 +275,7 @@ angular.module('qcmffvl.controllers', [])
         var dlg = dialogs.create('qcmid.html','QCMIDDialogCtrl',$scope.main,{size:"lg"});
         dlg.result.then(function(name){
             $timeout(function() {
-                if ($scope.main.QCMIDUser != $scope.$storage.QCMID) {
+                if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                     $scope.collapseNav();
                     $scope.loading = true;
                     $scope.qcm = [];
@@ -337,12 +365,12 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.$watch('main.QCMID', function(newval, oldval) {
         if (newval != oldval) {
-            if ($scope.main.QCMIDUser != $scope.$storage.QCMID) {
+            if ($scope.main.QCMIDUser != $scope.main.QCMID) {
                 $scope.resetQCMIDUser();
             }
-            $scope.main.QCMIDCRC = API.crc($scope.$storage.QCMID);
+            $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
             var baseUrl = $scope.isProdURL() ? "qcm.ffvl.fr" : "qcmffvl.sativouf.net/dev";
-            $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.$storage.QCMID;
+            $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.main.QCMID;
         }
     });
 
@@ -376,10 +404,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.$parent.loadJSON();
     }
 
-    // User has already set some answers in an uncorrected MCQ, see if he wants to go on
-    if (Object.keys($scope.$storage.answers).length != 0) {
-    }
-    
     $scope.toggleCheck = function(q, answer) {
         if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier && !$scope.isHelpQuestion(q)) {
             answer.checked = !answer.checked;
@@ -394,12 +418,14 @@ angular.module('qcmffvl.controllers', [])
                 if (!$scope.$storage.answers[q.code])
                     $scope.$storage.answers[q.code] = [];
                 $scope.$storage.answers[q.code].push(index);
+                $scope.$storage.QCMID = $scope.main.QCMID;
             } else {
                 var i = $scope.$storage.answers[q.code].indexOf(index); 
                 if (i != -1) 
                     $scope.$storage.answers[q.code].splice(i,1);
                 if ($scope.$storage.answers[q.code].length == 0)
                     delete $scope.$storage.answers[q.code];
+                delete $scope.$storage.QCMID;
             }
         }
     }
@@ -503,7 +529,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.resetHelpQuestion(q);
         var separator = "---------------------------------" + "%0A"
         var uri =   "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   " + 
-                "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.$storage.QCMID + "]" +
+                "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]" +
                 "&body=" +
                 separator +
                 "Question " + q.code + "%0A" +
@@ -517,8 +543,11 @@ angular.module('qcmffvl.controllers', [])
         window.location.href = uri;
     }
 
-    $scope.$watch('main.checkAnswers', function() {
-        $scope.updateScore();
+    $scope.$watch('main.checkAnswers', function(newval, oldval) {
+        if (oldval != newval)
+            $scope.updateScore();
+        if (newval == true)
+            $scope.$parent.deleteStoredAnswers();
     });
 
 })

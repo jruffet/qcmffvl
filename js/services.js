@@ -52,7 +52,7 @@ angular.module('qcmffvl.services', [])
             return distrib;
         },
 
-        generateQCM: function(array, qcmOptions, qcmVer, options, QCMID) {
+        generateQCM: function(array, qcmOptions, qcmVer, options, QCMID, answers) {
             var API = this;
             // baseCatDistrib : category distribution (cf newCatDistrib)
             var baseCatDistrib = qcmOptions.catDistrib;
@@ -105,6 +105,8 @@ angular.module('qcmffvl.services', [])
                 for (var c = 0; c < catDistrib.length; c++) {
                     var cat = catDistrib[c];
                     for (var level = 0; level <= 2; level++) {
+                        // if we are out of questions for the requested level,
+                        // fallback to the next level
                         if (endoflevel[level]) {
                             continue;
                         }
@@ -147,7 +149,10 @@ angular.module('qcmffvl.services', [])
                     }
                 }
             }
-            // randomize answers order (per question)
+
+            API.untickAnswers(resArray);
+
+            // randomize answers order (per question) with given MT
             for (var i=0; i<resArray.length; i++) {
                 var anslen = resArray[i].ans.length;
                 for (var j=0; j<anslen; j++) {
@@ -158,13 +163,22 @@ angular.module('qcmffvl.services', [])
                         resArray[i].ans[rand] = tmp;
                     }
                 }
+                // in case answers were set in a previous unfinished session of the same MCQ
+                // tick them _after_ we are finished ordering properly
+                if (answers) {
+                    var storedAns = answers[resArray[i].code];
+                    if (storedAns) {
+                        for (var k=0; k<storedAns.length; k++) {
+                            resArray[i].ans[storedAns[k]].checked = true;
+                        }
+                    }
+                }
             }
             // modify original array
             for (var i=0; i<array.length; i++) {
                 array[i] = resArray[i];
             }
 
-            API.untickAnswers(array);
             // return QCM ID
             return API.computeID(seed + max32 * surseed, qcmVer, options);
         },
