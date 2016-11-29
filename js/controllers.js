@@ -553,7 +553,7 @@ angular.module('qcmffvl.controllers', [])
         var separator = "---------------------------------" + "%0A"
         var uri =   "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   " + 
                 "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]" +
-                "&body=" +
+                "&body=" + "%0A" + "%0A" + "%0A" +
                 separator +
                 "Question " + q.code + "%0A" +
                 "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "%0A" +
