@@ -191,6 +191,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.updateQCMID = function() {
         var num = API.uncomputeID($scope.main.QCMID).num;
         $scope.main.QCMID = API.computeID(num, $scope.qcmVer, $scope.optionsToArray());
+        $scope.$storage.QCMID = $scope.main.QCMID;
     }
 
     $scope.reload = function() {
@@ -354,6 +355,7 @@ angular.module('qcmffvl.controllers', [])
             }
             // back from examPapierExaminateur, we want to erase the answers ticked
             $scope.unfillQCMAnswers();
+            $scope.deleteStoredAnswers();
             if ($scope.main.exam.papierExaminateur) {
                 API.tickAnswers($scope.qcm);
             }
