@@ -65,7 +65,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.showQCM = true;
 
 
-    // User has already set some answers in an uncorrected MCQ, see if he wants to go on
+    // User has already set some answers in an unfinished MCQ, see if he wants to go on
     if ($scope.$storage.QCMID) {
         $scope.showQCM = false;
         var dlg = dialogs.confirm('Chargement du dernier QCM','Charger le dernier questionnaire inachevé (avec vos réponses) ?');
