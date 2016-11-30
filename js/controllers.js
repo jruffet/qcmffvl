@@ -420,7 +420,6 @@ angular.module('qcmffvl.controllers', [])
 .controller('QCMCtrl', function($scope, $filter, $location, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
-    $scope.$parent.main.checkAnswers = false;
 
     if (!$scope.$parent.qcm) {
         $scope.$parent.loadJSON();
