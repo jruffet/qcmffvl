@@ -575,35 +575,16 @@ angular.module('qcmffvl.controllers', [])
 
 })
 
-// TODO : refactor completely
-// .controller('SelfTestCtrl', function($scope, API) {
-
-
-//     $scope.$parent.loading = false;
-// 	$scope.selftest = [];
-// 	$scope.selftest.numitems   = 600;
-// 	$scope.selftest.numruns    = 10000;
-// 	$scope.selftest.showperrun = 60;
-
-// 	$scope.selftest.qcm = [];
-// 	for(var i = 1; i <= $scope.selftest.numitems; i++) {
-// 		var obj = { question : i , ans : "x", shown : 0 };
-// 		$scope.selftest.qcm.push(obj);
-// 	}
-// //	console.log($scope.selftest.qcm);
-// 	for(var i = 1; i <= $scope.selftest.numruns; i++){
-// //		console.log("run " + i );
-// 		API.generateQCM($scope.selftest.qcm);
-// //		console.log($scope.selftest.qcm);
-// 		for(var j = 0; j < $scope.$storage.conf.nbquestions ; j++){
-// 			$scope.selftest.qcm[j].shown++;
-// 		}
-// 	}
-// 	for(var i = 0; i < $scope.selftest.numitems; i++) {
-// 		$scope.selftest.qcm[i].percent = (($scope.selftest.qcm[i].shown / $scope.selftest.numruns) * 100).toFixed(2);;
-// 	}
-
-// })
+.controller('SelfTestCtrl', function($scope, API) {
+    $scope.$parent.loading = false;
+    /* 
+    TODO : 
+        generate N QCMs (1000 ?)
+        for  every setup (cat/level), show :
+            - the avg place of each question
+            - the percentage of question hitting top 30 and 60
+    */
+})
 
 .controller('AboutCtrl', function($scope) {
     $scope.$parent.navCollapsed = true;
