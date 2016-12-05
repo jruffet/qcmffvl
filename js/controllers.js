@@ -321,7 +321,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
-                $scope.resetQCMDisplay(false);
+                $scope.resetQCMDisplay();
                 $scope.updateQCMID();
                 var limit = $scope.$storage.conf.nbquestions;
                 if (limit === "Toutes les") {
