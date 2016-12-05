@@ -225,7 +225,7 @@ angular.module('qcmffvl.controllers', [])
             return "bad-score";
         }
     }
-    $scope.resetQCMDisplay = function() {
+    $scope.resetQCMDisplay = function(mayUntickAnswers=true) {
         // is unset in the directive "removeLoaderWhenReady()"
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
@@ -233,7 +233,7 @@ angular.module('qcmffvl.controllers', [])
 		$timeout(function() {
 			$scope.main.displayLimit = 10000;
 		}, 0);
-        if ($scope.qcm && !$scope.main.exam.mode && $scope.main.checkAnswers) {
+        if ($scope.qcm && !$scope.main.exam.mode && $scope.main.checkAnswers && mayUntickAnswers) {
             API.untickAnswers($scope.qcm);
             $scope.main.checkAnswers = false;
         }
@@ -321,7 +321,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
-                $scope.resetQCMDisplay();
+                $scope.resetQCMDisplay(false);
                 $scope.updateQCMID();
                 var limit = $scope.$storage.conf.nbquestions;
                 if (limit === "Toutes les") {
