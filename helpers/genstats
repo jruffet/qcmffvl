@@ -1,0 +1,104 @@
+#!/usr/bin/python3
+import sys
+import collections
+
+# helpful command line :
+# sed 's/,.*//' ../data/csv/qcm_ffvl_1.0.csv | ./genstats | sort -n -k 12 -t',' > ../data/repartition_questions_1.0.csv
+
+'''
+Questions météo : A
+Mécavol général : E
+Mécavol parapente : G
+Mécavol delta : H
+Matériel général : L
+Matériel parapente : N
+Matériel Delta : R
+Réglementation : S
+Pilotage général : U
+Pilotage parapente : W
+Pilotage Delta : X
+'''
+
+# generic first
+categories = {
+	"meteo":["A"],
+	"mecavol":["E","G","H"],
+	"materiel":["L", "N", "R"],
+	"reglementation":["S"],
+	"pilotage":["U","W","X"]
+}
+
+distribution = {
+	"materiel":0.1,
+	"mecavol":0.2,
+	"reglementation":0.2,
+	"pilotage":0.2,
+	"meteo":0.3
+}
+
+levels = {
+	"bleu": ["B"],
+	"vert": ["V"],
+	"marron": ["M"],
+}
+
+activities = {
+	"parapente": ["G", "N", "W"],
+	"delta": ["H", "R", "X"]
+}
+
+# Take a question code per line as input
+questions = sys.stdin.read().splitlines()
+
+l = lambda:collections.defaultdict(l)
+stats = l()
+
+for q in questions:
+	qcat = q[0]
+	qlvl = q[-1]			
+
+	for cat, catletters in categories.items():
+		if qcat in catletters:
+			qwidecat = cat 
+			continue
+	
+	for lvl, lvlletters in levels.items():
+		if qlvl in lvlletters:
+			qwidelvl = lvl 
+			continue
+
+	if qcat in activities["parapente"]:
+		qactivity = "parapente"
+	elif qcat in activities["delta"]:
+		qactivity = "delta"
+	else:
+		qactivity = "generic"
+
+	try:
+		stats[qwidelvl][qwidecat][qactivity] += 1
+	except:
+		stats[qwidelvl][qwidecat][qactivity] = 1
+
+
+print("activité,catégorie,niveau,répartition catégorie FFVL,total Q,Q génériques,Q spécifiques,%age gen/total,%age spe/total,nbre Q par questionnaire,pool de questions par questionnaire,%age du pool de questions utilisé")
+for activity in ["parapente", "delta"]:
+	for cat, catletters in categories.items():
+		for lvl, lvlletters in levels.items():
+			spe = gen = 0
+			# In case of no specific questions for a category (eg: meteo), set "spe" to 0 (stats[][][]... will be a dict() unless set otherwise)
+			if (isinstance(stats[lvl][cat][activity], int)):
+				spe = stats[lvl][cat][activity]
+			# In case of missing questions for a category (should not happen), generic may also not be set
+			if (isinstance(stats[lvl][cat]["generic"], int)):
+				gen = stats[lvl][cat]["generic"]
+			total = spe + gen
+
+			nbq = 60
+			if lvl == "marron":
+				nbq = 30
+
+			nbq_cat = int(nbq * distribution[cat])
+			pct_nbqcat_total = int(nbq_cat / total * 100)
+			pct_gen_total = int(gen / total * 100)
+			pct_spe_total = int(spe / total * 100)
+			print ("%s,%s,%s,%s%%,%s,%s,%s,%s%%,%s%%,%s,%s,%s%%" % (activity, cat, lvl, int(distribution[cat]*100), total, gen, spe, pct_gen_total, pct_spe_total, nbq, nbq_cat, pct_nbqcat_total))
