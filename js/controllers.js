@@ -225,7 +225,7 @@ angular.module('qcmffvl.controllers', [])
             return "bad-score";
         }
     }
-    $scope.resetQCMDisplay = function(mayUntickAnswers=true) {
+    $scope.resetQCMDisplay = function(mayUntickAnswers) {
         // is unset in the directive "removeLoaderWhenReady()"
 		$scope.loading = true;
 		$scope.main.displayLimit = 0;
@@ -336,7 +336,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
-                $scope.resetQCMDisplay();
+                $scope.resetQCMDisplay(true);
                 $scope.updateQCMID();
                 if ($scope.$storage.conf.category == "Parapente") {
                     $scope.main.search.parapente = true;
@@ -353,7 +353,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
-                $scope.resetQCMDisplay();
+                $scope.resetQCMDisplay(true);
                 $scope.updateQCMID();
                 $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
             },100);
