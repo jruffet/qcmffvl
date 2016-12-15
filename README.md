@@ -2,7 +2,6 @@ QCM FFVL
 --------
 
 This is the official web app used by the French paragliding and hang gliding federation for its MCQ (part of the pilot license exam).
-
 It includes a training mode and an exam mode.
 
 ### Web App
