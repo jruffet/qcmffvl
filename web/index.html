@@ -206,7 +206,7 @@
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
               <div class="qcm-title row" ng-show="main.exam.papier && categorySelected()"<>
-                <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie {{$storage.conf.category}} ***</span>
+                <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie : {{$storage.conf.category}} ***</span>
               </div>
               <div class="qcm-body">
                   <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | categoryFilter:$storage.conf.category | limitTo:main.limit" remove-loader-when-ready>
