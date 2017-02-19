@@ -56,7 +56,11 @@ angular.module('qcmffvl.filters', [])
 })
 .filter('formatQCMTitle', function() {
     return function(input) {
-        if (input)
-            return input.replace(/Brevet de Pilote Confirmé/, 'BPC');
+        if (input) {
+            var out = input.replace(/Brevet de Pilote Confirmé/, 'BPC');
+            out = out.replace(/Brevet de Pilote/, 'BP');
+            // out = out.replace(/Brevet Initial/, 'BI');
+            return out;
+        }
     }
 });
