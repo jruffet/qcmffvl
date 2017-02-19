@@ -97,7 +97,10 @@
 
 
 						<li class="dropdown" is-open="isOpen.level">
-							<a class="dropdown-toggle" data-toggle="dropdown"><span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span><span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span> <span class="caret"></span></a>
+							<a class="dropdown-toggle" data-toggle="dropdown">
+                <span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span>
+                <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span>
+                <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
 								<li ng-repeat="level in main.level.options">
 									<a ng-click="$storage.conf.level = level">{{level}}</a>
@@ -203,10 +206,10 @@
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
               <div class="qcm-title row" ng-show="main.exam.papier && categorySelected()"<>
-                <span class="qcm-title-category col-lg-12 col-xs-12">*** Catégories restreintes à : {{$storage.conf.category}} ***</span>
+                <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie {{$storage.conf.category}} ***</span>
               </div>
               <div class="qcm-body">
-                  <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | categoryFilter:main.category.checked | limitTo:main.limit" remove-loader-when-ready>
+                  <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | categoryFilter:$storage.conf.category | limitTo:main.limit" remove-loader-when-ready>
                       <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">
                               <div class="row question ">
