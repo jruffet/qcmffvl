@@ -10,7 +10,7 @@ angular.module('qcmffvl.controllers', [])
             sport: "Parapente",
             level:"Brevet de Pilote",
             nbquestions:"30",
-            category:[]
+            category:"Toutes les catégories"
         },
         answers:{}
     });
@@ -66,7 +66,7 @@ angular.module('qcmffvl.controllers', [])
     // Backward compat
     if ($scope.$storage.conf.category == "Parapente" || $scope.$storage.conf.category == "Delta") {
         $scope.$storage.conf.sport = $scope.$storage.conf.category;
-        delete($scope.$storage.conf.category);
+        $scope.$storage.conf.category = "Toutes les catégories";
     }
     // parapente should never be set to true at the same time as delta is.
     // delta: true + parapente: true would select only the generic questions
@@ -213,7 +213,12 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
+        var text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toLowerCase() + ' questions</b>'
+        if ($scope.$storage.conf.category.indexOf("Toutes") == -1) {
+            text += ' en n\'incluant que les questions <b>' + $scope.$storage.conf.category + '</b>';
+        }
+        text += ' (et effacer vos réponses) ?';
+        var dlg = dialogs.confirm('Confirmation', text);
         dlg.result.then(function(btn){
             // wait for modal to close to avoid weird effects
             $timeout(function() {
