@@ -7,17 +7,18 @@ angular.module('qcmffvl.controllers', [])
 .controller('MainCtrl', function($scope, API, $location, $timeout, $http, $filter, $window, $templateCache, $localStorage, dialogs, deviceDetector) {
     $scope.$storage = $localStorage.$default({
         conf: {
-            category: "Parapente",
+            sport: "Parapente",
             level:"Brevet de Pilote",
-            nbquestions:"30"
+            nbquestions:"30",
+            category:[]
         },
         answers:{}
     });
 
     $scope.main = {
-        category: {
+        sport: {
             options: [ "Parapente", "Delta" ],
-            checked: $scope.$storage.conf.category
+            checked: $scope.$storage.conf.sport
         },
         level: {
             options: [ "Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé"],
@@ -30,6 +31,10 @@ angular.module('qcmffvl.controllers', [])
         typeExam: {
             options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
             checked: "Révision"
+        },
+        category : {
+            options: ["Toutes les catégories", "Matériel", "Mécavol", "Météo", "Pilotage", "Réglementation"],
+            checked: $scope.$storage.conf.category
         },
         displayLimit: 10000,
         checkAnswers: false,
@@ -50,7 +55,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "3.1.2";
+    $scope.version = "3.2";
     $scope.qcmVersion = "1.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
@@ -58,9 +63,15 @@ angular.module('qcmffvl.controllers', [])
     $scope.showQCM = true;
     $scope.main.search = {};
     $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+    // Backward compat
+    if ($scope.$storage.conf.category == "Parapente" || $scope.$storage.conf.category == "Delta") {
+        $scope.$storage.conf.sport = $scope.$storage.conf.category;
+        delete($scope.$storage.conf.category);
+    }
     // parapente should never be set to true at the same time as delta is.
     // delta: true + parapente: true would select only the generic questions
-    if ($scope.$storage.conf.category == "Parapente") {
+    // TODO : remove parapente and delta attributes and make a custom filter
+    if ($scope.$storage.conf.sport == "Parapente") {
         $scope.main.search.parapente = true;
     } else {
         $scope.main.search.delta = true;
@@ -182,14 +193,14 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.optionsToArray = function() {
         var opt = [];
-        opt[0] = $scope.main.category.options.indexOf($scope.$storage.conf.category)
+        opt[0] = $scope.main.sport.options.indexOf($scope.$storage.conf.sport)
         opt[1] = $scope.main.level.options.indexOf($scope.$storage.conf.level)
         opt[2] = $scope.main.nbquestions.options.indexOf($scope.$storage.conf.nbquestions)
         return opt;
     }
 
     $scope.arrayToOptions = function(opt) {
-        $scope.$storage.conf.category = $scope.main.category.options[opt[0]];
+        $scope.$storage.conf.sport = $scope.main.sport.options[opt[0]];
         $scope.$storage.conf.level = $scope.main.level.options[opt[1]];
         $scope.$storage.conf.nbquestions = $scope.main.nbquestions.options[opt[2]];
     }
@@ -202,7 +213,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.reload = function() {
-        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.$storage.conf.category + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
+        var dlg = dialogs.confirm('Confirmation','Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toLowerCase() + ' questions</b> (et effacer vos réponses) ?');
         dlg.result.then(function(btn){
             // wait for modal to close to avoid weird effects
             $timeout(function() {
@@ -332,13 +343,13 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
-    $scope.$watch('$storage.conf.category', function(newval, oldval) {
+    $scope.$watch('$storage.conf.sport', function(newval, oldval) {
         $scope.loading = true;
         if (newval != oldval) {
             $timeout(function() {
                 $scope.resetQCMDisplay(true);
                 $scope.updateQCMID();
-                if ($scope.$storage.conf.category == "Parapente") {
+                if ($scope.$storage.conf.sport == "Parapente") {
                     $scope.main.search.parapente = true;
                     delete $scope.main.search.delta;
                 } else {
@@ -360,6 +371,13 @@ angular.module('qcmffvl.controllers', [])
         }
     });
 
+    $scope.$watch('$storage.conf.category', function(newval, oldval) {
+        $scope.loading = true;
+        if (newval != oldval) {
+            $scope.resetQCMDisplay(true);
+        }
+    });
+
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
             $scope.main.exam = [];
@@ -367,6 +385,7 @@ angular.module('qcmffvl.controllers', [])
             if (newval.indexOf("Examen papier") != -1) {
                 $scope.main.exam.mode = true;
                 $scope.main.exam.papier = true;
+                $scope.main.category.checked = "Toutes les catégories";
             }
             if (newval == "Examen papier (candidat)") {
                 $scope.main.exam.papierCandidat = true;
@@ -423,6 +442,10 @@ angular.module('qcmffvl.controllers', [])
 
     if (!$scope.$parent.qcm) {
         $scope.$parent.loadJSON();
+    }
+
+    $scope.categorySelected = function () {
+        return ($scope.$storage.conf.category.indexOf("Toutes") == -1);
     }
 
     $scope.toggleCheck = function(q, answer) {

@@ -86,11 +86,11 @@
       				</ul>
 
       				<ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
-                                    <li class="dropdown" is-open="isOpen.category">
-                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
-                                          <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
-                                                <li ng-repeat="category in main.category.options">
-                                                      <a ng-click="$storage.conf.category = category">{{category}}</a>
+                                    <li class="dropdown" is-open="isOpen.sport">
+                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.sport}} <span class="caret"></span></a>
+                                          <ul class="dropdown-menu" role="menu" ng-click="isOpen.sport = false">
+                                                <li ng-repeat="sport in main.sport.options">
+                                                      <a ng-click="$storage.conf.sport = sport">{{sport}}</a>
                                                 </li>
                                           </ul>
                                     </li>
@@ -115,7 +115,17 @@
 								</ul>
 							</li>
 						</li>
-						<li>
+            <li>
+              <li class="dropdown" is-open="isOpen.category">
+                <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
+                  <li ng-repeat="category in main.category.options">
+                    <a ng-click="$storage.conf.category = category">{{category}}</a>
+                  </li>
+
+                </ul>
+              </li>
+            </li>						<li>
 							<li class="dropdown" is-open="isOpen.typeExam" ng-click="warnTypeExamChange()">
 								<a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
@@ -189,12 +199,14 @@
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
                       <button class="btn btn-default center-block btn-print" ng-click="printQCM()">Imprimer</button>
-                      <span>QCM FFVL {{$storage.conf.category}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
+                      <span>QCM FFVL {{$storage.conf.sport}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
                       <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
                   </div>
+              <div class="qcm-title row" ng-show="main.exam.papier && categorySelected()"<>
+                <span class="qcm-title-category col-lg-12 col-xs-12">*** Catégories restreintes à : {{$storage.conf.category}} ***</span>
               </div>
               <div class="qcm-body">
-                  <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | limitTo:main.limit" remove-loader-when-ready>
+                  <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | categoryFilter:main.category.checked | limitTo:main.limit" remove-loader-when-ready>
                       <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">
                               <div class="row question ">
@@ -273,9 +285,9 @@
                   <br/>
                   Les petits mails bienveillants sont également toujours les bienvenus !
                   <br/>
-                  <div class="about-category row">
-                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Web</span>
-                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+                  <div class="about-sport row">
+                      <span class="about-sport-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Web</span>
+                      <div class="about-sport-part col-xs-12 col-md-12 col-lg-12">
 
                           La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
                           <br/><br/>
@@ -288,9 +300,9 @@
                           Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
                       </div>
                   </div>
-                  <div class="about-category row">
-                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Application Android</span>
-                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+                  <div class="about-sport row">
+                      <span class="about-sport-title col-xs-12 col-md-12 col-lg-12"><hr/>Application Android</span>
+                      <div class="about-sport-part col-xs-12 col-md-12 col-lg-12">
                           L'application Android encapsule une version complètement hors ligne de cet outil de révision.
                           <br/>
                           Elle ne requiert aucune permission spéciale, et n'a pas besoin d'accès à internet pour fonctionner.

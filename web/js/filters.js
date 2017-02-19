@@ -25,7 +25,35 @@ angular.module('qcmffvl.filters', [])
             return input.replace(/ /g, '');
     }
 })
+.filter('categoryFilter', function() {
+    return function(qcm, category) {
+        if (category) {
+            var out = [];
+            var categoryList = [];
+            if (category == "Matériel") {
+                categoryList = ["L","N","R"]
+            } else if (category == "Mécavol") {
+                categoryList = ["E", "G", "H"]
+            } else if (category == "Pilotage") {
+                categoryList = ["U", "W", "X"]
+            } else if (category == "Réglementation") {
+                categoryList = ["S"]
+            } else if (category == "Météo") {
+                categoryList = ["A"]
+            } else if (category.indexOf("Toutes") != -1) {
+                categoryList = []
+            }        
+            angular.forEach(qcm, function(question) {
+                var code = question.code[0];
 
+                if (categoryList.length == 0 || categoryList.indexOf(code) != -1) {
+                    out.push(question);
+                }
+            })
+            return out;
+        }
+    }
+})
 .filter('formatQCMTitle', function() {
     return function(input) {
         if (input)

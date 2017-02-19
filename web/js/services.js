@@ -225,7 +225,7 @@ angular.module('qcmffvl.services', [])
             // console.debug("-- computeOptions --");
             // console.debug(opt);
 
-            // category : 2 options
+            // sport : 2 options
             // level : 3 options
             // nbquestions : 5 options
             // encode everything into a 2*3*5 number

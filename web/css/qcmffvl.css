@@ -65,8 +65,12 @@
     .qcm-title {
     	margin-bottom: 10px;
         margin-left: 5px;
-        margin-right: 17px;
+        margin-right: 65px;
         font-weight: bold;
+    }
+    .qcm-title-category {
+        text-align: center;
+        color: red;
     }
     .qcm-title-noprint {
         display: none;
@@ -225,6 +229,10 @@
     .qcm-title-noprint {
         color: red;
         text-align: center;
+    }
+    .qcm-title-category {
+        text-align: center;
+        color: red;
     }
     .has-error {
         color:#C30B08;
