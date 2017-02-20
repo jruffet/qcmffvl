@@ -213,7 +213,7 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.reload = function() {
-        var text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toLowerCase() + ' questions</b>'
+        var text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toString().toLowerCase() + ' questions</b>'
         if ($scope.$storage.conf.category.indexOf("Toutes") == -1) {
             text += ' en n\'incluant que les questions <b>' + $scope.$storage.conf.category + '</b>';
         }
