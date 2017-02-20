@@ -28,7 +28,6 @@ angular.module('qcmffvl.filters', [])
 .filter('categoryFilter', function() {
     return function(qcm, category) {
         if (category) {
-            var out = [];
             var categoryList = [];
             if (category == "Matériel") {
                 categoryList = ["L","N","R"]
@@ -43,6 +42,7 @@ angular.module('qcmffvl.filters', [])
             } else if (category.indexOf("Toutes") != -1) {
                 return qcm;
             }        
+            var out = [];
             angular.forEach(qcm, function(question) {
                 var code = question.code[0];
                 if (categoryList.indexOf(code) != -1) {
@@ -50,6 +50,8 @@ angular.module('qcmffvl.filters', [])
                 }
             })
             return out;
+        } else {
+            return qcm;
         }
     }
 })
