@@ -41,12 +41,11 @@ angular.module('qcmffvl.filters', [])
             } else if (category == "Météo") {
                 categoryList = ["A"]
             } else if (category.indexOf("Toutes") != -1) {
-                categoryList = []
+                return qcm;
             }        
             angular.forEach(qcm, function(question) {
                 var code = question.code[0];
-
-                if (categoryList.length == 0 || categoryList.indexOf(code) != -1) {
+                if (categoryList.indexOf(code) != -1) {
                     out.push(question);
                 }
             })
