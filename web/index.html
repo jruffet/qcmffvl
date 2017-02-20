@@ -1,166 +1,160 @@
-<!-- NOTE : we embed all HTML here to be usable while loading us from a filesystem (avoid cross site protections) -->
-<!-- practical case : the android app using a webview -->
+  <!-- NOTE : we embed all HTML here to be usable while loading us from a filesystem (avoid cross site protections) -->
+  <!-- practical case : the android app using a webview -->
 
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="qcmffvl" class="no-js"> <!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<meta author="Jérémy Ruffet">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>QCM FFVL</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <!DOCTYPE html>
+  <!--[if lt IE 7]>      <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" ng-app="qcmffvl" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en" ng-app="qcmffvl" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta author="Jérémy Ruffet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>QCM FFVL</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
 
-	<link rel="stylesheet" href="css/html5-boilerplate/normalize.css">
-	<link rel="stylesheet" href="css/html5-boilerplate/main.css">
-  <link rel="stylesheet" href="css/qcmffvl.css"/>
+    <link rel="stylesheet" href="css/html5-boilerplate/normalize.css">
+    <link rel="stylesheet" href="css/html5-boilerplate/main.css">
+    <link rel="stylesheet" href="css/qcmffvl.css"/>
 
-  <script src="js/lib/modernizr-2.6.2.min.js"></script>
+    <script src="js/lib/modernizr-2.6.2.min.js"></script>
 
-</head>
-<body>
-  <!--[if lt IE 9]>
-      <p class="browsehappy">Vous utilisez un navigateur trop vieux pour afficher correctement cette appli web. Merci de <a href="http://browsehappy.com/">mettre à jour votre navigateur</a></p>
-      <![endif]-->
-  <!--[if gt IE 8]><!--> 
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+    <p class="browsehappy">Vous utilisez un navigateur trop vieux pour afficher correctement cette appli web. Merci de <a href="http://browsehappy.com/">mettre à jour votre navigateur</a></p>
+    <![endif]-->
+    <!--[if gt IE 8]><!--> 
 
-      <script src="js/lib/MersenneTwister.js"></script>
-      <script src="js/lib/crc.min.js"></script>
+    <script src="js/lib/MersenneTwister.js"></script>
+    <script src="js/lib/crc.min.js"></script>
 
-      <script src="js/lib/jquery-2.1.1.min.js"></script>
-      <script src="js/lib/angular.min.js"></script>
-      <script src="js/lib/angular-route.min.js"></script>
-      <script src="js/lib/angular-sanitize.min.js"></script>
-      <script src="js/lib/angular-translate.min.js"></script>
-      <script src="js/lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/lib/jquery-2.1.1.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/lib/angular-sanitize.min.js"></script>
+    <script src="js/lib/angular-translate.min.js"></script>
+    <script src="js/lib/ui-bootstrap-tpls.min.js"></script>
 
-      <script src="js/lib/angular-clipboard.js"></script>
-      <script src="js/lib/dialogs.js"></script>
-      <script src="js/lib/ng-device-detector.min.js"></script>
-      <script src="js/lib/re-tree.min.js"></script>
-      <script src="js/lib/ngStorage.min.js"></script>
-      <script src="js/app.js"></script>
-      <script src="js/services.js"></script>
-      <script src="js/controllers.js"></script>
-      <script src="js/filters.js"></script>
-      <script src="js/directives.js"></script>
+    <script src="js/lib/angular-clipboard.js"></script>
+    <script src="js/lib/dialogs.js"></script>
+    <script src="js/lib/ng-device-detector.min.js"></script>
+    <script src="js/lib/re-tree.min.js"></script>
+    <script src="js/lib/ngStorage.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
 
-      <div ng-controller="MainCtrl">
+    <div ng-controller="MainCtrl">
 
-      	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak>
-      		<div class="container-fluid">
-      			<div class="navbar-header">
-      				<div class="navbar-brand" ng-click="gotoMainURL()">
-      					QCM FFVL
-      				</div>
-      				<span class="hide-xxs hide-lg" ng-hide="main.exam.mode">
-      					<span ng-hide="hideNavbarButtons">
-      						<button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
-      						<button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak>
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <div class="navbar-brand" ng-click="gotoMainURL()">
+              QCM FFVL
+            </div>
+            <span class="hide-xxs hide-lg" ng-hide="main.exam.mode">
+              <span ng-hide="hideNavbarButtons">
+                <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
+                <button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
+                <button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
+              </span>
+            </span>
+            <span class="hide-xxs hide-lg">
+              <span ng-hide="!hideNavbarButtons || loading">
+                <button ng-click="gotoMainURL()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-retour-apropos">Retour QCM</button>
+              </span>
+            </span>
 
-      						<button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
-      					</span>
-                              </span>
-                              <span class="hide-xxs hide-lg">
-      					<span ng-hide="!hideNavbarButtons || loading">
-      						<button ng-click="gotoMainURL()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-retour-apropos">Retour QCM</button>
-      					</span>
-      				</span>
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" ng-hide="hideNavbarButtons">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+            <ul class="nav navbar-nav" ng-show="hideNavbarButtons">
+              <li>
+                <button ng-click="gotoMainURL()" class="btn btn-default navbar-left navbar-btn">Retour QCM</button>
+              </li>
+            </ul>
 
-      				<button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" ng-hide="hideNavbarButtons">
-      					<span class="sr-only">Toggle navigation</span>
-      					<span class="icon-bar"></span>
-      					<span class="icon-bar"></span>
-      					<span class="icon-bar"></span>
-      				</button>
-      			</div>
-      			<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-      				<ul class="nav navbar-nav" ng-show="hideNavbarButtons">
-      					<li>
-      						<button ng-click="gotoMainURL()" class="btn btn-default navbar-left navbar-btn">Retour QCM</button>
-      					</li>
-      				</ul>
-
-      				<ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
-                                    <li class="dropdown" is-open="isOpen.sport">
-                                          <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.sport}} <span class="caret"></span></a>
-                                          <ul class="dropdown-menu" role="menu" ng-click="isOpen.sport = false">
-                                                <li ng-repeat="sport in main.sport.options">
-                                                      <a ng-click="$storage.conf.sport = sport">{{sport}}</a>
-                                                </li>
-                                          </ul>
-                                    </li>
-
-
-						<li class="dropdown" is-open="isOpen.level">
-							<a class="dropdown-toggle" data-toggle="dropdown">
-                <span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span>
-                <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span>
-                <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
-								<li ng-repeat="level in main.level.options">
-									<a ng-click="$storage.conf.level = level">{{level}}</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<li class="dropdown" is-open="isOpen.nbquestions">
-								<a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.nbquestions}} questions <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
-									<li ng-repeat="nbquestions in main.nbquestions.options">
-										<a ng-click="$storage.conf.nbquestions = nbquestions">{{nbquestions}} questions</a>
-									</li>
-
-								</ul>
-							</li>
-						</li>
-            <li>
-              <li class="dropdown" is-open="isOpen.category">
-                <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
-                  <li ng-repeat="category in main.category.options">
-                    <a ng-click="$storage.conf.category = category">{{category}}</a>
+            <ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
+              <li class="dropdown" is-open="isOpen.sport">
+                <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.sport}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu" ng-click="isOpen.sport = false">
+                  <li ng-repeat="sport in main.sport.options">
+                    <a ng-click="$storage.conf.sport = sport">{{sport}}</a>
                   </li>
-
                 </ul>
               </li>
-            </li>						
-            <li>
-							<li class="dropdown" is-open="isOpen.typeExam" ng-click="warnTypeExamChange()">
-								<a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
-									<li ng-repeat="typeExam in main.typeExam.options">
-										<a ng-click="main.typeExam.checked = typeExam">{{typeExam}}</a>
-									</li>
-
-								</ul>
-							</li>
-
-						<li>
-							<span ng-hide="main.exam.mode">
-								<button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
-	      						<button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</button>
-	  						</span>
-							<button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
-							<button ng-show="isDevURL()" ng-click="fillQCMAnswers(); main.checkAnswers=false" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-heart-empty"></span></button>
-						</li>
-                                    <li>
-                                        <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-share"><span class="glyphicon glyphicon-share"></span> Partager</button>
-                                    </li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
-						<li><a href="#about">A propos</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM"></div>
-	</div>
-</body>
+              <li class="dropdown" is-open="isOpen.level">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  <span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span>
+                  <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span>
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
+                  <li ng-repeat="level in main.level.options">
+                    <a ng-click="$storage.conf.level = level">{{level}}</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <li class="dropdown" is-open="isOpen.nbquestions">
+                  <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.nbquestions}} questions <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
+                    <li ng-repeat="nbquestions in main.nbquestions.options">
+                      <a ng-click="$storage.conf.nbquestions = nbquestions">{{nbquestions}} questions</a>
+                    </li>
+                  </ul>
+                </li>
+              </li>
+              <li>
+                <li class="dropdown" is-open="isOpen.category">
+                  <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
+                    <li ng-repeat="category in main.category.options">
+                      <a ng-click="$storage.conf.category = category">{{category}}</a>
+                    </li>
+                  </ul>
+                </li>
+              </li>           
+              <li>
+                <li class="dropdown" is-open="isOpen.typeExam" ng-click="warnTypeExamChange()">
+                  <a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
+                    <li ng-repeat="typeExam in main.typeExam.options">
+                      <a ng-click="main.typeExam.checked = typeExam">{{typeExam}}</a>
+                    </li>
+                  </ul>
+                </li>
+              <li>
+                <span ng-hide="main.exam.mode">
+                  <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
+                  <button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</button>
+                </span>
+                <button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
+                <button ng-show="isDevURL()" ng-click="fillQCMAnswers(); main.checkAnswers=false" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-heart-empty"></span></button>
+              </li>
+              <li>
+                <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-share"><span class="glyphicon glyphicon-share"></span> Partager</button>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
+              <li><a href="#about">A propos</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM">
+      </div>
+    </div>
+  </body>
 
 <!-- Next are Angular templateCaches definitions, so that no webserver is required to use this "web app", and everything runs smoothly once the "app" has been loaded -->
 
@@ -169,27 +163,27 @@
 <!-- ###################################################################################################### -->
 
 <script type="text/ng-template" id="qcmid.html">
-      <div class="modal-header">
-            <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Partage du QCM</h4>
+  <div class="modal-header">
+    <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Partage du QCM</h4>
+  </div>
+  <div class="modal-body">
+    <ng-form name="nameDialog" novalidate role="form">
+      <span class="help-block">Le numéro d'identification "ID" identifie de manière unique un questionnaire (pratique, questions, nombre, niveau...)</span>  
+      <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>
+      <div class="form-group qcmID" ng-class="{ 'has-error': !verifyQCMIDUser() }">
+        <label class="control-label" for="course">QCM ID:</label>
+        <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="22" select-on-focus>
+        <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>
       </div>
-      <div class="modal-body">
-            <ng-form name="nameDialog" novalidate role="form">
-                  <span class="help-block">Le numéro d'identification "ID" identifie de manière unique un questionnaire (pratique, questions, nombre, niveau...)</span>  
-                  <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>
-                  <div class="form-group qcmID" ng-class="{ 'has-error': !verifyQCMIDUser() }">
-                        <label class="control-label" for="course">QCM ID:</label>
-                        <input type="text" name="ID" class="form-control" ng-model="main.formattedQCMIDUser" ng-blur="QCMIDBlur()" maxlength="22" select-on-focus>
-                        <button type="button" class="btn btn-info btn-load-ID" ng-click="loadQCMID()" ng-disabled="!verifyQCMIDUser() || main.QCMID == main.QCMIDUser">Charger le questionnaire</button>
-                  </div>
-            </ng-form>
-            <hr/>
-            <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>
-            <span class="help-block url">{{main.QCMIDURL}}</span>
-            <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l'adresse</button>
-      </div>
-      <div class="modal-footer">
-            <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
-      </div>
+    </ng-form>
+    <hr/>
+    <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>
+    <span class="help-block url">{{main.QCMIDURL}}</span>
+    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l'adresse</button>
+  </div>
+  <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
+  </div>
 </script>
 
 <!-- ###################################################################################################### -->
