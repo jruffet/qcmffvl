@@ -496,8 +496,8 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.getScore = function() {
         var arr = filterFilter($scope.qcm, $scope.main.search);
-        arr = $filter('limitTo')(arr, $scope.main.limit);
         arr = $filter('categoryFilter')(arr, $scope.$storage.conf.category);
+        arr = $filter('limitTo')(arr, $scope.main.limit);
         var score = { user: 0, nb: 0, percentage: 0 };
         for(var i = 0; i < arr.length; i++){
             var question = arr[i];
