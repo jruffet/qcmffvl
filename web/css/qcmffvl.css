@@ -155,6 +155,9 @@
     .glyphicon {
         top: 2px;
     }
+    .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+        max-height: 400px;
+    }
 
     /******** QCM stuff ********/
     .score {
