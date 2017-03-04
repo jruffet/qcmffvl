@@ -217,16 +217,17 @@ angular.module('qcmffvl.services', [])
             var num = parseInt(ID.substr(3,10),10);
             var qcmVer = parseInt(ID.substr(13,2),10);
             var optnum;
+            var opt;
             // 3.0 <= Version < 3.2
             if (ID.length == 17) {
-                var optnum_compat = parseInt(ID.substr(15,2),10);
+                optnum = parseInt(ID.substr(15,2),10);
                 // initialise opt[3] to 0 : all categories
-                optnum = optnum_compat * 6;
+                opt = API.uncomputeOptions(optnum * 6);
             // Version >= 3.2
             } else {
                 optnum = parseInt(ID.substr(15,3),10);
+                opt = API.uncomputeOptions(optnum);
             }
-            var opt = API.uncomputeOptions(optnum);
             return { "ck":ck, "options":opt, "num":num, "optnum":optnum, "qcmVer":qcmVer }
         },
         computeOptions: function(opt) {
