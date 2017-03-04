@@ -207,7 +207,7 @@ angular.module('qcmffvl.services', [])
             var padnum = API.pad(num, 10);
             var optnum = 0;
             if (options)
-                optnum = API.pad(API.computeOptions(options),2);
+                optnum = API.pad(API.computeOptions(options),3);
             var ck = API.pad(API.checksum(num, qcmVer, optnum),3);
             return ck + padnum + qcmVer + optnum;
         },
@@ -216,7 +216,7 @@ angular.module('qcmffvl.services', [])
             var ck = parseInt(ID.substr(0,3),10);
             var num = parseInt(ID.substr(3,10),10);
             var qcmVer = parseInt(ID.substr(13,2),10);
-            var optnum = parseInt(ID.substr(15,2),10);
+            var optnum = parseInt(ID.substr(15,3),10);
             var opt = API.uncomputeOptions(optnum);
             return { "ck":ck, "options":opt, "num":num, "optnum":optnum, "qcmVer":qcmVer }
         },
@@ -228,15 +228,19 @@ angular.module('qcmffvl.services', [])
             // sport : 2 options
             // level : 3 options
             // nbquestions : 5 options
-            // encode everything into a 2*3*5 number
-            var optnum = opt[0]*3*5 + opt[1]*5 + opt[2];
+            // category : 6 options
+            // encode everything into a 2*3*5*6 (= 180) number
+            var optnum = opt[0]*3*5*6 + opt[1]*5*6 + opt[2]*6 + opt[3];
             return optnum;
         },
         uncomputeOptions: function(num) {
             var opt = [];
-            opt[0] = Math.floor(num/(3*5));
-            opt[1] = Math.floor((num-opt[0]*3*5)/5);
-            opt[2] = num-opt[0]*3*5-opt[1]*5;
+            opt[0] = Math.floor(num/(3*5*6));
+            opt[1] = Math.floor((num-opt[0]*3*5*6)/(5*6));
+            opt[2] = Math.floor((num-opt[0]*3*5*6-opt[1]*5*6)/6);
+            opt[3] = num-opt[0]*3*5*6-opt[1]*5*6-opt[2]*6;
+            // console.debug("-- uncomputeOptions --");
+            // console.debug(opt);
             return opt;
         },
         // returns :
@@ -272,7 +276,7 @@ angular.module('qcmffvl.services', [])
         },
         verifyChecksum: function(ID) {
             var API = this;
-            if (!ID || ID.length != 17) {
+            if (!ID || ID.length != 18) {
                 return false;
             }
             var IDdict = API.uncomputeID(ID);

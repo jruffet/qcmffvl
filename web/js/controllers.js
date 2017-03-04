@@ -193,9 +193,10 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.optionsToArray = function() {
         var opt = [];
-        opt[0] = $scope.main.sport.options.indexOf($scope.$storage.conf.sport)
-        opt[1] = $scope.main.level.options.indexOf($scope.$storage.conf.level)
-        opt[2] = $scope.main.nbquestions.options.indexOf($scope.$storage.conf.nbquestions)
+        opt[0] = $scope.main.sport.options.indexOf($scope.$storage.conf.sport);
+        opt[1] = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+        opt[2] = $scope.main.nbquestions.options.indexOf($scope.$storage.conf.nbquestions);
+        opt[3] = $scope.main.category.options.indexOf($scope.$storage.conf.category);
         return opt;
     }
 
@@ -203,6 +204,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.$storage.conf.sport = $scope.main.sport.options[opt[0]];
         $scope.$storage.conf.level = $scope.main.level.options[opt[1]];
         $scope.$storage.conf.nbquestions = $scope.main.nbquestions.options[opt[2]];
+        $scope.$storage.conf.category = $scope.main.category.options[opt[3]];
     }
 
     $scope.updateQCMID = function() {
@@ -380,6 +382,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loading = true;
         if (newval != oldval) {
             $scope.resetQCMDisplay(true);
+            $scope.updateQCMID();
         }
     });
 
