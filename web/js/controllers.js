@@ -82,7 +82,7 @@ angular.module('qcmffvl.controllers', [])
     }
     $scope.main.limit = $scope.$storage.conf.nbquestions;
 
-    // User has already set some answers in an unfinished MCQ, see if he wants to go on
+    // User has already set some answers in an unfinished QCM, see if he wants to go on
     if ($scope.$storage.QCMID) {
         $scope.showQCM = false;
         var dlg = dialogs.confirm('Chargement du dernier QCM','Charger le dernier questionnaire inachevé (avec vos réponses) ?');
@@ -93,7 +93,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.showQCM = true;
             }, 300);
         },function(btn){
-            // user wants a new MCQ
+            // user wants a new QCM
             $scope.deleteStoredAnswers();
             $scope.showQCM = true;
         });

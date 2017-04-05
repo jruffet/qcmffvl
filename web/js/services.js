@@ -163,7 +163,7 @@ angular.module('qcmffvl.services', [])
                         resArray[i].ans[rand] = tmp;
                     }
                 }
-                // in case answers were set in a previous unfinished session of the same MCQ
+                // in case answers were set in a previous unfinished session of the same QCM
                 // tick them _after_ we are finished ordering properly
                 if (answers) {
                     var storedAns = answers[resArray[i].code];
