@@ -215,12 +215,9 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.reload = function() {
-        var text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.sport + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toString().toLowerCase() + ' questions</b>'
-        if ($scope.$storage.conf.category.indexOf("Toutes") == -1) {
-            text += ' de la catégorie <b>' + $scope.$storage.conf.category + '</b>';
-        }
-        text += ' (et effacer vos réponses) ?';
-        var dlg = dialogs.confirm('Confirmation', text);
+        var text = '<b>Effacer vos réponses</b> et composer un nouveau questionnaire ?';
+
+        var dlg = dialogs.confirm("Nouveau questionnaire", text);
         dlg.result.then(function(btn){
             // wait for modal to close to avoid weird effects
             $timeout(function() {

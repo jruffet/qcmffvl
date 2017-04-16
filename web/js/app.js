@@ -34,7 +34,9 @@ config(['$routeProvider', function($routeProvider) {
         DIALOGS_YES: "Oui",
         DIALOGS_OK: "OK",
         DIALOGS_NO: "Non",
-        DIALOGS_CLOSE: "Fermer"
+        DIALOGS_CLOSE: "Fermer",
+        DIALOGS_CANCEL: "Annuler",
+        DIALOGS_RELOAD: "Recharger"
     });
 
     $translateProvider.preferredLanguage('fr');
