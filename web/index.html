@@ -224,9 +224,15 @@
                                       isHelpQuestion(q) ||
                                       !navCollapsed"
                                       ng-model="answer.checked" ng-class="(main.checkAnswers && failedQuestion(q) && ((badAnswer(answer) && answer.checked) || (goodAnswer(answer) && ! answer.checked)) ) ? 'myinput large' : ''">
+
+
+
                                       <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'help-answer':isHelpQuestion(q), 'chrome':browserChrome()}">
-                                          <span class="col-lg-11 col-xs-10 answer-text" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
-                                          <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
+
+                                          <span class="col-lg-1 col-xs-1" ng-show="main.checkAnswers" ng-bind="(answer.pts >= 0) ? '✅' : ''">  </span>
+                                        
+                                          <span class="col-lg-10 col-xs-9 answer-text" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
+                                          <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>                                          
                                       </div>
                                   </div>
                               </div>
