@@ -16,3 +16,14 @@ To see how it looks like, you can access the latest stable version at : http://q
 ### Android
 
 The Android app uses a webview on the "web app", adding easiness of use, especially when network data is not available.
+
+
+
+## Install
+`sudo npm install -g http-server`
+
+## Run
+
+
+`http-server`
+App is available at `http://127.0.0.1:8080/web`
