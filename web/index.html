@@ -234,7 +234,7 @@
                                           <span class="col-lg-10 col-xs-9 answer-text" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'help-answer':isHelpQuestion(q), 'chrome':browserChrome(), 'answer-should-not-be-checked-and-was-not-checked':(main.checkAnswers && ! answer.checked && answer.pts < 0) }" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
 
 
-                                          <span class="col-lg-1 col-xs-2 pull-right points" class="points-not-added" ng-class="" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>                                          
+                                          <span class="col-lg-1 col-xs-2 pull-right points" ng-class="{ 'points-added-negative':badAnswer(answer) && answer.checked, 'points-added-positive':goodAnswer(answer) && answer.checked, 'points-not-added' : !answer.checked }" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>                                          
                                       </div>
                                   </div>
                               </div>

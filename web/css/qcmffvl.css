@@ -56,12 +56,13 @@
     .col-lg-1, .col-xs-2 {
         width: 6%;
     }
-    .points {
+    span.points {
         padding-left: 0;
         padding-right: 2px;
-        font-weight: bold;
         text-align: right;
     }
+
+
     .qcm-title {
     	margin-bottom: 10px;
         margin-left: 5px;
@@ -236,8 +237,24 @@
         margin-left: -50px;
         text-align: right;
     }
-    .question .points {
+
+    span.points-added-positive {
         font-weight: bold;
+        color: green !important;
+    }
+    span.points-added-negative {
+        font-weight: bold;
+        color: #AD3D3B !important;
+    }
+
+    span.points-not-added {
+        font-weight: normal;
+        color: gray !important;
+    }
+
+
+
+    .question .points {
     }
     .good-answer {
         color: #3c763d;
@@ -362,6 +379,10 @@
     }
     .about .panel-heading {
         font-weight: bold;
+    }
+
+    .answer-should-not-be-checked-and-was-not-checked {
+        color: gray;
     }
 
 }
