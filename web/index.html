@@ -227,12 +227,14 @@
 
 
 
-                                      <div class="row answer" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'help-answer':isHelpQuestion(q), 'chrome':browserChrome()}">
+                                      <div class="row answer" >
 
                                           <span class="col-lg-1 col-xs-1" ng-show="main.checkAnswers" ng-bind="(answer.pts >= 0) ? '✅' : ''">  </span>
                                         
-                                          <span class="col-lg-10 col-xs-9 answer-text" ng-class="(main.checkAnswers && ! answer.checked && answer.pts < 0) ? 'answer-should-not-be-checked-and-was-not-checked' : ''" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
-                                          <span class="col-lg-1 col-xs-2 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>                                          
+                                          <span class="col-lg-10 col-xs-9 answer-text" ng-class="{'good-answer':goodAnswer(answer), 'bad-answer':badAnswer(answer), 'good-answer-not-checked':goodAnswerNotChecked(answer), 'help-answer':isHelpQuestion(q), 'chrome':browserChrome(), 'answer-should-not-be-checked-and-was-not-checked':(main.checkAnswers && ! answer.checked && answer.pts < 0) }" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
+
+
+                                          <span class="col-lg-1 col-xs-2 pull-right points" class="points-not-added" ng-class="" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>                                          
                                       </div>
                                   </div>
                               </div>
