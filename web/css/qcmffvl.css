@@ -95,6 +95,68 @@
         opacity: 0.3;
     }
 
+    .myinput[type="checkbox"]:before{
+        position: relative;
+        display: block;
+        width: 11px;
+        height: 11px;
+        border: 1px solid #808080;
+        content: "";
+        background: #F00;
+    }
+    .myinput[type="checkbox"]:after{
+        position: relative;
+        display: block;
+        left: 2px;
+        top: -11px;
+        width: 7px;
+        height: 7px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #B3B3B3 #dcddde #dcddde #B3B3B3;
+        content: "";
+        background-image: linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+        background-repeat: no-repeat;
+        background-position:center;
+    }
+    .myinput[type="checkbox"]:checked:after{
+        background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC'), linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+    }
+    .myinput[type="checkbox"]:not(:disabled):checked:hover:after{
+        background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC'), linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);
+    }
+    .myinput[type="checkbox"]:not(:disabled):hover:after{
+        background-image: linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);  
+        border-color: #85A9BB #92C2DA #92C2DA #85A9BB;  
+    }
+    .myinput[type="checkbox"]:not(:disabled):hover:before{
+        border-color: #3D7591;
+    }
+    /* Large checkboxes */
+    .myinput.large{
+        height:22px;
+        width: 22px;
+    }
+
+    .myinput.large[type="checkbox"]:before{
+        width: 20px;
+        height: 20px;
+    }
+    .myinput.large[type="checkbox"]:after{
+        top: -20px;
+        width: 16px;
+        height: 16px;
+    }
+    /* Custom checkbox */
+    .myinput.large.custom[type="checkbox"]:checked:after{
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGHRFWHRBdXRob3IAbWluZWNyYWZ0aW5mby5jb23fZidLAAAAk0lEQVQ4y2P4//8/AyUYwcAD+OzN/oMwshjRBoA0Gr8+DcbIhhBlAEyz+qZZ/7WPryHNAGTNMOxpJvo/w0/uP0kGgGwGaZbrKgfTGnLc/0nyAgiDbEY2BCRGdCDCnA2yGeYVog0Aae5MV4c7Gzk6CRqAbDM2w/EaQEgzXgPQnU2SAcTYjNMAYm3GaQCxNuM0gFwMAPUKd8XyBVDcAAAAAElFTkSuQmCC'), linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+    }
+    .myinput.large.custom[type="checkbox"]:not(:disabled):checked:hover:after{
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGHRFWHRBdXRob3IAbWluZWNyYWZ0aW5mby5jb23fZidLAAAAk0lEQVQ4y2P4//8/AyUYwcAD+OzN/oMwshjRBoA0Gr8+DcbIhhBlAEyz+qZZ/7WPryHNAGTNMOxpJvo/w0/uP0kGgGwGaZbrKgfTGnLc/0nyAgiDbEY2BCRGdCDCnA2yGeYVog0Aae5MV4c7Gzk6CRqAbDM2w/EaQEgzXgPQnU2SAcTYjNMAYm3GaQCxNuM0gFwMAPUKd8XyBVDcAAAAAElFTkSuQmCC'), linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);
+    }
+
+
+
     /******** Custom dialog/modal ********/
     .dialog-header-error { background-color: #d2322d; }
     .dialog-header-wait { background-color: #428bca; }
@@ -179,13 +241,17 @@
     }
     .good-answer {
         color: #3c763d;
+        font-weight: bold;
     }
     .bad-answer {
         color: #AD3D3B;
     }
+    .bad-answer span {
+        text-decoration: line-through;
+    }
     .good-answer-not-checked {
         font-weight: bold;
-        color: #555;
+        color: #AD3D3B;
     }
     .help-answer {
         color: #31708f;
