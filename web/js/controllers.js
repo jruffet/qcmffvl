@@ -15,6 +15,10 @@ angular.module('qcmffvl.controllers', [])
         answers:{}
     });
 
+    $scope.scrollToTopOfPage = function() {
+        window.scrollTo(0,0);
+    };
+
     $scope.main = {
         sport: {
             options: [ "Parapente", "Delta" ],
@@ -647,5 +651,7 @@ angular.module('qcmffvl.controllers', [])
 })
 
 .run(function($templateCache) {
+
 });
+
 
