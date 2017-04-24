@@ -56,7 +56,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
     $scope.version = "3.2";
-    $scope.qcmVersion = "1.0";
+    $scope.qcmVersion = "1.1";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
     // show the QCM view ?
@@ -155,7 +155,7 @@ angular.module('qcmffvl.controllers', [])
         $timeout(function() {
             var data;
             if ($scope.isAndroidApp) {
-                data = angular.fromJson($templateCache.get("qcm_ffvl_1.0.json"));
+                data = angular.fromJson($templateCache.get("qcm_ffvl_" + $scope.qcmVersion + ".json"));
                 $scope.QCMFromJSON(data);
             } else {
                 $http.get('/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
