@@ -62,7 +62,7 @@ A55V,La turbulence :,est due à des variations brusques de la vitesse de vol,-6,
 A56V,Les turbulences peuvent venir :,du relief,2,de la rencontre de 2 vents différents,2,des ascendances thermiques,2,,
 A57B,Un vent de 20 Kt (nœuds) souffle à environ :,18 km/h,-6,36 km/h,6,20 km/h,-6,,
 A58V,La direction du vent donnée par les services météo est toujours :,la direction d'où vient le vent,6,la direction où va le vent,-6,,,,
-A59B,Un vent du 225° est un vent :,soufflant vers le cap 225°,-3,provenant du cap 225°,3,soufflant vers le nord-est,-3,soufflant vers le sud-ouest,3
+A59B,Un vent du 225° est un vent :,soufflant vers le cap 225°,-3,provenant du cap 225°,3,soufflant vers le nord-est,3,soufflant vers le sud-ouest,-3
 A5M,Lorsqu'un nuage se forme :,du froid est dégagé,-6,de la chaleur est dégagée,6,l'ascendance s'arrête,-6,,
 A60B,La rotation de la terre dévie les vents vers leur :,droite dans l'hémisphère nord,6,droite dans l'hémisphère sud,-6,gauche dans l'hémisphère nord,-6,,
 A61B,"Autour des zones de haute pression, les vents tournent :",dans le sens des aiguilles d'une montre dans l'hémisphère nord,6,dans le sens contraire dans l'hémisphère nord,-6,dans le sens des aiguilles d'une montre dans l'hémisphère sud,-6,,
@@ -479,7 +479,7 @@ S93V,Un site peut être légalement utilisé que si :,le site est déclaré en p
 S94V,"Avant d'ouvrir un site, vous devez vous assurer que :",le maire de la commune a été avisé,3,les propriétaires des aires de décollage et d'atterrissage ont donné leur accord,3,le district aéronautique a donné son accord,-6,,
 S95V,La réglementation des sites prévoit :,les autorisations des propriétaires des aires de décollage et d'atterrissage et l'avis des maires des communes concernées,6,la déclaration en préfecture avec plan de vol,-6,la déclaration en mairie avec dépose d'un plan de vol,-6,,
 S96V,Le niveau du pilote est évalué:,par un moniteur,3,par les copains,-6,à l'aide de la fiche de progression du passeport de vol libre,3,,
-S97B,"Un moniteur encadre un stage de formation en milieu aménagé (S.IV, pilotage, acrobatie) dans le cadre d'une école fédérale:",il a reçu une formation particulière,3,sa formation initiale est suffisante,-6,il doit organiser le stage au dessus de l'eau,3,,
+S97B,"Un moniteur encadre un stage de formation en milieu aménagé (S.I.V., pilotage, acrobatie) dans le cadre d'une école fédérale:",il a reçu une formation particulière,3,sa formation initiale est suffisante,-6,il doit organiser le stage au dessus de l'eau,3,,
 S98V,L'accompagnateur de club:,s'occupe essentiellement de conduire la navette,-3,"joue un rôle de conseil, soutien, suivi auprès de pilotes pas totalement autonomes",3,donne son avis sur la possibilité de voler ou non pour les personnes qu'il accompagne,3,peut retirer la licence à un pilote n'ayant pas respecté ses consignes,-6
 S99B,La qualification d'accompagnateur de club:,est reconnue et délivrée par la FFVL,4,est reconnue et délivrée par l'ensemble des pilotes du club,-3,est auto-délivrée par le pilote concerné,-6,est délivrée suite à plusieurs journées de formation spécifique,2
 S9M,La formation fédérale au monitorat :,peut commencer dès l'obtention du brevet de pilote confirmé,-6,"commence après l'obtention de l'accompagnateur, de la qualification biplace et de l'animateur de club",2,est réservée au futurs moniteurs brevetés d'État ou brevets professionnels,-6,"comprend un stage de formation, un stage en situation et un examen final",4
