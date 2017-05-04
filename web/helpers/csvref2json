@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# TODO : check if points are always set, die otherwise
+
 import csv
 import sys
 import json
