@@ -50,7 +50,7 @@ A44B,"Lorsqu'une particule atmosphérique non saturée s'élève sans échanger 
 A45B,"Lorsqu'une particule d'air nuageux est soulevée, sa température :",décroît plus lentement que si la particule contenait de l'air clair,6,décroît plus vite que si la particule contenait de l'air clair,-6,croît plus vite que si la particule contenait de l'air clair,-6,,
 A46B,"Dans une masse d'air sans nuages, la température est de 15° C au sol et de 12° C 500 mètres au dessus. Cette tranche d'air est :",plutôt stable,6,plutôt instable,-6,plutôt sélectivement instable,-6,,
 A47M,Il existe une inversion de température parmi ces trois relevés,+22° à 500m / +18° à 1000m d'altitude,-6,-2° à 500m / -10° à 1200 m d'altitude,-6,+18° à 500m / +22° à 1000m d'altitude,6,,
-A48M,La chaleur solaire se propage dans l'atmosphère selon les processus suivants :,"rayonnement , conduction et convection",3,vibration et gradient,-6,évaporation/condensation et turbulence,3,,
+A48M,La chaleur solaire se propage dans l'atmosphère selon les processus suivants :,"rayonnement, conduction et convection",3,vibration et gradient,-6,évaporation/condensation et turbulence,3,,
 A49B,Le soleil réchauffe principalement l'atmosphère :,directement par rayonnement,-6,directement par convection,-6,indirectement par l'intermédiaire du sol,6,,
 A4B,"La cause de formation des nuages, c'est :",le refroidissement de l'air jusqu'à son niveau de condensation,6,une forte descendance,-6,Le réchauffement de l'air ascendant,-6,,
 A50B,La chaleur se propage par :,convection,2,conduction,2,rayonnement,2,,
@@ -514,7 +514,7 @@ U35B,"Lorsque vous volez vent arrière près du sol, l'impression visuelle tend 
 U36M,"Si vous volez face à un vent météo, pour garder une finesse/sol maximum et par rapport à la vitesse de finesse/air maximum, vous devez :",voler plus vite,6,voler moins vite,-6,voler au taux de chute mini,-6,,
 U37M,"Pour conserver une finesse/sol maximum, vous devez voler plus vite qu'à la vitesse de finesse/air max. :",dans une ascendance,-6,dans une descendance,3,vent de face,3,vent de dos,-6
 U38B,Vous croisez une autre aile ; votre vitesse de croisement est égale à :,votre vitesse/air,-6,la somme de vos 2 vitesse/air,6,la moitié de votre vitesse/air,-6,,
-U39V,"Vous croisez une autre aile , vous devez analyser et réagir :",plus vite que d'habitude,6,comme d'habitude,-6,vent de face vous avez plus de temps que d'habitude,-6,,
+U39V,"Vous croisez une autre aile, vous devez analyser et réagir :",plus vite que d'habitude,6,comme d'habitude,-6,vent de face vous avez plus de temps que d'habitude,-6,,
 U3M,L'hypoxie :,est due à un déficit d'oxygène dans le sang,2,est due au refroidissement de l'atmosphère,-6,se manifeste souvent par une sensation de bien-être,2,provoque une altération du jugement et une diminution de la coordination musculaire,2
 U40M,Votre trajectoire/sol est perpendiculaire au sens du vent :,la corde centrale de l'aile est perpendiculaire au sens du vent,-6,vous êtes obligatoirement en dérapage,-6,vous dérivez,6,,
 U41B,En vol vent de travers :,le nez de l'aile se met face au vent : c'est l'effet girouette,-6,vous devez adopter une angle de contre-dérive si vous vous dirigez vers un point qui n'est pas dans l'axe du vent,4,l'axe de l'aile fait un angle avec la trajectoire/sol,2,l'axe de l'aile reste parallèle à la trajectoire/sol,-6
