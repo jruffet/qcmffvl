@@ -286,13 +286,20 @@
         font-weight: bold;
         font-size: 16px;
     }
+
+    .thanks-block {
+        margin-top: 10px;
+    }
+    .thanks-title {
+        font-weight: bold;
+    }
     .about-category-title {
         text-align: center;
     }
     .changelog-title, .about-title {
         font-weight: bold;
     }
-    .changelog-content, .about-content {
+    .changelog-content, .about-content, .thanks-content {
         padding-top: 15px;
     }
     .changelog-version {
