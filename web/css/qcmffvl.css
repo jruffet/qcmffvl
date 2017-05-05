@@ -173,6 +173,10 @@
     .points {
         margin-left: -50px;
         text-align: right;
+        font-weight: normal;
+    }
+    .good-answer .points, .bad-answer .points {
+        font-weight: bold;
     }
     .question .points {
         font-weight: bold;
