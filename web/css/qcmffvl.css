@@ -111,7 +111,7 @@
     .navbar-brand {
         cursor: pointer;
     }
-    .navbar-default {
+    .navbar-default, .btn-fifty-shades {
         background-color: #f2f2f2;
         border-color: #ccc;
     }
