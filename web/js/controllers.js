@@ -162,7 +162,7 @@ angular.module('qcmffvl.controllers', [])
                 .success(function(data, status, headers, config){
                     $scope.main.qcmDate = data.date;
                     if ($scope.qcmVersion != data.version) {
-                        var dlg = dialogs.error('Erreur','La version de questionnaire chargée ne correspond pas à la version annoncée par le JSON.<br/>Cette erreur ne devrait pas se produire, merci de me contacter (cf "A propos") en indiquant les informations suivantes :<br/>qcmVersion (scope) : ' + $scope.qcmVersion + '<br/>qcmVersion (qcm) : ' + data.version);
+                        var dlg = dialogs.error('Erreur','La version de questionnaire chargée ne correspond pas à la version annoncée par le JSON.<br/>Cette erreur ne devrait pas se produire, merci de me contacter (cf "Informations") en indiquant les informations suivantes :<br/>qcmVersion (scope) : ' + $scope.qcmVersion + '<br/>qcmVersion (qcm) : ' + data.version);
                         // dlg.result();
                     } else {
                         $scope.QCMFromJSON(data);
