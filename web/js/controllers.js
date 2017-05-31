@@ -552,6 +552,12 @@ angular.module('qcmffvl.controllers', [])
         return (answer.pts > 0 && !answer.checked);
     }
 
+    $scope.badAnswerNotChecked = function(answer) {
+        if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+            return false;
+        return (answer.pts < 0 && !answer.checked);
+    }
+
     $scope.updateScore = function() {
         if ($scope.main.checkAnswers) {
             $scope.main.score = $scope.getScore();

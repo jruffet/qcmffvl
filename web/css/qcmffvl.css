@@ -182,14 +182,22 @@
         font-weight: bold;
     }
     .good-answer {
+        text-shadow: 0 0;
         color: #3c763d;
     }
     .bad-answer {
         color: #AD3D3B;
     }
     .good-answer-not-checked {
-        font-weight: bold;
-        color: #555;
+        text-shadow: 0 0;
+    }
+    .bad-answer-not-checked .answer-text, .bad-answer .answer-text {
+        text-decoration: line-through;
+    }
+    .bad-answer-not-checked .answer-text,
+    .good-answer-not-checked .points,
+    .bad-answer-not-checked .points {
+        color: #999;
     }
     .help-answer {
         color: #31708f;
