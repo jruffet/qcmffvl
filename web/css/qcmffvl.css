@@ -50,6 +50,10 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+    .header-exam-item {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
 
     .col-lg-11, .col-xs-10 {
         width: 94%;
