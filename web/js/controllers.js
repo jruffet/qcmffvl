@@ -53,7 +53,7 @@ angular.module('qcmffvl.controllers', [])
     }
     $scope.headerExamPapier = [{
         title: "Candidat",
-        items: ["Nom", "Prénom", "Numéro de licence"]
+        items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
     },{
         title: "Examen",
         items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"]
