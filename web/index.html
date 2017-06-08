@@ -211,6 +211,23 @@
                 <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie : {{$storage.conf.category}} ***</span>
               </div>
               <div class="qcm-body">
+                  <div ng-show="main.exam.papier" ng-repeat="header in headerExamPapier">
+                    <div class="panel panel-default grid-item panel-header-exam">
+                      <div class="panel-heading">
+                        <div class="row header-exam-title">
+                          <span class="col-lg-11 col-xs-11">{{header.title}}</span>
+                        </div>
+                      </div>
+                      <div class="panel-body answers">
+                        <div ng-repeat="item in header.items">
+                            <div class="checkbox row header-exam-item" >
+                              <span class="col-lg-11 col-xs-11">{{item}} :</span>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div ng-repeat="q in qcm | limitTo:main.displayLimit | filter:main.search | categoryFilter:$storage.conf.category | limitTo:main.limit" remove-loader-when-ready>
                       <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">

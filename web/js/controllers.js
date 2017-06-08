@@ -51,6 +51,14 @@ angular.module('qcmffvl.controllers', [])
         QCMIDUser: "",
         helpQuestion: ""
     }
+    $scope.headerExamPapier = [{
+        title: "Candidat",
+        items: ["Nom", "Prénom", "Numéro de licence"]
+    },{
+        title: "Examen",
+        items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"]
+    }]
+
     // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
