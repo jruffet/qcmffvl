@@ -51,13 +51,21 @@ angular.module('qcmffvl.controllers', [])
         QCMIDUser: "",
         helpQuestion: ""
     }
-    $scope.headerExamPapier = [{
+    $scope.headerExamPapierCandidat = [{
         title: "Candidat",
         items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
     },{
         title: "Examen",
         items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"]
     }]
+    $scope.headerExamPapierExaminateur = [{
+        title: "Examinateur",
+        items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
+    },{
+        title: "Examen",
+        items: ["Date", "Structure organisatrice"]
+    }]
+
 
     // automatically removed by a directive when the QCM is loaded
     $scope.loading = true;
@@ -405,8 +413,10 @@ angular.module('qcmffvl.controllers', [])
             }
             if (newval == "Examen papier (candidat)") {
                 $scope.main.exam.papierCandidat = true;
+                $scope.headerExamPapier = $scope.headerExamPapierCandidat;
             } else if (newval == "Examen papier (examinateur)") {
                 $scope.main.exam.papierExaminateur = true;
+                $scope.headerExamPapier = $scope.headerExamPapierExaminateur;
             }
             // back from examPapierExaminateur, we want to erase the answers ticked
             $scope.unfillQCMAnswers();

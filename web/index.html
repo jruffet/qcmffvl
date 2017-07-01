@@ -211,8 +211,8 @@
                 <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie : {{$storage.conf.category}} ***</span>
               </div>
               <div class="qcm-body">
-                  <div ng-show="main.exam.papierCandidat" ng-repeat="header in headerExamPapier">
-                    <div class="panel panel-default grid-item panel-header-exam">
+                  <div ng-show="main.exam.papier" ng-repeat="header in headerExamPapier">
+                    <div class="panel panel-default grid-item panel-header-exam" ng-class="{'examinateur':main.exam.papierExaminateur}">
                       <div class="panel-heading">
                         <div class="row header-exam-title">
                           <span class="col-lg-11 col-xs-11">{{header.title}}</span>
