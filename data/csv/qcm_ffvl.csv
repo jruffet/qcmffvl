@@ -363,7 +363,7 @@ S108V,A quelle altitude maximale peut évoluer un PUL en plaine ?,"2500m,",-6,"
 S109V,"Citez un schéma possible, d’organisation des espaces, autour d’un aéroport.","CTR de classe E et TMA de classe D,",-6,"CTR de classe E et TMA de classe E,",-6,CTR de classe D et TMA de classe D et E,6,,0
 S10M,"Les diplômes d'état de Vol Libre (BEES, BPJEPS, DEJEPS, DESJEPS parapente ou delta) :",sont des diplômes sanctionnant un niveau supérieur à celui de moniteur fédéral,2,sont des diplômes État (Ministère Jeunesse & Sports) construits en collaboration avec la F.F.V.L.,2,sont des diplômes permettant légalement de pratiquer le biplace contre rémunération,1,sont des diplômes permettant légalement d'enseigner le Vol Libre contre rémunération,1
 S110V,Quelles classes d’espace sont accessibles au vol libre ?,"A, D et E,",-6,"C, D et G,",-6,F (à l'étranger) et G,6,,0
-S111V,Où peut être située une ZRT ?,"N’importe où,",6,"Uniquement nn bordure d’un aérodrome,",-6,Uniquement en espace militaire,-6,,0
+S111V,Où peut être située une ZRT ?,"N’importe où,",6,"Uniquement en bordure d’un aérodrome,",-6,Uniquement en espace militaire,-6,,0
 S112V,Quel est le nom d’un réseau de zones militaires de basse altitude particulièrement dangereux ?,"ZIT,",-6,"RTBA,",6,CTR,-6,,0
 S113V,Quel est le service officiel en charge de l’information aéronautique ?,"Le ministère des sports,",-6,"La FFVL,",-6,Le SIA.,6,,0
 S114V,Comment est annoncé un exercice militaire ?,"Par lettre d’information aux usagers,",-6,"Par la presse spécialisée,",-6,Par NOTAM ou SUP AIP sur le site du SIA.,6,,0
