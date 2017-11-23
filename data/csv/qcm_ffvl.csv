@@ -230,7 +230,7 @@ G8B,Le taux de chute minimum :,correspond à un angle d'incidence plus petit que
 G9B,Se relever dans la sellette en finale augmente :,la traînée induite,-6,la traînée d'effet de sol,-6,la traînée de forme,6,,
 H10B,"Lorsque pour sortir d'un virage il suffit de se remettre au centre de la barre de contrôle, l'aile est",stable spirale,6,instable spirale,-6,neutre,-6,cabreuse,-6
 H11B,L'augmentation de la charge d'un appareil,ne change pas le centrage,-6,change le centrage en général en rendant l'appareil cabreur,6,change le centrage en général en rendant l'appareil piqueur,-6,,
-H12B,"Plus la charge alaire est grande, l'aile",décolle plus facilement,-6,décolle à une plus grande vitesse,3,a un taux de chute plus élevé,3,a une finesse plus élevée,-6
+H12B,"L'augmentation de la charge alaire fait que l'aile",décolle plus facilement,-6,décolle à une plus grande vitesse,3,a un taux de chute plus élevé,3,a une finesse plus élevée,-6
 H13V,"Dans une mise en virage, l'inclinaison est obtenue grâce",au lacet inverse,-6,à l'effet girouette,-6,au déplacement du poids,3,au gauchissement du bout d'aile intérieur dû aux déformations que permettent structure et voile,3
 H14V,Dans un virage équilibré,l’aile réalise d’elle-même en majeure partie le poussé utile au virage ; la barre de contrôle lâchée est en position avancée par rapport à la ligne droite,2,la Force Aérodynamique augmente,2,"à inclinaison faible et moyenne, beaucoup d’ailes ne réclament pas de poussé additionnel pour être au taux de chute mini, si elles sont réglées proches du taux de chute mini en ligne droite",2,,
 H15B,"Au cours d'un virage à grande inclinaison, un appareil décroche à",même vitesse qu'en ligne droite,-6,du côté intérieur au virage,3,plus forte vitesse qu'en ligne droite,3,,
