@@ -606,19 +606,18 @@ angular.module('qcmffvl.controllers', [])
     $scope.mailtoclick = function(q, index) {
         // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
         $scope.resetHelpQuestion(q);
-        var separator = "---------------------------------" + "%0A"
-        var uri =   "mailto:request-qcm@ffvl.fr?subject=Question " + q.code + "   " + 
-                "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]" +
-                "&body=" + "%0A" + "%0A" + "%0A" +
-                separator +
-                "Question " + q.code + "%0A" +
-                "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "%0A" +
-                separator +
-                index + ". " + q.question + "%0A%0A";
+        var separator = "---------------------------------" + "\n"
+        var subject = "Question " + q.code + "   " + "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
+        var body = "\n\n\n" + separator +
+                    "Question " + q.code + "\n" +
+                    "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "\n" +
+                    separator +
+                    index + ". " + q.question + "\n\n";
         for (var i=0; i<q.ans.length; i++) {
-            uri += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")%0A";
+            body += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")\n";
         }
-        uri += separator;
+
+        var uri = "mailto:request-qcm@ffvl.fr?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         window.location.href = uri;
     }
 
