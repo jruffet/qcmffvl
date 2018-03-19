@@ -71,7 +71,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "3.4";
+    $scope.version = "3.4.1";
     $scope.qcmVersion = "1.3";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
@@ -114,7 +114,6 @@ angular.module('qcmffvl.controllers', [])
             $scope.showQCM = true;
         });
     }
-
 
     $scope.deleteStoredAnswers = function() {
         $scope.$storage.QCMID = "";
@@ -462,7 +461,7 @@ angular.module('qcmffvl.controllers', [])
     }
 })
 
-.controller('QCMCtrl', function($scope, $filter, $location, dialogs, API, filterFilter) {
+.controller('QCMCtrl', function($scope, $filter, $location, $timeout, dialogs, API, filterFilter) {
     $scope.questions = [];
     $scope.$parent.hideNavbarButtons = false;
 
@@ -604,21 +603,33 @@ angular.module('qcmffvl.controllers', [])
     }
 
     $scope.mailtoclick = function(q, index) {
-        // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
-        $scope.resetHelpQuestion(q);
-        var separator = "---------------------------------" + "\n"
-        var subject = "Question " + q.code + "   " + "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
-        var body = "\n\n\n" + separator +
-                    "Question " + q.code + "\n" +
-                    "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "\n" +
-                    separator +
-                    index + ". " + q.question + "\n\n";
-        for (var i=0; i<q.ans.length; i++) {
-            body += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")\n";
-        }
+        var text = "Merci d'utiliser cette fonctionnalité uniquement pour remonter un problème avec la question ou ses réponses (incohérence, mauvaise formulation, fautes de français...).<br/>"
+                    + "Si vous souhaitez des explications, merci de vous tourner vers une école de vol libre.<br/><br/>"
+                    + "Continuer ? (répondre \"oui\" va ouvrir une fenêtre de votre client mail)"
+        var dlg = dialogs.confirm('Confirmation', text);
+        dlg.result.then(function(btn){
+            // wait for modal to close to avoid weird effects
+            $timeout(function() {
+                // ugly (but effective !) way of re-setting q.help, since it is toggled when clicking on the envelope (because it sits in the panel)
+                $scope.resetHelpQuestion(q);
+                var separator = "---------------------------------" + "\n"
+                var subject = "Question " + q.code + "   " + "[QCM " + $scope.qcmVersion + " / WebApp " + $scope.version + " / QCMID " + $scope.main.QCMID + "]";
+                var body = "\n\n\n" + separator +
+                            "Question " + q.code + "\n" +
+                            "#" + index + " du questionnaire : " + $scope.main.QCMIDURL + "\n" +
+                            separator +
+                            index + ". " + q.question + "\n\n";
+                for (var i=0; i<q.ans.length; i++) {
+                    body += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")\n";
+                }
 
-        var uri = "mailto:request-qcm@ffvl.fr?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        window.location.href = uri;
+                var uri = "mailto:request-qcm@ffvl.fr?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                window.location.href = uri;
+            }, 300);
+        },function(btn){
+            //cancel
+        });
+
     }
 
     $scope.$watch('main.checkAnswers', function(newval, oldval) {
