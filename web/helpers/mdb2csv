@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# NOTE:
+# apt-get install mdbtools sqlite3
+
+MAKE_TMPDIR=1
+
+clean_exit() {
+    [ "$MAKE_TMPDIR" -eq 1 ] && rm -rf $tmpdir
+    exit $@
+}
+
+fail() {
+    echo "[FAIL] $@"
+    clean_exit 1
+}
+
+info() {
+    echo "[+] $@"
+}
+
+usage() {
+    cat <<EOU
+Usage : $0 MDB_FILE JSON_FILE
+EOU
+    clean_exit
+}
+
+# ------------- pre-flight ----------------
+
+if [ "$MAKE_TMPDIR" -eq 1 ]; then
+    tmpdir=$(mktemp -d /tmp/XXXXXXXXXX) || exit 100
+fi
+
+trap clean_exit SIGINT
+
+# ----------------- MAIN ------------------
+
+mdbfile=$1
+jsonfile=$2
+
+[ -z "$mdbfile" -o -z "$jsonfile" ] && usage
+
+[ -r "$mdbfile" ] || fail "Cannot open \"$mdbfile\" for reading"
+touch "$jsonfile" || fail "Cannot open \"$jsonfile\" for writing"
+
+dblite="$tmpdir/convert.db"
+csvfile="$tmpdir/convert.csv"
+
+# Convert to a proper DBMS
+mdb-schema "$mdbfile" sqlite | sqlite3 "$dblite"
+OLDIFS=$IFS
+IFS=
+sqlite3 "$dblite" <<< .schema | awk -F '`' '/CREATE TABLE/ { print $2 }' | while read table
+do 
+	mdb-export -I sqlite "$mdbfile" $table | sqlite3 "$dblite"
+done
+IFS=$OLDIFS
+
+# Keep only what we need
+sqlite3 "$dblite" <<EOF
+.headers on
+.mode csv
+.output $csvfile
+select q.CODE as code,q.Question as question,q.RepA as ans1,q.PtA as pts1,q.RepB as ans2,q.PtB as pts2,q.RepC as ans3,q.PtC as pts3,q.RepD as ans4,q.PtD as pts4 from Questionnaire q;
+EOF
+#echo $dblite
+#read
+#select q.CODE as code,q.Numéro as categorie,n.Niveau as num_niveau,q.Question as question,q.RepA as ans1,q.PtA as pts1,q.RepB as ans2,q.PtB as pts2,q.RepC as ans3,q.PtC as pts3,q.RepD as ans4,q.PtD as pts4 from Questionnaire q, "Niveaux/Domaines" n where q.Numéro = n.Numéro;
+
+# And finally convert to JSON
+#$(dirname $0)/csv2json "$csvfile" "$jsonfile"
+
+clean_exit 0
