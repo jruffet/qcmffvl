@@ -9,7 +9,7 @@ It works on various browsers (Chrome / Firefox / Safari...), thus various OSes (
 ### Web App
 
 It is based on angularJS, jquery, and bootstrap (and much more).  
-Purely client side, with only static files, designed in a way that they can be loaded directly from the file system (no cross site stuff).
+Purely client side, with only static files, designed in a way so that they can be loaded directly from the file system (no cross site stuff).
 
 To see how it looks like, you can access the latest stable version at : http://qcm.ffvl.fr/
 
