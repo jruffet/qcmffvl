@@ -195,6 +195,28 @@
 </script>
 
 <!-- ###################################################################################################### -->
+<!-- ################################### FFVL communication dialog ######################################## -->
+<!-- ###################################################################################################### -->
+
+<script type="text/ng-template" id="ffvldialog.html">
+  <div class="modal-header">
+	<h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Au sujet de la question {{q.code}}</h4>
+  </div>
+  <div class="modal-body">
+    <span class="help-block"><b>Un souci avec la question ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="questionIssue()"></span></a></span>
+    <span class="help-block">Vous souhaitez faire remonter un problème avec la question ou ses réponses (incohérence, mauvaise formulation, fautes de français...).</span>
+
+    <hr/>
+    <span class="help-block"><b>Besoin d'explications ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="questionAskHelp()"></span></a></span>
+    <span class="help-block">"Les moniteurs vous répondent"</span>
+    <span class="help-block">Rentrez en contact avec nos moniteurs FFVL</span>
+  </div>
+  <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
+  </div>
+</script>
+
+<!-- ###################################################################################################### -->
 <!-- ##########################################  QCM HTML  ################################################ -->
 <!-- ###################################################################################################### -->
 
@@ -232,7 +254,7 @@
                       <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">
                               <div class="row question ">
-                                  <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Signaler un problème avec cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="mailtoclick(q, $index+1)"></a></span>
+                                  <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Contacter la FFVL au sujet de cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="ffvldialog(q, $index+1)"></a></span>
                               </div>
                           </div>
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)">
@@ -348,6 +370,16 @@
           <div class="panel panel-default">
               <div class="panel-heading">CHANGELOG</div>
               <div class="panel-body">
+                  <div class="changelog-version row">
+                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5.2</span>
+                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
+                        <ul class="changelog-content">
+                            <li>MAJ du questionnaire FFVL vers 1.6</li>
+                            <li>Possibilité de contacter la FFVL via l'interface pour des explications sur une question</li>
+                        </ul>
+                      </div>
+                  </div>
                   <div class="changelog-version row">
                       <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5.1</span>
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">

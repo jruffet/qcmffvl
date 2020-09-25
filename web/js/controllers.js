@@ -71,8 +71,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "3.5.1";
-    $scope.qcmVersion = "1.5";
+    $scope.version = "3.5.2";
+    $scope.qcmVersion = "1.6";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
     // show the QCM view ?
@@ -310,6 +310,12 @@ angular.module('qcmffvl.controllers', [])
     $scope.unfillQCMAnswers = function() {
         $scope.main.checkAnswers = false;
         API.untickAnswers($scope.qcm);
+    }
+
+    $scope.ffvldialog = function(q, index) {
+        $scope.q = q;
+        $scope.index = index;
+        var dlg = dialogs.create('ffvldialog.html','ffvldialogCtrl', $scope);
     }
 
     $scope.dialogQCMID = function() {
@@ -658,6 +664,39 @@ angular.module('qcmffvl.controllers', [])
     $scope.$parent.hideNavbarButtons = true;
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+})
+
+.controller('ffvldialogCtrl', function($scope, $modalInstance, $location, data, API) {
+    var q = data.q;
+    $scope.q = q;
+    var index = data.index;
+
+    $scope.ok = function() {
+        $modalInstance.dismiss();
+    }
+    $scope.questionIssue = function() {
+        var mailTo = "request-qcm@ffvl.fr";
+        $scope.sendMail(mailTo);
+    }
+    $scope.questionAskHelp = function() {
+        var mailTo = "les-moniteurs-vous-repondent@ffvl.fr";
+        $scope.sendMail(mailTo);
+    }
+    $scope.sendMail = function(mailTo) {
+        var separator = "---------------------------------" + "\n"
+        var subject = "Question " + q.code + "   " + "[QCM " + data.qcmVersion + " / WebApp " + data.version + " / QCMID " + data.main.QCMID + "]";
+        var body = "\n\n\n" + separator +
+                    "Question " + q.code + "\n" +
+                    "#" + index + " du questionnaire : " + data.main.QCMIDURL + "\n" +
+                    separator +
+                    index + ". " + q.question + "\n\n";
+        for (var i=0; i<q.ans.length; i++) {
+            body += "- " + q.ans[i].text + " (" + q.ans[i].pts + ")\n";
+        }
+
+        var uri = "mailto:"+ encodeURIComponent(mailTo) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = uri;
+    }
 })
 
 .controller('QCMIDDialogCtrl', function($scope, $modalInstance, $location, data, API) {
