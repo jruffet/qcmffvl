@@ -104,7 +104,7 @@ angular.module('qcmffvl.services', [])
                 var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
                 for (var c = 0; c < catDistrib.length; c++) {
                     var cat = catDistrib[c];
-                    for (var level = 0; level <= 2; level++) {
+                    for (var level = 0; level <= 3; level++) { //xavier
                         // if we are out of questions for the requested level,
                         // fallback to the next level
                         if (endoflevel[level]) {
