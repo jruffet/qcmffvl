@@ -17,7 +17,3 @@ To see how it looks like, you can access the latest stable version at : http://q
 
 The Android app uses a webview on the "web app", adding easiness of use, especially when network data is not available.
 
-
-### Delta/paragling specific questions for winch
-
-The fork allows winch questions (tagged with T letter)
