@@ -128,19 +128,26 @@ angular.module('qcmffvl.controllers', [])
         return (deviceDetector.raw.userAgent.indexOf("QCMFFVL Android App") != -1);
     }
 
-    // load specific QCM ID (+ optionnal answers)
+    // load specific QCM ID (+ optional answers)
     $scope.loadQCMID = function(QCMID, answers) {
+        var errorLoadingQCMID = false
+        var errorExtraMsg = "";
         if (QCMID) {
             if (API.verifyChecksum(QCMID)) {
-                // used by loadJSON()
-                $scope.main.QCMID = QCMID;
-            } else {
-                var optionnalMsg = "";
-                if (QCMID.length == 15) {
-                    optionnalMsg = "<br/><br/>Note : Les ID QCM à 15 chiffres ne sont plus compatibles avec les versions 3.X (ou versions supérieures).";
+                if (API.verifyVersion(QCMID, $scope.qcmVer)) {
+                    // used by loadJSON()
+                    $scope.main.QCMID = QCMID;
+                } else {
+                    errorLoadingQCMID = true;
+                    var QCMIDVersion = API.extractVersion(QCMID);
+                    errorExtraMsg = "<br/>La version de questionnaire utilisé (" + QCMIDVersion + ") ne correspond pas à l'actuel (" + $scope.qcmVersion + ")";
                 }
-                dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ')</b><br/> Le questionnaire actuel a été rechargé.' + optionnalMsg);
+            } else {
+                errorLoadingQCMID = true;
             }
+        }
+        if (errorLoadingQCMID) {
+            dialogs.error('Erreur','<b>ID QCM invalide</b> (' + QCMID + ')</b><br/>' + errorExtraMsg + '<br/>' + 'Le questionnaire actuel a été rechargé.');
         }
         if ($scope.qcm) {
             if (QCMID) {

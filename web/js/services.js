@@ -301,13 +301,17 @@ angular.module('qcmffvl.services', [])
         extractVersion: function(ID) {
             var API = this;
             var IDdict = API.uncomputeID(ID);
-            return IDdict.qcmVer;
+            return API.versionToDot(IDdict.qcmVer);
         },
         pad: function(num, size) {
             return ('00000000000000000000000' + num).substr(-size);
         },
         crc: function(txt) {
             return crc32(txt).toUpperCase();
+        },
+        versionToDot: function(num) {
+            var n = num.toString();
+            return n[0] + '.' + n[1];
         }
 
         //TODO : move selftest here
