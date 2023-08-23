@@ -104,7 +104,7 @@ angular.module('qcmffvl.services', [])
                 var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
                 for (var c = 0; c < catDistrib.length; c++) {
                     var cat = catDistrib[c];
-                    for (var level = 0; level <= 2; level++) {
+                    for (var level = 0; level <= 3; level++) {
                         // if we are out of questions for the requested level,
                         // fallback to the next level
                         if (endoflevel[level]) {
@@ -236,21 +236,21 @@ angular.module('qcmffvl.services', [])
             // console.debug(opt);
 
             // sport : 2 options
-            // level : 3 options
+            // level : 4 options
             // nbquestions : 5 options
             // category : 6 options
-            // encode everything into a 2*3*5*6 (= 180) number
-            var optnum = opt[0]*3*5*6 + opt[1]*5*6 + opt[2]*6 + opt[3];
+            // encode everything into a 2*4*5*6 (= 240) number
+            var optnum = opt[0]*4*5*6 + opt[1]*5*6 + opt[2]*6 + opt[3];
             return optnum;
         },
         uncomputeOptions: function(num) {
             // console.debug("-- uncomputeOptions --");
             // console.debug(num);
             var opt = [];
-            opt[0] = Math.floor(num/(3*5*6));
-            opt[1] = Math.floor((num-opt[0]*3*5*6)/(5*6));
-            opt[2] = Math.floor((num-opt[0]*3*5*6-opt[1]*5*6)/6);
-            opt[3] = num-opt[0]*3*5*6-opt[1]*5*6-opt[2]*6;
+            opt[0] = Math.floor(num/(4*5*6));
+            opt[1] = Math.floor((num-opt[0]*4*5*6)/(5*6));
+            opt[2] = Math.floor((num-opt[0]*4*5*6-opt[1]*5*6)/6);
+            opt[3] = num-opt[0]*4*5*6-opt[1]*5*6-opt[2]*6;
             // console.debug(opt);
             return opt;
         },
