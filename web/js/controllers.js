@@ -17,7 +17,7 @@ angular.module('qcmffvl.controllers', [])
 
     $scope.main = {
         sport: {
-            options: [ "Parapente", "Delta" ],
+            options: ["Parapente", "Delta"],
             checked: $scope.$storage.conf.sport
         },
         level: {
@@ -25,11 +25,11 @@ angular.module('qcmffvl.controllers', [])
             checked: $scope.$storage.conf.level
         },
         nbquestions: {
-        	options: [ "10", "30", "60", "90", "Toutes les" ],
+        	options: ["10", "30", "60", "90", "Toutes les"],
         	checked: $scope.$storage.conf.nbquestions
         },
         typeExam: {
-            options: [ "Révision", "Examen papier (candidat)", "Examen papier (examinateur)" ],
+            options: ["Révision", "Examen papier (candidat)", "Examen papier (examinateur)"],
             checked: "Révision"
         },
         category : {
@@ -497,8 +497,8 @@ angular.module('qcmffvl.controllers', [])
                 $scope.$storage.answers[q.code].push(index);
                 $scope.$storage.QCMID = $scope.main.QCMID;
             } else {
-                var i = $scope.$storage.answers[q.code].indexOf(index); 
-                if (i != -1) 
+                var i = $scope.$storage.answers[q.code].indexOf(index);
+                if (i != -1)
                     $scope.$storage.answers[q.code].splice(i,1);
                 if ($scope.$storage.answers[q.code].length == 0)
                     delete $scope.$storage.answers[q.code];
@@ -649,8 +649,8 @@ angular.module('qcmffvl.controllers', [])
 
 .controller('SelfTestCtrl', function($scope, API) {
     $scope.$parent.loading = false;
-    /* 
-    TODO : 
+    /*
+    TODO :
         generate N QCMs (1000 ?)
         for  every setup (cat/level), show :
             - the avg place of each question
