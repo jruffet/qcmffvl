@@ -21,7 +21,7 @@ angular.module('qcmffvl.controllers', [])
             checked: $scope.$storage.conf.sport
         },
         level: {
-            options: ["Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé", "Qualification treuil"],
+            options: ["Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé", "Qualification Treuil"],
             checked: $scope.$storage.conf.level
         },
         nbquestions: {
