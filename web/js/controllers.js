@@ -103,7 +103,7 @@ angular.module('qcmffvl.controllers', [])
             $timeout(function() {
                 $scope.loadQCMID($scope.$storage.QCMID, $scope.$storage.answers);
                 $scope.showQCM = true;
-            }, 300);
+            }, 1000);
         },function(btn){
             // user wants a new QCM
             $scope.deleteStoredAnswers();
