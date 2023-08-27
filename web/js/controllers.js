@@ -92,10 +92,6 @@ angular.module('qcmffvl.controllers', [])
     } else {
         $scope.main.search.delta = true;
     }
-    // do not load all questions even if it was stored, this would be way too slow and confusing.
-    if (!$.isNumeric($scope.$storage.conf.nbquestions)) {
-        $scope.$storage.conf.nbquestions = 30;
-    }
     $scope.main.limit = $scope.$storage.conf.nbquestions;
 
     // User has already set some answers in an unfinished QCM, see if he wants to go on
