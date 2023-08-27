@@ -665,6 +665,14 @@ angular.module('qcmffvl.controllers', [])
     */
 })
 
+.controller('PrivacyCtrl', function($scope) {
+    $scope.$parent.navCollapsed = true;
+    $scope.$parent.loading = false;
+    $scope.$parent.hideNavbarButtons = true;
+
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+})
+
 .controller('AboutCtrl', function($scope) {
     $scope.$parent.navCollapsed = true;
     $scope.$parent.loading = false;

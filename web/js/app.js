@@ -21,6 +21,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/qcm', {templateUrl: 'qcm.html', controller: 'QCMCtrl'});
   $routeProvider.when('/about', {templateUrl: 'about.html', controller: 'AboutCtrl'});
   $routeProvider.when('/selftest', {templateUrl: 'selftest.html', controller: 'SelfTestCtrl'});
+  $routeProvider.when('/privacy', {templateUrl: 'privacy.html', controller: 'PrivacyCtrl'});
   $routeProvider.otherwise({redirectTo: '/qcm'});
 }])
 .config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
