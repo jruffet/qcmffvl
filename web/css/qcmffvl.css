@@ -244,6 +244,13 @@
         margin-right: auto;
         margin-top:50px;
     }
+    .nodata {
+        width:30%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:50px;
+    }
     .qcm-title {
         font-size: 15px;
         font-weight: bold;
