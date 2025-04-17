@@ -33,7 +33,7 @@ angular.module('qcmffvl.controllers', [])
             checked: "Révision"
         },
         category : {
-            options: ["Toutes les catégories", "Matériel", "Mécavol", "Météo", "Pilotage", "Réglementation"],
+            options: ["Toutes les catégories", "Matériel", "Mécavol", "Météo", "Pilotage", "Réglementation", "Facteurs humains", "Milieu naturel"],
             checked: $scope.$storage.conf.category
         },
         displayLimit: 10000,
@@ -71,8 +71,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "3.6";
-    $scope.qcmVersion = "2.0";
+    $scope.version = "3.7";
+    $scope.qcmVersion = "5.1";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
     // show the QCM view ?

@@ -102,6 +102,7 @@ angular.module('qcmffvl.services', [])
             while (resArray.length != array.length && (endoflevel[0] == false || endoflevel[1] == false || endoflevel[2] == false)) {
                 // category distribution (returns 10 items)
                 var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
+
                 for (var c = 0; c < catDistrib.length; c++) {
                     var cat = catDistrib[c];
                     for (var level = 0; level <= 3; level++) {
@@ -222,7 +223,7 @@ angular.module('qcmffvl.services', [])
             if (ID.length == 17) {
                 optnum = parseInt(ID.substr(15,2),10);
                 // initialise opt[3] to 0 : all categories
-                opt = API.uncomputeOptions(optnum * 6);
+                opt = API.uncomputeOptions(optnum * 8);
             // Version >= 3.2
             } else {
                 optnum = parseInt(ID.substr(15,3),10);
@@ -234,24 +235,20 @@ angular.module('qcmffvl.services', [])
             var API = this;
             // console.debug("-- computeOptions --");
             // console.debug(opt);
-
             // sport : 2 options
             // level : 4 options
-            // nbquestions : 5 options
-            // category : 6 options
-            // encode everything into a 2*4*5*6 (= 240) number
-            var optnum = opt[0]*4*5*6 + opt[1]*5*6 + opt[2]*6 + opt[3];
+            // nbquestions : 6 options
+            // category : 8 options
+            // encode everything into a 2*4*6*8 (= 384) number
+            var optnum = opt[0]*4*6*8 + opt[1]*6*8 + opt[2]*8 + opt[3];
             return optnum;
         },
         uncomputeOptions: function(num) {
-            // console.debug("-- uncomputeOptions --");
-            // console.debug(num);
             var opt = [];
-            opt[0] = Math.floor(num/(4*5*6));
-            opt[1] = Math.floor((num-opt[0]*4*5*6)/(5*6));
-            opt[2] = Math.floor((num-opt[0]*4*5*6-opt[1]*5*6)/6);
-            opt[3] = num-opt[0]*4*5*6-opt[1]*5*6-opt[2]*6;
-            // console.debug(opt);
+            opt[0] = Math.floor(num/(4*6*8));
+            opt[1] = Math.floor((num-opt[0]*4*6*8)/(6*8));
+            opt[2] = Math.floor((num-opt[0]*4*6*8-opt[1]*6*8)/8);
+            opt[3] = num-opt[0]*4*6*8-opt[1]*6*8-opt[2]*8;
             return opt;
         },
         // returns :
