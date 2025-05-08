@@ -19,7 +19,7 @@ content = {
     # 10% Matériel général (L)+ matériel PP ou D (N ou R) selon discipline
     # 20% mécavol général (E) + mécavol PP ou D (G ou H)
     # 20% pilotage général (U)+ pilotage PP ou D (W ou X)
-    # 20% réglementation/cadre de pratique (S)
+    # 10% réglementation/cadre de pratique (S)
     # 20% météo (A)
     # 10% Facteurs humains (F)
     # 10% Milieu naturel (P)
@@ -67,9 +67,9 @@ content = {
         "P": [[], [], [], []],
     },
 }
-content["ver"] = content["version"].replace("\\.", "")
+content["ver"] = content["version"].replace("\.", "")
 niveaux = ["V", "B", "M", "T"]
-pattern = "^([AELSUFPGNWHRX])([0-9]{1,5})([VBMT]{1,4})$"
+code_regex = r"^([A-Z])(\d+)([A-Z]+)$"
 tmpi = 0
 pratique = {
     "general": ["A", "E", "L", "S", "U", "F", "P"],
@@ -84,7 +84,7 @@ with open(jsonfile, "w") as outfile:
         # Boucle sur le fichier
         for row in reader:
             code = row[0].strip().upper().replace(" ","")
-            code_group = re.match(pattern, code)
+            code_group = re.match(code_regex, code)
             # Code question valide ?
             if code_group:
                 # Boucle sur les niveaux
@@ -128,12 +128,12 @@ Codification des questions:
 
 X99999ABCD (Catégorie (1c), un rang numérique (0-99999), niveau (1-4c))
 |           |
-|           +---------------------------------------------------------------+
-|                                                                                                  |
-A: Météo                                                                                  V:  Brevet intial
-E: Mécavol général                                                              B:  Brevet de pilote
-G: Mécavol parapente                                                       M: Brevet de pilote confirmé
-H: Mécavol delta                                                                  T:  Qualifications treuil
+|           +-------------------------+
+|                                     | 
+A: Météo                              V:  Brevet intial
+E: Mécavol général                    B:  Brevet de pilote
+G: Mécavol parapente                  M: Brevet de pilote confirmé
+H: Mécavol delta                      T:  Qualifications treuil
 L: Matériel général                                                             
 N: Matériel parapente                                                   
 R: Matériel Delta                                                                 
