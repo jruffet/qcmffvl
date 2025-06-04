@@ -67,7 +67,6 @@ content = {
         "P": [[], [], [], []],
     },
 }
-content["ver"] = content["version"].replace("\.", "")
 niveaux = ["V", "B", "M", "T"]
 code_regex = r"^([A-Z])(\d+)([A-Z]+)$"
 tmpi = 0
@@ -93,7 +92,7 @@ with open(jsonfile, "w") as outfile:
                     ans = []
                     for i in range(2, 11, 2):
                         if row[i]:
-                            ans.append({"text": row[i], "pts": row[i + 1].replace("(","").replace(")","")})
+                            ans.append({"text": row[i], "pts": row[i + 1]})
                             
                     niveau = niveaux.index(niveau_letter)
                     cat = code_group[1]
@@ -128,12 +127,12 @@ Codification des questions:
 
 X99999ABCD (Catégorie (1c), un rang numérique (0-99999), niveau (1-4c))
 |           |
-|           +-------------------------+
-|                                     | 
-A: Météo                              V:  Brevet intial
-E: Mécavol général                    B:  Brevet de pilote
-G: Mécavol parapente                  M: Brevet de pilote confirmé
-H: Mécavol delta                      T:  Qualifications treuil
+|           +-----------------------------------+
+|                                                            | 
+A: Météo                                            V:  Brevet intial
+E: Mécavol général                         B:  Brevet de pilote
+G: Mécavol parapente                   M: Brevet de pilote confirmé
+H: Mécavol delta                              T:  Qualifications treuil
 L: Matériel général                                                             
 N: Matériel parapente                                                   
 R: Matériel Delta                                                                 
