@@ -112,7 +112,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.deleteStoredAnswers = function () {
-            $scope.$storage.QCMID = "";
+            delete $scope.$storage.QCMID;
             $scope.$storage.answers = {};
         }
 
@@ -301,6 +301,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.unfillQCMAnswers = function () {
             $scope.main.checkAnswers = false;
             API.untickAnswers($scope.qcm);
+            $scope.deleteStoredAnswers();
         }
 
         $scope.ffvldialog = function (q, index) {
@@ -358,6 +359,15 @@ angular.module('qcmffvl.controllers', [])
         };
 
         $scope.$watchGroup(
+            ['$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category'],
+            function (newVals, oldVals) {
+                if (newVals != oldVals) {
+                    $scope.unfillQCMAnswers();
+                }
+            }
+        );
+
+        $scope.$watchGroup(
             ['$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
             function (newVals, oldVals) {
                 if (newVals != oldVals) {
@@ -411,7 +421,6 @@ angular.module('qcmffvl.controllers', [])
                 }
                 // back from examPapierExaminateur, we want to erase the answers ticked
                 $scope.unfillQCMAnswers();
-                $scope.deleteStoredAnswers();
                 if ($scope.main.exam.papierExaminateur) {
                     API.tickAnswers($scope.qcm);
                 }
