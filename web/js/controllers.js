@@ -71,7 +71,7 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "4.0";
+    $scope.version = "3.7";
     $scope.qcmVersion = "3.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
