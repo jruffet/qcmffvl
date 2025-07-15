@@ -339,7 +339,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.optionsTooLongForWidth = function () {
-            if ($window.innerWidth > 992 && $window.innerWidth <= 1300) {
+            if ($window.innerWidth > 1200 && $window.innerWidth <= 1250) {
                 return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || (!$.isNumeric($scope.$storage.conf.nbquestions));
             } else {
                 return false;
