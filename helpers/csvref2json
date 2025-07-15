@@ -10,10 +10,11 @@ import re
 
 csvfile = sys.argv[1]
 jsonfile = sys.argv[2]
+version = sys.argv[3]
 
 content = {
     "questions": [],
-    "version": "1.1",
+    "version": version,
     "date": datetime.datetime.now().strftime("%d/%m/%Y"),
     # Distribution :
     # 10% Matériel général (L)+ matériel PP ou D (N ou R) selon discipline
@@ -23,7 +24,7 @@ content = {
     # 20% météo (A)
     # 10% Facteurs humains (F)
     # 10% Milieu naturel (P)
-    
+
     "catDistrib": [
         ["L", "NR"],
         ["E", "GH"],
@@ -79,7 +80,7 @@ index = 0
 with open(jsonfile, "w") as outfile:
     with open(csvfile) as infile:
         reader = csv.reader(infile)
-        
+
         # Boucle sur le fichier
         for row in reader:
             code = row[0].strip().upper().replace(" ","")
@@ -93,7 +94,7 @@ with open(jsonfile, "w") as outfile:
                     for i in range(2, 11, 2):
                         if row[i]:
                             ans.append({"text": row[i], "pts": row[i + 1]})
-                            
+
                     niveau = niveaux.index(niveau_letter)
                     cat = code_group[1]
                     if cat in pratique["general"]:
@@ -104,7 +105,7 @@ with open(jsonfile, "w") as outfile:
                     elif cat in pratique["delta"]:
                         parapente = False
                         delta = True
-                       
+
                     content["questions"].append(
                         {
                             "code": code,
@@ -116,33 +117,38 @@ with open(jsonfile, "w") as outfile:
                         }
                     )
                     content["corresTable"][cat][niveau].append(index)
-                                            
+
                     index += 1
     outfile.write(json.dumps(content))
 
 
 """
-Codification des questions: 
+Codification des questions:
 ====================
 
-X99999ABCD (Catégorie (1c), un rang numérique (0-99999), niveau (1-4c))
-|           |
-|           +-----------------------------------+
-|                                                            | 
-A: Météo                                            V:  Brevet intial
-E: Mécavol général                         B:  Brevet de pilote
-G: Mécavol parapente                   M: Brevet de pilote confirmé
-H: Mécavol delta                              T:  Qualifications treuil
-L: Matériel général                                                             
-N: Matériel parapente                                                   
-R: Matériel Delta                                                                 
+X99999ABCD (Catégorie (1c), un rang numérique (0-99999), niveaux (1-4c))
+
+Catégories:
+A: Météo
+E: Mécavol général
+G: Mécavol parapente
+H: Mécavol delta
+L: Matériel général
+N: Matériel parapente
+R: Matériel Delta
 S: Réglementation
 U: Pilotage général
 W: Pilotage parapente
-X: Pilotage Delta
+X: Pilotage delta
 F: Facteurs humains
 P: Milieu naturel
 
+Niveaux:
+V: Brevet intial
+B: Brevet de pilote
+M: Brevet de pilote confirmé
+T: Qualifications treuil
+
 Exemple:
-Question U12VB = Question numéro 12 concernant le pilotage général pour les brevets initial et de pilote.  
+Question U12VB = Question numéro 12 concernant le pilotage général pour les brevets initial et de pilote.
 """
