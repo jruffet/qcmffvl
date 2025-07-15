@@ -71,8 +71,8 @@ angular.module('qcmffvl.controllers', [])
     $scope.loading = true;
     $scope.hideNavbarButtons = false;
     $scope.browserCheckOverride = false;
-    $scope.version = "3.7";
-    $scope.qcmVersion = "5.1";
+    $scope.version = "4.0";
+    $scope.qcmVersion = "3.0";
     $scope.qcmVer = $scope.qcmVersion.replace(".", "");
     $scope.qcmOptions = {};
     // show the QCM view ?
@@ -171,26 +171,15 @@ angular.module('qcmffvl.controllers', [])
     $scope.loadJSON = function() {
         $scope.loading = true;
         $timeout(function() {
-            var data;
-            if ($scope.isAndroidApp) {
-                data = angular.fromJson($templateCache.get("qcm_ffvl_" + $scope.qcmVersion + ".json"));
+            $http.get('/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
+            .success(function(data, status, headers, config){
+                $scope.main.qcmDate = data.date;
                 $scope.QCMFromJSON(data);
-            } else {
-                $http.get('/json/qcm_ffvl_' + $scope.qcmVersion + '.json')
-                .success(function(data, status, headers, config){
-                    $scope.main.qcmDate = data.date;
-                    if ($scope.qcmVersion != data.version) {
-                        var dlg = dialogs.error('Erreur','La version de questionnaire chargée ne correspond pas à la version annoncée par le JSON.<br/>Cette erreur ne devrait pas se produire, merci de me contacter (cf "Informations") en indiquant les informations suivantes :<br/>qcmVersion (scope) : ' + $scope.qcmVersion + '<br/>qcmVersion (qcm) : ' + data.version);
-                        // dlg.result();
-                    } else {
-                        $scope.QCMFromJSON(data);
-                    }
-                })
-                .error(function() {
-                    var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
-                    // dlg.result();
-                });
-            }
+            })
+            .error(function() {
+                var dlg = dialogs.error('Erreur','Impossible de charger le JSON');
+                // dlg.result();
+            });
         }, 100);
     }
 
@@ -359,56 +348,47 @@ angular.module('qcmffvl.controllers', [])
         }
     }
 
-    $scope.$watch('$storage.conf.nbquestions', function(newval, oldval) {
-        $scope.loading = true;
-        if (newval != oldval) {
-            $timeout(function() {
-                $scope.resetQCMDisplay(false);
-                $scope.updateQCMID();
-                var limit = $scope.$storage.conf.nbquestions;
-                if (limit === "Toutes les") {
-                    limit = 10000;
-                }
-                $scope.main.limit = limit;
-            },100);
+    $scope.updateFilteredResult = function() {
+        if (!$scope.qcm || !$scope.qcm.length) {
+            return;
         }
-    });
+        var filtered = $filter('filter')($scope.qcm, $scope.main.search);
+        filtered = $filter('categoryFilter')(filtered, $scope.$storage.conf.category);
+        filtered = $filter('limitTo')(filtered, $scope.main.limit);
+        $scope.filtered_result = filtered;
+        };
 
-    $scope.$watch('$storage.conf.sport', function(newval, oldval) {
-        $scope.loading = true;
-        if (newval != oldval) {
-            $timeout(function() {
-                $scope.resetQCMDisplay(true);
-                $scope.updateQCMID();
-                if ($scope.$storage.conf.sport == "Parapente") {
-                    $scope.main.search.parapente = true;
-                    delete $scope.main.search.delta;
-                } else {
-                    $scope.main.search.delta = true;
-                    delete $scope.main.search.parapente;
-                }
-            },100);
-        }
-    });
 
-    $scope.$watch('$storage.conf.level', function(newval, oldval) {
-        $scope.loading = true;
-        if (newval != oldval) {
-            $timeout(function() {
-                $scope.resetQCMDisplay(true);
-                $scope.updateQCMID();
-                $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
-            },100);
-        }
-    });
+    $scope.$watchGroup(
+        ['qcm', '$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
+        function(newVals, oldVals) {
+          $scope.loading = true;
 
-    $scope.$watch('$storage.conf.category', function(newval, oldval) {
-        $scope.loading = true;
-        if (newval != oldval) {
+          $timeout(function() {
             $scope.resetQCMDisplay(true);
             $scope.updateQCMID();
+
+            if ($scope.$storage.conf.sport === "Parapente") {
+                $scope.main.search.parapente = true;
+                delete $scope.main.search.delta;
+            } else {
+                $scope.main.search.delta = true;
+                delete $scope.main.search.parapente;
+            }
+
+            $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+
+            var limit = $scope.$storage.conf.nbquestions;
+            if (limit === "Toutes les") {
+                limit = 10000;
+            }
+            $scope.main.limit = limit;
+
+            $scope.updateFilteredResult();
+        }, 100);
         }
-    });
+      );
+
 
     $scope.$watch('main.typeExam.checked', function(newval, oldval) {
         if (newval != oldval) {
@@ -444,7 +424,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.resetQCMIDUser();
             }
             $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
-            var baseUrl = $scope.isProdURL() ? "qcm.ffvl.fr" : "qcmffvl.sativouf.net/dev";
+            var baseUrl = "qcm.ffvl.fr";
             $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.main.QCMID;
         }
     });
