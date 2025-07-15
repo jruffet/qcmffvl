@@ -64,6 +64,7 @@ angular.module('qcmffvl.filters', [])
             if (input) {
                 var out = input.replace(/Brevet de Pilote Confirmé/, 'BPC');
                 out = out.replace(/Brevet de Pilote/, 'BP');
+                out = out.replace(/Qualification Treuil/, 'Treuil');
                 // out = out.replace(/Brevet Initial/, 'BI');
                 return out;
             }
