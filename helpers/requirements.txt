@@ -1,1 +1,2 @@
-xlsx2csv
+xlsx2csv==0.8.4
+black==25.1.0
