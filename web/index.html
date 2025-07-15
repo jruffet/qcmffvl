@@ -221,7 +221,7 @@
 <!-- ###################################################################################################### -->
 
 <script type="text/ng-template" id="qcm.html">
-      <div class="loader" ng-show="loading && filtered_result.length > 0">Chargement...</div>
+      <div class="loader" ng-show="loading && filtered_result.length !== 0">Chargement...</div>
       <div class="loader" ng-show="filtered_result.length === 0">Aucune question disponible</div>
       <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride) || (main.exam.papier && isAndroidApp())">
           <div >
@@ -649,6 +649,7 @@
                           <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Xavier (commission Tracté FFVL)</div>
                           <ul class="thanks-content">
                               <li>Ajout de la fonctionnalité et des questions treuil
+                              <li>Pour son travail sur la version 3.7 et la (grosse) MAJ du questionnaire en 3.0
                           </ul>
                       </div>
                   </div>
