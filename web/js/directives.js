@@ -9,18 +9,7 @@ angular.module('qcmffvl.directives', []).
       elm.text(version);
     };
   }])
-  .directive('removeLoaderWhenReady', ['$timeout', function ($timeout) {
-    return function (scope, element, attrs) {
-      // angular.element(element).css('color','blue');
-      if (scope.$last) {
-        $timeout(function () {
-          if (scope.$parent) {
-            scope.$parent.$parent.loading = false;
-          }
-        }, 1000);
-      }
-    }
-  }])
+
   .directive('selectOnFocus', ['$window', function ($window) {
     return {
       restrict: 'A',

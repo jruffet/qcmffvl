@@ -221,8 +221,8 @@
 <!-- ###################################################################################################### -->
 
 <script type="text/ng-template" id="qcm.html">
-      <div class="loader" ng-show="loading && filtered_result.length !== 0">Chargement...</div>
-      <div class="loader" ng-show="filtered_result.length === 0">Aucune question disponible</div>
+      <div class="loader" ng-show="loading">Chargement...</div>
+      <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible</div>
       <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride) || (main.exam.papier && isAndroidApp())">
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
@@ -251,7 +251,7 @@
                     </div>
                   </div>
 
-                  <div ng-repeat="q in filtered_result" remove-loader-when-ready>
+                  <div ng-repeat="q in filtered_result">
                       <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
                           <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">
                               <div class="row question ">
@@ -356,23 +356,9 @@
                       <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
                           La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
                           <br/><br/>
-                          La totalité du questionnaire n'est chargé qu'une seule fois d'un point de vue réseau.
-                          <br/>
-                          Cela veut dire qu'il vous suffit de charger la page sur votre mobile avant de partir, et vous pourrez vous faire d'innombrables QCMs FFVL, sans avoir jamais besoin de connexion data !
-                          <br/><br/>
-                          La version web a été testée comme fonctionnant correctement avec Chrome et Firefox.
+                          Elle a été testée comme fonctionnant correctement avec Chrome et Firefox.
                           <br/>
                           Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
-                      </div>
-                  </div>
-                  <div class="about-category row">
-                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Application Android</span>
-                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
-                          L'application Android encapsule une version complètement hors ligne de cet outil de révision.
-                          <br/>
-                          Elle ne requiert aucune permission spéciale, et n'a pas besoin d'accès à internet pour fonctionner.
-                          <br/><br/>
-                          L'expérience ultime pour la révision de la partie théorique des brevets de pilote : n'importe où, n'importe quand !
                       </div>
                   </div>
               </div>
@@ -386,9 +372,9 @@
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                         <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
                         <ul class="changelog-content">
-                            <li>Ajout des catégories "Facteurs humain" et "Milieu naturel".</li>
+                            <li>MAJ du questionnaire FFVL vers 3.0 (ajout des catégories "Facteurs humain" et "Milieu naturel").</li>
                             <li>Changement de la répartition des questions en conséquence.</li>
-                            <li>Revue et correction de l'ensemble des questions. Version questionnaire 3.0</li>
+                            <li>Amélioration de la vitesse de chargement du questionnaire.</li>
                           </ul>
                       </div>
                   </div>
@@ -618,24 +604,6 @@
           <div class="panel panel-default">
               <div class="panel-heading">Remerciements</div>
               <div class="panel-body">
-
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Augustin M</div>
-                          <ul class="thanks-content">
-                              <li>Suggestion du nouveau code couleur (version 2.0)</li>
-                              <li>Suggestion du bouton "Corriger" dans la navbar sur mobile (version 2.0)</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Guillaume @gcerquant</div>
-                          <ul class="thanks-content">
-                              <li>Suggestion de l'affichage des points en gras uniquement pour les réponses cochées (version 3.3)</li>
-                          </ul>
-                      </div>
-                  </div>
                   <div class="row">
                     <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
                         <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Laurent (commission formation FFVL)</div>
@@ -648,12 +616,28 @@
                       <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
                           <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Xavier (commission Tracté FFVL)</div>
                           <ul class="thanks-content">
-                              <li>Ajout de la fonctionnalité et des questions treuil
                               <li>Pour son travail sur la version 3.7 et la (grosse) MAJ du questionnaire en 3.0
+                              <li>Ajout de la fonctionnalité et des questions treuil (version 3.6)
                           </ul>
                       </div>
                   </div>
-
+                  <div class="row">
+                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
+                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Guillaume @gcerquant</div>
+                          <ul class="thanks-content">
+                              <li>Suggestion de l'affichage des points en gras uniquement pour les réponses cochées (version 3.3)</li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
+                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Augustin M</div>
+                          <ul class="thanks-content">
+                              <li>Suggestion du nouveau code couleur (version 2.0)</li>
+                              <li>Suggestion du bouton "Corriger" dans la navbar sur mobile (version 2.0)</li>
+                          </ul>
+                      </div>
+                  </div>
                   <div class="row">
                       <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
                           <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Et à tous ceux qui remontent des bugs, des erreurs dans le questionnaire...</div>

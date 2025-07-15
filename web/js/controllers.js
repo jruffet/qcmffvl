@@ -349,22 +349,20 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.updateFilteredResult = function () {
-            if (!$scope.qcm || !$scope.qcm.length) {
+            if (!$scope.qcm) {
                 return;
             }
             var filtered = $filter('filter')($scope.qcm, $scope.main.search);
             filtered = $filter('categoryFilter')(filtered, $scope.$storage.conf.category);
             filtered = $filter('limitTo')(filtered, $scope.main.limit);
             $scope.filtered_result = filtered;
+            $scope.loading = false;
         };
-
 
         $scope.$watchGroup(
             ['qcm', '$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
             function (newVals, oldVals) {
-                $scope.loading = true;
-
-                $timeout(function () {
+                if (newVals != oldVals) {
                     $scope.resetQCMDisplay(true);
                     $scope.updateQCMID();
 
@@ -385,7 +383,7 @@ angular.module('qcmffvl.controllers', [])
                     $scope.main.limit = limit;
 
                     $scope.updateFilteredResult();
-                }, 100);
+                }
             }
         );
 
@@ -628,17 +626,6 @@ angular.module('qcmffvl.controllers', [])
                 $scope.$parent.deleteStoredAnswers();
         });
 
-    })
-
-    .controller('SelfTestCtrl', function ($scope, API) {
-        $scope.$parent.loading = false;
-        /*
-        TODO :
-            generate N QCMs (1000 ?)
-            for  every setup (cat/level), show :
-                - the avg place of each question
-                - the percentage of question hitting top 30 and 60
-        */
     })
 
     .controller('PrivacyCtrl', function ($scope) {
