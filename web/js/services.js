@@ -68,7 +68,6 @@ angular.module('qcmffvl.services', [])
 
             // 0 to 2^3X
             var max32 = Math.pow(2,32) -1;
-            var max33 = Math.pow(2,33) -1;
 
             // generate from a known QCM ID
             if (QCMID) {
@@ -219,16 +218,9 @@ angular.module('qcmffvl.services', [])
             var qcmVer = parseInt(ID.substr(13,2),10);
             var optnum;
             var opt;
-            // 3.0 <= Version < 3.2
-            if (ID.length == 17) {
-                optnum = parseInt(ID.substr(15,2),10);
-                // initialise opt[3] to 0 : all categories
-                opt = API.uncomputeOptions(optnum * 8);
-            // Version >= 3.2
-            } else {
-                optnum = parseInt(ID.substr(15,3),10);
-                opt = API.uncomputeOptions(optnum);
-            }
+
+            optnum = parseInt(ID.substr(15,3),10);
+            opt = API.uncomputeOptions(optnum);
             return { "ck":ck, "options":opt, "num":num, "optnum":optnum, "qcmVer":qcmVer }
         },
         computeOptions: function(opt) {
