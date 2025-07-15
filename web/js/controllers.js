@@ -100,10 +100,10 @@ angular.module('qcmffvl.controllers', [])
             var dlg = dialogs.confirm('Chargement du dernier QCM', 'Charger le dernier questionnaire inachevé (avec vos réponses) ?');
             dlg.result.then(function (btn) {
                 // wait for modal to close to avoid weird effects
+                $scope.loadQCMID($scope.$storage.QCMID, $scope.$storage.answers);
                 $timeout(function () {
-                    $scope.loadQCMID($scope.$storage.QCMID, $scope.$storage.answers);
                     $scope.showQCM = true;
-                }, 1000);
+                }, 100);
             }, function (btn) {
                 // user wants a new QCM
                 $scope.deleteStoredAnswers();
@@ -147,7 +147,6 @@ angular.module('qcmffvl.controllers', [])
             }
             if ($scope.qcm) {
                 if (QCMID) {
-                    $scope.loading = true;
                     $timeout(function () {
                         $scope.generateQCM($scope.main.QCMID, answers);
                     }, 100);
@@ -318,9 +317,7 @@ angular.module('qcmffvl.controllers', [])
                         $scope.collapseNav();
                         $scope.loading = true;
                         $scope.qcm = [];
-                        $timeout(function () {
-                            $scope.loadQCMID($scope.main.QCMIDUser);
-                        }, 300);
+                        $scope.loadQCMID($scope.main.QCMIDUser);
                     }
                 }, 300);
             }, function () {
@@ -349,7 +346,8 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.updateFilteredResult = function () {
-            if (!$scope.qcm) {
+            // do not trigger when QCM has been emptied
+            if (!$scope.qcm || $scope.qcm.length === 0) {
                 return;
             }
             var filtered = $filter('filter')($scope.qcm, $scope.main.search);
