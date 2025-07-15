@@ -219,7 +219,7 @@
 
 <script type="text/ng-template" id="qcm.html">
       <div class="loader" ng-show="loading">Chargement...</div>
-      <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible</div>
+      <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible avec ces filtres</div>
       <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride) || (main.exam.papier && isAndroidApp())">
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
