@@ -360,12 +360,19 @@ angular.module('qcmffvl.controllers', [])
         };
 
         $scope.$watchGroup(
-            ['qcm', '$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
+            ['$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
             function (newVals, oldVals) {
                 if (newVals != oldVals) {
                     $scope.resetQCMDisplay(true);
                     $scope.updateQCMID();
+                }
+            }
+        );
 
+        $scope.$watchGroup(
+            ['qcm', '$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category', '$storage.conf.nbquestions'],
+            function (newVals, oldVals) {
+                if (newVals != oldVals) {
                     if ($scope.$storage.conf.sport === "Parapente") {
                         $scope.main.search.parapente = true;
                         delete $scope.main.search.delta;
