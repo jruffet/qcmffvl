@@ -39,6 +39,10 @@ angular.module('qcmffvl.filters', [])
                 categoryList = ["S"]
             } else if (category == "Météo") {
                 categoryList = ["A"]
+            } else if (category == "Facteurs humains") {
+                categoryList = ["F"]
+            } else if (category == "Milieu naturel") {
+                categoryList = ["P"]
             } else if (category.indexOf("Toutes") != -1) {
                 return qcm;
             }        
