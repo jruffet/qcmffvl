@@ -24,7 +24,6 @@ content = {
     # 20% météo (A)
     # 10% Facteurs humains (F)
     # 10% Milieu naturel (P)
-
     "catDistrib": [
         ["L", "NR"],
         ["E", "GH"],
@@ -38,19 +37,19 @@ content = {
         ["P"],
     ],
     "catFallback": {
-        "L": [["N", "R"], "E", "U", "S", "A","F" ,"P", ["N", "R", "G", "H", "W", "X"]],
+        "L": [["N", "R"], "E", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "N": ["L", "E", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "R": ["L", "E", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "E": [["G", "H"], "E", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
-        "G": ["E", "L", "U", "S", "A", "F", "P" ,["N", "R", "G", "H", "W", "X"]],
+        "G": ["E", "L", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "H": ["E", "L", "U", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
-        "U": [["W", "X"], "E", "L", "S", "A", "F", "P" ,["N", "R", "G", "H", "W", "X"]],
-        "W": ["U", "E", "L", "S", "A",  "F", "P",["N", "R", "G", "H", "W", "X"]],
+        "U": [["W", "X"], "E", "L", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
+        "W": ["U", "E", "L", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "X": ["U", "E", "L", "S", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "S": ["L", "E", "U", "A", "F", "P", ["N", "R", "G", "H", "W", "X"]],
         "A": ["L", "E", "U", "S", "F", "P", ["N", "R", "G", "H", "W", "X"]],
-        "F": ["L", "E", "U", "S", "A" ,"P", ["N", "R", "G", "H", "W", "X"]],
-        "P": ["L", "E", "U", "S", "A" ,"F", ["N", "R", "G", "H", "W", "X"]],
+        "F": ["L", "E", "U", "S", "A", "P", ["N", "R", "G", "H", "W", "X"]],
+        "P": ["L", "E", "U", "S", "A", "F", ["N", "R", "G", "H", "W", "X"]],
     },
     "corresTable": {
         "A": [[], [], [], []],
@@ -83,7 +82,7 @@ with open(jsonfile, "w") as outfile:
 
         # Boucle sur le fichier
         for row in reader:
-            code = row[0].strip().upper().replace(" ","")
+            code = row[0].strip().upper().replace(" ", "")
             code_group = re.match(code_regex, code)
             # Code question valide ?
             if code_group:
