@@ -33,7 +33,7 @@ angular.module('qcmffvl.controllers', [])
                 checked: "Révision"
             },
             category: {
-                options: ["Toutes les catégories", "Matériel", "Mécavol", "Météo", "Pilotage", "Réglementation", "Facteurs humains", "Milieu naturel"],
+                options: ["Toutes les catégories", "Pilotage", "Mécavol", "Météo", "Matériel", "Réglementation", "Facteurs humains", "Milieu naturel"],
                 checked: $scope.$storage.conf.category
             },
             displayLimit: 10000,
