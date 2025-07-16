@@ -441,6 +441,10 @@
 }
 
 @media screen and (max-width: 767px) {
+    .answer.chrome {
+        padding-top: 2px;
+    }
+
     .hide-xs {
         display: none;
     }
