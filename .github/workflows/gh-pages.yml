@@ -1,17 +1,29 @@
-# .github/workflows/deploy.yml
-name: Deploy web folder to GH pages
+name: Deploy /web to GitHub Pages
 
 on:
   push:
     branches: [master]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload /web directory
+        uses: actions/upload-pages-artifact@v2
         with:
           path: web
-      - uses: actions/deploy-pages@v3
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
