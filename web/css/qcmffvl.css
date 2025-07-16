@@ -176,6 +176,11 @@
         border-color: #ccc;
     }
 
+    .navbar-default,
+    .btn-informations {
+        padding-right: 10px;
+    }
+
     .navbar-default .navbar-toggle {
         border-color: #ccc;
     }
