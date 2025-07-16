@@ -1,0 +1,17 @@
+# .github/workflows/deploy.yml
+name: Deploy web folder to GH pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: web
+      - uses: actions/deploy-pages@v3
