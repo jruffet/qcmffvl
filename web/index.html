@@ -103,7 +103,10 @@
               </li>
               <li>
                 <li class="dropdown" is-open="isOpen.nbquestions">
-                  <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.nbquestions}} questions <span class="caret"></span></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                    <span ng-show="optionsTooLongForWidth()">{{$storage.conf.nbquestions|formatQCMTitle}} questions</span>
+                    <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.nbquestions}} questions</span>
+                    <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
                     <li ng-repeat="nbquestions in main.nbquestions.options">
                       <a ng-click="$storage.conf.nbquestions = nbquestions">{{nbquestions}} questions</a>
@@ -113,7 +116,10 @@
               </li>
               <li>
                 <li class="dropdown" is-open="isOpen.category">
-                  <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.category}} <span class="caret"></span></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                    <span ng-show="optionsTooLongForWidth()">{{$storage.conf.category|formatQCMTitle}}</span>
+                    <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.category}}</span>
+                    <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
                     <li ng-repeat="category in main.category.options">
                       <a ng-click="$storage.conf.category = category">{{category}}</a>
@@ -388,7 +394,7 @@
                             <li>MAJ du questionnaire FFVL vers 3.0 (ajout des catégories "Facteurs humain" et "Milieu naturel").</li>
                             <li>Changement de la répartition des questions en conséquence.</li>
                             <li>Amélioration de la vitesse de chargement du questionnaire.</li>
-                            <li>Améliorations visuelles en mode smartphone / XS.</li>
+                            <li>Multiples améliorations visuelles.</li>
                           </ul>
                       </div>
                   </div>

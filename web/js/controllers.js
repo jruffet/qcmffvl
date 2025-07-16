@@ -339,8 +339,8 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.optionsTooLongForWidth = function () {
-            if ($window.innerWidth > 1200 && $window.innerWidth <= 1250) {
-                return ($scope.main.typeExam.checked.indexOf("Examen") != -1) || (!$.isNumeric($scope.$storage.conf.nbquestions));
+            if ($window.innerWidth >= 1200 && $window.innerWidth <= 1300) {
+                return ($scope.main.typeExam.checked.indexOf("Examen") == -1);
             } else {
                 return false;
             }
@@ -357,6 +357,18 @@ angular.module('qcmffvl.controllers', [])
             $scope.filtered_result = filtered;
             $scope.loading = false;
         };
+
+        // Listen to window resize and trigger digest (to trigger $scope.optionsTooLongForWidth())
+        var onResize = function () {
+            $scope.$applyAsync(); // async to avoid digest conflicts
+        };
+
+        angular.element($window).on('resize', onResize);
+
+        // Cleanup on controller destroy
+        $scope.$on('$destroy', function () {
+            angular.element($window).off('resize', onResize);
+        });
 
         $scope.$watchGroup(
             ['$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category'],
