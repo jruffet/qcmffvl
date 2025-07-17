@@ -451,12 +451,14 @@
 }
 
 @media screen and (max-width: 767px) {
-    .answer.smartphone {
-        padding-top: 2px;
-    }
-
     .answer-text.smartphone {
         padding-left: 17px;
+    }
+    .answer.android {
+        padding-top: 2px;
+    }
+    .answer.iphone {
+        padding-top: 1px;
     }
 
     .hide-xs {

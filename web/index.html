@@ -287,9 +287,11 @@
                                       'bad-answer-not-checked':badAnswerNotChecked(answer),
                                       'help-answer':isHelpQuestion(q),
                                       'smartphone':isSmartphone(),
+                                      'android':isAndroid(),
+                                      'iphone':isIphone(),
                                       'checked-answer':answer.checked
                                       }">
-                                          <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone()}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
+                                          <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone(),'android':isAndroid(),'iphone':isIphone(),}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
                                           <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
                                       </div>
                                   </div>

@@ -273,8 +273,13 @@ angular.module('qcmffvl.controllers', [])
             || deviceDetector.device === 'iphone'
             || deviceDetector.device === 'android';
         }
+        $scope.isAndroid = function () {
+            return deviceDetector.device === 'android';
+        }
+        $scope.isIphone = function () {
+            return deviceDetector.device === 'iphone';
+        }
 
-        // show magic button when in /dev
         $scope.isDevURL = function () {
             return ($location.absUrl().indexOf("/dev") != -1);
         }
