@@ -286,10 +286,10 @@
                                       'good-answer-not-checked':goodAnswerNotChecked(answer),
                                       'bad-answer-not-checked':badAnswerNotChecked(answer),
                                       'help-answer':isHelpQuestion(q),
-                                      'chrome':browserChrome(),
+                                      'smartphone':isSmartphone(),
                                       'checked-answer':answer.checked
                                       }">
-                                          <span class="col-lg-11 col-xs-11 answer-text" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
+                                          <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone()}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
                                           <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
                                       </div>
                                   </div>
@@ -391,8 +391,12 @@
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                         <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
                         <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 3.0 (ajout des catégories "Facteurs humain" et "Milieu naturel").</li>
-                            <li>Changement de la répartition des questions en conséquence.</li>
+                            <li>MAJ du questionnaire FFVL vers 3.0</li>
+                              <ul class="changelog-sublist">
+                                <li>Ajout des catégories "Facteurs humain" et "Milieu naturel".</li>
+                                <li>Changement de la répartition des questions en conséquence.</li>
+                                <li>Revue et correction de l'ensemble des questions.</li>
+                              </ul>
                             <li>Amélioration de la vitesse de chargement du questionnaire.</li>
                             <li>Multiples améliorations visuelles.</li>
                           </ul>

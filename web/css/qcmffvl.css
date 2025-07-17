@@ -431,6 +431,11 @@
         padding-top: 15px;
     }
 
+    .changelog-sublist {
+        padding-top: 0px;
+        margin: 0;
+    }
+
     .changelog-version {
         margin-bottom: 15px;
     }
@@ -446,9 +451,12 @@
 }
 
 @media screen and (max-width: 767px) {
-    .answer.chrome {
+    .answer.smartphone {
         padding-top: 2px;
-        padding-left: 2px;
+    }
+
+    .answer-text.smartphone {
+        padding-left: 17px;
     }
 
     .hide-xs {

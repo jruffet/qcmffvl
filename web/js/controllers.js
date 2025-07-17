@@ -268,8 +268,10 @@ angular.module('qcmffvl.controllers', [])
             $scope.navCollapsed = true;
         }
 
-        $scope.browserChrome = function () {
-            return (deviceDetector.browser == "chrome");
+        $scope.isSmartphone = function () {
+            return deviceDetector.device === 'phone'
+            || deviceDetector.device === 'iphone'
+            || deviceDetector.device === 'android';
         }
 
         // show magic button when in /dev
