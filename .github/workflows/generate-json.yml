@@ -5,7 +5,6 @@ permissions:
 
 on:
   push:
-    branches: [master]
     paths:
       - 'data/csv/qcm_ffvl.csv'
   workflow_dispatch:
