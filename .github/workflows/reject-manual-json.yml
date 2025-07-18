@@ -1,4 +1,4 @@
-name: Block manual json edits
+name: Reject manual json edits
 
 on:
   push:
