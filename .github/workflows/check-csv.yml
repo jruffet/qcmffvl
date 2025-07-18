@@ -1,0 +1,23 @@
+name: Check CSV
+
+on:
+  push:
+    paths:
+      - 'data/csv/qcm_ffvl.csv'
+  workflow_dispatch:
+
+jobs:
+  check-csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run script with extracted version
+        run: python ./helpers/csv_helper check data/csv/qcm_ffvl.csv
