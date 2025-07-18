@@ -19,5 +19,5 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run script with extracted version
+      - name: Run script in check mode
         run: python ./helpers/csv_helper check data/csv/qcm_ffvl.csv
