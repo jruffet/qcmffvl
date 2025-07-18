@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "web/**"
+  workflow_dispatch:
 
 permissions:
   contents: read
