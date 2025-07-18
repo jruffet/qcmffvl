@@ -2,8 +2,10 @@
 import argparse
 import csv
 import sys
+import re
 from typing import List, Dict, Optional
 
+DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
 CSV_HEADER = [
     "code",
     "question",
@@ -18,7 +20,32 @@ CSV_HEADER = [
     "ans5",
     "pts5",
 ]
-DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
+CATEGORIES = {
+    "A": "Météo",
+    "S": "Réglementation",
+    "F": "Facteurs humains",
+    "P": "Milieu naturel",
+    "E": "Mécavol",
+    "L": "Matériel",
+    "U": "Pilotage",
+    "G": "Mécavol",
+    "N": "Matériel",
+    "W": "Pilotage",
+    "H": "Mécavol",
+    "R": "Matériel",
+    "X": "Pilotage",
+}
+PRATIQUES = {
+    "global": ["A", "S", "F", "P", "E", "L", "U"],
+    "parapente": ["G", "N", "W"],
+    "delta": ["H", "R", "X"],
+}
+NIVEAUX = {
+    "V": "BI",
+    "B": "BP",
+    "M": "BPC",
+    "T": "Treuil",
+}
 
 
 def info(s: str):
@@ -126,13 +153,47 @@ def csv_format(rows: List[Dict]):
     write_csv_to_stdout(rows)
 
 
+def stats_to_csv(stats: Dict[str, Dict[str, Dict[str, int]]]) -> List[Dict[str, int]]:
+    rows = []
+    for pratique, levels in stats.items():
+        for level, categories in levels.items():
+            row = {"Pratique": pratique, "Brevet": level}
+            row.update(categories)
+            rows.append(row)
+    return rows
+
+
 def csv_stats(rows: List[Dict]):
-    pass
+    catlist = sorted(set(CATEGORIES.values()))
+    header = ["Pratique", "Brevet"] + catlist
+
+    stats = {"Parapente": {}, "Delta": {}}
+    for s in stats:
+        for level in NIVEAUX.values():
+            stats[s][level] = {}
+            for cat in catlist:
+                stats[s][level][cat] = 0
+
+    for row in rows:
+        cat_letter = row["code"][0]
+        cat = CATEGORIES[cat_letter]
+        level_letters = re.fullmatch(r"\w+\d+(\w+)", row["code"]).groups()[0]
+        pratiques = []
+        if cat_letter in PRATIQUES["global"] or cat_letter in PRATIQUES["parapente"]:
+            pratiques.append("Parapente")
+        if cat_letter in PRATIQUES["global"] or cat_letter in PRATIQUES["delta"]:
+            pratiques.append("Delta")
+        for pratique in pratiques:
+            for letter in level_letters:
+                level = NIVEAUX[letter]
+                stats[pratique][level][cat] += 1
+
+    write_csv_to_stdout(stats_to_csv(stats), header)
 
 
-def csv_diff(rows1: List[Dict], rows2: List[Dict], points: bool):
+def csv_diff(rows1: List[Dict], rows2: List[Dict], check_points: bool):
     duplicate_codes = set([x["code"] for x in csv_duplicate_rows(rows1)])
-    if points:
+    if check_points:
         rows2_codes = [x["code"] for x in rows2]
         for row1 in rows1:
             if row1["code"] in rows2_codes and row1["code"] not in duplicate_codes:
@@ -158,8 +219,11 @@ def load_csv(filename: str) -> List[Dict]:
         return rows
 
 
-def write_csv_to_stdout(rows: List[Dict]):
-    writer = csv.DictWriter(sys.stdout, fieldnames=CSV_HEADER, lineterminator="\n")
+def write_csv_to_stdout(rows: List[Dict], header: Optional[List[str]] = None):
+    fieldnames = header if header else CSV_HEADER
+    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, lineterminator="\n")
+
+    writer.writeheader()
     for row in rows:
         writer.writerow(row)
 
@@ -168,7 +232,7 @@ def main():
     args = parse_args()
 
     if args.command == "diff":
-        csv_diff(load_csv(args.file1), load_csv(args.file2), points=args.points)
+        csv_diff(load_csv(args.file1), load_csv(args.file2), check_points=args.points)
     else:
         csv_content = load_csv(args.filename)
         if args.command == "check":
