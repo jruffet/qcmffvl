@@ -1,0 +1,14 @@
+name: Block manual json edits
+
+on: [push, pull_request]
+
+jobs:
+  block:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for manual /web/json edits
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^web/json/'; then
+            echo "Manual changes to /web/json detected"
+            exit 1
+          fi
