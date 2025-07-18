@@ -2,6 +2,7 @@
 import argparse
 import csv
 import sys
+from typing import List, Dict, Optional
 
 CSV_HEADER = [
     "code",
@@ -54,13 +55,14 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_question(rows: dict, code: str) -> dict | None:
+def get_question(rows: List[Dict], code: str) -> Dict:
     for row in rows:
         if row["code"] == code:
             return row
+    return {}
 
 
-def csv_bogus_max_points(rows: dict) -> dict:
+def csv_bogus_max_points(rows: List[Dict]) -> List[Dict]:
     bad_rows = []
     for row in rows:
         max_points = sum(int(v) for k, v in row.items() if "pts" in k and int(v) > 0)
@@ -69,7 +71,7 @@ def csv_bogus_max_points(rows: dict) -> dict:
     return bad_rows
 
 
-def csv_duplicate_rows(rows: dict) -> dict:
+def csv_duplicate_rows(rows: List[Dict]) -> List[Dict]:
     seen = set()
     duplicates = set()
     for row in rows:
@@ -80,7 +82,7 @@ def csv_duplicate_rows(rows: dict) -> dict:
     return [x for x in rows if x["code"] in duplicates]
 
 
-def csv_check(rows: dict):
+def csv_check(rows: List[Dict]):
     ret = True
 
     info("Questions with max_points < 6")
@@ -110,7 +112,7 @@ def format_first_word(s: str, capitalize: bool = False, lowercase: bool = False)
     return " ".join(parts)
 
 
-def csv_format(rows: dict):
+def csv_format(rows: List[Dict]):
     for row in rows:
         if row["code"] not in DO_NOT_FORMAT:
             for i in range(1, 6):
@@ -124,11 +126,11 @@ def csv_format(rows: dict):
     write_csv_to_stdout(rows)
 
 
-def csv_stats(rows: dict):
+def csv_stats(rows: List[Dict]):
     pass
 
 
-def csv_diff(rows1: any, rows2: any, points: bool):
+def csv_diff(rows1: List[Dict], rows2: List[Dict], points: bool):
     duplicate_codes = set([x["code"] for x in csv_duplicate_rows(rows1)])
     if points:
         rows2_codes = [x["code"] for x in rows2]
@@ -145,7 +147,7 @@ def csv_diff(rows1: any, rows2: any, points: bool):
                             break
 
 
-def load_csv(filename: str) -> list:
+def load_csv(filename: str) -> List[Dict]:
     with open(filename, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, fieldnames=CSV_HEADER)
         rows = []
@@ -156,7 +158,7 @@ def load_csv(filename: str) -> list:
         return rows
 
 
-def write_csv_to_stdout(rows: dict):
+def write_csv_to_stdout(rows: List[Dict]):
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_HEADER, lineterminator="\n")
     for row in rows:
         writer.writerow(row)
