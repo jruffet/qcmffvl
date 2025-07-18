@@ -1,0 +1,37 @@
+name: Generate JSON from CSV using latest mcq tag
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'data/csv/qcm_ffvl.csv'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Important: fetch all tags
+
+      - name: Extract latest mcq-* tag
+        id: get_version
+        run: |
+          set -e
+          latest=$(git tag --list 'mcq-*' --sort=-creatordate | head -n1)
+          if [ -z "$latest" ]; then
+            echo "No mcq-* tags found"
+            exit 1
+          fi
+          version=${latest#mcq-}
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run script with extracted version
+        run: python ./helpers/csvref2json data/csv/qcm_ffvl.csv web/json/qcm_ffvl_${{ steps.get_version.outputs.version }}.json ${{ steps.get_version.outputs.version }}
