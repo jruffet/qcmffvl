@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+import argparse
+import csv
+import sys
+
+CSV_HEADER = [
+    "code",
+    "question",
+    "ans1",
+    "pts1",
+    "ans2",
+    "pts2",
+    "ans3",
+    "pts3",
+    "ans4",
+    "pts4",
+    "ans5",
+    "pts5",
+]
+DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
+
+
+def info(s: str):
+    print(f"[+] {s}")
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(prog="csv_helper")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # check command
+    check_parser = subparsers.add_parser("check", help="Check the CSV file for inconsistencies")
+    check_parser.add_argument("filename", help="CSV file to check")
+
+    # format command
+    format_parser = subparsers.add_parser("format", help="Format the CSV file")
+    format_parser.add_argument("filename", help="CSV file to format")
+    # group = format_parser.add_mutually_exclusive_group()
+    # group.add_argument('--capitalize', action='store_true', help='Capitalize first word of answers')
+    # group.add_argument('--lowercase', action='store_true', help='Lowercase first word of answers')
+
+    # stats command
+    stats_parser = subparsers.add_parser("stats", help="Show statistics about the CSV file")
+    stats_parser.add_argument("filename", help="CSV file to analyze")
+
+    # diff command
+    diff_parser = subparsers.add_parser("diff", help="Compare two CSV files")
+    diff_parser.add_argument("file1", help="First CSV file")
+    diff_parser.add_argument("file2", help="Second CSV file")
+    diff_parser.add_argument(
+        "--points", action="store_true", help="Output questions where points have changed"
+    )
+
+    return parser.parse_args()
+
+
+def get_question(rows: dict, code: str) -> dict | None:
+    for row in rows:
+        if row["code"] == code:
+            return row
+
+
+def csv_bogus_max_points(rows: dict) -> dict:
+    bad_rows = []
+    for row in rows:
+        max_points = sum(int(v) for k, v in row.items() if "pts" in k and int(v) > 0)
+        if max_points < 6:
+            bad_rows.append(row)
+    return bad_rows
+
+
+def csv_duplicate_rows(rows: dict) -> dict:
+    seen = set()
+    duplicates = set()
+    for row in rows:
+        code = row["code"]
+        if code in seen:
+            duplicates.add(code)
+        seen.add(code)
+    return [x for x in rows if x["code"] in duplicates]
+
+
+def csv_check(rows: dict):
+    ret = True
+
+    info("Questions with max_points < 6")
+    bogus = csv_bogus_max_points(rows)
+    if bogus:
+        ret = False
+        write_csv_to_stdout(bogus)
+
+    info("Questions with duplicate codes")
+    duplicates = csv_duplicate_rows(rows)
+    if duplicates:
+        ret = False
+        write_csv_to_stdout(duplicates)
+
+    return ret
+
+
+def format_first_word(s: str, capitalize: bool = False, lowercase: bool = False):
+    if not s or " " not in s:
+        return s
+    parts = s.split(" ", 1)
+
+    if lowercase:
+        parts[0] = parts[0].lower()
+    elif capitalize:
+        parts[0] = parts[0].capitalize()
+    return " ".join(parts)
+
+
+def csv_format(rows: dict):
+    for row in rows:
+        if row["code"] not in DO_NOT_FORMAT:
+            for i in range(1, 6):
+                key = f"ans{i}"
+                if key in row:
+                    if row["question"].endswith("?"):
+                        row[key] = format_first_word(row[key], capitalize=True)
+                    else:
+                        row[key] = format_first_word(row[key], lowercase=True)
+                    row[key] = row[key].rstrip()
+    write_csv_to_stdout(rows)
+
+
+def csv_stats(rows: dict):
+    pass
+
+
+def csv_diff(rows1: any, rows2: any, points: bool):
+    duplicate_codes = set([x["code"] for x in csv_duplicate_rows(rows1)])
+    if points:
+        rows2_codes = [x["code"] for x in rows2]
+        for row1 in rows1:
+            if row1["code"] in rows2_codes and row1["code"] not in duplicate_codes:
+                row2 = get_question(rows2, row1["code"])
+                for i in range(1, 6):
+                    ans = f"ans{i}"
+                    pts = f"pts{i}"
+                    if ans in row1 and ans in row2:
+                        if row1[pts] != row2[pts]:
+                            write_csv_to_stdout([row1, row2])
+                            print()
+                            break
+
+
+def load_csv(filename: str) -> list:
+    with open(filename, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f, fieldnames=CSV_HEADER)
+        rows = []
+        # remove empty answers+points
+        for row in reader:
+            cleaned = {k: v for k, v in row.items() if v != ""}
+            rows.append(cleaned)
+        return rows
+
+
+def write_csv_to_stdout(rows: dict):
+    writer = csv.DictWriter(sys.stdout, fieldnames=CSV_HEADER, lineterminator="\n")
+    for row in rows:
+        writer.writerow(row)
+
+
+def main():
+    args = parse_args()
+
+    if args.command == "diff":
+        csv_diff(load_csv(args.file1), load_csv(args.file2), points=args.points)
+    else:
+        csv_content = load_csv(args.filename)
+        if args.command == "check":
+            ret = csv_check(csv_content)
+            # used in CI
+            sys.exit(not ret)
+        elif args.command == "format":
+            csv_format(csv_content)
+        elif args.command == "stats":
+            csv_stats(csv_content)
+
+
+if __name__ == "__main__":
+    main()
