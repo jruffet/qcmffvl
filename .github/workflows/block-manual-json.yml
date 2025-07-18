@@ -1,14 +1,30 @@
 name: Block manual json edits
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'web/json/**'
+  pull_request:
+    paths:
+      - 'web/json/**'
 
 jobs:
   block:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Check for manual /web/json edits
         run: |
+          # Handle empty before SHA (initial commit)
+          if [ -z "${{ github.event.before }}" ] || [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "No previous commit to diff, skipping check"
+            exit 0
+          fi
+
           if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^web/json/'; then
-            echo "Manual changes to /web/json detected"
-            exit 1
+            if [ "${{ github.actor }}" != "github-actions[bot]" ]; then
+              echo "Manual changes to /web/json detected from ${{ github.actor }}"
+              exit 1
+            fi
           fi
