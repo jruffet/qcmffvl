@@ -170,7 +170,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loadJSON = function () {
             $scope.loading = true;
             $timeout(function () {
-                $http.get('./json/qcm_ffvl_' + $scope.qcmVersion + '.json')
+                $http.get('./json/qcm_ffvl.json')
                     .success(function (data, status, headers, config) {
                         $scope.main.qcmDate = data.date;
                         $scope.QCMFromJSON(data);
