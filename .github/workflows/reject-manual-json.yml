@@ -9,7 +9,7 @@ on:
       - 'web/json/**'
 
 jobs:
-  block:
+  reject-manual-json-edits:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

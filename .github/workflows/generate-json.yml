@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate:
+  generate-json:
     runs-on: ubuntu-latest
 
     steps:
