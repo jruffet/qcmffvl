@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-# TODO : check if points are always set, die otherwise
-
 import csv
 import sys
 import json
@@ -134,7 +132,7 @@ G: Mécavol parapente
 H: Mécavol delta
 L: Matériel général
 N: Matériel parapente
-R: Matériel Delta
+R: Matériel delta
 S: Réglementation
 U: Pilotage général
 W: Pilotage parapente
@@ -143,10 +141,10 @@ F: Facteurs humains
 P: Milieu naturel
 
 Niveaux:
-V: Brevet intial
-B: Brevet de pilote
-M: Brevet de pilote confirmé
-T: Qualifications treuil
+V: Brevet intial (Vert)
+B: Brevet de pilote (Bleu)
+M: Brevet de pilote confirmé (Marron)
+T: Qualifications treuil (Treuil)
 
 Exemple:
 Question U12VB = Question numéro 12 concernant le pilotage général pour les brevets initial et de pilote.
