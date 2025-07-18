@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # fetch all tags and history
+          fetch-depth: 0 # fetch all tags and history
 
       - name: Extract latest mcq-* tag
         id: get_version
@@ -49,3 +49,15 @@ jobs:
           else
             echo "No changes to commit"
           fi
+
+      - name: Trigger deploy workflow via repository dispatch
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event_type: 'deploy-web',
+              client_payload: {}
+            })
