@@ -3,6 +3,8 @@ name: Deploy /web to GitHub Pages
 on:
   push:
     branches: [master]
+    paths:
+      - "/web"
 
 permissions:
   contents: read
