@@ -230,7 +230,8 @@ def write_csv_to_stdout(rows: List[Dict], header: Optional[List[str]] = None):
     fieldnames = header if header else CSV_HEADER
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, lineterminator="\n")
 
-    writer.writeheader()
+    if header:
+        writer.writeheader()
     for row in rows:
         writer.writerow(row)
 
