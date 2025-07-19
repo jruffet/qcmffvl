@@ -22,17 +22,17 @@ CSV_HEADER = [
 ]
 CATEGORIES = {
     "A": "Météo",
-    "S": "Réglementation",
-    "F": "Facteurs humains",
-    "P": "Milieu naturel",
     "E": "Mécavol",
-    "L": "Matériel",
-    "U": "Pilotage",
+    "F": "Facteurs humains",
     "G": "Mécavol",
-    "N": "Matériel",
-    "W": "Pilotage",
     "H": "Mécavol",
+    "L": "Matériel",
+    "N": "Matériel",
+    "P": "Milieu naturel",
     "R": "Matériel",
+    "S": "Réglementation",
+    "U": "Pilotage",
+    "W": "Pilotage",
     "X": "Pilotage",
 }
 PRATIQUES = {
@@ -142,6 +142,7 @@ def format_first_word(s: str, capitalize: bool = False, lowercase: bool = False)
 def csv_format(rows: List[Dict]):
     for row in rows:
         if row["code"] not in DO_NOT_FORMAT:
+            row["question"] = row["question"].rstrip()
             for i in range(1, 6):
                 key = f"ans{i}"
                 if key in row:
