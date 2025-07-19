@@ -44,7 +44,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add web/json/qcm_ffvl.json
           if ! git diff --cached --quiet; then
-            git commit -m "Auto-generate JSON for version ${{ steps.get_version.outputs.version }}"
+            git commit -m "chore: regenerate JSON for version ${{ steps.get_version.outputs.version }}"
             git push origin master
           else
             echo "No changes to commit"
