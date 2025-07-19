@@ -21,19 +21,13 @@ CSV_HEADER = [
     "pts5",
 ]
 CATEGORIES = {
-    "A": "Météo",
-    "E": "Mécavol",
-    "F": "Facteurs humains",
-    "G": "Mécavol",
-    "H": "Mécavol",
-    "L": "Matériel",
-    "N": "Matériel",
-    "P": "Milieu naturel",
-    "R": "Matériel",
-    "S": "Réglementation",
-    "U": "Pilotage",
-    "W": "Pilotage",
-    "X": "Pilotage",
+    "Météo": ["A"],
+    "Mécavol": ["E", "G", "H"],
+    "Facteurs humains": ["F"],
+    "Matériel": ["L", "N", "R"],
+    "Milieu naturel": ["P"],
+    "Réglementation": ["S"],
+    "Pilotage": ["U", "W", "X"],
 }
 PRATIQUES = {
     "global": ["A", "S", "F", "P", "E", "L", "U"],
@@ -171,7 +165,7 @@ def stats_to_csv(stats: Dict[str, Dict[str, Dict[str, int]]]) -> List[Dict[str, 
 
 
 def csv_stats(rows: List[Dict]):
-    catlist = sorted(set(CATEGORIES.values()))
+    catlist = sorted(CATEGORIES)
     header = ["Pratique", "Brevet"] + catlist
 
     stats = {"Parapente": {}, "Delta": {}}
@@ -183,7 +177,7 @@ def csv_stats(rows: List[Dict]):
 
     for row in rows:
         cat_letter = row["code"][0]
-        cat = CATEGORIES[cat_letter]
+        cat = [k for k,v in CATEGORIES.items() if cat_letter in v][0]
         level_letters = re.fullmatch(r"\w+\d+(\w+)", row["code"]).groups()[0]
         pratiques = []
         if cat_letter in PRATIQUES["global"] or cat_letter in PRATIQUES["parapente"]:
