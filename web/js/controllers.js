@@ -456,7 +456,7 @@ angular.module('qcmffvl.controllers', [])
                 }
                 $scope.main.QCMIDCRC = API.crc($scope.main.QCMID);
                 var baseUrl = "qcm.ffvl.fr";
-                $scope.main.QCMIDURL = "http://" + baseUrl + "/#/load/" + $scope.main.QCMID;
+                $scope.main.QCMIDURL = "https://" + baseUrl + "/#/load/" + $scope.main.QCMID;
             }
         });
 
