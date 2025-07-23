@@ -83,6 +83,10 @@ def get_question(rows: List[Dict], code: str) -> Dict:
     return {}
 
 
+def short_code(code: str) -> str:
+    return re.match(r"(\w\d+)", code).groups()[0]
+
+
 def csv_bogus_max_points(rows: List[Dict]) -> List[Dict]:
     bad_rows = []
     for row in rows:
@@ -96,7 +100,7 @@ def csv_duplicate_rows(rows: List[Dict]) -> List[Dict]:
     seen = set()
     duplicates = set()
     for row in rows:
-        code = row["code"]
+        code = short_code(row["code"])
         if code in seen:
             duplicates.add(code)
         seen.add(code)
@@ -177,7 +181,7 @@ def csv_stats(rows: List[Dict]):
 
     for row in rows:
         cat_letter = row["code"][0]
-        cat = [k for k,v in CATEGORIES.items() if cat_letter in v][0]
+        cat = [k for k, v in CATEGORIES.items() if cat_letter in v][0]
         level_letters = re.fullmatch(r"\w+\d+(\w+)", row["code"]).groups()[0]
         pratiques = []
         if cat_letter in PRATIQUES["global"] or cat_letter in PRATIQUES["parapente"]:
