@@ -170,14 +170,13 @@ angular.module('qcmffvl.controllers', [])
         $scope.loadJSON = function () {
             $scope.loading = true;
             $timeout(function () {
-                $http.get('./json/qcm_ffvl.json')
+                $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
                     .success(function (data, status, headers, config) {
                         $scope.main.qcmDate = data.date;
                         $scope.QCMFromJSON(data);
                     })
                     .error(function () {
                         var dlg = dialogs.error('Erreur', 'Impossible de charger le JSON');
-                        // dlg.result();
                     });
             }, 100);
         }
