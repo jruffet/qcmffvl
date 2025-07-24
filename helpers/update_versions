@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eou pipefail
+
+version=$1
+perl -pe "s/\?v=\d+\.\d+/?v=$version/" -i web/index.html
+sed "s/scope.version = .*/scope.version = \"$version\";/" -i web/js/controllers.js
