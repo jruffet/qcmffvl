@@ -279,6 +279,10 @@ angular.module('qcmffvl.controllers', [])
             return deviceDetector.device === 'iphone';
         }
 
+        $scope.browserChrome = function() {
+            return (deviceDetector.browser == "chrome");
+        }
+
         $scope.isDevURL = function () {
             return ($location.absUrl().indexOf("/dev") != -1);
         }
