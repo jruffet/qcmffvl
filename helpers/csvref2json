@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 # Used in CI to auto-generate JSON file, based on latest "mcq-tag"
-# Ex: mcq-3.0 will generate web/json/qcm_ffvl_3.0.json
 
 import csv
 import sys
