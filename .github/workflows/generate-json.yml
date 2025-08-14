@@ -58,6 +58,6 @@ jobs:
             await github.rest.repos.createDispatchEvent({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              event_type: 'deploy-web',
+              event_type: 'deploy-web-to-gh-pages',
               client_payload: {}
             })

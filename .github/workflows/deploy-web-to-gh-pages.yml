@@ -2,7 +2,7 @@ name: Deploy /web to GitHub Pages
 
 on:
   repository_dispatch:
-    types: [deploy-web]
+    types: [deploy-web-to-gh-pages]
   push:
     branches:
       - master
@@ -16,7 +16,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-web:
+  deploy-web-to-gh-pages:
     runs-on: ubuntu-latest
 
     steps:
