@@ -206,12 +206,15 @@
     <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Au sujet de la question {{q.code}}</h4>
   </div>
   <div class="modal-body">
-    <span class="help-block"><b>Un souci avec la question ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span>&nbsp;&nbsp;<a href="" ng-click="questionIssue()">request-qcm@ffvl.fr</a></span>
+    <span class="help-block"><b>Un souci avec la question ?</b></span>
     <span class="help-block">Vous souhaitez faire remonter un problème avec la question ou ses réponses (incohérence, mauvaise formulation, fautes de français...).</span>
+    <span class="help-block">
+    <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;<a href="" ng-click="questionIssue()">request-qcm@ffvl.fr</a></span>
+    </span>
     <hr/>
-    <span class="help-block"><b>Besoin d'explications ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span>&nbsp;&nbsp;<a href="" ng-click="questionAskHelp()">les-moniteurs-vous-repondent@ffvl.fr</a></span>
-    <span class="help-block">"Les moniteurs vous répondent"</span>
+    <span class="help-block"><b>Besoin d'explications ?</b>
     <span class="help-block">Rentrez en contact avec nos moniteurs FFVL</span>
+    <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;<a href="" ng-click="questionAskHelp()">les-moniteurs-vous-repondent@ffvl.fr</a></span>
   </div>
   <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
