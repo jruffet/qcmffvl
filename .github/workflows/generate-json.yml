@@ -16,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # fetch all tags and history
+          ref: master
+          fetch-depth: 0
 
       - name: Extract latest mcq-* tag
         id: get_version
