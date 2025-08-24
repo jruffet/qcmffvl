@@ -41,11 +41,11 @@
     <script src="js/lib/re-tree.min.js"></script>
     <script src="js/lib/ngStorage.min.js"></script>
 
-    <script src="js/app.js?v=3.7"></script>
-    <script src="js/services.js?v=3.7"></script>
-    <script src="js/controllers.js?v=3.7"></script>
-    <script src="js/filters.js?v=3.7"></script>
-    <script src="js/directives.js?v=3.7"></script>
+    <script src="js/app.js?v=3.7.1"></script>
+    <script src="js/services.js?v=3.7.1"></script>
+    <script src="js/controllers.js?v=3.7.1"></script>
+    <script src="js/filters.js?v=3.7.1"></script>
+    <script src="js/directives.js?v=3.7.1"></script>
 
     <div ng-controller="MainCtrl">
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak>
@@ -206,11 +206,10 @@
     <h4 class="modal-title"><span class="glyphicon glyphicon-share"></span> Au sujet de la question {{q.code}}</h4>
   </div>
   <div class="modal-body">
-    <span class="help-block"><b>Un souci avec la question ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="questionIssue()"></span></a></span>
+    <span class="help-block"><b>Un souci avec la question ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span>&nbsp;&nbsp;<a href="" ng-click="questionIssue()">request-qcm@ffvl.fr</a></span>
     <span class="help-block">Vous souhaitez faire remonter un problème avec la question ou ses réponses (incohérence, mauvaise formulation, fautes de français...).</span>
-
     <hr/>
-    <span class="help-block"><b>Besoin d'explications ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="questionAskHelp()"></span></a></span>
+    <span class="help-block"><b>Besoin d'explications ?</b><span class="glyphicon glyphicon-arrow-right help-arrow"></span>&nbsp;&nbsp;<a href="" ng-click="questionAskHelp()">les-moniteurs-vous-repondent@ffvl.fr</a></span>
     <span class="help-block">"Les moniteurs vous répondent"</span>
     <span class="help-block">Rentrez en contact avec nos moniteurs FFVL</span>
   </div>
@@ -369,6 +368,15 @@
               <div class="panel-heading">CHANGELOG</div>
               <div class="panel-body">
                   <div class="changelog-version row">
+                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.7.1</span>
+                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
+                        <ul class="changelog-content">
+                            <li>Affichage des emails de contact FFVL au lieu d'enveloppes à cliquer.</li>
+                        </ul>
+                      </div>
+                  </div>
+                  <div class="changelog-version row">
                       <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.7</span>
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                         <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
@@ -400,9 +408,6 @@
                         </ul>
                       </div>
                   </div>
-
-
-
                   <div class="changelog-version row">
                       <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5.2</span>
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
