@@ -4,7 +4,6 @@
 import csv
 import sys
 import json
-import datetime
 import re
 
 csvfile = sys.argv[1]
@@ -14,7 +13,6 @@ version = sys.argv[3]
 content = {
     "questions": [],
     "version": version,
-    "date": datetime.datetime.now().strftime("%d/%m/%Y"),
     # Distribution :
     # 10% Matériel général (L)+ matériel PP ou D (N ou R) selon discipline
     # 20% mécavol général (E) + mécavol PP ou D (G ou H)
