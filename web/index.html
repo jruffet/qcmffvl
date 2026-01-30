@@ -149,14 +149,12 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
-            <!-- <span class="glyphicon glyphicon-info-sign"></span> -->
-              <!-- <li><a href="#about" class="text-center">À propos</a></li> -->
-              <li>
-              <div class="text-center">
-              <a href="#about">
-              <button class="btn btn-default navbar-btn btn-fifty-shades btn-informations"><span class="glyphicon glyphicon-info-sign"></span> Informations</button>
-              </a>
-              </div>
+              <li class="dropdown" is-open="isOpen.revision">
+                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-education"></span> Révision <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu" ng-click="isOpen.revision = false">
+                  <li><a href="#anki"><span class="glyphicon glyphicon-download-alt"></span> Anki cards</a></li>
+                  <li><a href="#about"><span class="glyphicon glyphicon-info-sign"></span> Informations</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -671,6 +669,71 @@
       </div>
 </script>
 
+<!-- ###################################################################################################### -->
+<!-- ###########################################  ANKI  ################################################### -->
+<!-- ###################################################################################################### -->
+
+<script type="text/ng-template" id="anki.html">
+      <div class="about">
+          <div class="panel panel-default">
+              <div class="panel-heading">Anki Cards - QCM FFVL</div>
+              <div class="panel-body">
+                  <p>
+                      <a href="https://apps.ankiweb.net/" target="_blank"><b>Anki</b></a> est une application de flashcards utilisant la <b>répétition espacée</b> pour optimiser la mémorisation.
+                      <br/>
+                      Elle est disponible gratuitement sur ordinateur (Windows, Mac, Linux) et Android (<a href="https://play.google.com/store/apps/details?id=com.ichi2.anki" target="_blank">AnkiDroid</a>).
+                  </p>
+                  <p>
+                      Le deck "QCM FFVL" contient toutes les questions du questionnaire officiel FFVL, formatées pour l'apprentissage avec Anki.
+                  </p>
+                  <hr/>
+                  <div class="text-center">
+                      <a href="../data/qcm_ffvl.apkg" download class="btn btn-primary btn-lg">
+                          <span class="glyphicon glyphicon-download-alt"></span> Télécharger le deck Anki (qcm_ffvl.apkg)
+                      </a>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel panel-default">
+              <div class="panel-heading">Instructions d'utilisation</div>
+              <div class="panel-body">
+                  <div class="about-category row">
+                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Sur ordinateur (Anki Desktop)</span>
+                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+                          <ol>
+                              <li>Téléchargez et installez <a href="https://apps.ankiweb.net/" target="_blank">Anki</a></li>
+                              <li>Téléchargez le fichier <b>qcm_ffvl.apkg</b> ci-dessus</li>
+                              <li>Double-cliquez sur le fichier téléchargé, ou dans Anki : <b>Fichier > Importer</b></li>
+                              <li>Le deck "QCM FFVL" apparaît dans votre liste de paquets</li>
+                          </ol>
+                      </div>
+                  </div>
+                  <div class="about-category row">
+                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Sur Android (AnkiDroid)</span>
+                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+                          <ol>
+                              <li>Installez <a href="https://play.google.com/store/apps/details?id=com.ichi2.anki" target="_blank">AnkiDroid</a> depuis le Play Store</li>
+                              <li>Téléchargez le fichier <b>qcm_ffvl.apkg</b> sur votre téléphone</li>
+                              <li>Ouvrez le fichier avec AnkiDroid (ou depuis AnkiDroid : menu <b>...</b> > <b>Importer</b>)</li>
+                              <li>Le deck "QCM FFVL" est prêt à être révisé</li>
+                          </ol>
+                      </div>
+                  </div>
+                  <div class="about-category row">
+                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Conseils d'utilisation</span>
+                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+                          <ul>
+                              <li><b>Révisez régulièrement</b> : Anki optimise les intervalles de révision, mais il faut pratiquer tous les jours pour de meilleurs résultats</li>
+                              <li><b>Soyez honnête</b> : Notez vos réponses correctement (Encore, Difficile, Bien, Facile) pour que l'algorithme s'adapte</li>
+                              <li><b>Synchronisation</b> : Créez un compte AnkiWeb gratuit pour synchroniser vos progrès entre appareils</li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</script>
 
 <!--<![endif]-->
 </html>

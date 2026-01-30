@@ -679,6 +679,14 @@ angular.module('qcmffvl.controllers', [])
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     })
 
+    .controller('AnkiCtrl', function ($scope) {
+        $scope.$parent.navCollapsed = true;
+        $scope.$parent.loading = false;
+        $scope.$parent.hideNavbarButtons = true;
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    })
+
     .controller('ffvldialogCtrl', function ($scope, $modalInstance, $location, data, API) {
         var q = data.q;
         $scope.q = q;
