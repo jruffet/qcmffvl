@@ -115,7 +115,7 @@ with open(jsonfile, "w") as outfile:
                     content["corresTable"][cat][niveau].append(index)
 
                     index += 1
-    outfile.write(json.dumps(content))
+    outfile.write(json.dumps(content, indent=2, sort_keys=True))
 
 
 """
