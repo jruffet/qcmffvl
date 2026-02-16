@@ -9080,7 +9080,7 @@
           "text": "peut mesurer la vitesse du vent s'il est utilis\u00e9 au sol"
         },
         {
-          "pts": "6",
+          "pts": "3",
           "text": "utilise ses capacit\u00e9s d'analyse des variations instantan\u00e9es de pression statique"
         },
         {
@@ -22026,22 +22026,22 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "en fin de finale, s'il y a du vent pour \u00eatre s\u00fbr de \u00ab rentrer \u00bb"
+          "text": "En fin de finale, s'il y a du vent pour \u00eatre s\u00fbr de \u00ab rentrer \u00bb"
         },
         {
           "pts": "6",
-          "text": "lors de son approche et avant l'\u00e9tape de base"
+          "text": "Lors de son approche et avant l'\u00e9tape de base"
         },
         {
           "pts": "-6",
-          "text": "en finale si n\u00e9cessaire"
+          "text": "En finale si n\u00e9cessaire"
         }
       ],
       "code": "X30B",
       "delta": true,
       "niveau": 1,
       "parapente": false,
-      "question": "A quel moment doit on ouvrir le drag chute :"
+      "question": "\u00c0 quel moment doit-on ouvrir le drag chute ?"
     },
     {
       "ans": [
@@ -22139,7 +22139,7 @@
         },
         {
           "pts": "2",
-          "text": "j'envisage le pos\u00e9 sur les roulettes avec le drag chute si je me sent tr\u00e8s fatigu\u00e9"
+          "text": "j'envisage le pos\u00e9 sur les roulettes avec le drag chute si je me sens tr\u00e8s fatigu\u00e9"
         },
         {
           "pts": "-6",
