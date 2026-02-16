@@ -87,11 +87,11 @@ def short_code(code: str) -> str:
     return re.match(r"(\w\d+)", code).groups()[0]
 
 
-def csv_bogus_max_points(rows: List[Dict]) -> List[Dict]:
-    bad_rows = []
+def csv_invalid_point_sum(rows: List[Dict]) -> List[Dict]:
+    bad_rows: List[Dict] = []
     for row in rows:
         max_points = sum(int(v) for k, v in row.items() if "pts" in k and int(v) > 0)
-        if max_points < 6:
+        if max_points != 6:
             bad_rows.append(row)
     return bad_rows
 
@@ -110,8 +110,8 @@ def csv_duplicate_rows(rows: List[Dict]) -> List[Dict]:
 def csv_check(rows: List[Dict]):
     ret = True
 
-    info("Questions with max_points < 6")
-    bogus = csv_bogus_max_points(rows)
+    info("Questions with max_points != 6")
+    bogus = csv_invalid_point_sum(rows)
     if bogus:
         ret = False
         write_csv_to_stdout(bogus)
