@@ -10,14 +10,12 @@
     <title>QCM FFVL</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#C8C8C8">
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
-
     <link rel="stylesheet" href="css/html5-boilerplate/normalize.css">
     <link rel="stylesheet" href="css/html5-boilerplate/main.css">
     <link rel="stylesheet" href="css/qcmffvl.css"/>
-
-    <script src="js/lib/modernizr-2.6.2.min.js"></script>
-
   </head>
   <body>
     <!--[if lt IE 9]>
@@ -25,6 +23,7 @@
     <![endif]-->
     <!--[if gt IE 8]><!-->
 
+    <script src="js/lib/modernizr-2.6.2.min.js"></script>
     <script src="js/lib/MersenneTwister.js"></script>
     <script src="js/lib/crc.min.js"></script>
 
@@ -165,6 +164,15 @@
       <div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM">
       </div>
     </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(function () {
+        console.log('Service worker registered');
+      }).catch(function (err) {
+        console.error('Service worker registration failed:', err);
+      });
+    }
+  </script>
   </body>
 
 <!-- Next are Angular templateCaches definitions, so that no webserver is required to use this "web app", and everything runs smoothly once the "app" has been loaded -->
@@ -353,7 +361,7 @@
                       <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
                           La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
                           <br/><br/>
-                          Elle a été testée comme fonctionnant correctement avec Chrome et Firefox.
+                          Elle a été testée comme fonctionnant correctement avec Brave et Firefox.
                           <br/>
                           Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
                       </div>
@@ -361,7 +369,7 @@
                   <div class="about-category row">
                     <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Android</span>
                     <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
-                        La version Android n'est plus disponible.
+                        Vous pouvez installer cette web app sur votre smartphone avec Brave/Firefox en utilisant "Ajouter à l'écran d'accueil".
                     </div>
                  </div>
               </div>
@@ -473,7 +481,8 @@
                             <li>MAJ du questionnaire FFVL vers 1.3</li>
                         </ul>
                       </div>
-                  </div>                  <div class="changelog-version row">
+                  </div>
+                    <div class="changelog-version row">
                       <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.3</span>
                       <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
                         <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
