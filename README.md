@@ -1,10 +1,9 @@
-QCM FFVL
---------
+# QCM FFVL
 
 This is the official web app used by the French paragliding and hang gliding federation for its exam to obtain the pilot license.
 It includes a training mode and an exam mode.
 
-It works on various browsers (Chrome / Firefox / Safari...), thus various OSes (Linux / Windows / Mac OS...)
+It works on various browsers (Brave / Firefox / Safari / Chrome...), thus various OSes (Linux / Windows / Mac OS...)
 
 ### Web App
 
@@ -15,4 +14,4 @@ To see how it looks like, you can access the latest stable version at : https://
 
 ### Android
 
-The Android app is no longer supported.
+You can install the web app on your phone by using "Add to home screen" on Brave / Firefox / etc.
