@@ -6335,76 +6335,76 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "Elle n'a aucun effet"
+          "text": "Il n'a aucun effet"
         },
         {
           "pts": "-6",
-          "text": "Elle am\u00e9liore la concentration"
+          "text": "Il am\u00e9liore la concentration"
         },
         {
           "pts": "6",
-          "text": "Elle peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
+          "text": "Il peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
         },
         {
           "pts": "-6",
-          "text": "Elle augmente la confiance en soi"
+          "text": "Il augmente la confiance en soi"
         }
       ],
       "code": "F15VBM",
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "Comment la gestion du stress affecte-t-elle la performance en parapente ?"
+      "question": "Comment le stress affecte-t-il la performance en parapente ?"
     },
     {
       "ans": [
         {
           "pts": "-6",
-          "text": "Elle n'a aucun effet"
+          "text": "Il n'a aucun effet"
         },
         {
           "pts": "-6",
-          "text": "Elle am\u00e9liore la concentration"
+          "text": "Il am\u00e9liore la concentration"
         },
         {
           "pts": "6",
-          "text": "Elle peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
+          "text": "Il peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
         },
         {
           "pts": "-6",
-          "text": "Elle augmente la confiance en soi"
+          "text": "Il augmente la confiance en soi"
         }
       ],
       "code": "F15VBM",
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Comment la gestion du stress affecte-t-elle la performance en parapente ?"
+      "question": "Comment le stress affecte-t-il la performance en parapente ?"
     },
     {
       "ans": [
         {
           "pts": "-6",
-          "text": "Elle n'a aucun effet"
+          "text": "Il n'a aucun effet"
         },
         {
           "pts": "-6",
-          "text": "Elle am\u00e9liore la concentration"
+          "text": "Il am\u00e9liore la concentration"
         },
         {
           "pts": "6",
-          "text": "Elle peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
+          "text": "Il peut conduire \u00e0 des d\u00e9cisions h\u00e2tives"
         },
         {
           "pts": "-6",
-          "text": "Elle augmente la confiance en soi"
+          "text": "Il augmente la confiance en soi"
         }
       ],
       "code": "F15VBM",
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Comment la gestion du stress affecte-t-elle la performance en parapente ?"
+      "question": "Comment le stress affecte-t-il la performance en parapente ?"
     },
     {
       "ans": [
