@@ -370,311 +370,43 @@
                   <div class="about-category row">
                     <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Android</span>
                     <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
-                        Vous pouvez installer cette web app sur votre smartphone avec Brave/Firefox en utilisant "Ajouter à l'écran d'accueil".
+                        Vous pouvez installer cette web app sur votre smartphone avec Brave / Firefox / Chrome / Etc. en utilisant "Ajouter à l'écran d'accueil".
                     </div>
                  </div>
               </div>
           </div>
 
           <div class="panel panel-default">
-              <div class="panel-heading">CHANGELOG</div>
+            <div class="panel-heading about">CHANGELOG</div>
               <div class="panel-body">
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.7.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Correction de la balise de langue HTML pour éviter de déclencher la traduction automatique des navigateurs.</li>
-                        </ul>
-                      </div>
+                <div ng-repeat="v in changelog" class="changelog-version row">
+                  <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version {{v.version}}</span>
+                  <div ng-if="v.changes && v.changes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                    <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
+                    <ul class="changelog-content">
+                      <li ng-repeat="item in v.changes">{{item}}</li>
+                    </ul>
                   </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.7.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Affichage des emails de contact FFVL au lieu d'enveloppes à cliquer.</li>
-                        </ul>
-                      </div>
+                  <div ng-if="v.bugfixes && v.bugfixes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+                    <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
+                    <ul class="changelog-content">
+                      <li ng-repeat="item in v.bugfixes">{{item}}</li>
+                    </ul>
                   </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.7</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 3.0</li>
-                              <ul class="changelog-sublist">
-                                <li>Ajout des catégories "Facteurs humain" et "Milieu naturel".</li>
-                                <li>Changement de la répartition des questions en conséquence.</li>
-                                <li>Revue et correction de l'ensemble des questions.</li>
-                              </ul>
-                            <li>Amélioration de la vitesse de chargement du questionnaire.</li>
-                            <li>Multiples améliorations visuelles.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.6</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 2.0 (ajout questions treuil).</li>
-                            <li>Changement du calcul du QCM ID pour inclure les questions treuil.</li>
-                            <li>Ajout d'un check de version de QCM au chargement d'un QCM ID.</li>
-                        </ul>
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Les questionnaires inachevés sont maintenant correctement rechargés.</li>
-                            <li>Le choix "Toutes les questions" est maintenant conservé, au même titre que le reste.</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 1.6</li>
-                            <li>Possibilité de contacter la FFVL via l'interface pour des explications sur une question.</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 1.5</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.5</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>Quelques modifications de la partie Android pour coller aux exigences Google.</li>
-                            <li>Renommage d'une partie de la CSS pour éviter que des boutons disparaissent si adblock plus est actif.</li>
-                            <li>MAJ du questionnaire FFVL vers 1.4</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.4.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>Ajout d'un dialogue de confirmation avant d'ouvrir le mail de remontée de problème avec une question.</li>
-                        </ul>
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Encodage du texte des emails pour éviter des problèmes d'affichage selon le contenu.</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.4</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>Nouvel affichage des réponses, plus intuitif.</li>
-                            <li>Ajout des entêtes en mode impression.</li>
-                            <li>MAJ du questionnaire FFVL vers 1.3</li>
-                        </ul>
-                      </div>
-                  </div>
-                    <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.3</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>À la correction, les points en gras correspondent aux réponses cochées.</li>
-                            <li>MAJ du questionnaire FFVL vers 1.2</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.2.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>MAJ du questionnaire FFVL vers 1.1</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                        <ul class="changelog-content">
-                            <li>Ajout du choix de catégorie.</li>
-                            <li>Le QCM ID intègre maintenant le choix de catégorie, et n'est pas compatible avec les versions antérieures à 3.2 (la rétro-compatibilité est par contre assurée, le chargement d'un QCM ID de version >= 3.0 et < 3.2 fonctionnera)</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.1.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Android : La configuration et le questionnaire en cours ne seront plus "oubliés" lors d'une mise à jour de l'application.</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.1.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                        <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                        <ul class="changelog-content">
-                            <li>Correction d'une régression impactant le support de vieux navigateurs.</li>
-                        </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>Création de l'application Android, pour une meilleure expérience hors ligne.</li>
-                              <li>Enregistrement local de la dernière configuration (catégorie, niveau, nombre de questions), pour revenir sur celle-ci à chaque nouveau lancement.</li>
-                              <li>Enregistrement local du dernier QCM commencé (non corrigé), avec popup permettant de le charger au démarrage.</li>
-                              <li>Amélioration de la préparation du mail quand l'utilisateur clique sur l'enveloppe ("signaler un problème").</li>
-                              <li>Changement de licence pour la MIT, très permissive toujours.</li>
-                              <li>Avertissement de la perte des réponses lors du passage en mode examen.</li>
-                              <li>Quelques petites améliorations d'affichage.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 3.0</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>Ajout du questionnaire Delta.</li>
-                              <li>Possibilité de signaler un problème avec une question en cliquant sur l'encart de la question.</li>
-                              <li>Nouvelle répartition des questions (recommendations FFVL) suivant un pourcentage par catégorie, par série de 10 questions (météo 30%, réglementation 20%, pilotage 20%, mécavol 20%, matériel 10%).</li>
-                              <li>Ordre aléatoire des réponses pour chaque question. L'ordre de tout le questionnaire (questions + réponses) reste cependant le même pour un QCM ID donné.</li>
-                              <li>Le QCM ID (bouton partage) est maintenant lié à la version de QCM, les anciens QCM IDs ne sont plus compatibles avec les versions 3.X (ou versions supérieures), qui intègrent cette fonctionnalité.</li>
-                              <li>Retour à un navbar collapse sur 1200px.</li>
-                          </ul>
-                      </div>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                          <ul class="changelog-content">
-                              <li>Correction d'une mauvaise génération de l'URL de partage où l'ID pouvait être répété 2 fois.</li>
-                              <li>Modification du CSS impression pour éviter un effacement aléatoire de la barre entre la question et les réponses.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 2.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge).</li>
-                              <li>Ajout d'une modale pour partager le QCM ID, et permettre le chargement d'un questionnaire donné via une URL.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 2.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>Suppression des boutons corriger / résultat en mode examen.</li>
-                              <li>Retour au début de la page quand le mode de questionnaire est modifié.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 2.0</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>Nouveau code couleur de correction plus intuitif (vert, orange, rouge, en fonction des réponses utilisateur)</li>
-                              <li>Ajout du QCM ID, qui identifie de manière unique un questionnaire, une catégorie, un niveau et un nombre de questions. Intègre un checksum pour éviter les erreurs dans les partages d'ID.</li>
-                              <li>Ajout du mode examen papier (candidat / examinateur), avec CSS pour l'impression. Les questionnaires sont identifiables par leur "code" CRC.</li>
-                              <li>Affichage des boutons corriger et recharger quand la navbar est fermée pour les displays mobiles/tablettes.</li>
-                              <li>Page "informations" : Ajout d'un bouton "Retour QCM" plus intuitif que de cliquer sur "QCM FFVL".</li>
-                              <li>Réduction de l'opacité du contenu quand la navbar est ouverte.</li>
-                          </ul>
-                      </div>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                          <ul class="changelog-content">
-                              <li>Affichage sur la même ligne des réponses et des points (après correction) sur les mobiles.</li>
-                              <li>Collapse de la navbar à 1200px pour éviter de manger la 1ere question sur toutes les tailles (retravail de la navbar pour rentrer dans 1200 px).</li>
-                              <li>Checkboxs complètement désactivées quand la navbar est ouverte.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.2</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                          <ul class="changelog-content">
-                              <li>Changer les options en étant dans la page "informations" redirige vers la page QCM au lieu d'afficher "Chargement..." au milieu de la page.</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.1</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                          <ul class="changelog-content">
-                              <li>En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="changelog-version row">
-                      <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version 1.0</span>
-                      <div class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                          <span class="col-xs-12 col-md-12 col-lg-12">Première version !</span>
-                      </div>
-                  </div>
+                </div>
               </div>
           </div>
+
           <div class="panel panel-default">
               <div class="panel-heading">Remerciements</div>
               <div class="panel-body">
-                  <div class="row">
+                <div ng-repeat="v in thanks" class="row">
                     <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                        <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Laurent (commission formation FFVL)</div>
-                        <ul class="thanks-content">
-                            <li>Pour sa bienveillance et son travail pour améliorer le questionnaire
+                        <div class="thanks-title col-xs-12 col-md-12 col-lg-12">{{v.title}}</div>
+                        <ul ng-if="v.content && v.content.length" class="thanks-content">
+                            <li ng-repeat="item in v.content">{{item}}</li>
                         </ul>
                     </div>
-                  </div>
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Xavier (commission Tracté FFVL)</div>
-                          <ul class="thanks-content">
-                              <li>Pour son travail sur la version 3.7 et la (grosse) MAJ du questionnaire en 3.0
-                              <li>Ajout de la fonctionnalité et des questions treuil (version 3.6)
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Guillaume @gcerquant</div>
-                          <ul class="thanks-content">
-                              <li>Suggestion de l'affichage des points en gras uniquement pour les réponses cochées (version 3.3)</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Augustin M</div>
-                          <ul class="thanks-content">
-                              <li>Suggestion du nouveau code couleur (version 2.0)</li>
-                              <li>Suggestion du bouton "Corriger" dans la navbar sur mobile (version 2.0)</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                          <div class="thanks-title col-xs-12 col-md-12 col-lg-12">Et à tous ceux qui remontent des bugs, des erreurs dans le questionnaire...</div>
-                      </div>
                   </div>
               </div>
           </div>
