@@ -1,5 +1,13 @@
 [
   {
+    "version": "3.8.0",
+    "changes": [
+      "Cette web app peut maintenant être installée via le navigateur (notamment sur Android).",
+      "Mise à jour du questionnaire FFVL vers 3.1"
+    ],
+    "bugfixes": []
+  },
+  {
     "version": "3.7.2",
     "changes": [],
     "bugfixes": [
