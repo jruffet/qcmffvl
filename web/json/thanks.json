@@ -1,0 +1,31 @@
+[
+  {
+    "title": "Laurent (commission formation FFVL)",
+    "content": [
+      "Pour sa bienveillance et son travail pour améliorer le questionnaire"
+    ]
+  },
+  {
+    "title": "Xavier (commission Tracté FFVL)",
+    "content": [
+      "Pour son travail sur la version 3.7 et la (grosse) MAJ du questionnaire en 3.0",
+      "Ajout de la fonctionnalité et des questions treuil (version 3.6)"
+    ]
+  },
+  {
+    "title": "Guillaume @gcerquant",
+    "content": [
+      "Suggestion de l'affichage des points en gras uniquement pour les réponses cochées (version 3.3)"
+    ]
+  },
+  {
+    "title": "Augustin M",
+    "content": [
+      "Suggestion du nouveau code couleur (version 2.0)",
+      "Suggestion du bouton \"Corriger\" dans la navbar sur mobile (version 2.0)"
+    ]
+  },
+  {
+    "title": "Et à tous ceux qui remontent des bugs, des erreurs dans le questionnaire..."
+  }
+]

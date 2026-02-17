@@ -94,6 +94,12 @@ angular.module('qcmffvl.controllers', [])
         }
         $scope.main.limit = $scope.$storage.conf.nbquestions;
 
+        // Load changelog and thanks data
+        $http.get('./json/changelog.json?v=' + $scope.qcmVersion)
+            .then(function (resp) { $scope.changelog = resp.data; });
+        $http.get('./json/thanks.json?v=' + $scope.qcmVersion)
+            .then(function (resp) { $scope.thanks = resp.data; });
+
         // User has already set some answers in an unfinished QCM, see if he wants to go on
         if ($scope.$storage.QCMID) {
             $scope.showQCM = false;
@@ -734,7 +740,12 @@ angular.module('qcmffvl.controllers', [])
             $modalInstance.dismiss();
         }
     })
-
+    // Fetch changelog and thanks data after controller initialization
+    .controller('DataCtrl', function ($scope, $http) {
+        $http.get('./json/changelog.json?v=' + $scope.qcmVersion)
+            .then(function (resp) { $scope.changelog = resp.data; });
+        $http.get('./json/thanks.json?v=' + $scope.qcmVersion)
+            .then(function (resp) { $scope.thanks = resp.data; });
+    })
     .run(function ($templateCache) {
     });
-

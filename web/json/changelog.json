@@ -1,0 +1,198 @@
+[
+  {
+    "version": "3.7.2",
+    "changes": [],
+    "bugfixes": [
+      "Correction de la balise de langue HTML pour éviter de déclencher la traduction automatique des navigateurs."
+    ]
+  },
+  {
+    "version": "3.7.1",
+    "changes": [],
+    "bugfixes": [
+      "Affichage des emails de contact FFVL au lieu d'enveloppes à cliquer."
+    ]
+  },
+  {
+    "version": "3.7",
+    "changes": [
+      "MAJ du questionnaire FFVL vers 3.0 (ajout des catégories \"Facteurs humain\" et \"Milieu naturel\").",
+      "Revue et correction de l'ensemble des questions.",
+      "Amélioration de la vitesse de chargement du questionnaire.",
+      "Multiples améliorations visuelles."
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.6",
+    "changes": [
+      "MAJ du questionnaire FFVL vers 2.0 (ajout questions treuil)",
+      "Changement du calcul du QCM ID pour inclure les questions treuil",
+      "Ajout d'un check de version de QCM au chargement d'un QCM ID."
+    ],
+    "bugfixes": [
+      "Les questionnaires inachevés sont maintenant correctement rechargés.",
+      "Le choix \"Toutes les questions\" est maintenant conservé, au même titre que le reste."
+    ]
+  },
+  {
+    "version": "3.5.2",
+    "changes": [
+      "MAJ du questionnaire FFVL vers 1.6",
+      "Possibilité de contacter la FFVL via l'interface pour des explications sur une question."
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.5.1",
+    "changes": [
+      "MAJ du questionnaire FFVL vers 1.5"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.5",
+    "changes": [
+      "Quelques modifications de la partie Android pour coller aux exigences Google.",
+      "Renommage d'une partie de la CSS pour éviter que des boutons disparaissent si adblock plus est actif.",
+      "MAJ du questionnaire FFVL vers 1.4"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.4.1",
+    "changes": [
+      "Ajout d'un dialogue de confirmation avant d'ouvrir le mail de remontée de problème avec une question."
+    ],
+    "bugfixes": [
+      "Encodage du texte des emails pour éviter des problèmes d'affichage selon le contenu."
+    ]
+  },
+  {
+    "version": "3.4",
+    "changes": [
+      "Nouvel affichage des réponses, plus intuitif.",
+      "Ajout des entêtes en mode impression.",
+      "MAJ du questionnaire FFVL vers 1.3"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.3",
+    "changes": [
+      "À la correction, les points en gras correspondent aux réponses cochées.",
+      "MAJ du questionnaire FFVL vers 1.2"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.2.1",
+    "changes": [
+      "MAJ du questionnaire FFVL vers 1.1"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.2",
+    "changes": [
+      "Ajout du choix de catégorie.",
+      "Le QCM ID intègre maintenant le choix de catégorie, et n'est pas compatible avec les versions antérieures à 3.2 (la rétro-compatibilité est par contre assurée, le chargement d'un QCM ID de version >= 3.0 et < 3.2 fonctionnera)"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.1.2",
+    "changes": [],
+    "bugfixes": [
+      "Android : La configuration et le questionnaire en cours ne seront plus \"oubliés\" lors d'une mise à jour de l'application."
+    ]
+  },
+  {
+    "version": "3.1.1",
+    "changes": [],
+    "bugfixes": [
+      "Correction d'une régression impactant le support de vieux navigateurs."
+    ]
+  },
+  {
+    "version": "3.1",
+    "changes": [
+      "Création de l'application Android, pour une meilleure expérience hors ligne.",
+      "Enregistrement local de la dernière configuration (catégorie, niveau, nombre de questions), pour revenir sur celle-ci à chaque nouveau lancement.",
+      "Enregistrement local du dernier QCM commencé (non corrigé), avec popup permettant de le charger au démarrage.",
+      "Amélioration de la préparation du mail quand l'utilisateur clique sur l'enveloppe (\"signaler un problème\").",
+      "Changement de licence pour la MIT, très permissive toujours.",
+      "Avertissement de la perte des réponses lors du passage en mode examen.",
+      "Quelques petites améliorations d'affichage."
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "3.0",
+    "changes": [
+      "Ajout du questionnaire Delta.",
+      "Possibilité de signaler un problème avec une question en cliquant sur l'encart de la question.",
+      "Nouvelle répartition des questions (recommendations FFVL) suivant un pourcentage par catégorie, par série de 10 questions (météo 30%, réglementation 20%, pilotage 20%, mécavol 20%, matériel 10%).",
+      "Ordre aléatoire des réponses pour chaque question. L'ordre de tout le questionnaire (questions + réponses) reste cependant le même pour un QCM ID donné.",
+      "Le QCM ID (bouton partage) est maintenant lié à la version de QCM, les anciens QCM IDs ne sont plus compatibles avec les versions 3.X (ou versions supérieures), qui intègrent cette fonctionnalité.",
+      "Retour à un navbar collapse sur 1200px."
+    ],
+    "bugfixes": [
+      "Correction d'une mauvaise génération de l'URL de partage où l'ID pouvait être répété 2 fois.",
+      "Modification du CSS impression pour éviter un effacement aléatoire de la barre entre la question et les réponses."
+    ]
+  },
+  {
+    "version": "2.2",
+    "changes": [
+      "Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge).",
+      "Ajout d'une modale pour partager le QCM ID, et permettre le chargement d'un questionnaire donné via une URL."
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "2.1",
+    "changes": [
+      "Suppression des boutons corriger / résultat en mode examen.",
+      "Retour au début de la page quand le mode de questionnaire est modifié."
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "2.0",
+    "changes": [
+      "Nouveau code couleur de correction plus intuitif (vert, orange, rouge, en fonction des réponses utilisateur)",
+      "Ajout du QCM ID, qui identifie de manière unique un questionnaire, une catégorie, un niveau et un nombre de questions. Intègre un checksum pour éviter les erreurs dans les partages d'ID.",
+      "Ajout du mode examen papier (candidat / examinateur), avec CSS pour l'impression. Les questionnaires sont identifiables par leur \"code\" CRC.",
+      "Affichage des boutons corriger et recharger quand la navbar est fermée pour les displays mobiles/tablettes.",
+      "Page \"informations\" : Ajout d'un bouton \"Retour QCM\" plus intuitif que de cliquer sur \"QCM FFVL\".",
+      "Réduction de l'opacité du contenu quand la navbar est ouverte."
+    ],
+    "bugfixes": [
+      "Affichage sur la même ligne des réponses et des points (après correction) sur les mobiles.",
+      "Collapse de la navbar à 1200px pour éviter de manger la 1ere question sur toutes les tailles (retravail de la navbar pour rentrer dans 1200 px).",
+      "Checkboxs complètement désactivées quand la navbar est ouverte."
+    ]
+  },
+  {
+    "version": "1.2",
+    "changes": [],
+    "bugfixes": [
+      "Changer les options en étant dans la page \"informations\" redirige vers la page QCM au lieu d'afficher \"Chargement...\" au milieu de la page."
+    ]
+  },
+  {
+    "version": "1.1",
+    "changes": [
+      "En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)"
+    ],
+    "bugfixes": []
+  },
+  {
+    "version": "1.0",
+    "changes": [
+      "Première version !"
+    ],
+    "bugfixes": []
+  }
+]
