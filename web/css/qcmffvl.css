@@ -412,16 +412,13 @@
         margin-top: 10px;
     }
 
-    .thanks-title {
-        font-weight: bold;
-    }
-
     .about-category-title {
         text-align: center;
     }
 
     .changelog-title,
-    .about-title {
+    .about-title,
+    .thanks-title {
         font-weight: bold;
     }
 
@@ -429,11 +426,6 @@
     .about-content,
     .thanks-content {
         padding-top: 15px;
-    }
-
-    .changelog-sublist {
-        padding-top: 0px;
-        margin: 0;
     }
 
     .changelog-version {
