@@ -133,7 +133,6 @@
                   <button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</button>
                 </span>
                 <button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span class="glyphicon glyphicon-refresh"></span></button>
-                <button ng-show="isDevURL()" ng-click="fillQCMAnswers(); main.checkAnswers=false" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-eye-open"></span></button>
               </li>
               <li>
                 <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-shareqcm"><span class="glyphicon glyphicon-share"></span> Partager</button>
@@ -228,7 +227,7 @@
 <script type="text/ng-template" id="qcm.html">
       <div class="loader" ng-show="loading">Chargement...</div>
       <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible avec ces filtres</div>
-      <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride) || (main.exam.papier && isAndroidApp())">
+      <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride)">
           <div >
               <div class="qcm-title" ng-show="main.exam.papier">
                       <button class="btn btn-default center-block btn-print" ng-click="printQCM()">Imprimer</button>
@@ -304,12 +303,9 @@
               </div>
           </div>
       </div>
-      <div ng-show="main.exam.papier && !browserChrome() && !browserCheckOverride && !isAndroidApp()">
-            <div class="qcm-title">Merci d'utiliser de préférence le navigateur <a href="https://support.google.com/chrome/answer/95346?hl=fr">Chrome</a> pour l'impression de l'examen papier.</div>
+      <div ng-show="main.exam.papier && !browserChrome() && !browserCheckOverride">
+            <div class="qcm-title">Merci d'utiliser Chrome ou un dérivé (Chromium, Brave...) pour l'impression de l'examen papier.</div>
             <div class="qcm-subtitle">Si vous souhaitez forcer l'impression de l'examen papier avec votre navigateur, appuyez <a ng-click="browserCheckOverride=true">ici</a>.</div>
-      </div>
-      <div ng-show="main.exam.papier && isAndroidApp()">
-           <div class="qcm-title">Le mode "{{main.typeExam.checked}}" n'est pas disponible depuis l'application Android. <br/><br/>Merci de suivre <a href="{{main.QCMIDURL}}/{{main.typeExamNum}}"><b>ce lien</b></a>.</div>
       </div>
 </script>
 

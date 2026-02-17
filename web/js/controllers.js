@@ -126,10 +126,6 @@ angular.module('qcmffvl.controllers', [])
             window.print();
         }
 
-        $scope.isAndroidApp = function () {
-            return (deviceDetector.raw.userAgent.indexOf("QCMFFVL Android App") != -1);
-        }
-
         // load specific QCM ID (+ optional answers)
         $scope.loadQCMID = function (QCMID, answers) {
             var errorLoadingQCMID = false
@@ -274,8 +270,8 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.isSmartphone = function () {
             return deviceDetector.device === 'phone'
-            || deviceDetector.device === 'iphone'
-            || deviceDetector.device === 'android';
+                || deviceDetector.device === 'iphone'
+                || deviceDetector.device === 'android';
         }
         $scope.isAndroid = function () {
             return deviceDetector.device === 'android';
@@ -284,17 +280,8 @@ angular.module('qcmffvl.controllers', [])
             return deviceDetector.device === 'iphone';
         }
 
-        $scope.browserChrome = function() {
+        $scope.browserChrome = function () {
             return (deviceDetector.browser == "chrome");
-        }
-
-        $scope.isDevURL = function () {
-            return ($location.absUrl().indexOf("/dev") != -1);
-        }
-
-        // we are in a stable version only when a push to prod has been done
-        $scope.isProdURL = function () {
-            return ($location.absUrl().indexOf("sativouf.net") == -1);
         }
 
         $scope.gotoMainURL = function () {
@@ -666,7 +653,6 @@ angular.module('qcmffvl.controllers', [])
             if (newval == true)
                 $scope.$parent.deleteStoredAnswers();
         });
-
     })
 
     .controller('PrivacyCtrl', function ($scope) {
