@@ -7,38 +7,54 @@
     <title>QCM FFVL</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#C8C8C8">
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/html5-boilerplate/normalize.css">
-    <link rel="stylesheet" href="css/html5-boilerplate/main.css">
-    <link rel="stylesheet" href="css/qcmffvl.css"/>
-    <link rel="icon" type="image/png" href="assets/icons/icon-512.png"/>
+    <link rel="manifest" href="manifest.json?v=3.9.0">
+    <link rel="icon" type="image/png" href="assets/icons/icon-512.png?v=3.9.0"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?v=3.9.0"/>
+    <link rel="stylesheet" href="css/html5-boilerplate/normalize.css?v=3.9.0">
+    <link rel="stylesheet" href="css/html5-boilerplate/main.css?v=3.9.0">
+    <link rel="stylesheet" href="css/qcmffvl.css?v=3.9.0"/>
   </head>
   <body>
-    <script src="js/lib/MersenneTwister.js"></script>
-    <script src="js/lib/crc.min.js"></script>
+    <script src="js/lib/MersenneTwister.js?v=3.9.0"></script>
+    <script src="js/lib/crc.min.js?v=3.9.0"></script>
 
-    <script src="js/lib/jquery-2.1.1.min.js"></script>
-    <script src="js/lib/angular.min.js"></script>
-    <script src="js/lib/angular-route.min.js"></script>
-    <script src="js/lib/angular-sanitize.min.js"></script>
-    <script src="js/lib/angular-translate.min.js"></script>
-    <script src="js/lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/lib/jquery-2.1.1.min.js?v=3.9.0"></script>
+    <script src="js/lib/angular.min.js?v=3.9.0"></script>
+    <script src="js/lib/angular-route.min.js?v=3.9.0"></script>
+    <script src="js/lib/angular-sanitize.min.js?v=3.9.0"></script>
+    <script src="js/lib/angular-translate.min.js?v=3.9.0"></script>
+    <script src="js/lib/ui-bootstrap-tpls.min.js?v=3.9.0"></script>
 
-    <script src="js/lib/angular-clipboard.js"></script>
-    <script src="js/lib/dialogs.js"></script>
-    <script src="js/lib/ng-device-detector.min.js"></script>
-    <script src="js/lib/re-tree.min.js"></script>
-    <script src="js/lib/ngStorage.min.js"></script>
+    <script src="js/lib/angular-clipboard.js?v=3.9.0"></script>
+    <script src="js/lib/dialogs.js?v=3.9.0"></script>
+    <script src="js/lib/ng-device-detector.min.js?v=3.9.0"></script>
+    <script src="js/lib/re-tree.min.js?v=3.9.0"></script>
+    <script src="js/lib/ngStorage.min.js?v=3.9.0"></script>
 
-    <script src="js/app.js?v=3.8.0"></script>
-    <script src="js/services.js?v=3.8.0"></script>
-    <script src="js/controllers.js?v=3.8.0"></script>
-    <script src="js/filters.js?v=3.8.0"></script>
-    <script src="js/directives.js?v=3.8.0"></script>
+    <script src="js/app.js?v=3.9.0"></script>
+    <script src="js/services.js?v=3.9.0"></script>
+    <script src="js/controllers.js?v=3.9.0"></script>
+    <script src="js/filters.js?v=3.9.0"></script>
+    <script src="js/directives.js?v=3.9.0"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(function () {
+          console.log('Service worker registered');
+        }).catch(function (err) {
+          console.error('Service worker registration failed:', err);
+        });
+      }
+    </script>
 
     <div ng-controller="MainCtrl">
+      <div ng-show="showUpdateBanner" ng-cloak id="update-banner" class="update-banner">
+        <div class="update-banner-content">
+          Une version plus récente est disponible
+          <button class="btn btn-primary update-refresh-btn" onclick="window.location.reload()">Actualiser</button>
+        </div>
+      </div>
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak>
         <div class="container-fluid">
           <div class="navbar-header">
@@ -155,15 +171,6 @@
       <div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM">
       </div>
     </div>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(function () {
-        console.log('Service worker registered');
-      }).catch(function (err) {
-        console.error('Service worker registration failed:', err);
-      });
-    }
-  </script>
   </body>
 
 <!-- Next are Angular templateCaches definitions, so that no webserver is required to use this "web app", and everything runs smoothly once the "app" has been loaded -->

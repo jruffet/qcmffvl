@@ -4,6 +4,7 @@ set -eou pipefail
 cd "$(dirname $0)/.." || exit 1
 version=$(cat web/json/changelog.json | jq .[0].version -r)
 
-# App version
+# Cache buster on index.html
 perl -pe "s/\?v=(\d+\.)+\d+/?v=$version/" -i web/index.html
-sed "s/scope.version = .*/scope.version = \"$version\";/" -i web/js/controllers.js
+# Update versions.json
+jq --arg version "$version" '.app_version = $version' web/json/versions.json | sponge web/json/versions.json

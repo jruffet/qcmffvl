@@ -66,7 +66,7 @@ angular.module('qcmffvl.controllers', [])
             items: ["Date", "Structure organisatrice"]
         }]
 
-
+        // Load version info
         $http.get('./json/versions.json')
             .then(function (resp) {
                 $scope.version = resp.data.app_version;
@@ -96,6 +96,24 @@ angular.module('qcmffvl.controllers', [])
             $scope.main.search.delta = true;
         }
         $scope.main.limit = $scope.$storage.conf.nbquestions;
+
+        // Check for updates on demand only (not automatically)
+        $scope.showUpdateBanner = false;
+        $scope.checkForUpdates = function() {
+            // Only check when there's internet access
+            if (navigator.onLine) {
+                $http.get('./json/versions.json?v=' + new Date().getTime())
+                    .then(function(resp) {
+                        var currentVersion = resp.data.app_version;
+                        var currentQCMVersion = resp.data.mcq_version.replace(/\.\d+$/, '');
+
+                        // Compare with stored versions
+                        if (currentVersion !== $scope.version || currentQCMVersion !== $scope.qcmVersion) {
+                            $scope.showUpdateBanner = true;
+                        }
+                    })
+            }
+        };
 
         // Load changelog and thanks data
         $http.get('./json/changelog.json?v=' + $scope.version)
@@ -197,6 +215,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmOptions, $scope.qcmVer, $scope.optionsToArray(), QCMID, answers);
                 if ($scope.main.exam.papierExaminateur)
                     API.tickAnswers($scope.qcm);
+                $scope.checkForUpdates();
             }, 300);
         }
 

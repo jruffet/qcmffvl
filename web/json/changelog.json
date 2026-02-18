@@ -1,5 +1,14 @@
 [
   {
+    "version": "3.9.0",
+    "changes": [
+      "Lors du chargement d'un questionnaire, la web app affiche si une mise à jour est disponible (sauf si hors connexion)."
+    ],
+    "bugfixes": [
+      "Toutes les ressources web sont maintenant correctement rechargées lors d'un rafraîchissement de page."
+    ]
+  },
+  {
     "version": "3.8.0",
     "changes": [
       "Cette web app peut maintenant être installée via le navigateur (notamment sur Android).",

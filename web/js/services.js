@@ -4,7 +4,6 @@
 
 
 angular.module('qcmffvl.services', [])
-
     .factory('API', function ($http) {
         return {
             // newCatDistrib() returns an array with the categories to be displayed,
