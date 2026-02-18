@@ -20,7 +20,6 @@ angular.module('qcmffvl', [
     $routeProvider.when('/load/:qcmid/:typeExamNum', { templateUrl: 'qcm.html', controller: 'LoadCtrl' });
     $routeProvider.when('/qcm', { templateUrl: 'qcm.html', controller: 'QCMCtrl' });
     $routeProvider.when('/about', { templateUrl: 'about.html', controller: 'AboutCtrl' });
-    $routeProvider.when('/privacy', { templateUrl: 'privacy.html', controller: 'PrivacyCtrl' });
     $routeProvider.otherwise({ redirectTo: '/qcm' });
   }])
   .config(['dialogsProvider', '$translateProvider', function (dialogsProvider, $translateProvider) {

@@ -99,11 +99,11 @@ angular.module('qcmffvl.controllers', [])
 
         // Check for updates on demand only (not automatically)
         $scope.showUpdateBanner = false;
-        $scope.checkForUpdates = function() {
+        $scope.checkForUpdates = function () {
             // Only check when there's internet access
             if (navigator.onLine) {
                 $http.get('./json/versions.json?v=' + new Date().getTime())
-                    .then(function(resp) {
+                    .then(function (resp) {
                         var currentVersion = resp.data.app_version;
                         var currentQCMVersion = resp.data.mcq_version.replace(/\.\d+$/, '');
 
@@ -675,14 +675,6 @@ angular.module('qcmffvl.controllers', [])
             if (newval == true)
                 $scope.$parent.deleteStoredAnswers();
         });
-    })
-
-    .controller('PrivacyCtrl', function ($scope) {
-        $scope.$parent.navCollapsed = true;
-        $scope.$parent.loading = false;
-        $scope.$parent.hideNavbarButtons = true;
-
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
     })
 
     .controller('AboutCtrl', function ($scope) {
