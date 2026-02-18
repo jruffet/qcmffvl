@@ -19,16 +19,15 @@ jobs:
           ref: master
           fetch-depth: 0
 
-      - name: Extract latest mcq-* tag
+      - name: Extract version from versions.json
         id: get_version
         run: |
           set -e
-          latest=$(git tag --list 'mcq-*' --sort=-creatordate | head -n1)
-          if [ -z "$latest" ]; then
-            echo "No mcq-* tags found"
+          version=$(jq -r '.mcq_version' web/json/versions.json)
+          if [ -z "$version" ]; then
+            echo "No mcq_version found in versions.json"
             exit 1
           fi
-          version=${latest#mcq-}
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Set up Python
