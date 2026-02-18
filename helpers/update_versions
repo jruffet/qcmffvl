@@ -3,8 +3,11 @@ set -eou pipefail
 
 cd "$(dirname $0)/.." || exit 1
 version=$(cat web/json/changelog.json | jq .[0].version -r)
+current_year=$(date +%Y)
 
 # Cache buster on index.html
 perl -pe "s/\?v=(\d+\.)+\d+/?v=$version/" -i web/index.html
 # Update versions.json
 jq --arg version "$version" '.app_version = $version' web/json/versions.json | sponge web/json/versions.json
+# Update copyright year in LICENSE
+perl -pe "s/(2014-)\d+/\$1 . \"$current_year\"/ge" -i LICENSE
