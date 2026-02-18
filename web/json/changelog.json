@@ -22,7 +22,7 @@
     ]
   },
   {
-    "version": "3.7",
+    "version": "3.7.0",
     "changes": [
       "MAJ du questionnaire FFVL vers 3.0 (ajout des catégories \"Facteurs humain\" et \"Milieu naturel\").",
       "Revue et correction de l'ensemble des questions.",
@@ -32,7 +32,7 @@
     "bugfixes": []
   },
   {
-    "version": "3.6",
+    "version": "3.6.0",
     "changes": [
       "MAJ du questionnaire FFVL vers 2.0 (ajout questions treuil)",
       "Changement du calcul du QCM ID pour inclure les questions treuil",
@@ -59,7 +59,7 @@
     "bugfixes": []
   },
   {
-    "version": "3.5",
+    "version": "3.5.0",
     "changes": [
       "Quelques modifications de la partie Android pour coller aux exigences Google.",
       "Renommage d'une partie de la CSS pour éviter que des boutons disparaissent si adblock plus est actif.",
@@ -77,7 +77,7 @@
     ]
   },
   {
-    "version": "3.4",
+    "version": "3.4.0",
     "changes": [
       "Nouvel affichage des réponses, plus intuitif.",
       "Ajout des entêtes en mode impression.",
@@ -86,7 +86,7 @@
     "bugfixes": []
   },
   {
-    "version": "3.3",
+    "version": "3.3.0",
     "changes": [
       "À la correction, les points en gras correspondent aux réponses cochées.",
       "MAJ du questionnaire FFVL vers 1.2"
@@ -101,7 +101,7 @@
     "bugfixes": []
   },
   {
-    "version": "3.2",
+    "version": "3.2.0",
     "changes": [
       "Ajout du choix de catégorie.",
       "Le QCM ID intègre maintenant le choix de catégorie, et n'est pas compatible avec les versions antérieures à 3.2 (la rétro-compatibilité est par contre assurée, le chargement d'un QCM ID de version >= 3.0 et < 3.2 fonctionnera)"
@@ -123,7 +123,7 @@
     ]
   },
   {
-    "version": "3.1",
+    "version": "3.1.0",
     "changes": [
       "Création de l'application Android, pour une meilleure expérience hors ligne.",
       "Enregistrement local de la dernière configuration (catégorie, niveau, nombre de questions), pour revenir sur celle-ci à chaque nouveau lancement.",
@@ -136,7 +136,7 @@
     "bugfixes": []
   },
   {
-    "version": "3.0",
+    "version": "3.0.0",
     "changes": [
       "Ajout du questionnaire Delta.",
       "Possibilité de signaler un problème avec une question en cliquant sur l'encart de la question.",
@@ -151,7 +151,7 @@
     ]
   },
   {
-    "version": "2.2",
+    "version": "2.2.0",
     "changes": [
       "Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge).",
       "Ajout d'une modale pour partager le QCM ID, et permettre le chargement d'un questionnaire donné via une URL."
@@ -159,7 +159,7 @@
     "bugfixes": []
   },
   {
-    "version": "2.1",
+    "version": "2.1.0",
     "changes": [
       "Suppression des boutons corriger / résultat en mode examen.",
       "Retour au début de la page quand le mode de questionnaire est modifié."
@@ -167,7 +167,7 @@
     "bugfixes": []
   },
   {
-    "version": "2.0",
+    "version": "2.0.0",
     "changes": [
       "Nouveau code couleur de correction plus intuitif (vert, orange, rouge, en fonction des réponses utilisateur)",
       "Ajout du QCM ID, qui identifie de manière unique un questionnaire, une catégorie, un niveau et un nombre de questions. Intègre un checksum pour éviter les erreurs dans les partages d'ID.",
@@ -183,21 +183,21 @@
     ]
   },
   {
-    "version": "1.2",
+    "version": "1.2.0",
     "changes": [],
     "bugfixes": [
       "Changer les options en étant dans la page \"informations\" redirige vers la page QCM au lieu d'afficher \"Chargement...\" au milieu de la page."
     ]
   },
   {
-    "version": "1.1",
+    "version": "1.1.0",
     "changes": [
       "En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)"
     ],
     "bugfixes": []
   },
   {
-    "version": "1.0",
+    "version": "1.0.0",
     "changes": [
       "Première version !"
     ],

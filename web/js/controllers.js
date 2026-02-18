@@ -67,13 +67,16 @@ angular.module('qcmffvl.controllers', [])
         }]
 
 
+        $http.get('./json/versions.json')
+            .then(function (resp) {
+                $scope.version = resp.data.app_version;
+                $scope.qcmVersion = resp.data.mcq_version.replace(/\.\d+$/, '');
+                $scope.qcmVer = $scope.qcmVersion.replace(".", "");
+            });
         // automatically removed by a directive when the QCM is loaded
         $scope.loading = true;
         $scope.hideNavbarButtons = false;
         $scope.browserCheckOverride = false;
-        $scope.version = "3.8.0";
-        $scope.qcmVersion = "3.1";
-        $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         $scope.qcmOptions = {};
         // show the QCM view ?
         $scope.showQCM = true;
