@@ -331,7 +331,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.ffvldialog = function (q, index) {
             $scope.q = q;
             $scope.index = index;
-            var dlg = dialogs.create('ffvldialog.html', 'ffvldialogCtrl', $scope);
+            dialogs.create('ffvldialog.html', 'ffvldialogCtrl', $scope);
         }
 
         $scope.dialogQCMID = function () {
@@ -740,12 +740,6 @@ angular.module('qcmffvl.controllers', [])
             $modalInstance.dismiss();
         }
     })
-    // Fetch changelog and thanks data after controller initialization
-    .controller('DataCtrl', function ($scope, $http) {
-        $http.get('./json/changelog.json?v=' + $scope.qcmVersion)
-            .then(function (resp) { $scope.changelog = resp.data; });
-        $http.get('./json/thanks.json?v=' + $scope.qcmVersion)
-            .then(function (resp) { $scope.thanks = resp.data; });
-    })
+
     .run(function ($templateCache) {
     });
