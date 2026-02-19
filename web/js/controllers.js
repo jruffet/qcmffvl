@@ -67,12 +67,9 @@ angular.module('qcmffvl.controllers', [])
         }]
 
         // Load version info
-        $http.get('./json/versions.json')
-            .then(function (resp) {
-                $scope.version = resp.data.app_version;
-                $scope.qcmVersion = resp.data.mcq_version.replace(/\.\d+$/, '');
-                $scope.qcmVer = $scope.qcmVersion.replace(".", "");
-            });
+        $scope.version = "3.9.0";
+        $scope.qcmVersion = "3.1.0".replace(/\.\d+$/, '');
+        $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         // automatically removed by a directive when the QCM is loaded
         $scope.loading = true;
         $scope.hideNavbarButtons = false;
