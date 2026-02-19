@@ -5,13 +5,13 @@ import re
 
 
 def update_versions():
-    # Read versions from versions.json
     with open("web/json/versions.json", "r") as f:
         versions = json.load(f)
 
     app_version = versions["app_version"]
     mcq_version = versions["mcq_version"]
 
+    # Update controllers.js
     with open("web/js/controllers.js", "r") as f:
         content = f.read()
 
@@ -21,16 +21,15 @@ def update_versions():
     with open("web/js/controllers.js", "w") as f:
         f.write(content)
 
-    with open("web/index.html", "r") as f:
-        content = f.read()
+    # Update index.html and manifest.json with same substitution
+    for file_path in ["web/index.html", "web/manifest.json"]:
+        with open(file_path, "r") as f:
+            content = f.read()
+        content = re.sub(r'\?v=[^"]*', f"?v={app_version}", content)
+        with open(file_path, "w") as f:
+            f.write(content)
 
-    # Replace all instances of ?v=3.9.0 with ?v=4.0.0 (matching the version from versions.json)
-    content = re.sub(r'\?v=[^"]*', f"?v={app_version}", content)
-
-    with open("web/index.html", "w") as f:
-        f.write(content)
-
-    print(f"Updated versions in controllers.js and index.html:")
+    print("Updated versions in controllers.js, index.html and manifest.json:")
     print(f"  app_version: {app_version}")
     print(f"  mcq_version: {mcq_version}")
 
