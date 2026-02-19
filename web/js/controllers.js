@@ -101,11 +101,8 @@ angular.module('qcmffvl.controllers', [])
             if (navigator.onLine) {
                 $http.get('./json/versions.json?v=' + new Date().getTime())
                     .then(function (resp) {
-                        var currentVersion = resp.data.app_version;
-                        var currentQCMVersion = resp.data.mcq_version.replace(/\.\d+$/, '');
-
                         // Compare with stored versions
-                        if (currentVersion !== $scope.version || currentQCMVersion !== $scope.qcmVersion) {
+                        if (resp.data.app_version !== $scope.version || resp.data.mcq_version !== $scope.qcmVersion) {
                             $scope.showUpdateBanner = true;
                         }
                     })
