@@ -1336,7 +1336,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Trois masses d'air A, B, et C ont une temp\u00e9rature au sol de 15\u00b0. Le point de ros\u00e9e est respectivement de 14\u00b0, 10\u00b0 et 5\u00b0. Laquelle est la plus humide :"
+      "question": "Trois masses d'air A, B, et C ont une temp\u00e9rature au sol de 15 \u00b0C. Le point de ros\u00e9e est respectivement de 14 \u00b0C, 10 \u00b0C et 5 \u00b0C. Laquelle est la plus humide :"
     },
     {
       "ans": [
@@ -1430,7 +1430,7 @@
         },
         {
           "pts": "-6",
-          "text": "cirrostratus et nimbo stratus"
+          "text": "cirrostratus et nimbostratus"
         },
         {
           "pts": "6",
@@ -2182,7 +2182,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": " Une dorsale est :"
+      "question": "Une dorsale est :"
     },
     {
       "ans": [
@@ -2308,21 +2308,21 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Dans une masse d'air sans nuages, la temp\u00e9rature est de 15\u00b0 C au sol et de 12\u00b0 C 500 m au-dessus. Cette tranche d'air est :"
+      "question": "Dans une masse d'air sans nuages, la temp\u00e9rature est de 15 \u00b0C au sol et de 12 \u00b0C 500 m au-dessus. Cette tranche d'air est :"
     },
     {
       "ans": [
         {
           "pts": "-6",
-          "text": "+22\u00b0 \u00e0 500m / +18\u00b0 \u00e0 1000m d'altitude"
+          "text": "+22 \u00b0C \u00e0 500 m / +18 \u00b0C \u00e0 1000 m d'altitude"
         },
         {
           "pts": "-6",
-          "text": "-2\u00b0 \u00e0 500m / -10\u00b0 \u00e0 1200 m d'altitude"
+          "text": "-2 \u00b0C \u00e0 500 m / -10 \u00b0C \u00e0 1200 m d'altitude"
         },
         {
           "pts": "6",
-          "text": "+18\u00b0 \u00e0 500m / +22\u00b0 \u00e0 1000m d'altitude"
+          "text": "+18 \u00b0C \u00e0 500 m / +22 \u00b0C \u00e0 1000 m d'altitude"
         }
       ],
       "code": "A47M",
@@ -2610,7 +2610,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "La rotation de la terre d\u00e9vie les vents vers leur :"
+      "question": "La rotation de la Terre d\u00e9vie les vents vers leur :"
     },
     {
       "ans": [
@@ -2955,7 +2955,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "est toujours, d\u00e9s le premier jour, favorable pour le vol libre"
+          "text": "est toujours, d\u00e8s le premier jour, favorable pour le vol libre"
         },
         {
           "pts": "2",
@@ -5429,7 +5429,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "le facteur de charge maximale recommand\u00e9 est de 1,6"
+          "text": "le facteur de charge maximal recommand\u00e9 est de 1,6"
         },
         {
           "pts": "2",
@@ -5504,7 +5504,7 @@
         },
         {
           "pts": "3",
-          "text": "d'une prise vitesse de l'aile qui cherche \u00e0 revoler"
+          "text": "d'une prise de vitesse de l'aile qui cherche \u00e0 revoler"
         },
         {
           "pts": "-6",
@@ -5625,7 +5625,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "\u00e0 la vitesse de taux de chute mini"
+          "text": "\u00e0 la vitesse du taux de chute mini"
         },
         {
           "pts": "6",
@@ -6112,7 +6112,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Vous arrivez sur un d\u00e9collage tr\u00e8s fr\u00e9quent\u00e9, il y beaucoup de spectateurs, la tension monte, par quels moyens pouvez-vous g\u00e9rer votre stress ?"
+      "question": "Vous arrivez sur un d\u00e9collage tr\u00e8s fr\u00e9quent\u00e9, il y a beaucoup de spectateurs, la tension monte, par quels moyens pouvez-vous g\u00e9rer votre stress ?"
     },
     {
       "ans": [
@@ -6137,7 +6137,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Vous arrivez sur un d\u00e9collage tr\u00e8s fr\u00e9quent\u00e9, il y beaucoup de spectateurs, la tension monte, par quels moyens pouvez-vous g\u00e9rer votre stress ?"
+      "question": "Vous arrivez sur un d\u00e9collage tr\u00e8s fr\u00e9quent\u00e9, il y a beaucoup de spectateurs, la tension monte, par quels moyens pouvez-vous g\u00e9rer votre stress ?"
     },
     {
       "ans": [
@@ -6168,7 +6168,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "Votre \u00e9tat de fatigue physique et mental du jour"
+          "text": "Votre \u00e9tat de fatigue physique et mentale du jour"
         },
         {
           "pts": "2",
@@ -6193,7 +6193,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "Votre \u00e9tat de fatigue physique et mental du jour"
+          "text": "Votre \u00e9tat de fatigue physique et mentale du jour"
         },
         {
           "pts": "2",
@@ -7243,7 +7243,7 @@
         },
         {
           "pts": "3",
-          "text": "Les prise de d\u00e9cisions impulsives"
+          "text": "Les prises de d\u00e9cision impulsives"
         }
       ],
       "code": "F28V",
@@ -7952,7 +7952,7 @@
         },
         {
           "pts": "-6",
-          "text": "de caract\u00e8re instable a\u00e9rodynamiquement s'il utilise un profil reflex\u00e9"
+          "text": "de caract\u00e8re instable a\u00e9rodynamiquement s'il utilise un profil reflex"
         }
       ],
       "code": "G15M",
@@ -8432,7 +8432,7 @@
         },
         {
           "pts": "2",
-          "text": "une brutale abatt\u00e9e dissym\u00e9trique suivi d'une fermeture"
+          "text": "une brutale abatt\u00e9e dissym\u00e9trique suivie d'une fermeture"
         },
         {
           "pts": "2",
@@ -8527,7 +8527,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": false,
-      "question": "En vol stabilis\u00e9 vous tirez sur la barre de contr\u00f4le :"
+      "question": "En vol stabilis\u00e9, vous tirez sur la barre de contr\u00f4le :"
     },
     {
       "ans": [
@@ -8742,7 +8742,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "l'aile r\u00e9alise d'elle-m\u00eame en majeure partie le pouss\u00e9 utile au virage ; la barre de contr\u00f4le l\u00e2ch\u00e9e est en position avanc\u00e9e par rapport \u00e0 la ligne droite"
+          "text": "l'aile r\u00e9alise d'elle-m\u00eame en majeure partie la pouss\u00e9e utile au virage ; la barre de contr\u00f4le l\u00e2ch\u00e9e est en position avanc\u00e9e par rapport \u00e0 la ligne droite"
         },
         {
           "pts": "2",
@@ -8750,7 +8750,7 @@
         },
         {
           "pts": "2",
-          "text": "\u00e0 inclinaison faible et moyenne, beaucoup d'ailes ne r\u00e9clament pas de pouss\u00e9 additionnel pour \u00eatre au taux de chute mini, si elles sont r\u00e9gl\u00e9es proches du taux de chute mini en ligne droite"
+          "text": "\u00e0 inclinaison faible et moyenne, beaucoup d'ailes ne r\u00e9clament pas de pouss\u00e9e additionnelle pour \u00eatre au taux de chute mini, si elles sont r\u00e9gl\u00e9es proches du taux de chute mini en ligne droite"
         }
       ],
       "code": "H14V",
@@ -8803,13 +8803,13 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Un parachute de secours h\u00e9misph\u00e9rique ou \u00abnon-rond \u00bb :"
+      "question": "Un parachute de secours h\u00e9misph\u00e9rique ou \u00ab non-rond \u00bb :"
     },
     {
       "ans": [
         {
           "pts": "2",
-          "text": "envisager de l'a\u00e9rer le replier et le reconditionner au moins 1 fois par an"
+          "text": "envisager de l'a\u00e9rer, le replier et le reconditionner au moins 1 fois par an"
         },
         {
           "pts": "-6",
@@ -8867,7 +8867,7 @@
         },
         {
           "pts": "2",
-          "text": "demande de r\u00e9fl\u00e9chir \u00e0 la direction, la puissance et la rapidit\u00e9 du geste de lanc\u00e9"
+          "text": "demande de r\u00e9fl\u00e9chir \u00e0 la direction, la puissance et la rapidit\u00e9 du geste de lancer"
         }
       ],
       "code": "L4B",
@@ -9096,7 +9096,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": " Le variom\u00e8tre de base :"
+      "question": "Le variom\u00e8tre de base :"
     },
     {
       "ans": [
@@ -9238,7 +9238,7 @@
       "delta": true,
       "niveau": 3,
       "parapente": true,
-      "question": "Il existe plusieurs type de treuils :"
+      "question": "Il existe plusieurs types de treuils :"
     },
     {
       "ans": [
@@ -9263,7 +9263,7 @@
       "delta": true,
       "niveau": 3,
       "parapente": true,
-      "question": "Il existe plusieurs type de treuils :"
+      "question": "Il existe plusieurs types de treuils :"
     },
     {
       "ans": [
@@ -9352,7 +9352,7 @@
         },
         {
           "pts": "-6",
-          "text": "n'est pas jamais n\u00e9cessaire"
+          "text": "n'est jamais n\u00e9cessaire"
         }
       ],
       "code": "L63T",
@@ -9511,7 +9511,7 @@
         },
         {
           "pts": "2",
-          "text": "peut comporter une drisse en corde dynamique de diam\u00e8tre 6 \u00e0 10 m pour absorber les chocs"
+          "text": "peut comporter une drisse en corde dynamique de diam\u00e8tre 6 \u00e0 10 mm pour absorber les chocs"
         }
       ],
       "code": "L86T",
@@ -9602,7 +9602,7 @@
       "delta": false,
       "niveau": 1,
       "parapente": true,
-      "question": "L'allongement d'une aile est \u00e9gale :"
+      "question": "L'allongement d'une aile est \u00e9gal :"
     },
     {
       "ans": [
@@ -9819,7 +9819,7 @@
       "delta": false,
       "niveau": 0,
       "parapente": true,
-      "question": "Les diff\u00e9rents mod\u00e8les de sellettes parapentes :"
+      "question": "Les diff\u00e9rents mod\u00e8les de sellettes parapente :"
     },
     {
       "ans": [
@@ -10178,7 +10178,7 @@
       "delta": false,
       "niveau": 2,
       "parapente": true,
-      "question": "La fibre aramide (kevlar) :"
+      "question": "La fibre aramide (Kevlar) :"
     },
     {
       "ans": [
@@ -10242,7 +10242,7 @@
         },
         {
           "pts": "2",
-          "text": "d'une radio VHF cal\u00e9e sur la fr\u00e9quence 143,987.5 Mhz"
+          "text": "d'une radio VHF cal\u00e9e sur la fr\u00e9quence 143,987.5 MHz"
         }
       ],
       "code": "N34M",
@@ -10518,7 +10518,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "je m'assure que la cha\u00eene \u00ab parachute & pod & poign\u00e9e d'extraction et container ext\u00e9rieur \u00bb sont compatibles"
+          "text": "je m'assure que la cha\u00eene \u00ab parachute & pod & poign\u00e9e d'extraction et container ext\u00e9rieur \u00bb est compatible"
         },
         {
           "pts": "-6",
@@ -10618,11 +10618,11 @@
       "ans": [
         {
           "pts": "2",
-          "text": " la puissance et la rapidit\u00e9 du geste de lancer d\u00e9pend de la position du parachute sur la sellette"
+          "text": "la puissance et la rapidit\u00e9 du geste de lancer d\u00e9pend de la position du parachute sur la sellette"
         },
         {
           "pts": "2",
-          "text": " le conditionnement du parachute dans la sellette est un point r\u00e9curent d'erreurs pouvant entraver son fonctionnement"
+          "text": "le conditionnement du parachute dans la sellette est un point r\u00e9current d'erreurs pouvant entraver son fonctionnement"
         },
         {
           "pts": "2",
@@ -10693,11 +10693,11 @@
         },
         {
           "pts": "-6",
-          "text": "peut envisager de faire l'essaie d'une voile class\u00e9e en \u00ab D \u00bb"
+          "text": "peut envisager de faire l'essai d'une voile class\u00e9e en \u00ab D \u00bb"
         },
         {
           "pts": "-6",
-          "text": "peut envisager de faire l'essaie un prototype en air calme"
+          "text": "peut envisager de faire l'essai un prototype en air calme"
         },
         {
           "pts": "-6",
@@ -10913,7 +10913,7 @@
       "delta": false,
       "niveau": 0,
       "parapente": true,
-      "question": "Un casque de vol libre doit pr\u00e9senter les qualit\u00e9s suivante :"
+      "question": "Un casque de vol libre doit pr\u00e9senter les qualit\u00e9s suivantes :"
     },
     {
       "ans": [
@@ -11057,7 +11057,7 @@
       "ans": [
         {
           "pts": "3",
-          "text": "doit \u00eatre install\u00e9 selon les recommandations du constructeur de la voile et de de la sellette"
+          "text": "doit \u00eatre install\u00e9 selon les recommandations du constructeur de la voile et de la sellette"
         },
         {
           "pts": "-6",
@@ -11090,7 +11090,7 @@
         },
         {
           "pts": "-3",
-          "text": "est d\u00e9termin\u00e9 en France par l'Etat"
+          "text": "est d\u00e9termin\u00e9 en France par l'\u00c9tat"
         }
       ],
       "code": "P1V",
@@ -11174,7 +11174,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "une zone coeur \u00e0 statut de protection fort"
+          "text": "une zone c\u0153ur \u00e0 statut de protection fort"
         },
         {
           "pts": "2",
@@ -11199,7 +11199,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "une zone coeur \u00e0 statut de protection fort"
+          "text": "une zone c\u0153ur \u00e0 statut de protection fort"
         },
         {
           "pts": "2",
@@ -11302,7 +11302,7 @@
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "Le non respect des restrictions de survol d'une zone r\u00e9glementaire :"
+      "question": "Le non-respect des restrictions de survol d'une zone r\u00e9glementaire :"
     },
     {
       "ans": [
@@ -11564,7 +11564,7 @@
       "ans": [
         {
           "pts": "6",
-          "text": "sont mises en place pour prot\u00e9ger la zone de reproduction de rapaces"
+          "text": "sont mises en place pour prot\u00e9ger la zone de reproduction des rapaces"
         },
         {
           "pts": "-6",
@@ -11581,7 +11581,7 @@
       "ans": [
         {
           "pts": "6",
-          "text": "sont mises en place pour prot\u00e9ger la zone de reproduction de rapaces"
+          "text": "sont mises en place pour prot\u00e9ger la zone de reproduction des rapaces"
         },
         {
           "pts": "-6",
@@ -12480,7 +12480,7 @@
         },
         {
           "pts": "2",
-          "text": "le prot\u00e9ge de l'oxydation"
+          "text": "le prot\u00e8ge de l'oxydation"
         },
         {
           "pts": "2",
@@ -12767,7 +12767,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "La partie pratique du brevet de pilote est attribu\u00e9 par :"
+      "question": "La partie pratique du brevet de pilote est attribu\u00e9e par :"
     },
     {
       "ans": [
@@ -12777,7 +12777,7 @@
         },
         {
           "pts": "3",
-          "text": "atteste de la capacit\u00e9 \u00e0 voler seul en conditions calme sur site connu"
+          "text": "atteste de la capacit\u00e9 \u00e0 voler seul en conditions calmes sur site connu"
         },
         {
           "pts": "-6",
@@ -12823,7 +12823,7 @@
         },
         {
           "pts": "-6",
-          "text": "est r\u00e9serv\u00e9 aux \u00e9l\u00e8ves moniteurs et moniteurs f\u00e9d\u00e9raux"
+          "text": "est r\u00e9serv\u00e9e aux \u00e9l\u00e8ves moniteurs et moniteurs f\u00e9d\u00e9raux"
         },
         {
           "pts": "2",
@@ -12877,7 +12877,7 @@
         },
         {
           "pts": "-6",
-          "text": "est r\u00e9serv\u00e9e au futurs moniteurs brevet\u00e9s d'Etat ou brevets professionnels"
+          "text": "est r\u00e9serv\u00e9e aux futurs moniteurs brevet\u00e9s d'Etat ou brevets professionnels"
         },
         {
           "pts": "4",
@@ -12898,7 +12898,7 @@
         },
         {
           "pts": "2",
-          "text": "sont des dipl\u00f4mes Etat (Minist\u00e8re Jeunesse & Sports) construits en collaboration avec la FFVL"
+          "text": "sont des dipl\u00f4mes d'\u00c9tat (Minist\u00e8re Jeunesse & Sports) construits en collaboration avec la FFVL"
         },
         {
           "pts": "1",
@@ -13009,7 +13009,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Dans une association loi 1901, un moniteur brevet\u00e9 d'Etat peut :"
+      "question": "Dans une association loi 1901, un moniteur brevet\u00e9 d'\u00c9tat peut :"
     },
     {
       "ans": [
@@ -13073,7 +13073,7 @@
         },
         {
           "pts": "3",
-          "text": "n'est pas couvert pas le contrat d'assurance f\u00e9d\u00e9ral"
+          "text": "n'est pas couverte par le contrat d'assurance f\u00e9d\u00e9ral"
         }
       ],
       "code": "S13T",
@@ -13090,7 +13090,7 @@
         },
         {
           "pts": "6",
-          "text": "garantit \u00e0 l'\u00e9l\u00e8ve le respects des exigences f\u00e9d\u00e9rales en mati\u00e8re d'apprentissage"
+          "text": "garantit \u00e0 l'\u00e9l\u00e8ve le respect des exigences f\u00e9d\u00e9rales en mati\u00e8re d'apprentissage"
         },
         {
           "pts": "-6",
@@ -13366,7 +13366,7 @@
         },
         {
           "pts": "2",
-          "text": "est coopt\u00e9 par la commission nationale Tracte f\u00e9d\u00e9rale"
+          "text": "est coopt\u00e9 par la commission nationale Tract\u00e9 f\u00e9d\u00e9rale"
         },
         {
           "pts": "-6",
@@ -13399,7 +13399,7 @@
         },
         {
           "pts": "2",
-          "text": "est compos\u00e9 des pr\u00e9sidents de clubs affili\u00e9s et des directeurs des OBL, repr\u00e9sent\u00e9s au prorata du nombre de leurs adh\u00e9rents"
+          "text": "est compos\u00e9e des pr\u00e9sidents de clubs affili\u00e9s et des directeurs des OBL, repr\u00e9sent\u00e9s au prorata du nombre de leurs adh\u00e9rents"
         }
       ],
       "code": "S21M",
@@ -13416,7 +13416,7 @@
         },
         {
           "pts": "2",
-          "text": "peut nommer un Tuteur pour aider les \u00e9l\u00e8ves a acqu\u00e9rir de l'exp\u00e9rience"
+          "text": "peut nommer un Tuteur pour aider les \u00e9l\u00e8ves \u00e0 acqu\u00e9rir de l'exp\u00e9rience"
         },
         {
           "pts": "2",
@@ -13474,7 +13474,7 @@
         },
         {
           "pts": "3",
-          "text": "treuille dans le cadre des activit\u00e9s de clubs affili\u00e9s"
+          "text": "treuille dans le cadre des activit\u00e9s des clubs affili\u00e9s"
         }
       ],
       "code": "S22T",
@@ -13675,7 +13675,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": " au service de la politique de la FFVL et g\u00e9n\u00e9ralement mis en soutient des commissions formation, comp\u00e9tition, s\u00e9curit\u00e9, sites, espace a\u00e9rien\u2026"
+          "text": "au service de la politique de la FFVL et g\u00e9n\u00e9ralement mis en soutien des commissions formation, comp\u00e9tition, s\u00e9curit\u00e9, sites, espace a\u00e9rien\u2026"
         },
         {
           "pts": "1",
@@ -13729,7 +13729,7 @@
         },
         {
           "pts": "-6",
-          "text": "peut \u00eatre r\u00e9mun\u00e9r\u00e9 pour la prestation de formation s'il n'est pas dipl\u00f4m\u00e9 d'Etat"
+          "text": "peut \u00eatre r\u00e9mun\u00e9r\u00e9 pour la prestation de formation s'il n'est pas dipl\u00f4m\u00e9 d'\u00c9tat"
         },
         {
           "pts": "2",
@@ -13788,7 +13788,7 @@
       "ans": [
         {
           "pts": "3",
-          "text": "est temporaire, li\u00e9e \u00e0 une formation donn\u00e9e"
+          "text": "est temporaire, li\u00e9 \u00e0 une formation donn\u00e9e"
         },
         {
           "pts": "-2",
@@ -14001,11 +14001,11 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "sous les 15 jours \u00e0 l'assureur"
+          "text": "sous 15 jours \u00e0 l'assureur"
         },
         {
           "pts": "-6",
-          "text": "sous les 15 jours \u00e0 la FFVL"
+          "text": "sous 15 jours \u00e0 la FFVL"
         },
         {
           "pts": "6",
@@ -14168,7 +14168,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "n'a aucun r\u00f4le vis \u00e0 vis de la s\u00e9curit\u00e9 des personnes au sol"
+          "text": "n'a aucun r\u00f4le vis-\u00e0-vis de la s\u00e9curit\u00e9 des personnes au sol"
         },
         {
           "pts": "2",
@@ -14531,7 +14531,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": " en aucun cas"
+          "text": "en aucun cas"
         },
         {
           "pts": "3",
@@ -14836,7 +14836,7 @@
         },
         {
           "pts": "2",
-          "text": "est \u00e9quip\u00e9 d'un gyrophare allum\u00e9 sur le treuil lorsqu'il est en fonctionnement"
+          "text": "\u00eatre \u00e9quip\u00e9 d'un gyrophare allum\u00e9 sur le treuil lorsqu'il est en fonctionnement"
         },
         {
           "pts": "-6",
@@ -15064,7 +15064,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Vous voulez rentrer dans une ascendance alors qu'une autre aile spirale 50m en dessous :"
+      "question": "Vous voulez rentrer dans une ascendance alors qu'une autre aile spirale 50 m en dessous :"
     },
     {
       "ans": [
@@ -15095,7 +15095,7 @@
       "ans": [
         {
           "pts": "3",
-          "text": "r\u00e9serv\u00e9 aux aeronefs poss\u00e9dant certains \u00e9quipements particuliers"
+          "text": "r\u00e9serv\u00e9 aux a\u00e9ronefs poss\u00e9dant certains \u00e9quipements particuliers"
         },
         {
           "pts": "-6",
@@ -15103,7 +15103,7 @@
         },
         {
           "pts": "3",
-          "text": "applicable \u00e0 tous les aeronefs, au-dessus du niveau de vol 195"
+          "text": "applicable \u00e0 tous les a\u00e9ronefs, au-dessus du niveau de vol 195"
         }
       ],
       "code": "S58M",
@@ -15116,7 +15116,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "soit le r\u00e9gime IFR soit le r\u00e9gime VFR"
+          "text": "soit le r\u00e9gime IFR, soit le r\u00e9gime VFR"
         },
         {
           "pts": "6",
@@ -15179,7 +15179,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "est autoris\u00e9 dans tous les espaces a\u00e9riens contr\u00f4l\u00e9s"
+          "text": "est autoris\u00e9e dans tous les espaces a\u00e9riens contr\u00f4l\u00e9s"
         },
         {
           "pts": "3",
@@ -15334,7 +15334,7 @@
         },
         {
           "pts": "2",
-          "text": "D : dangereuses pour tout a\u00e9ronef "
+          "text": "D : dangereuses pour tout a\u00e9ronef"
         },
         {
           "pts": "-6",
@@ -15370,7 +15370,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Au cours de la pr\u00e9paration d'un circuit, vous constatez que vous devez traverser une zone particuli\u00e8re dont le sigles est D 573. Vous en d\u00e9duisez imm\u00e9diatement que c'est une zone :"
+      "question": "Au cours de la pr\u00e9paration d'un circuit, vous constatez que vous devez traverser une zone particuli\u00e8re dont le sigle est D 573. Vous en d\u00e9duisez imm\u00e9diatement que c'est une zone :"
     },
     {
       "ans": [
@@ -15388,7 +15388,7 @@
         },
         {
           "pts": "2",
-          "text": "celui qui l'enregistre atteste sa conforme au cahier des charges du dossier Tract\u00e9"
+          "text": "celui qui l'enregistre atteste sa conformit\u00e9 au cahier des charges du dossier Tract\u00e9"
         }
       ],
       "code": "S70T",
@@ -15451,7 +15451,7 @@
         },
         {
           "pts": "6",
-          "text": "5000 m sous le FL100 8000m au-dessus"
+          "text": "5000 m sous le FL 100, 8000 m au-dessus"
         }
       ],
       "code": "S72M",
@@ -15518,7 +15518,7 @@
         },
         {
           "pts": "2",
-          "text": "rester en vol au del\u00e0 de 30 min apr\u00e8s le coucher du soleil"
+          "text": "rester en vol au-del\u00e0 de 30 min apr\u00e8s le coucher du soleil"
         }
       ],
       "code": "S74B",
@@ -15765,7 +15765,7 @@
         },
         {
           "pts": "6",
-          "text": "visibilit\u00e9 5 km jusqu'au FL100 puis 8 km au-dessus et distances par rapport aux nuages de 1500m horizontalement et 300m verticalement"
+          "text": "visibilit\u00e9 5 km jusqu'au FL 100 puis 8 km au-dessus et distances par rapport aux nuages de 1500 m horizontalement et 300 m verticalement"
         },
         {
           "pts": "-6",
@@ -15882,7 +15882,7 @@
         },
         {
           "pts": "6",
-          "text": "une visibilit\u00e9 de 5 km sous le FL100, 8 km au-dessus et un espacement par rapport aux nuages de 300m verticalement et 1500m horizontalement"
+          "text": "une visibilit\u00e9 de 5 km sous le FL 100, 8 km au-dessus et un espacement par rapport aux nuages de 300 m verticalement et 1500 m horizontalement"
         }
       ],
       "code": "S85B",
@@ -15895,7 +15895,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "imposent de ne pas survoler les zones \u00e0 fortes densit\u00e9s de population 300 m au-dessus de l'obstacle le plus \u00e9lev\u00e9 dans un rayon de 600m"
+          "text": "imposent de ne pas survoler les zones \u00e0 fortes densit\u00e9s de population 300 m au-dessus de l'obstacle le plus \u00e9lev\u00e9 dans un rayon de 600 m"
         },
         {
           "pts": "2",
@@ -15903,7 +15903,7 @@
         },
         {
           "pts": "2",
-          "text": "imposent g\u00e9n\u00e9ralement une limite de survol variant de 300 et 1000 m suivant les cas au-dessus d'un espace prot\u00e9g\u00e9 (r\u00e9serve naturelle, parc national, ZIT)"
+          "text": "imposent g\u00e9n\u00e9ralement une limite de survol variant de 300 \u00e0 1000 m suivant les cas au-dessus d'un espace prot\u00e9g\u00e9 (r\u00e9serve naturelle, parc national, ZIT)"
         }
       ],
       "code": "S86M",
@@ -16108,7 +16108,7 @@
         },
         {
           "pts": "-6",
-          "text": "la d\u00e9claration en mairie avec d\u00e9pose d'un plan de vol"
+          "text": "la d\u00e9claration en mairie avec d\u00e9p\u00f4t d'un plan de vol"
         }
       ],
       "code": "S95V",
@@ -16213,7 +16213,7 @@
       "ans": [
         {
           "pts": "3",
-          "text": "est un produit f\u00e9d\u00e9ral permettant aux club de mieux accueillir et aider les nouveaux pilotes"
+          "text": "est un produit f\u00e9d\u00e9ral permettant aux clubs de mieux accueillir et aider les nouveaux pilotes"
         },
         {
           "pts": "-6",
@@ -16409,7 +16409,7 @@
         },
         {
           "pts": "6",
-          "text": "3500m (FL115)"
+          "text": "3500 m (FL 115)"
         }
       ],
       "code": "S108V",
@@ -16437,7 +16437,7 @@
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "Citez un sch\u00e9ma possible, d'organisation des espaces, autour d'un a\u00e9roport :"
+      "question": "Citez un sch\u00e9ma possible d'organisation des espaces, autour d'un a\u00e9roport :"
     },
     {
       "ans": [
@@ -16563,7 +16563,7 @@
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "Comment peut-on connaitre l'activit\u00e9 du RTBA ?"
+      "question": "Comment peut-on conna\u00eetre l'activit\u00e9 du RTBA ?"
     },
     {
       "ans": [
@@ -16640,7 +16640,7 @@
         },
         {
           "pts": "-6",
-          "text": "Le FL 100 ou 1000ft surface en haute montagne"
+          "text": "Le FL 100 ou 1000 ft surface en haute montagne"
         }
       ],
       "code": "S119B",
@@ -16678,7 +16678,7 @@
         },
         {
           "pts": "-6",
-          "text": "Oui, mais il faut que je respecte le circuit d'a\u00e9rodrome"
+          "text": "Oui, mais il faut que je respecte le circuit de l'a\u00e9rodrome"
         },
         {
           "pts": "6",
@@ -16710,7 +16710,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Quelles r\u00e8gles dois-je respecter pour survoler une manifestation entrainant un grand rassemblement de personnes ?"
+      "question": "Quelles r\u00e8gles dois-je respecter pour survoler une manifestation entra\u00eenant un grand rassemblement de personnes ?"
     },
     {
       "ans": [
@@ -16737,7 +16737,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "L'anticollision n'est jamais assur\u00e9e dans les zones d'entrainement militaires"
+          "text": "L'anticollision n'est jamais assur\u00e9e dans les zones d'entra\u00eenement militaires"
         },
         {
           "pts": "6",
@@ -16752,7 +16752,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Dans quels types d'espaces militaires le pilote de l'a\u00e9ronef militaire ne peut assurer l'anticollision ?"
+      "question": "Dans quels types d'espaces militaires le pilote de l'a\u00e9ronef militaire ne peut-il assurer l'anticollision ?"
     },
     {
       "ans": [
@@ -16787,7 +16787,7 @@
         },
         {
           "pts": "-6",
-          "text": "La carte au 1/500 000 suffit amplement pour voler uniquement jusqu'au FL115"
+          "text": "La carte au 1/500 000 suffit amplement pour voler uniquement jusqu'au FL 115"
         }
       ],
       "code": "S126B",
@@ -16938,7 +16938,7 @@
         },
         {
           "pts": "-6",
-          "text": "Il suffit de voler \u00e0 moins de 500ft (150m) sol, les autres a\u00e9ronefs volant au-dessus de cette limite"
+          "text": "Il suffit de voler \u00e0 moins de 500 ft (150 m) sol, les autres a\u00e9ronefs volant au-dessus de cette limite"
         }
       ],
       "code": "S134B",
@@ -17336,7 +17336,7 @@
         },
         {
           "pts": "6",
-          "text": "vous attendez en esp\u00e9rant que la nu\u00e9e se d\u00e9gage sinon vous ne d\u00e9collez pas"
+          "text": "vous attendez en esp\u00e9rant que la nu\u00e9e se d\u00e9gage, sinon vous ne d\u00e9collez pas"
         },
         {
           "pts": "-6",
@@ -17368,7 +17368,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Par rapport au vent mesur\u00e9 au d\u00e9collage \u00e0 2 m/sol, le vent 20m au-dessus risque d'\u00eatre :"
+      "question": "Par rapport au vent mesur\u00e9 au d\u00e9collage \u00e0 2 m/sol, le vent 20 m au-dessus risque d'\u00eatre :"
     },
     {
       "ans": [
@@ -17435,7 +17435,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Pendant la course de d\u00e9collage, votre incidence c'est l'angle entre le plan de l'aile et :"
+      "question": "Pendant la course de d\u00e9collage, votre incidence est l'angle entre le plan de l'aile et :"
     },
     {
       "ans": [
@@ -17742,7 +17742,7 @@
         },
         {
           "pts": "3",
-          "text": "vous rapprocher dangereusement de la vitesses minimum et des risques associ\u00e9s"
+          "text": "vous rapprocher dangereusement de la vitesse minimum et des risques associ\u00e9s"
         }
       ],
       "code": "U35B",
@@ -17805,7 +17805,7 @@
         },
         {
           "pts": "6",
-          "text": "la somme de vos 2 vitesse/air"
+          "text": "la somme de vos 2 vitesses/air"
         },
         {
           "pts": "-6",
@@ -18169,7 +18169,7 @@
         },
         {
           "pts": "4",
-          "text": "vous prenez de la marge/relief, volez plus lentement et augmentez votre niveau pr\u00e9sence au pilotage"
+          "text": "vous prenez de la marge/relief, volez plus lentement et augmentez votre niveau de pr\u00e9sence au pilotage"
         },
         {
           "pts": "-6",
@@ -18198,7 +18198,7 @@
         },
         {
           "pts": "-3",
-          "text": " vous \u00e9largissez votre virage quand l'ascendance diminue"
+          "text": "vous \u00e9largissez votre virage quand l'ascendance diminue"
         }
       ],
       "code": "U55B",
@@ -18780,7 +18780,7 @@
         },
         {
           "pts": "-6",
-          "text": "est dangereuse car appareil va faire une ressource au freinage"
+          "text": "est dangereuse car l'appareil va faire une ressource au freinage"
         },
         {
           "pts": "0",
@@ -19122,7 +19122,7 @@
         },
         {
           "pts": "3",
-          "text": "n\u00e9cessite une adaptation progressive au vide ( petits vols, vols interm\u00e9diaires, biplaces p\u00e9dagogiques)"
+          "text": "n\u00e9cessite une adaptation progressive au vide (petits vols, vols interm\u00e9diaires, biplaces p\u00e9dagogiques)"
         }
       ],
       "code": "W2V",
@@ -19260,7 +19260,7 @@
         },
         {
           "pts": "-6",
-          "text": "vous utilisez l'acc\u00e9l\u00e9rateur d\u00e9s que possible pour pouvoir vous \u00e9loigner du relief"
+          "text": "vous utilisez l'acc\u00e9l\u00e9rateur d\u00e8s que possible pour pouvoir vous \u00e9loigner du relief"
         }
       ],
       "code": "W8B",
@@ -19415,7 +19415,7 @@
         },
         {
           "pts": "2",
-          "text": "peut n\u00e9cessiter parfois d'un freinage franc et momentan\u00e9"
+          "text": "peut n\u00e9cessiter parfois un freinage franc et momentan\u00e9"
         },
         {
           "pts": "2",
@@ -19682,7 +19682,7 @@
         },
         {
           "pts": "-6",
-          "text": "en tirant les \u00e9l\u00e9vateurs avants"
+          "text": "en tirant les \u00e9l\u00e9vateurs avant"
         },
         {
           "pts": "4",
@@ -20041,7 +20041,7 @@
         },
         {
           "pts": "-6",
-          "text": "vous infl\u00e9chissez energiquement votre trajectoire vers la vall\u00e9e malgr\u00e9 la demi-aile ferm\u00e9e"
+          "text": "vous infl\u00e9chissez \u00e9nergiquement votre trajectoire vers la vall\u00e9e malgr\u00e9 la demi-aile ferm\u00e9e"
         }
       ],
       "code": "W41B",
@@ -20079,7 +20079,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "c'est une erreur de pilotage, j'aurai du agir pr\u00e9alablement pour \u00e9viter la fermeture"
+          "text": "c'est une erreur de pilotage, j'aurais d\u00fb agir pr\u00e9alablement pour \u00e9viter la fermeture"
         },
         {
           "pts": "2",
@@ -20171,7 +20171,7 @@
       "ans": [
         {
           "pts": "2",
-          "text": "remonter les mains pour laisser voler l'aile ce qui n'est pas sans risque"
+          "text": "remonter les mains pour laisser voler l'aile, ce qui n'est pas sans risque"
         },
         {
           "pts": "4",
@@ -20784,7 +20784,7 @@
         },
         {
           "pts": "-6",
-          "text": "le pr\u00e9gonflage est possible sans vent"
+          "text": "le pr\u00e9-gonflage est possible sans vent"
         }
       ],
       "code": "W72V",
@@ -20809,7 +20809,7 @@
         },
         {
           "pts": "3",
-          "text": " je ne croise pas mes commandes, je les prends en main comme je l'aurais fait en \u00e9tant dos \u00e0 l'aile puis r\u00e9uni les 2 A dans la main du c\u00f4t\u00e9 de mon sens de rotation"
+          "text": "je ne croise pas mes commandes, je les prends en main comme je l'aurais fait en \u00e9tant dos \u00e0 l'aile puis r\u00e9unis les 2 A dans la main du c\u00f4t\u00e9 de mon sens de rotation"
         }
       ],
       "code": "W73B",
@@ -20822,7 +20822,7 @@
       "ans": [
         {
           "pts": "-6",
-          "text": "ne tient pas compte des modifications de calage cr\u00e9\u00e9s par l'utilisation de l'acc\u00e9l\u00e9rateur"
+          "text": "ne tient pas compte des modifications de calage cr\u00e9\u00e9es par l'utilisation de l'acc\u00e9l\u00e9rateur"
         },
         {
           "pts": "2",
@@ -21093,7 +21093,7 @@
         },
         {
           "pts": "2",
-          "text": "vous faite sym\u00e9triquement des tours de frein en dosant leur nombre pour stabiliser l'ensemble"
+          "text": "vous faites sym\u00e9triquement des tours de frein en dosant leur nombre pour stabiliser l'ensemble"
         },
         {
           "pts": "2",
@@ -21175,7 +21175,7 @@
       "delta": false,
       "niveau": 2,
       "parapente": true,
-      "question": "Le constructeur pr\u00e9conise un r\u00e9glage de la ventrale du harnais; en la desserrant :"
+      "question": "Le constructeur pr\u00e9conise un r\u00e9glage de la ventrale du harnais ; en la desserrant :"
     },
     {
       "ans": [
@@ -21196,7 +21196,7 @@
       "delta": false,
       "niveau": 2,
       "parapente": true,
-      "question": "Le constructeur pr\u00e9conise un r\u00e9glage de la ventrale du harnais; en la serrant davantage :"
+      "question": "Le constructeur pr\u00e9conise un r\u00e9glage de la ventrale du harnais ; en la serrant davantage :"
     },
     {
       "ans": [
@@ -21348,7 +21348,7 @@
         },
         {
           "pts": "-6",
-          "text": "vous utilisez les ailes des ann\u00e9es 70 beaucoup plus sures \u00e0 ce niveau"
+          "text": "vous utilisez les ailes des ann\u00e9es 70 beaucoup plus s\u00fbres \u00e0 ce niveau"
         },
         {
           "pts": "3",
@@ -21365,7 +21365,7 @@
       "ans": [
         {
           "pts": "3",
-          "text": "par le fabriquant ou le revendeur"
+          "text": "par le fabricant ou le revendeur"
         },
         {
           "pts": "-6",
@@ -21373,7 +21373,7 @@
         },
         {
           "pts": "3",
-          "text": "a d\u00e9faut du professionnel concern\u00e9, par un pilote habitu\u00e9 une machine de m\u00eame niveau"
+          "text": "\u00e0 d\u00e9faut du professionnel concern\u00e9, par un pilote habitu\u00e9 \u00e0 une machine de m\u00eame niveau"
         }
       ],
       "code": "X2V",
@@ -21662,7 +21662,7 @@
         },
         {
           "pts": "-6",
-          "text": "l'aile acc\u00e9l\u00e8re jusqu'a la vitesse maximale"
+          "text": "l'aile acc\u00e9l\u00e8re jusqu'\u00e0 la vitesse maximale"
         },
         {
           "pts": "6",
@@ -21800,11 +21800,11 @@
         },
         {
           "pts": "-6",
-          "text": "a une vitesse plus \u00e9lev\u00e9e que le r\u00e9gime de vol finesse/maximum"
+          "text": "\u00e0 une vitesse plus \u00e9lev\u00e9e que le r\u00e9gime de vol finesse/maximum"
         },
         {
           "pts": "3",
-          "text": "a une vitesse moins \u00e9lev\u00e9e que le r\u00e9gime de vol finesse/maximum"
+          "text": "\u00e0 une vitesse moins \u00e9lev\u00e9e que le r\u00e9gime de vol finesse/maximum"
         }
       ],
       "code": "X21B",
@@ -21882,7 +21882,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": false,
-      "question": "Pour sortir d'une situation d'auto rotation, il faut :"
+      "question": "Pour sortir d'une situation d'auto-rotation, il faut :"
     },
     {
       "ans": [
@@ -22207,5 +22207,5 @@
       "question": "En finale avant l'atterrissage, vous prenez de la vitesse pour :"
     }
   ],
-  "version": "3.1"
+  "version": "3.2"
 }
