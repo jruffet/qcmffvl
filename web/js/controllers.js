@@ -68,7 +68,7 @@ angular.module('qcmffvl.controllers', [])
 
         // Load version info
         $scope.version = "3.9.0";
-        $scope.qcmVersion = "3.1";
+        $scope.qcmVersion = "3.2";
         $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         // automatically removed by a directive when the QCM is loaded
         $scope.loading = true;

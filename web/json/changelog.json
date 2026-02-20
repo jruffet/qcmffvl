@@ -2,7 +2,8 @@
   {
     "version": "3.9.0",
     "changes": [
-      "Lors du chargement d'un questionnaire, la web app affiche si une mise à jour est disponible (sauf si hors connexion)."
+      "L'application web indique maintenant si une mise à jour est disponible (sauf en mode hors connexion).",
+      "Mise à jour du questionnaire FFVL vers 3.2 (correction de 100+ erreurs de français, des heures de ma vie que je ne reverrai jamais ^^)"
     ],
     "bugfixes": [
       "Toutes les ressources web sont maintenant correctement rechargées lors d'un rafraîchissement de page."
