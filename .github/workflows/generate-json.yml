@@ -36,7 +36,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run script with extracted version
-        run: python ./helpers/csvref2json data/csv/qcm_ffvl.csv web/json/qcm_ffvl.json ${{ steps.get_version.outputs.version }}
+        run: python ./helpers/csvref2json.py data/csv/qcm_ffvl.csv web/json/qcm_ffvl.json ${{ steps.get_version.outputs.version }}
 
       - name: Commit and push generated JSON
         run: |

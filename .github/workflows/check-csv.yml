@@ -20,4 +20,4 @@ jobs:
           python-version: '3.x'
 
       - name: Run script in check mode
-        run: python ./helpers/csv_helper check data/csv/qcm_ffvl.csv
+        run: python ./helpers/csv_helper.py check data/csv/qcm_ffvl.csv
