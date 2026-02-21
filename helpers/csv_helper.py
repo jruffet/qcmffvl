@@ -107,6 +107,21 @@ def csv_duplicate_rows(rows: List[Dict]) -> List[Dict]:
     return [x for x in rows if x["code"] in duplicates]
 
 
+def csv_check_question_casing(rows: List[Dict]) -> List[Dict]:
+    bad_rows = []
+    for row in rows:
+        if row["question"].endswith("?"):
+            bad = False
+            for i in range(1, 6):
+                key = f"ans{i}"
+                if key in row and not row[key][0].isupper() and not row[key][0].isdigit():
+                    bad = True
+                    break
+            if bad:
+                bad_rows.append(row)
+    return bad_rows
+
+
 def csv_check(rows: List[Dict]):
     ret = True
 
@@ -121,6 +136,12 @@ def csv_check(rows: List[Dict]):
     if duplicates:
         ret = False
         write_csv_to_stdout(duplicates)
+
+    info("Questions ending with '?' but answers don't start with capital letters")
+    bad_questions = csv_check_question_casing(rows)
+    if bad_questions:
+        ret = False
+        write_csv_to_stdout(bad_questions)
 
     return ret
 
