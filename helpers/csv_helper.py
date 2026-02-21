@@ -3,7 +3,7 @@ import argparse
 import csv
 import sys
 import re
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Callable
 
 DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
 CSV_HEADER = [
@@ -129,32 +129,30 @@ def csv_check(rows: List[Dict]):
     bogus = csv_invalid_point_sum(rows)
     if bogus:
         ret = False
-        write_csv_to_stdout(bogus)
+        write_csv_to_stdout(rows=bogus)
 
     info("Questions with duplicate codes")
     duplicates = csv_duplicate_rows(rows)
     if duplicates:
         ret = False
-        write_csv_to_stdout(duplicates)
+        write_csv_to_stdout(rows=duplicates)
 
     info("Questions ending with '?' but answers don't start with capital letters")
     bad_questions = csv_check_question_casing(rows)
     if bad_questions:
         ret = False
-        write_csv_to_stdout(bad_questions)
+        write_csv_to_stdout(rows=bad_questions)
 
     return ret
 
 
-def format_first_word(s: str, capitalize: bool = False, lowercase: bool = False):
+def format_first_word(s: str, formatter: Optional[Callable[[str], str]] = None):
     if not s or " " not in s:
         return s
     parts = s.split(" ", 1)
 
-    if lowercase:
-        parts[0] = parts[0].lower()
-    elif capitalize:
-        parts[0] = parts[0].capitalize()
+    if formatter:
+        parts[0] = formatter(parts[0])
     return " ".join(parts)
 
 
@@ -172,11 +170,11 @@ def csv_format(rows: List[Dict]):
                 key = f"ans{i}"
                 if key in row:
                     if row["question"].endswith("?"):
-                        row[key] = format_first_word(row[key], capitalize=True)
+                        row[key] = format_first_word(row[key], formatter=str.capitalize)
                     else:
-                        row[key] = format_first_word(row[key], lowercase=True)
+                        row[key] = format_first_word(row[key], formatter=str.lower)
                     row[key] = string_format(row[key].rstrip())
-    write_csv_to_stdout(rows)
+    write_csv_to_stdout(rows=rows)
 
 
 def stats_to_csv(stats: Dict[str, Dict[str, Dict[str, int]]]) -> List[Dict[str, int]]:
@@ -214,7 +212,7 @@ def csv_stats(rows: List[Dict]):
                 level = NIVEAUX[letter]
                 stats[pratique][level][cat] += 1
 
-    write_csv_to_stdout(stats_to_csv(stats), header)
+    write_csv_to_stdout(header=header, rows=stats_to_csv(stats))
 
 
 def csv_diff(rows1: List[Dict], rows2: List[Dict], check_points: bool):
@@ -229,7 +227,7 @@ def csv_diff(rows1: List[Dict], rows2: List[Dict], check_points: bool):
                     pts = f"pts{i}"
                     if ans in row1 and ans in row2:
                         if row1[pts] != row2[pts]:
-                            write_csv_to_stdout([row1, row2])
+                            write_csv_to_stdout(rows=[row1, row2])
                             print()
                             break
 
@@ -237,12 +235,8 @@ def csv_diff(rows1: List[Dict], rows2: List[Dict], check_points: bool):
 def load_csv(filename: str) -> List[Dict]:
     with open(filename, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, fieldnames=CSV_HEADER)
-        rows = []
         # remove empty answers+points
-        for row in reader:
-            cleaned = {k: v for k, v in row.items() if v != ""}
-            rows.append(cleaned)
-        return rows
+        return [{k: v for k, v in row.items() if v != ""} for row in reader]
 
 
 def write_csv_to_stdout(rows: List[Dict], header: Optional[List[str]] = None):
