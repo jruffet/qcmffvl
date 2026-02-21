@@ -7,9 +7,9 @@ Official multiple-choice web application for the French paragliding and hang gli
 - Exam mode
 - Supports multiple aircraft types (Parapente, Delta)
 - Various difficulty levels (Brevet Initial, Brevet de Pilote, etc.)
-- Category filtering (all categories or specific topics)
+- Category filtering
 - Mobile-friendly responsive design
-- Offline support via service worker
+- Offline support
 
 ## Usage
 - Access the latest stable version at: https://qcm.ffvl.fr/
