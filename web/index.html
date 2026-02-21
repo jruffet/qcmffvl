@@ -51,7 +51,7 @@
   </script>
 
   <div ng-controller="MainCtrl">
-    <div ng-show="showUpdateBanner" ng-cloak id="update-banner" class="update-banner">
+    <div ng-show="showUpdateBanner && !main.exam.papier" ng-cloak id="update-banner" class="update-banner">
       <div class="update-banner-content">
         Une version plus récente est disponible
         <button class="btn btn-primary update-refresh-btn" onclick="window.location.reload()">Actualiser</button>
