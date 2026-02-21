@@ -389,14 +389,6 @@
         margin-left: 8px;
     }
 
-    .show-xxs {
-        display: none; /* hidden by default */
-    }
-
-    .show-lg {
-        display: none; /* hidden by default */
-    }
-
     /******** about ********/
     .changelog-version-title,
     .about-category-title {
@@ -480,9 +472,6 @@
     .hide-xxs {
         display: none;
     }
-    .show-xxs {
-        display: inline;
-    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -500,9 +489,6 @@
 @media screen and (min-width: 1200px) {
     .hide-lg {
         display: none;
-    }
-    .show-lg {
-        display: inline;
     }
 }
 
