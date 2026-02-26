@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Used in CI to auto-generate JSON file, based on latest "mcq-tag"
+# Used in CI to auto-generate JSON file
 
 import csv
 import sys

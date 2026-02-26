@@ -57,9 +57,6 @@ def parse_args():
     # format command
     format_parser = subparsers.add_parser("format", help="Format the CSV file")
     format_parser.add_argument("filename", help="CSV file to format")
-    # group = format_parser.add_mutually_exclusive_group()
-    # group.add_argument('--capitalize', action='store_true', help='Capitalize first word of answers')
-    # group.add_argument('--lowercase', action='store_true', help='Lowercase first word of answers')
 
     # stats command
     stats_parser = subparsers.add_parser("stats", help="Show statistics about the CSV file")
