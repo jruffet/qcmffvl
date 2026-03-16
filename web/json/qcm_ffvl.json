@@ -6754,7 +6754,7 @@
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "En situation d'urgence, quel comportement humain est souvent observ\u00e9 et peut aggraver la situation ?"
+      "question": "En situation d'urgence, quels comportements humains sont souvent observ\u00e9s et peuvent aggraver la situation ?"
     },
     {
       "ans": [
@@ -6779,7 +6779,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "En situation d'urgence, quel comportement humain est souvent observ\u00e9 et peut aggraver la situation ?"
+      "question": "En situation d'urgence, quels comportements humains sont souvent observ\u00e9s et peuvent aggraver la situation ?"
     },
     {
       "ans": [
@@ -6804,7 +6804,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "En situation d'urgence, quel comportement humain est souvent observ\u00e9 et peut aggraver la situation ?"
+      "question": "En situation d'urgence, quels comportements humains sont souvent observ\u00e9s et peuvent aggraver la situation ?"
     },
     {
       "ans": [
@@ -6829,7 +6829,7 @@
       "delta": true,
       "niveau": 0,
       "parapente": true,
-      "question": "Quel facteur humain peut affecter la prise de d\u00e9cision d'un pilote de parapente ?"
+      "question": "Quels facteurs humains peuvent affecter la prise de d\u00e9cision d'un pilote de parapente ?"
     },
     {
       "ans": [
@@ -6854,7 +6854,7 @@
       "delta": true,
       "niveau": 1,
       "parapente": true,
-      "question": "Quel facteur humain peut affecter la prise de d\u00e9cision d'un pilote de parapente ?"
+      "question": "Quels facteurs humains peuvent affecter la prise de d\u00e9cision d'un pilote de parapente ?"
     },
     {
       "ans": [
@@ -6879,7 +6879,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Quel facteur humain peut affecter la prise de d\u00e9cision d'un pilote de parapente ?"
+      "question": "Quels facteurs humains peuvent affecter la prise de d\u00e9cision d'un pilote de parapente ?"
     },
     {
       "ans": [
@@ -7425,7 +7425,7 @@
       "delta": true,
       "niveau": 2,
       "parapente": true,
-      "question": "Apr\u00e8s une mont\u00e9e de 1000 m de d\u00e9nivel\u00e9 positif, je me retrouve au d\u00e9collage avec une belle mer du nuage, un pilote vient de d\u00e9coller et dispara\u00eet rapidement dans la couche :"
+      "question": "Apr\u00e8s une mont\u00e9e de 1000 m de d\u00e9nivel\u00e9 positif, je me retrouve au d\u00e9collage avec une belle mer de nuages, un pilote vient de d\u00e9coller et dispara\u00eet rapidement dans la couche :"
     },
     {
       "ans": [
@@ -18780,7 +18780,7 @@
         },
         {
           "pts": "-6",
-          "text": "est dangereuse car l'appareil va faire une ressource au freinage"
+          "text": "est dangereuse car l'aile va faire une ressource au freinage"
         },
         {
           "pts": "0",
