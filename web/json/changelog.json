@@ -3,7 +3,7 @@
     "version": "3.9.0",
     "changes": [
       "L'application web indique maintenant si une mise à jour est disponible (sauf en mode hors connexion).",
-      "Mise à jour du questionnaire FFVL vers 3.2 (correction de 100+ erreurs de français, des heures de ma vie que je ne reverrai jamais ^^)",
+      "Mise à jour du questionnaire FFVL vers 3.2 (correction de 100+ erreurs de français).",
       "Quelques améliorations cosmétiques."
     ],
     "bugfixes": [
