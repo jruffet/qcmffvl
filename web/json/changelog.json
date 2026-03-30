@@ -1,5 +1,13 @@
 [
   {
+    "version": "3.10.0",
+    "changes": [
+      "Refonte graphique des menus et du mode examen.",
+      "Le mode examen force dorénavant le nombres de questions et l'usage de toutes les catégories."
+    ],
+    "bugfixes": []
+  },
+  {
     "version": "3.9.0",
     "changes": [
       "L'application web indique maintenant si une mise à jour est disponible (sauf en mode hors connexion).",

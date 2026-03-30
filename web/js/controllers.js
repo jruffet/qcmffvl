@@ -3,38 +3,41 @@
 /* Controllers */
 
 angular.module('qcmffvl.controllers', [])
-
-    .controller('MainCtrl', function ($scope, API, $location, $timeout, $http, $filter, $window, $templateCache, $localStorage, dialogs, deviceDetector) {
+    .controller('MainCtrl', function ($scope, API, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
         $scope.$storage = $localStorage.$default({
             conf: {
                 sport: "Parapente",
                 level: "Brevet de Pilote",
                 nbquestions: "30",
-                category: "Toutes les catégories"
+                category: "Toutes"
             },
             answers: {}
         });
 
         $scope.main = {
-            sport: {
-                options: ["Parapente", "Delta"],
-                checked: $scope.$storage.conf.sport
-            },
-            level: {
-                options: ["Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé", "Qualification Treuil"],
-                checked: $scope.$storage.conf.level
-            },
-            nbquestions: {
-                options: ["10", "30", "60", "90", "Toutes les"],
-                checked: $scope.$storage.conf.nbquestions
+            conf: {
+                sport: {
+                    options: ["Parapente", "Delta"],
+                    checked: $scope.$storage.conf.sport
+                },
+                level: {
+                    options: ["Brevet Initial", "Brevet de Pilote", "Brevet de Pilote Confirmé", "Qualification Treuil"],
+                    checked: $scope.$storage.conf.level
+                },
+                nbquestions: {
+                    name: "Nombre de questions",
+                    options: ["10", "30", "60", "Toutes"],
+                    checked: $scope.$storage.conf.nbquestions
+                },
+                category: {
+                    name: "Catégorie(s)",
+                    options: ["Toutes", "Pilotage", "Mécavol", "Météo", "Matériel", "Réglementation", "Facteurs humains", "Milieu naturel"],
+                    checked: $scope.$storage.conf.category
+                },
             },
             typeExam: {
                 options: ["Révision", "Examen papier (candidat)", "Examen papier (examinateur)"],
                 checked: "Révision"
-            },
-            category: {
-                options: ["Toutes les catégories", "Pilotage", "Mécavol", "Météo", "Matériel", "Réglementation", "Facteurs humains", "Milieu naturel"],
-                checked: $scope.$storage.conf.category
             },
             displayLimit: 10000,
             checkAnswers: false,
@@ -44,7 +47,10 @@ angular.module('qcmffvl.controllers', [])
                 percentage: 0,
                 user: 0
             },
-            exam: [],
+            exam: {
+                enabled: false,
+                is_candidat: true
+            },
             // QCMID is set by API.generateQCM(), or from QCMIDUser when loading a previous QCM
             QCMID: "",
             // QCMIDUser is set by the user, via formattedQCMIDUser
@@ -65,9 +71,10 @@ angular.module('qcmffvl.controllers', [])
             title: "Examen",
             items: ["Date", "Structure organisatrice"]
         }]
+        $scope.headerExamPapier = $scope.headerExamPapierCandidat;
 
         // Load version info
-        $scope.version = "3.9.0";
+        $scope.version = "3.10.0";
         $scope.qcmVersion = "3.2";
         $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         // automatically removed by a directive when the QCM is loaded
@@ -78,12 +85,20 @@ angular.module('qcmffvl.controllers', [])
         // show the QCM view ?
         $scope.showQCM = true;
         $scope.main.search = {};
-        $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+        $scope.main.search.niveau = $scope.main.conf.level.options.indexOf($scope.$storage.conf.level);
+
         // Backward compat
-        if ($scope.$storage.conf.category == "Parapente" || $scope.$storage.conf.category == "Delta") {
-            $scope.$storage.conf.sport = $scope.$storage.conf.category;
-            $scope.$storage.conf.category = "Toutes les catégories";
+        if ($scope.$storage.conf.category == "Toutes les catégories") {
+            $scope.$storage.conf.category = "Toutes";
         }
+        if ($scope.$storage.conf.nbquestions == "Toutes les") {
+            $scope.$storage.conf.nbquestions = "Toutes";
+        }
+        // Validate nbquestions, reset to 30 if not in valid options
+        if ($scope.main.conf.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString()) === -1) {
+            $scope.$storage.conf.nbquestions = "30";
+        }
+
         // parapente should never be set to true at the same time as delta is.
         // delta: true + parapente: true would select only the generic questions
         // TODO : remove parapente and delta attributes and make a custom filter
@@ -132,8 +147,10 @@ angular.module('qcmffvl.controllers', [])
             });
         }
 
-        $scope.deleteStoredAnswers = function () {
-            delete $scope.$storage.QCMID;
+        $scope.deleteStoredAnswers = function (delete_qcm_id = true) {
+            if (delete_qcm_id) {
+                delete $scope.$storage.QCMID;
+            }
             $scope.$storage.answers = {};
         }
 
@@ -188,11 +205,11 @@ angular.module('qcmffvl.controllers', [])
             $scope.loading = true;
             $timeout(function () {
                 $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
-                    .success(function (data, status, headers, config) {
+                    .success(function (data) {
                         $scope.QCMFromJSON(data);
                     })
                     .error(function () {
-                        var dlg = dialogs.error('Erreur', 'Impossible de charger le JSON');
+                        dialogs.error('Erreur', 'Impossible de charger le JSON');
                     });
             }, 100);
         }
@@ -207,7 +224,7 @@ angular.module('qcmffvl.controllers', [])
             $timeout(function () {
                 $scope.qcm = angular.copy($scope.qcmOrig);
                 $scope.main.QCMID = API.generateQCM($scope.qcm, $scope.qcmOptions, $scope.qcmVer, $scope.optionsToArray(), QCMID, answers);
-                if ($scope.main.exam.papierExaminateur)
+                if ($scope.main.exam.enabled && !$scope.main.exam.is_candidat)
                     API.tickAnswers($scope.qcm);
                 $scope.checkForUpdates();
             }, 300);
@@ -215,18 +232,18 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.optionsToArray = function () {
             var opt = [];
-            opt[0] = $scope.main.sport.options.indexOf($scope.$storage.conf.sport);
-            opt[1] = $scope.main.level.options.indexOf($scope.$storage.conf.level);
-            opt[2] = $scope.main.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString());
-            opt[3] = $scope.main.category.options.indexOf($scope.$storage.conf.category);
+            opt[0] = $scope.main.conf.sport.options.indexOf($scope.$storage.conf.sport);
+            opt[1] = $scope.main.conf.level.options.indexOf($scope.$storage.conf.level);
+            opt[2] = $scope.main.conf.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString());
+            opt[3] = $scope.main.conf.category.options.indexOf($scope.$storage.conf.category);
             return opt;
         }
 
         $scope.arrayToOptions = function (opt) {
-            $scope.$storage.conf.sport = $scope.main.sport.options[opt[0]];
-            $scope.$storage.conf.level = $scope.main.level.options[opt[1]];
-            $scope.$storage.conf.nbquestions = $scope.main.nbquestions.options[opt[2]];
-            $scope.$storage.conf.category = $scope.main.category.options[opt[3]];
+            $scope.$storage.conf.sport = $scope.main.conf.sport.options[opt[0]];
+            $scope.$storage.conf.level = $scope.main.conf.level.options[opt[1]];
+            $scope.$storage.conf.nbquestions = $scope.main.conf.nbquestions.options[opt[2]];
+            $scope.$storage.conf.category = $scope.main.conf.category.options[opt[3]];
         }
 
         $scope.updateQCMID = function () {
@@ -273,7 +290,7 @@ angular.module('qcmffvl.controllers', [])
             $timeout(function () {
                 $scope.main.displayLimit = 10000;
             }, 0);
-            if ($scope.qcm && !$scope.main.exam.mode && $scope.main.checkAnswers && mayUntickAnswers) {
+            if ($scope.qcm && !$scope.main.exam.enabled && $scope.main.checkAnswers && mayUntickAnswers) {
                 API.untickAnswers($scope.qcm);
                 $scope.main.checkAnswers = false;
             }
@@ -301,6 +318,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.gotoMainURL = function () {
+            $scope.main.exam.enabled = false;
             if ($location.url().indexOf("/qcm") == -1) {
                 $location.url("/qcm/");
             }
@@ -319,7 +337,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.unfillQCMAnswers = function () {
             $scope.main.checkAnswers = false;
             API.untickAnswers($scope.qcm);
-            $scope.deleteStoredAnswers();
         }
 
         $scope.ffvldialog = function (q, index) {
@@ -328,7 +345,7 @@ angular.module('qcmffvl.controllers', [])
             dialogs.create('ffvldialog.html', 'ffvldialogCtrl', $scope);
         }
 
-        $scope.dialogQCMID = function () {
+        $scope.dialogShare = function () {
             var dlg = dialogs.create('qcmid.html', 'QCMIDDialogCtrl', $scope.main, { size: "lg" });
             dlg.result.then(function (name) {
                 $timeout(function () {
@@ -343,25 +360,18 @@ angular.module('qcmffvl.controllers', [])
             });
         }
 
-        $scope.warnTypeExamChange = function () {
-            if ($scope.main.typeExam != "Révision" && $scope.$storage.QCMID && $scope.isOpen.typeExam) {
-                var dlg = dialogs.notify('Information', 'Passer en mode examen effacera vos réponses.');
-                dlg.result.then(function (btn) {
-                    $timeout(function () {
-                        $scope.isOpen.typeExam = true;
-                    }, 1);
-                }, function (btn) {
-                    // cancel
-                });
-            }
+        $scope.dialogParameters = function () {
+            dialogs.create('parameters.html', 'ParametersCtrl', $scope, { size: "lg" });
         }
 
-        $scope.optionsTooLongForWidth = function () {
-            if ($window.innerWidth >= 1200 && $window.innerWidth <= 1300) {
-                return ($scope.main.typeExam.checked.indexOf("Examen") == -1);
-            } else {
-                return false;
-            }
+        $scope.applyExamConstraints = function () {
+            var nbq = $scope.$storage.conf.level !== "Brevet de Pilote" ? "30" : "60";
+            $scope.$storage.conf.nbquestions = nbq;
+            $scope.$storage.conf.category = "Toutes";
+        }
+
+        $scope.toggleExamMode = function () {
+            $scope.main.exam.enabled = !$scope.main.exam.enabled;
         }
 
         $scope.updateFilteredResult = function () {
@@ -376,23 +386,12 @@ angular.module('qcmffvl.controllers', [])
             $scope.loading = false;
         };
 
-        // Listen to window resize and trigger digest (to trigger $scope.optionsTooLongForWidth())
-        var onResize = function () {
-            $scope.$applyAsync(); // async to avoid digest conflicts
-        };
-
-        angular.element($window).on('resize', onResize);
-
-        // Cleanup on controller destroy
-        $scope.$on('$destroy', function () {
-            angular.element($window).off('resize', onResize);
-        });
-
         $scope.$watchGroup(
             ['$main.search', '$storage.conf.sport', '$storage.conf.level', '$storage.conf.category'],
             function (newVals, oldVals) {
                 if (newVals != oldVals) {
                     $scope.unfillQCMAnswers();
+                    $scope.deleteStoredAnswers();
                 }
             }
         );
@@ -419,10 +418,10 @@ angular.module('qcmffvl.controllers', [])
                         delete $scope.main.search.parapente;
                     }
 
-                    $scope.main.search.niveau = $scope.main.level.options.indexOf($scope.$storage.conf.level);
+                    $scope.main.search.niveau = $scope.main.conf.level.options.indexOf($scope.$storage.conf.level);
 
                     var limit = $scope.$storage.conf.nbquestions;
-                    if (limit === "Toutes les") {
+                    if (limit === "Toutes") {
                         limit = 10000;
                     }
                     $scope.main.limit = limit;
@@ -432,31 +431,37 @@ angular.module('qcmffvl.controllers', [])
             }
         );
 
-
-        $scope.$watch('main.typeExam.checked', function (newval, oldval) {
+        $scope.$watch('main.exam.enabled', function (newval, oldval) {
             if (newval != oldval) {
-                $scope.main.exam = [];
-                $scope.main.checkAnswers = false;
-                if (newval.indexOf("Examen papier") != -1) {
-                    $scope.main.exam.mode = true;
-                    $scope.main.exam.papier = true;
-                    $scope.main.category.checked = "Toutes les catégories";
-                }
-                if (newval == "Examen papier (candidat)") {
-                    $scope.main.exam.papierCandidat = true;
-                    $scope.headerExamPapier = $scope.headerExamPapierCandidat;
-                } else if (newval == "Examen papier (examinateur)") {
-                    $scope.main.exam.papierExaminateur = true;
-                    $scope.headerExamPapier = $scope.headerExamPapierExaminateur;
-                }
-                // back from examPapierExaminateur, we want to erase the answers ticked
                 $scope.unfillQCMAnswers();
-                if ($scope.main.exam.papierExaminateur) {
-                    API.tickAnswers($scope.qcm);
+                if (newval) {
+                    $scope.main.exam.is_candidat = true;
+                    $scope.applyExamConstraints();
+                    $scope.$storage.QCMID = $scope.main.QCMID;
+                    $scope.deleteStoredAnswers(false);
+                } else {
+                    $scope.deleteStoredAnswers();
                 }
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
-                $scope.main.typeExamNum = $scope.main.typeExam.options.indexOf($scope.main.typeExam.checked);
                 $scope.navCollapsed = true;
+            }
+        });
+
+        $scope.$watch('main.exam.is_candidat', function (newval, oldval) {
+            if (newval != oldval && $scope.main.exam.enabled) {
+                $scope.headerExamPapier = newval ? $scope.headerExamPapierCandidat : $scope.headerExamPapierExaminateur;
+                $scope.unfillQCMAnswers();
+                if (!newval) {
+                    API.tickAnswers($scope.qcm);
+                }
+            }
+        });
+
+        $scope.$watch('$storage.conf.level', function (newval) {
+            if (!$scope.main.exam.enabled) {
+                $scope.$storage.conf.level = newval;
+            } else {
+                $scope.applyExamConstraints();
             }
         });
 
@@ -478,7 +483,7 @@ angular.module('qcmffvl.controllers', [])
             }
         });
 
-        $scope.$watch('loading', function (newval, oldval) {
+        $scope.$watch('loading', function (newval) {
             if (newval == false && $location.path().indexOf("/load") != -1) {
                 $location.path("/qcm", false);
             }
@@ -492,7 +497,7 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
-    .controller('QCMCtrl', function ($scope, $filter, $location, $timeout, dialogs, API, filterFilter) {
+    .controller('QCMCtrl', function ($scope, $filter, $timeout, dialogs, API, filterFilter) {
         $scope.questions = [];
         $scope.$parent.hideNavbarButtons = false;
 
@@ -505,7 +510,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.toggleCheck = function (q, answer) {
-            if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.papier && !$scope.isHelpQuestion(q)) {
+            if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.enabled && !$scope.isHelpQuestion(q)) {
                 answer.checked = !answer.checked;
 
                 var index = null;
@@ -564,44 +569,44 @@ angular.module('qcmffvl.controllers', [])
 
 
         $scope.successQuestion = function (question) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
                 return false;
             return ($scope.getPoints(question) === 6);
         }
 
         $scope.failedQuestion = function (question) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
                 return false;
             return ($scope.getPoints(question) === 0);
         }
 
         $scope.warningQuestion = function (question) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question))
                 return false;
             var points = $scope.getPoints(question);
             return (points >= 1 && points <= 5);
         }
 
         $scope.goodAnswer = function (answer) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers)
                 return false;
             return (answer.pts >= 0 && answer.checked);
         }
 
         $scope.badAnswer = function (answer) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers)
                 return false;
             return (answer.pts < 0 && answer.checked);
         }
 
         $scope.goodAnswerNotChecked = function (answer) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers)
                 return false;
             return (answer.pts > 0 && !answer.checked);
         }
 
         $scope.badAnswerNotChecked = function (answer) {
-            if ($scope.main.exam.papier || !$scope.main.checkAnswers)
+            if ($scope.main.exam.enabled || !$scope.main.checkAnswers)
                 return false;
             return (answer.pts < 0 && !answer.checked);
         }
@@ -613,7 +618,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.helpQuestionToggle = function (q) {
-            if ($scope.navCollapsed && !$scope.main.exam.papier) {
+            if ($scope.navCollapsed && !$scope.main.exam.enabled) {
                 if ($scope.main.helpQuestion == q.code) {
                     $scope.main.helpQuestion = "";
                 } else {
@@ -623,7 +628,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.isHelpQuestion = function (q) {
-            if (q && !$scope.main.exam.papier) {
+            if (q && !$scope.main.exam.enabled) {
                 return (q.code == $scope.main.helpQuestion);
             } else {
                 return false;
@@ -679,7 +684,7 @@ angular.module('qcmffvl.controllers', [])
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     })
 
-    .controller('ffvldialogCtrl', function ($scope, $modalInstance, $location, data, API) {
+    .controller('ffvldialogCtrl', function ($scope, $modalInstance, data) {
         var q = data.q;
         $scope.q = q;
         var index = data.index;
@@ -712,7 +717,7 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
-    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, $location, data, API) {
+    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, API) {
         $scope.main = data;
 
         $scope.savedFormattedQCMIDUser = angular.copy($scope.main.formattedQCMIDUser);
@@ -735,5 +740,11 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
-    .run(function ($templateCache) {
+    .controller('ParametersCtrl', function ($scope, $modalInstance, data) {
+        $scope.main = data.main;
+        $scope.$storage = data.$storage;
+
+        $scope.ok = function () {
+            $modalInstance.dismiss();
+        }
     });

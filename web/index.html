@@ -9,36 +9,36 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#C8C8C8">
-  <link rel="manifest" href="manifest.json?v=3.9.0">
-  <link rel="icon" type="image/png" href="assets/icons/icon-512.png?v=3.9.0" />
-  <link rel="stylesheet" href="css/bootstrap.min.css?v=3.9.0" />
-  <link rel="stylesheet" href="css/html5-boilerplate/normalize.css?v=3.9.0">
-  <link rel="stylesheet" href="css/html5-boilerplate/main.css?v=3.9.0">
-  <link rel="stylesheet" href="css/qcmffvl.css?v=3.9.0" />
+  <link rel="manifest" href="manifest.json?v=3.10.0">
+  <link rel="icon" type="image/png" href="assets/icons/icon-512.png?v=3.10.0" />
+  <link rel="stylesheet" href="css/bootstrap.min.css?v=3.10.0" />
+  <link rel="stylesheet" href="css/html5-boilerplate/normalize.css?v=3.10.0">
+  <link rel="stylesheet" href="css/html5-boilerplate/main.css?v=3.10.0">
+  <link rel="stylesheet" href="css/qcmffvl.css?v=3.10.0" />
 </head>
 
 <body>
-  <script src="js/lib/MersenneTwister.js?v=3.9.0"></script>
-  <script src="js/lib/crc.min.js?v=3.9.0"></script>
+  <script src="js/lib/MersenneTwister.js?v=3.10.0"></script>
+  <script src="js/lib/crc.min.js?v=3.10.0"></script>
 
-  <script src="js/lib/jquery-2.1.1.min.js?v=3.9.0"></script>
-  <script src="js/lib/angular.min.js?v=3.9.0"></script>
-  <script src="js/lib/angular-route.min.js?v=3.9.0"></script>
-  <script src="js/lib/angular-sanitize.min.js?v=3.9.0"></script>
-  <script src="js/lib/angular-translate.min.js?v=3.9.0"></script>
-  <script src="js/lib/ui-bootstrap-tpls.min.js?v=3.9.0"></script>
+  <script src="js/lib/jquery-2.1.1.min.js?v=3.10.0"></script>
+  <script src="js/lib/angular.min.js?v=3.10.0"></script>
+  <script src="js/lib/angular-route.min.js?v=3.10.0"></script>
+  <script src="js/lib/angular-sanitize.min.js?v=3.10.0"></script>
+  <script src="js/lib/angular-translate.min.js?v=3.10.0"></script>
+  <script src="js/lib/ui-bootstrap-tpls.min.js?v=3.10.0"></script>
 
-  <script src="js/lib/angular-clipboard.js?v=3.9.0"></script>
-  <script src="js/lib/dialogs.js?v=3.9.0"></script>
-  <script src="js/lib/ng-device-detector.min.js?v=3.9.0"></script>
-  <script src="js/lib/re-tree.min.js?v=3.9.0"></script>
-  <script src="js/lib/ngStorage.min.js?v=3.9.0"></script>
+  <script src="js/lib/angular-clipboard.js?v=3.10.0"></script>
+  <script src="js/lib/dialogs.js?v=3.10.0"></script>
+  <script src="js/lib/ng-device-detector.min.js?v=3.10.0"></script>
+  <script src="js/lib/re-tree.min.js?v=3.10.0"></script>
+  <script src="js/lib/ngStorage.min.js?v=3.10.0"></script>
 
-  <script src="js/app.js?v=3.9.0"></script>
-  <script src="js/services.js?v=3.9.0"></script>
-  <script src="js/controllers.js?v=3.9.0"></script>
-  <script src="js/filters.js?v=3.9.0"></script>
-  <script src="js/directives.js?v=3.9.0"></script>
+  <script src="js/app.js?v=3.10.0"></script>
+  <script src="js/services.js?v=3.10.0"></script>
+  <script src="js/controllers.js?v=3.10.0"></script>
+  <script src="js/filters.js?v=3.10.0"></script>
+  <script src="js/directives.js?v=3.10.0"></script>
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -51,7 +51,7 @@
   </script>
 
   <div ng-controller="MainCtrl">
-    <div ng-show="showUpdateBanner && !main.exam.papier" ng-cloak id="update-banner" class="update-banner">
+    <div ng-show="showUpdateBanner" ng-cloak id="update-banner" class="update-banner">
       <div class="update-banner-content">
         Une version plus récente est disponible
         <button class="btn btn-primary update-refresh-btn" onclick="window.location.reload()">Actualiser</button>
@@ -63,14 +63,47 @@
           <div class="navbar-brand" ng-click="gotoMainURL()">
             QCM FFVL
           </div>
-          <span class="hide-xxs hide-lg" ng-hide="main.exam.mode">
+          <span class="hide-lg">
             <span ng-hide="hideNavbarButtons">
-              <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true"
-                class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
-              <button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)"
-                class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
-              <button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload"><span
-                  class="glyphicon glyphicon-refresh"></span></button>
+              <span class="hide-xxs" ng-hide="main.exam.enabled">
+                <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true"
+                  class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">
+                  Corriger
+                </button>
+                <button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)"
+                  class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%
+                </button>
+              </span>
+              <button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn btn-reload">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </button>
+              <span class="hide-xxs" ng-show="main.exam.enabled">
+                <button ng-click="printQCM()" class="btn btn-default navbar-btn navbar-collapsed-btn hide-xs">
+                  <span class="glyphicon glyphicon-print"></span>
+                </button>
+                <div class="btn-group navbar-btn navbar-collapsed-btn hide-xs">
+                  <button ng-click="main.exam.is_candidat = true" class="btn btn-default"
+                    ng-class="{'active': main.exam.is_candidat}">C</button>
+                  <button ng-click="main.exam.is_candidat = false" class="btn btn-default"
+                    ng-class="{'active': !main.exam.is_candidat}">E</button>
+                </div>
+              </span>
+              <button ng-click="dialogParameters()"
+                class="btn btn-default navbar-btn navbar-collapsed-btn hide-small-phone">
+                <span class="glyphicon glyphicon-cog"></span>
+              </button>
+              <button ng-click="toggleExamMode()"
+                class="btn btn-default navbar-btn navbar-collapsed-btn hide-small-phone"
+                ng-class="{'btn-danger': main.exam.enabled}" ng-show="main.exam.enabled">
+                <span class="glyphicon glyphicon-education"></span>
+              </button>
+              <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+                ng-click="navCollapsed = !navCollapsed" ng-hide="hideNavbarButtons">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
             </span>
           </span>
           <span class="hide-xxs hide-lg">
@@ -79,14 +112,6 @@
                 class="btn btn-default navbar-btn navbar-collapsed-btn btn-retour-apropos">Retour QCM</button>
             </span>
           </span>
-
-          <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
-            ng-click="navCollapsed = !navCollapsed" ng-hide="hideNavbarButtons">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
         </div>
         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
           <ul class="nav navbar-nav" ng-show="hideNavbarButtons">
@@ -96,63 +121,8 @@
           </ul>
 
           <ul class="nav navbar-nav" ng-hide="hideNavbarButtons">
-            <li class="dropdown" is-open="isOpen.sport">
-              <a class="dropdown-toggle" data-toggle="dropdown">{{$storage.conf.sport}} <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" ng-click="isOpen.sport = false">
-                <li ng-repeat="sport in main.sport.options">
-                  <a ng-click="$storage.conf.sport = sport">{{sport}}</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown" is-open="isOpen.level">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                <span ng-show="optionsTooLongForWidth()">{{$storage.conf.level|formatQCMTitle}}</span>
-                <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.level}}</span>
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" ng-click="isOpen.level = false">
-                <li ng-repeat="level in main.level.options">
-                  <a ng-click="$storage.conf.level = level">{{level}}</a>
-                </li>
-              </ul>
-            </li>
             <li>
-            <li class="dropdown" is-open="isOpen.nbquestions">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                <span ng-show="optionsTooLongForWidth()">{{$storage.conf.nbquestions|formatQCMTitle}} questions</span>
-                <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.nbquestions}} questions</span>
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" ng-click="isOpen.nbquestions = false">
-                <li ng-repeat="nbquestions in main.nbquestions.options">
-                  <a ng-click="$storage.conf.nbquestions = nbquestions">{{nbquestions}} questions</a>
-                </li>
-              </ul>
-            </li>
-            </li>
-            <li>
-            <li class="dropdown" is-open="isOpen.category">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                <span ng-show="optionsTooLongForWidth()">{{$storage.conf.category|formatQCMTitle}}</span>
-                <span ng-hide="optionsTooLongForWidth()">{{$storage.conf.category}}</span>
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" ng-click="isOpen.category = false">
-                <li ng-repeat="category in main.category.options">
-                  <a ng-click="$storage.conf.category = category">{{category}}</a>
-                </li>
-              </ul>
-            </li>
-            </li>
-            <li>
-            <li class="dropdown" is-open="isOpen.typeExam" ng-click="warnTypeExamChange()">
-              <a class="dropdown-toggle" data-toggle="dropdown">{{main.typeExam.checked}} <span
-                  class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" ng-click="isOpen.typeExam = false">
-                <li ng-repeat="typeExam in main.typeExam.options">
-                  <a ng-click="main.typeExam.checked = typeExam">{{typeExam}}</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <span ng-hide="main.exam.mode">
+              <span ng-hide="main.exam.enabled">
                 <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true"
                   class="btn btn-default navbar-left navbar-btn btn-corriger">Corriger</button>
                 <button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)"
@@ -160,20 +130,47 @@
                   Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)
                 </button>
               </span>
-              <button ng-click="reload()" class="btn btn-default navbar-btn btn-reload"><span
-                  class="glyphicon glyphicon-refresh"></span></button>
+              <button ng-click="reload()" class="btn btn-default navbar-btn btn-reload">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </button>
             </li>
-            <li>
-              <button ng-click="dialogQCMID()" class="btn btn-default navbar-btn btn-shareqcm"><span
-                  class="glyphicon glyphicon-share"></span> Partager</button>
+            <li ng-show="main.exam.enabled">
+              <button ng-click="printQCM()" class="btn btn-default navbar-btn">
+                <span class="glyphicon glyphicon-print"></span> Imprimer
+              </button>
+            </li>
+            <li ng-show="main.exam.enabled">
+              <div class="btn-group navbar-btn">
+                <button ng-click="main.exam.is_candidat = true" class="btn btn-default"
+                  ng-class="{'active': main.exam.is_candidat}">Candidat</button>
+                <button ng-click="main.exam.is_candidat = false" class="btn btn-default"
+                  ng-class="{'active': !main.exam.is_candidat}">Examinateur</button>
+              </div>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
             <li>
+              <button ng-click="dialogParameters()" class="btn btn-default navbar-btn">
+                <span class="glyphicon glyphicon-cog"></span> Paramètres
+              </button>
+            </li>
+            <li>
+              <button ng-click="dialogShare()" class="btn btn-default navbar-btn">
+                <span class="glyphicon glyphicon-share"></span> Partager
+              </button>
+            </li>
+            <li>
+              <button ng-click="toggleExamMode()" class="btn btn-default navbar-btn"
+                ng-class="{'btn-danger': main.exam.enabled}">
+                <span class="glyphicon glyphicon-education"></span> Examen
+              </button>
+            </li>
+            <li>
               <div class="text-center">
                 <a href="#about">
-                  <button class="btn btn-default navbar-btn btn-fifty-shades btn-informations"><span
-                      class="glyphicon glyphicon-info-sign"></span> Informations</button>
+                  <button class="btn btn-default navbar-btn btn-fifty-shades btn-informations">
+                    <span class="glyphicon glyphicon-info-sign"></span> Informations
+                  </button>
                 </a>
               </div>
             </li>
@@ -181,12 +178,9 @@
         </div>
       </div>
     </nav>
-    <div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM">
-    </div>
+    <div ng-view ng-click="collapseNav()" ng-class="{'dim':!navCollapsed}" ng-show="showQCM"></div>
   </div>
 </body>
-
-<!-- Next are Angular templateCaches definitions, so that no webserver is required to use this "web app", and everything runs smoothly once the "app" has been loaded -->
 
 <!-- ###################################################################################################### -->
 <!-- ############################# QCMID Dialog (Chargement / Partage du QCM) ############################# -->
@@ -209,10 +203,36 @@
     <hr/>
     <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>
     <span class="help-block url">{{main.QCMIDURL}}</span>
-    <button clipboard class="btn btn-info" supported="true" text="main.QCMIDURL">Copier l'adresse</button>
+    <button clipboard class="btn btn-info share-btn" supported="true" text="main.QCMIDURL">Copier l'adresse</button>
   </div>
   <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
+    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
+  </div>
+</script>
+
+<!-- ###################################################################################################### -->
+<!-- ######################################### Parameters Dialog ########################################## -->
+<!-- ###################################################################################################### -->
+
+<script type="text/ng-template" id="parameters.html">
+  <div class="modal-header">
+    <h4 class="modal-title"><span class="glyphicon glyphicon-cog"></span> Paramètres du QCM<span ng-show="main.exam.enabled"> (mode examen)</span></h4>
+  </div>
+  <div class="modal-body filters-modal-body">
+    <div class="filter-group" ng-repeat="(key, filter) in main.conf">
+      <div class="filter-category" ng-if="filter.name" ng-class="{'disabled': (key === 'category' || key === 'nbquestions') && main.exam.enabled}">{{filter.name}}</div>
+      <div class="filter-buttons">
+        <button type="button" class="btn btn-sm filter-btn"
+                ng-repeat="option in filter.options"
+                ng-class="{'active': $storage.conf[key] == option}"
+                ng-click="$storage.conf[key] = option"
+                ng-disabled="(key === 'category' || key === 'nbquestions') && main.exam.enabled">{{option}}</button>
+      </div>
+      <hr ng-if="!$last">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
   </div>
 </script>
 
@@ -245,88 +265,79 @@
 <!-- ###################################################################################################### -->
 
 <script type="text/ng-template" id="qcm.html">
-      <div class="loader" ng-show="loading">Chargement...</div>
-      <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible avec ces filtres</div>
-      <div ng-hide="loading || (main.exam.papier && !browserChrome() && !browserCheckOverride)">
-          <div >
-              <div class="qcm-title" ng-show="main.exam.papier">
-                      <button class="btn btn-default center-block btn-print" ng-click="printQCM()">Imprimer</button>
-                      <span>QCM FFVL {{$storage.conf.sport}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.papierCandidat">Candidat</span><span ng-show="main.exam.papierExaminateur">Examinateur</span>)</span>
-                      <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
-                  </div>
-              <div class="qcm-title row" ng-show="main.exam.papier && categorySelected()"<>
-                <span class="qcm-title-category col-lg-12 col-xs-12">*** Questions restreintes à la catégorie : {{$storage.conf.category}} ***</span>
+  <div class="loader" ng-show="loading">Chargement...</div>
+  <div class="loader" ng-show="!loading && filtered_result.length === 0">Aucune question disponible avec ces filtres</div>
+  <div ng-hide="loading">
+    <div >
+      <div class="qcm-title" ng-show="main.exam.enabled">
+        <span>QCM FFVL {{$storage.conf.sport}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.is_candidat">Candidat</span><span ng-show="!main.exam.is_candidat">Examinateur</span>)</span>
+        <span class="pull-right">Code: {{main.QCMIDCRC}}</span>
+      </div>
+      <div class="qcm-body">
+        <div ng-show="main.exam.enabled" ng-repeat="header in headerExamPapier">
+          <div class="panel panel-default grid-item panel-header-exam" ng-class="{'examinateur':!main.exam.is_candidat}">
+            <div class="panel-heading">
+              <div class="row header-exam-title">
+                <span class="col-lg-11 col-xs-11">{{header.title}}</span>
               </div>
-              <div class="qcm-body">
-                  <div ng-show="main.exam.papier" ng-repeat="header in headerExamPapier">
-                    <div class="panel panel-default grid-item panel-header-exam" ng-class="{'examinateur':main.exam.papierExaminateur}">
-                      <div class="panel-heading">
-                        <div class="row header-exam-title">
-                          <span class="col-lg-11 col-xs-11">{{header.title}}</span>
-                        </div>
-                      </div>
-                      <div class="panel-body header-exam">
-                        <div ng-repeat="item in header.items">
-                            <div class="checkbox row header-exam-item" >
-                              <span class="col-lg-11 col-xs-11">{{item}} :</span>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div ng-repeat="q in filtered_result">
-                      <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
-                          <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.mode">
-                              <div class="row question ">
-                                  <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Contacter la FFVL au sujet de cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="ffvldialog(q, $index+1)"></a></span>
-                              </div>
-                          </div>
-                          <div class="panel-heading" ng-click="helpQuestionToggle(q)">
-                              <div class="row question ">
-                                  <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
-                                  <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.exam.mode"> {{getPoints(q)}}</span>
-                              </div>
-                          </div>
-                          <div class="panel-body answers" ng-click="resetHelpQuestion()">
-                              <div ng-repeat="answer in q.ans">
-                                  <div class="checkbox" >
-                                      <input type="checkbox" ng-disabled="main.exam.papierCandidat ||
-                                      (main.checkAnswers && !main.exam.papierExaminateur) ||
-                                      (main.exam.papierExaminateur && !answer.checked) ||
-                                      (main.exam.papierExaminateur && answer.pts==0) ||
-                                      isHelpQuestion(q) ||
-                                      !navCollapsed"
-                                      ng-model="answer.checked"
-                                      ng-hide="adAnswerNotChecked(answer)">
-                                      <div
-                                      class="row answer"
-                                      ng-class="{
-                                      'good-answer':goodAnswer(answer),
-                                      'bad-answer':badAnswer(answer),
-                                      'good-answer-not-checked':goodAnswerNotChecked(answer),
-                                      'bad-answer-not-checked':badAnswerNotChecked(answer),
-                                      'help-answer':isHelpQuestion(q),
-                                      'smartphone':isSmartphone(),
-                                      'android':isAndroid(),
-                                      'iphone':isIphone(),
-                                      'checked-answer':answer.checked
-                                      }">
-                                          <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone(),'android':isAndroid(),'iphone':isIphone(),}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
-                                          <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || main.exam.papierExaminateur" ng-bind="answer.pts"></span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+            </div>
+            <div class="panel-body header-exam">
+              <div ng-repeat="item in header.items">
+                <div class="checkbox row header-exam-item" >
+                  <span class="col-lg-11 col-xs-11">{{item}} :</span>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
+        <div ng-repeat="q in filtered_result">
+          <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
+            <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.enabled">
+              <div class="row question ">
+                <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Contacter la FFVL au sujet de cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="ffvldialog(q, $index+1)"></a></span>
+              </div>
+            </div>
+            <div class="panel-heading" ng-click="helpQuestionToggle(q)">
+              <div class="row question ">
+                <span class="col-lg-11 col-xs-11">{{($index+1)}}. {{q.question}}</span>
+                <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.exam.enabled"> {{getPoints(q)}}</span>
+              </div>
+            </div>
+            <div class="panel-body answers" ng-click="resetHelpQuestion()">
+              <div ng-repeat="answer in q.ans">
+                <div class="checkbox" >
+                  <input type="checkbox" ng-disabled="(main.exam.enabled && main.exam.is_candidat) ||
+                                                      (main.checkAnswers && !(main.exam.enabled && !main.exam.is_candidat)) ||
+                                                      ((main.exam.enabled && !main.exam.is_candidat) && !answer.checked) ||
+                                                      ((main.exam.enabled && !main.exam.is_candidat) && answer.pts==0) ||
+                                                      isHelpQuestion(q) ||
+                                                      !navCollapsed"
+                                                      ng-model="answer.checked"
+                                                      ng-hide="adAnswerNotChecked(answer)">
+                  <div
+                    class="row answer"
+                    ng-class="{
+                    'good-answer':goodAnswer(answer),
+                    'bad-answer':badAnswer(answer),
+                    'good-answer-not-checked':goodAnswerNotChecked(answer),
+                    'bad-answer-not-checked':badAnswerNotChecked(answer),
+                    'help-answer':isHelpQuestion(q),
+                    'smartphone':isSmartphone(),
+                    'android':isAndroid(),
+                    'iphone':isIphone(),
+                    'checked-answer':answer.checked
+                    }">
+                    <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone(),'android':isAndroid(),'iphone':isIphone(),}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
+                    <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || (main.exam.enabled && !main.exam.is_candidat)" ng-bind="answer.pts"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div ng-show="main.exam.papier && !browserChrome() && !browserCheckOverride">
-            <div class="qcm-title">Merci d'utiliser Chrome ou un dérivé (Chromium, Brave...) pour l'impression de l'examen papier.</div>
-            <div class="qcm-subtitle">Si vous souhaitez forcer l'impression de l'examen papier avec votre navigateur, appuyez <a ng-click="browserCheckOverride=true">ici</a>.</div>
-      </div>
+    </div>
+  </div>
 </script>
 
 <!-- ###################################################################################################### -->
@@ -334,90 +345,90 @@
 <!-- ###################################################################################################### -->
 
 <script type="text/ng-template" id="about.html">
-      <div class="about">
-          <div class="panel panel-default">
-              <div class="panel-heading">Version {{version}} &nbsp; &mdash; &nbsp; Questionnaire FFVL {{qcmVersion}}</div>
-              <div class="panel-body">
-                  Auteur : Jérémy Ruffet (<a href="mailto:dev@ruffet.fr">dev@ruffet.fr</a>)
-                  <br/><br/>
-                  Cette application web est développée bénévolement, sur mon temps libre.
-                  <br/>
-                  Elle est sous licence libre (MIT) et accessible sur github (<a href="https://github.com/jruffet/qcmffvl">https://github.com/jruffet/qcmffvl</a>).
-                  <br/><br/>
-                  Le contenu du questionnaire est rédigé par la commission formation de la FFVL.
-                  <br/>
-                  Un questionnaire est considéré comme réussi si le score est d'au moins 75%.
-                  <br/><br/>
-                  Suivant les recommandations de la FFVL, chaque série de 10 questions est répartie comme suit :
-                  <ul>
-                    <li>Météo : 20%</li>
-                    <li>Pilotage : 20%</li>
-                    <li>Mécavol : 20%</li>
-                    <li>Réglementation : 10%</li>
-                    <li>Matériel : 10%</li>
-                    <li>Facteurs humains : 10%</li>
-                    <li>Milieu naturel : 10%</li>
-                  </ul>
-                  <b>Pour tout problème avec une question ou ses réponses : </b> merci de cliquer sur la question (en mode révision), puis de cliquer sur l'enveloppe.
-                  <br/>
-                  Pour une demande d'ajout, reprenez le même mode opératoire en choisissant n'importe quelle question.
-                  <br/><br/>
-                  N'hésitez pas à m'envoyer des rapports de bugs, problèmes d'affichage, des suggestions ou tout simplement un petit mail sympa !
-                  <br/>
-                  <div class="about-category row">
-                      <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Web</span>
-                      <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
-                          La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
-                          <br/><br/>
-                          Elle a été testée comme fonctionnant correctement avec Brave et Firefox.
-                          <br/>
-                          Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
-                      </div>
-                  </div>
-                  <div class="about-category row">
-                    <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Android</span>
-                    <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
-                        Vous pouvez installer cette web app sur votre smartphone avec Brave / Firefox / Chrome / Etc. en utilisant "Ajouter à l'écran d'accueil".
-                    </div>
-                 </div>
-              </div>
+  <div class="about">
+    <div class="panel panel-default">
+      <div class="panel-heading">Version {{version}} &nbsp; &mdash; &nbsp; Questionnaire FFVL {{qcmVersion}}</div>
+      <div class="panel-body">
+        Auteur : Jérémy Ruffet (<a href="mailto:dev@ruffet.fr">dev@ruffet.fr</a>)
+        <br/><br/>
+        Cette application web est développée bénévolement, sur mon temps libre.
+        <br/>
+        Elle est sous licence libre (MIT) et accessible sur github (<a href="https://github.com/jruffet/qcmffvl">https://github.com/jruffet/qcmffvl</a>).
+        <br/><br/>
+        Le contenu du questionnaire est rédigé par la commission formation de la FFVL.
+        <br/>
+        Un questionnaire est considéré comme réussi si le score est d'au moins 75%.
+        <br/><br/>
+        Suivant les recommandations de la FFVL, chaque série de 10 questions est répartie comme suit :
+        <ul>
+          <li>Météo : 20%</li>
+          <li>Pilotage : 20%</li>
+          <li>Mécavol : 20%</li>
+          <li>Réglementation : 10%</li>
+          <li>Matériel : 10%</li>
+          <li>Facteurs humains : 10%</li>
+          <li>Milieu naturel : 10%</li>
+        </ul>
+        <b>Pour tout problème avec une question ou ses réponses : </b> merci de cliquer sur la question (en mode révision), puis de cliquer sur l'enveloppe.
+        <br/>
+        Pour une demande d'ajout, reprenez le même mode opératoire en choisissant n'importe quelle question.
+        <br/><br/>
+        N'hésitez pas à m'envoyer des rapports de bugs, problèmes d'affichage, des suggestions ou tout simplement un petit mail sympa !
+        <br/>
+        <div class="about-category row">
+            <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Web</span>
+            <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+              La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
+              <br/><br/>
+              Elle a été testée comme fonctionnant correctement avec Brave et Firefox.
+              <br/>
+              Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
+            </div>
+        </div>
+        <div class="about-category row">
+          <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Android</span>
+          <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+            Vous pouvez installer cette web app sur votre smartphone avec Brave / Firefox / Chrome / Etc. en utilisant "Ajouter à l'écran d'accueil".
           </div>
-
-          <div class="panel panel-default">
-            <div class="panel-heading about">CHANGELOG</div>
-              <div class="panel-body">
-                <div ng-repeat="v in changelog" class="changelog-version row">
-                  <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version {{v.version}}</span>
-                  <div ng-if="v.changes && v.changes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                    <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
-                    <ul class="changelog-content">
-                      <li ng-repeat="item in v.changes">{{item}}</li>
-                    </ul>
-                  </div>
-                  <div ng-if="v.bugfixes && v.bugfixes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
-                    <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
-                    <ul class="changelog-content">
-                      <li ng-repeat="item in v.bugfixes">{{item}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
           </div>
-
-          <div class="panel panel-default">
-              <div class="panel-heading">Remerciements</div>
-              <div class="panel-body">
-                <div ng-repeat="v in thanks" class="row">
-                    <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
-                        <div class="thanks-title col-xs-12 col-md-12 col-lg-12">{{v.title}}</div>
-                        <ul ng-if="v.content && v.content.length" class="thanks-content">
-                            <li ng-repeat="item in v.content">{{item}}</li>
-                        </ul>
-                    </div>
-                  </div>
-              </div>
-          </div>
+        </div>
       </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading about">CHANGELOG</div>
+        <div class="panel-body">
+          <div ng-repeat="v in changelog" class="changelog-version row">
+            <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version {{v.version}}</span>
+            <div ng-if="v.changes && v.changes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+              <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
+              <ul class="changelog-content">
+                <li ng-repeat="item in v.changes">{{item}}</li>
+              </ul>
+            </div>
+            <div ng-if="v.bugfixes && v.bugfixes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+              <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
+              <ul class="changelog-content">
+                <li ng-repeat="item in v.bugfixes">{{item}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Remerciements</div>
+        <div class="panel-body">
+          <div ng-repeat="v in thanks" class="row">
+            <div class="thanks-block col-xs-12 col-md-12 col-lg-12">
+            <div class="thanks-title col-xs-12 col-md-12 col-lg-12">{{v.title}}</div>
+            <ul ng-if="v.content && v.content.length" class="thanks-content">
+              <li ng-repeat="item in v.content">{{item}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </script>
 
 </html>
