@@ -203,7 +203,7 @@
     <hr/>
     <span class="help-block">Pour accéder directement au questionnaire courant, vous pouvez utiliser/partager cette URL :</span>
     <span class="help-block url">{{main.QCMIDURL}}</span>
-    <button clipboard class="btn btn-primary share-btn" supported="true" text="main.QCMIDURL">Copier l'adresse</button>
+    <button ng-click="copyAddress()" class="btn share-btn btn-primary" ng-class="copyButtonClass" style="min-width: 140px;">{{copyButtonText || "Copier l'adresse"}}</button>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
