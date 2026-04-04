@@ -717,7 +717,7 @@ angular.module('qcmffvl.controllers', [])
         }
     })
 
-    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, API, clipboard) {
+    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, API, clipboard, $timeout) {
         $scope.main = data;
         $scope.copyButtonText = '';
         $scope.copyButtonClass = '';
@@ -744,11 +744,9 @@ angular.module('qcmffvl.controllers', [])
             clipboard.copyText($scope.main.QCMIDURL);
             $scope.copyButtonText = 'Copié !';
             $scope.copyButtonClass = 'btn-info';
-            setTimeout(function () {
-                $scope.$apply(function () {
-                    $scope.copyButtonText = '';
-                    $scope.copyButtonClass = '';
-                });
+            $timeout(function () {
+                $scope.copyButtonText = '';
+                $scope.copyButtonClass = '';
             }, 1000);
         }
     })
