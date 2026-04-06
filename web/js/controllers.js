@@ -74,7 +74,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.headerExamPapier = $scope.headerExamPapierCandidat;
 
         // Load version info
-        $scope.version = "3.10.0";
+        $scope.version = "3.11.0";
         $scope.qcmVersion = "3.3";
         $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         // automatically removed by a directive when the QCM is loaded
