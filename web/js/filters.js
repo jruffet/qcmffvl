@@ -19,37 +19,45 @@ angular.module('qcmffvl.filters', [])
                 return input.replace(/ /g, '');
         }
     })
-    .filter('categoryFilter', function () {
-        return function (qcm, category) {
-            if (category) {
-                var categoryList = [];
-                if (category == "Matériel") {
-                    categoryList = ["L", "N", "R"]
-                } else if (category == "Mécavol") {
-                    categoryList = ["E", "G", "H"]
-                } else if (category == "Pilotage") {
-                    categoryList = ["U", "W", "X"]
-                } else if (category == "Réglementation") {
-                    categoryList = ["S"]
-                } else if (category == "Météo") {
-                    categoryList = ["A"]
-                } else if (category == "Facteurs humains") {
-                    categoryList = ["F"]
-                } else if (category == "Milieu naturel") {
-                    categoryList = ["P"]
-                } else if (category.indexOf("Toutes") != -1) {
-                    return qcm;
+    .filter('qcmFilter', function () {
+        return function (qcm, pratiqueType, niveauIndex, category) {
+            // Pre-calculate category map to avoid long if/else chain inside the loop
+            var categoryMap = {
+                "Matériel": ["L", "N", "R"],
+                "Mécavol": ["E", "G", "H"],
+                "Pilotage": ["U", "W", "X"],
+                "Réglementation": ["S"],
+                "Météo": ["A"],
+                "Facteurs humains": ["F"],
+                "Milieu naturel": ["P"]
+            };
+
+            var targetCodes = categoryMap[category] || [];
+            var isCategoryFilterActive = category && category !== "Toutes" && categoryMap.hasOwnProperty(category);
+            var isNiveauFilterActive = niveauIndex !== undefined && niveauIndex !== null;
+            var isPratiqueFilterActive = !!pratiqueType;
+
+            return qcm.filter(function (question) {
+                // 1. Category Check
+                if (isCategoryFilterActive) {
+                    if (targetCodes.indexOf(question.code[0]) === -1)
+                        return false;
                 }
-                var out = [];
-                angular.forEach(qcm, function (question) {
-                    var code = question.code[0];
-                    if (categoryList.indexOf(code) != -1) {
-                        out.push(question);
-                    }
-                })
-                return out;
-            } else {
-                return qcm;
-            }
+
+                // 2. Niveau Check
+                if (isNiveauFilterActive) {
+                    if (question.niveau[niveauIndex] !== 1)
+                        return false;
+                }
+
+                // 3. Pratique Check
+                if (isPratiqueFilterActive) {
+                    var practiceIndex = pratiqueType === 'parapente' ? 0 : 1;
+                    if (question.pratique[practiceIndex] !== 1)
+                        return false;
+                }
+
+                return true;
+            });
         }
     });

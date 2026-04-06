@@ -75,7 +75,7 @@ angular.module('qcmffvl.controllers', [])
 
         // Load version info
         $scope.version = "3.10.0";
-        $scope.qcmVersion = "3.2";
+        $scope.qcmVersion = "3.3";
         $scope.qcmVer = $scope.qcmVersion.replace(".", "");
         // automatically removed by a directive when the QCM is loaded
         $scope.loading = true;
@@ -95,17 +95,15 @@ angular.module('qcmffvl.controllers', [])
             $scope.$storage.conf.nbquestions = "Toutes";
         }
         // Validate nbquestions, reset to 30 if not in valid options
-        if ($scope.main.conf.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString()) === -1) {
+        if (!$scope.$storage.conf.nbquestions || $scope.main.conf.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString()) === -1) {
             $scope.$storage.conf.nbquestions = "30";
         }
 
-        // parapente should never be set to true at the same time as delta is.
-        // delta: true + parapente: true would select only the generic questions
-        // TODO : remove parapente and delta attributes and make a custom filter
+        // Set pratique based on sport selection (0 = parapente, 1 = delta)
         if ($scope.$storage.conf.sport == "Parapente") {
-            $scope.main.search.parapente = true;
+            $scope.main.search.pratique = 'parapente';
         } else {
-            $scope.main.search.delta = true;
+            $scope.main.search.pratique = 'delta';
         }
         $scope.main.limit = $scope.$storage.conf.nbquestions;
 
@@ -194,7 +192,13 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.QCMFromJSON = function (data) {
-            $scope.qcmOrig = angular.copy(data.questions);
+            var questionsObj = data.questions;
+            $scope.qcmOrig = [];
+            for (var code in questionsObj) {
+                var q = angular.copy(questionsObj[code]);
+                q.code = code;
+                $scope.qcmOrig.push(q);
+            }
             $scope.qcmOptions.catDistrib = data.catDistrib;
             $scope.qcmOptions.catFallback = data.catFallback;
             $scope.qcmOptions.corresTable = data.corresTable;
@@ -379,9 +383,12 @@ angular.module('qcmffvl.controllers', [])
             if (!$scope.qcm || $scope.qcm.length === 0) {
                 return;
             }
-            var filtered = $filter('filter')($scope.qcm, $scope.main.search);
-            filtered = $filter('categoryFilter')(filtered, $scope.$storage.conf.category);
+            var filtered = $filter('qcmFilter')($scope.qcm,
+                $scope.main.search.pratique,
+                $scope.main.search.niveau,
+                $scope.$storage.conf.category);
             filtered = $filter('limitTo')(filtered, $scope.main.limit);
+            // console.log(filtered);
             $scope.filtered_result = filtered;
             $scope.loading = false;
         };
@@ -411,11 +418,9 @@ angular.module('qcmffvl.controllers', [])
             function (newVals, oldVals) {
                 if (newVals != oldVals) {
                     if ($scope.$storage.conf.sport === "Parapente") {
-                        $scope.main.search.parapente = true;
-                        delete $scope.main.search.delta;
+                        $scope.main.search.pratique = 'parapente';
                     } else {
-                        $scope.main.search.delta = true;
-                        delete $scope.main.search.parapente;
+                        $scope.main.search.pratique = 'delta';
                     }
 
                     $scope.main.search.niveau = $scope.main.conf.level.options.indexOf($scope.$storage.conf.level);
@@ -551,9 +556,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.getScore = function () {
-            var arr = filterFilter($scope.qcm, $scope.main.search);
-            arr = $filter('categoryFilter')(arr, $scope.$storage.conf.category);
-            arr = $filter('limitTo')(arr, $scope.main.limit);
+            var arr = $scope.filtered_result || [];
             var score = { user: 0, nb: 0, percentage: 0 };
             for (var i = 0; i < arr.length; i++) {
                 var question = arr[i];

@@ -55,10 +55,16 @@ angular.module('qcmffvl.services', [])
                 var API = this;
                 // baseCatDistrib : category distribution (cf newCatDistrib)
                 var baseCatDistrib = qcmOptions.catDistrib;
-                // corresTable : correspondance table between cat+level and questions indexes
+                // corresTable : correspondance table between cat+level and questions
                 var corresTable = angular.copy(qcmOptions.corresTable);
                 // catFallback : which category to fallback to when one is/becomes empty
                 var catFallback = qcmOptions.catFallback;
+
+                // Create a code-to-question lookup object
+                var codeToQuestion = {};
+                for (var i = 0; i < array.length; i++) {
+                    codeToQuestion[array[i].code] = array[i];
+                }
 
                 // we want to have 10 numbers tops to define the QCM ID,
                 // so 2^33, which is 2^32 for the seed, and 1 bit to
@@ -96,6 +102,7 @@ angular.module('qcmffvl.services', [])
 
                 var resArray = [];
                 var endoflevel = [false, false, false];
+                var selectedCodes = {};
 
                 while (resArray.length != array.length && (endoflevel[0] == false || endoflevel[1] == false || endoflevel[2] == false)) {
                     // category distribution (returns 10 items)
@@ -140,9 +147,21 @@ angular.module('qcmffvl.services', [])
                                 var mycat = cats[k];
                                 if (corresTable[mycat][level].length > 0) {
                                     var num = Math.floor(mt.random() * corresTable[mycat][level].length);
-                                    var index = corresTable[mycat][level][num];
-                                    resArray.push(array[index]);
-                                    corresTable[mycat][level].splice(num, 1);
+                                    var code = corresTable[mycat][level][num];
+                                    if (!selectedCodes[code]) {
+                                        resArray.push(codeToQuestion[code]);
+                                        selectedCodes[code] = true;
+                                        // Remove this code from all levels of this category to prevent duplicates
+                                        for (var lvl = 0; lvl < 4; lvl++) {
+                                            var idx = corresTable[mycat][lvl].indexOf(code);
+                                            if (idx > -1) {
+                                                corresTable[mycat][lvl].splice(idx, 1);
+                                            }
+                                        }
+                                    } else {
+                                        // Already selected, just remove from current level array
+                                        corresTable[mycat][level].splice(num, 1);
+                                    }
                                 }
                             }
                         }

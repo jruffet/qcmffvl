@@ -11,7 +11,7 @@ jsonfile = sys.argv[2]
 version = sys.argv[3]
 
 content = {
-    "questions": [],
+    "questions": {},
     "version": version,
     # Distribution :
     # 10% Matériel général (L) + Matériel parapente (N) / delta (R) selon discipline
@@ -60,7 +60,6 @@ pratique = {
     "delta": ["H", "R", "X"],
 }
 
-index = 0
 with open(jsonfile, "w") as outfile:
     with open(csvfile) as infile:
         reader = csv.reader(infile)
@@ -70,42 +69,42 @@ with open(jsonfile, "w") as outfile:
             if not code_group:
                 raise ValueError(f"Invalid code for question: {row}")
 
+            question = row[1]
+            ans = []
+            # Iterate over answer pairs (text at even indices, points at next odd index)
+            for i in range(2, 11, 2):
+                if row[i]:
+                    ans.append({"text": row[i], "pts": row[i + 1]})
+
+            cat = code_group[1]
+            if cat in pratique["general"]:
+                parapente, delta = True, True
+            elif cat in pratique["parapente"]:
+                parapente, delta = True, False
+            elif cat in pratique["delta"]:
+                parapente, delta = False, True
+            else:
+                raise ValueError(f"Unknown category: {cat}")
+
+            # Build niveau array [V, B, M, T] based on level letters in code
+            niveau_array = [0, 0, 0, 0]
             for niveau_letter in code_group.group(3):
-                question = row[1]
-                ans = []
-                # Iterate over answer pairs (text at even indices, points at next odd index)
-                for i in range(2, 11, 2):
-                    if row[i]:
-                        ans.append({"text": row[i], "pts": row[i + 1]})
+                niveau_idx = niveaux.index(niveau_letter)
+                niveau_array[niveau_idx] = 1
 
-                niveau = niveaux.index(niveau_letter)
-                cat = code_group[1]
-                if cat in pratique["general"]:
-                    parapente = True
-                    delta = True
-                elif cat in pratique["parapente"]:
-                    parapente = True
-                    delta = False
-                elif cat in pratique["delta"]:
-                    parapente = False
-                    delta = True
+            content["questions"][code] = {
+                "question": question,
+                "ans": ans,
+                "pratique": [1 if parapente else 0, 1 if delta else 0],
+                "niveau": niveau_array,
+            }
 
-                content["questions"].append(
-                    {
-                        "code": code,
-                        "question": question,
-                        "ans": ans,
-                        "niveau": niveau,
-                        "parapente": parapente,
-                        "delta": delta,
-                    }
-                )
-                content["corresTable"][cat][niveau].append(index)
+            # Add to corresTable for each level this question applies to (using code)
+            for niveau_letter in code_group.group(3):
+                niveau_idx = niveaux.index(niveau_letter)
+                content["corresTable"][cat][niveau_idx].append(code)
 
-                index += 1
-
-    outfile.write(json.dumps(content, indent=2, sort_keys=True))
-
+    outfile.write(json.dumps(content, indent=2, sort_keys=True, ensure_ascii=False))
 
 """
 Codification des questions:

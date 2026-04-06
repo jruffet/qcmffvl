@@ -3,7 +3,8 @@
     "version": "3.10.0",
     "changes": [
       "Refonte graphique des menus et du mode examen.",
-      "Le mode examen force dorénavant le nombres de questions et l'usage de toutes les catégories."
+      "Le mode examen force dorénavant le nombres de questions et l'usage de toutes les catégories.",
+      "Mise à jour du questionnaire FFVL vers 3.3 (nouvelle structure interne)"
     ],
     "bugfixes": []
   },
