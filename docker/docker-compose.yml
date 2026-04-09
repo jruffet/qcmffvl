@@ -1,0 +1,12 @@
+services:
+  qcmffvl:
+    container_name: qcmffvl
+    hostname: qcmffvl
+    user: "1000:1000"
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ..:/app

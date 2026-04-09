@@ -4,323 +4,199 @@
 
 
 angular.module('qcmffvl.services', [])
-    .factory('API', function ($http) {
+    .factory('API', function () {
         return {
-            // newCatDistrib() returns an array with the categories to be displayed,
-            // using the wanted percentage distribution per category, as expressed by
-            // baseCatDistrib like : [["L","N","R"], ["E"], ["GH"], ...]
-            // (contains 10 items, each one being a category, to express percentage)
-            // We add para and delta, because both won't ever show up at the same time
-            newCatDistrib: function (baseCatDistrib, randnum) {
-                var seed = Math.floor(randnum * 10000);
-                var mymt = new MersenneTwister(seed);
-                var distrib = [];
-                for (var i = 0; i < baseCatDistrib.length; i++) {
-                    var item = baseCatDistrib[i];
-                    // only one category
-                    if (item.length == 1) {
-                        distrib.push(item[0]);
-                    } else {
-                        // choose any item, statistically even.
-                        // randomized to avoid, in case of ["L", "NR"]
-                        // L N L N L N, where for 30 questions we always get 2 general and 1 specific
-                        var choice = Math.floor(mymt.random() * item.length);
-                        // item[choice] is a string
-                        if (item[choice].length > 1) {
-                            for (var j = 0; j < item[choice].length; j++) {
-                                distrib.push(item[choice][j]);
+            generateQCM: function (qcm, options, catDistrib) {
+                // console.log(options);
+                // console.log(catDistrib);
+                const activity = options.activity;
+                const level = options.level;
+                const category = options.category;
+                const seed = options.seed;
+
+                let mt = new MersenneTwister(seed);
+                const showAllCategories = category === "Toutes";
+
+                // Deep copy the filtered results so no references are shared with the original qcm
+                const filteredQCM = structuredClone(qcm.filter(q => {
+                    const activityMatch = q.activities.includes(activity);
+                    const levelMatch = q.levels.includes(level);
+                    const categoryMatch = showAllCategories || q.categories.includes(category);
+
+                    return activityMatch && levelMatch && categoryMatch;
+                }));
+
+                const shuffle = (array) => {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(mt.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                };
+
+                shuffle(filteredQCM);
+
+                filteredQCM.forEach(q => {
+                    shuffle(q.answers);
+                });
+
+                const distributedQCM = [];
+                const usedIndices = new Set();
+                const totalQuestions = filteredQCM.length;
+                let globalDistPointer = 0;
+
+                while (usedIndices.size < totalQuestions) {
+                    const currentChunkSize = Math.min(10, totalQuestions - usedIndices.size);
+                    const currentChunk = [];
+
+                    for (let i = 0; i < currentChunkSize; i++) {
+                        let found = false;
+
+                        // Try to satisfy the next category in the distribution sequence
+                        // We limit attempts to the length of catDistrib to ensure we "circle" through all requirements
+                        for (let attempt = 0; attempt < catDistrib.length; attempt++) {
+                            const targetCat = catDistrib[globalDistPointer];
+
+                            // Search for an unused question matching targetCat
+                            for (let j = 0; j < totalQuestions; j++) {
+                                if (!usedIndices.has(j) && filteredQCM[j].categories.includes(targetCat)) {
+                                    currentChunk.push(filteredQCM[j]);
+                                    usedIndices.add(j);
+                                    found = true;
+                                    // Successfully found a match, move pointer to next requirement in distribution
+                                    globalDistPointer = (globalDistPointer + 1) % catDistrib.length;
+                                    break;
+                                }
                             }
-                        } else {
-                            distrib.push(item[choice][0]); // [0] is optionnal
+
+                            if (found) {
+                                break;
+                            }
+
+                            // If target category was not found, move to the next category in the circle
+                            globalDistPointer = (globalDistPointer + 1) % catDistrib.length;
+                        }
+
+                        // Fallback: If no category match was found after circling the whole distribution,
+                        // take the first available question to ensure the chunk is filled.
+                        if (!found) {
+                            for (let j = 0; j < totalQuestions; j++) {
+                                if (!usedIndices.has(j)) {
+                                    currentChunk.push(filteredQCM[j]);
+                                    usedIndices.add(j);
+                                    found = true;
+                                    break;
+                                }
+                            }
                         }
                     }
+
+                    // Shuffle the chunk of 10 (or less) before adding to the final list
+                    shuffle(currentChunk);
+                    distributedQCM.push(...currentChunk);
                 }
-                // shuffle distrib, so we have the correct percentage but placement is randomized
-                var m = distrib.length;
-                var i, t;
-                // While there are elements to shuffle...
-                while (m) {
-                    // Pick a remaining element...
-                    i = Math.floor(mymt.random() * m--);
-                    // And swap it with the current element.
-                    t = distrib[m];
-                    distrib[m] = distrib[i];
-                    distrib[i] = t;
+
+                return {
+                    qcm: distributedQCM,
+                    seed: seed
                 }
-                // console.log("distribution : " + distrib);
-                return distrib;
             },
-
-            generateQCM: function (array, qcmOptions, qcmVer, options, QCMID, answers) {
-                var API = this;
-                // baseCatDistrib : category distribution (cf newCatDistrib)
-                var baseCatDistrib = qcmOptions.catDistrib;
-                // corresTable : correspondance table between cat+level and questions
-                var corresTable = angular.copy(qcmOptions.corresTable);
-                // catFallback : which category to fallback to when one is/becomes empty
-                var catFallback = qcmOptions.catFallback;
-
-                // Create a code-to-question lookup object
-                var codeToQuestion = {};
-                for (var i = 0; i < array.length; i++) {
-                    codeToQuestion[array[i].code] = array[i];
-                }
-
-                // we want to have 10 numbers tops to define the QCM ID,
-                // so 2^33, which is 2^32 for the seed, and 1 bit to
-                // define if we shall advance in the PRNG
-                var seed, surseed;
-
-                // 0 to 2^3X
-                var max32 = Math.pow(2, 32) - 1;
-
-                // generate from a known QCM ID
-                if (QCMID) {
-                    if (API.verifyChecksum(QCMID) == -1) {
-                        return -1;
-                    }
-                    var uncomp = API.uncomputeID(QCMID)
-                    QCMID = uncomp.num;
-                    options = uncomp.options;
-
-                    seed = QCMID % max32;
-                    surseed = Math.floor(QCMID / max32);
-                } else {
-                    // generate random value between 0 and 2^32 - 1
-                    seed = Math.floor(Math.random() * (max32 + 1));
-                    // generate random value beween 0 and 1
-                    surseed = Math.floor(Math.random() * (1 + 1));
-                }
-
-                var mt = new MersenneTwister(seed);
-                if (surseed) {
-                    // skip an arbitrary 1000 numbers in the PRNG
-                    for (var i = 0; i < 1000; i++) {
-                        mt.random();
-                    }
-                }
-
-                var resArray = [];
-                var endoflevel = [false, false, false];
-                var selectedCodes = {};
-
-                while (resArray.length != array.length && (endoflevel[0] == false || endoflevel[1] == false || endoflevel[2] == false)) {
-                    // category distribution (returns 10 items)
-                    var catDistrib = API.newCatDistrib(baseCatDistrib, mt.random());
-
-                    for (var c = 0; c < catDistrib.length; c++) {
-                        var cat = catDistrib[c];
-                        for (var level = 0; level <= 3; level++) {
-                            // if we are out of questions for the requested level,
-                            // fallback to the next level
-                            if (endoflevel[level]) {
-                                continue;
-                            }
-                            var cats = [cat];
-
-                            // if we are out of questions for the requested category,
-                            // fallback to the first available category, as described by catFallback[]
-                            if (corresTable[cat][level].length == 0) {
-                                var fc;
-                                var found = false;
-                                for (var j = 0; j < catFallback[cat].length && !found; j++) {
-                                    fc = catFallback[cat][j];
-                                    // if 2 categories given
-                                    if (fc.length > 1) {
-                                        for (var k = 0; k < fc.length; k++) {
-                                            if (corresTable[fc[k]][level].length > 0) {
-                                                found = true;
-                                            }
-                                        }
-                                    } else if (corresTable[fc][level].length > 0) {
-                                        found = true;
-                                    }
+            tickAnswers: function (qcm, userAnswers) {
+                if (qcm) {
+                    for (let i = 0; i < qcm.length; i++) {
+                        for (let j = 0; j < qcm[i].answers.length; j++) {
+                            if (userAnswers) {
+                                if (userAnswers[qcm[i].code] && userAnswers[qcm[i].code].indexOf(j) !== -1) {
+                                    qcm[i].answers[j].checked = true;
                                 }
-                                if (found) {
-                                    cats = fc;
-                                } else {
-                                    endoflevel[level] = true;
-                                    continue;
-                                }
-                            }
-                            for (var k = 0; k < cats.length; k++) {
-                                var mycat = cats[k];
-                                if (corresTable[mycat][level].length > 0) {
-                                    var num = Math.floor(mt.random() * corresTable[mycat][level].length);
-                                    var code = corresTable[mycat][level][num];
-                                    if (!selectedCodes[code]) {
-                                        resArray.push(codeToQuestion[code]);
-                                        selectedCodes[code] = true;
-                                        // Remove this code from all levels of this category to prevent duplicates
-                                        for (var lvl = 0; lvl < 4; lvl++) {
-                                            var idx = corresTable[mycat][lvl].indexOf(code);
-                                            if (idx > -1) {
-                                                corresTable[mycat][lvl].splice(idx, 1);
-                                            }
-                                        }
-                                    } else {
-                                        // Already selected, just remove from current level array
-                                        corresTable[mycat][level].splice(num, 1);
-                                    }
+                            } else {
+                                if (qcm[i].answers[j].pts >= 0) {
+                                    qcm[i].answers[j].checked = true;
                                 }
                             }
                         }
                     }
                 }
-
-                API.untickAnswers(resArray);
-
-                // randomize answers order (per question) with given MT
-                for (var i = 0; i < resArray.length; i++) {
-                    var anslen = resArray[i].ans.length;
-                    for (var j = 0; j < anslen; j++) {
-                        var rand = Math.floor(mt.random() * anslen);
-                        if (rand != j) {
-                            var tmp = resArray[i].ans[j];
-                            resArray[i].ans[j] = resArray[i].ans[rand];
-                            resArray[i].ans[rand] = tmp;
-                        }
-                    }
-                    // in case answers were set in a previous unfinished session of the same QCM
-                    // tick them _after_ we are finished ordering properly
-                    if (answers) {
-                        var storedAns = answers[resArray[i].code];
-                        if (storedAns) {
-                            for (var k = 0; k < storedAns.length; k++) {
-                                resArray[i].ans[storedAns[k]].checked = true;
-                            }
-                        }
-                    }
-                }
-                // modify original array
-                for (var i = 0; i < array.length; i++) {
-                    array[i] = resArray[i];
-                }
-
-                // return QCM ID
-                return API.computeID(seed + max32 * surseed, qcmVer, options);
             },
-            tickAnswers: function (array) {
-                if (array) {
-                    for (var i = 0; i < array.length; i++) {
-                        for (var j = 0; j < array[i].ans.length; j++) {
-                            if (array[i].ans[j].pts >= 0) {
-                                array[i].ans[j].checked = true;
-                            }
+            untickAnswers: function (qcm) {
+                if (qcm) {
+                    for (let i = 0; i < qcm.length; i++) {
+                        for (let j = 0; j < qcm[i].answers.length; j++) {
+                            delete (qcm[i].answers[j].checked);
                         }
                     }
                 }
             },
-            untickAnswers: function (array) {
-                if (array) {
-                    for (var i = 0; i < array.length; i++) {
-                        for (var j = 0; j < array[i].ans.length; j++) {
-                            delete (array[i].ans[j].checked);
-                        }
-                    }
-                }
-            },
-            computeID: function (num, qcmVer, options) {
-                var API = this;
-                var padnum = API.pad(num, 10);
-                var optnum = 0;
-                if (options)
-                    optnum = API.pad(API.computeOptions(options), 3);
-                var ck = API.pad(API.checksum(num, qcmVer, optnum), 3);
-                return ck + padnum + qcmVer + optnum;
-            },
-            uncomputeID: function (ID) {
-                var API = this;
-                var ck = parseInt(ID.substr(0, 3), 10);
-                var num = parseInt(ID.substr(3, 10), 10);
-                var qcmVer = parseInt(ID.substr(13, 2), 10);
-                var optnum;
-                var opt;
+            QCMID: function (seed, optArray, appVersion, qcmVersion) {
+                // Construct base string from 4-digit seed and 4-digit options array
+                const baseStr = [
+                    seed.toString().padStart(4, '0'),
+                    ...optArray.map(n => n.toString().padStart(1, '0'))
+                ].join('');
 
-                optnum = parseInt(ID.substr(15, 3), 10);
-                opt = API.uncomputeOptions(optnum);
-                return { "ck": ck, "options": opt, "num": num, "optnum": optnum, "qcmVer": qcmVer }
-            },
-            computeOptions: function (opt) {
-                var API = this;
-                // console.debug("-- computeOptions --");
-                // console.debug(opt);
-                // sport : 2 options
-                // level : 4 options
-                // nbquestions : 6 options
-                // category : 8 options
-                // encode everything into a 2*4*6*8 (= 384) number
-                var optnum = opt[0] * 4 * 6 * 8 + opt[1] * 6 * 8 + opt[2] * 8 + opt[3];
-                return optnum;
-            },
-            uncomputeOptions: function (num) {
-                var opt = [];
-                opt[0] = Math.floor(num / (4 * 6 * 8));
-                opt[1] = Math.floor((num - opt[0] * 4 * 6 * 8) / (6 * 8));
-                opt[2] = Math.floor((num - opt[0] * 4 * 6 * 8 - opt[1] * 6 * 8) / 8);
-                opt[3] = num - opt[0] * 4 * 6 * 8 - opt[1] * 6 * 8 - opt[2] * 8;
-                return opt;
-            },
-            // returns :
-            // checksum if none given or if checksum matches "ck"
-            // -1 if the one given ("ck") is bogus
-            checksum: function (num, qcmVer, optnum, ck) {
-                // space 10^3 for parity bits : 2^9 < 10^3 < 2^10 : so 9 parity bits
-                var nbits = 9;
-                var pbits = [];
-                // num is on 10 digits, calculate the checksum for "num" + "qcmVer" + "optnum" (concatenated like strings)
-                var b2num = (num + qcmVer * Math.pow(10, 10) + optnum * Math.pow(12, 10)).toString(2);
-                var b2numlen = b2num.length;
-                var step = Math.floor(b2numlen / nbits);
-                var remaining = b2numlen % nbits;
-                // console.log("%s : %s %s %s", num, b2numlen, nbits, step);
-                var block, csum;
-                // compute parity bits for each block
-                for (var i = 0; i < nbits; i++) {
-                    // optimise blocks so that every block has the same size +- 1 bit
-                    if (remaining-- > 0) {
-                        block = b2num.substr(i * step, step + 1);
-                    } else {
-                        block = b2num.substr(i * step, step);
-                    }
-                    // console.debug("block (%s) : %s", remaining, block);
-                    pbits.push(parseInt(block, 2) % 2);
+                // Calculate 2-digit checksum for version integrity
+                let versionChecksum = 0;
+                const versionStr = appVersion.toString().replace(/\./g, '') + qcmVersion.toString().replace(/\./g, '');
+                for (let i = 0; i < versionStr.length; i++) {
+                    versionChecksum = (versionChecksum + (parseInt(versionStr[i], 10) * (i + 1))) % 100;
                 }
-                csum = parseInt(pbits.join(""), 2);
-                if (ck && ck != csum) {
-                    return -1;
+
+                // Calculate 2-digit checksum for data integrity (baseStr + versionChecksum)
+                // This ensures the data checksum covers the entire 10-digit payload
+                let dataChecksum = 0;
+                const payloadStr = baseStr + versionChecksum.toString().padStart(2, '0');
+                for (let i = 0; i < payloadStr.length; i++) {
+                    dataChecksum = (dataChecksum + (parseInt(payloadStr[i], 10) * (i + 1))) % 100;
                 }
-                return csum;
+
+                // Structure: [base_str:8][version_cs:2][data_cs:2]
+                return baseStr +
+                    versionChecksum.toString().padStart(2, '0') +
+                    dataChecksum.toString().padStart(2, '0');
             },
-            verifyChecksum: function (ID) {
-                var API = this;
-                if (!ID || ID.length < 17 || ID.length > 18) {
+            extractSeedAndOptionsFromQCMID: function (qcmid) {
+                const seed = parseInt(qcmid.substring(0, 4), 10);
+                // The optArray starts at index 4 and ends before the 4-character checksum suffix
+                // Since the original QCMID logic uses map(n => n.toString().padStart(1, '0')),
+                // we extract the middle part and convert digits back to an array.
+                const optionsStr = qcmid.substring(4, qcmid.length - 4);
+                const optArray = optionsStr.split('').map(char => parseInt(char, 10));
+
+                return { seed, optArray };
+            },
+            isValidQCMID: function (qcmid) {
+                // Validates that the last 2 digits are a valid checksum of the first 10 digits
+                if (qcmid.length !== 12) {
                     return false;
                 }
-                var IDdict = API.uncomputeID(ID);
-                return (API.checksum(IDdict.num, IDdict.qcmVer, IDdict.optnum, IDdict.ck) != -1);
-            },
-            verifyVersion: function (ID, qcmVer) {
-                var API = this;
-                var IDdict = API.uncomputeID(ID);
-                return (IDdict.qcmVer == qcmVer);
-            },
-            extractVersion: function (ID) {
-                var API = this;
-                var IDdict = API.uncomputeID(ID);
-                return API.versionToDot(IDdict.qcmVer);
-            },
-            pad: function (num, size) {
-                return ('00000000000000000000000' + num).substr(-size);
-            },
-            crc: function (txt) {
-                return crc32(txt).toUpperCase();
-            },
-            versionToDot: function (num) {
-                var n = num.toString();
-                return n[0] + '.' + n[1];
-            }
 
-            //TODO : move selftest here
+                const payloadStr = qcmid.substring(0, 10);
+                const providedDataChecksum = parseInt(qcmid.substring(10, 12), 10);
+
+                let calculatedDataChecksum = 0;
+                for (let i = 0; i < payloadStr.length; i++) {
+                    calculatedDataChecksum = (calculatedDataChecksum + (parseInt(payloadStr[i], 10) * (i + 1))) % 100;
+                }
+
+                return calculatedDataChecksum === providedDataChecksum;
+            },
+            isQCMIDVersionMatch: function (qcmid, appVersion, qcmVersion) {
+                if (qcmid.length !== 12) {
+                    return false;
+                }
+
+                // Extract the version checksum from the middle 2 digits (index 8 and 9)
+                const providedVersionChecksum = parseInt(qcmid.substring(8, 10), 10);
+
+                let calculatedVersionChecksum = 0;
+                const versionStr = appVersion.toString().replace(/\./g, '') + qcmVersion.toString().replace(/\./g, '');
+                for (let i = 0; i < versionStr.length; i++) {
+                    calculatedVersionChecksum = (calculatedVersionChecksum + (parseInt(versionStr[i], 10) * (i + 1))) % 100;
+                }
+
+                return calculatedVersionChecksum === providedVersionChecksum;
+            },
+            newSeed: function () {
+                return Math.floor(Math.random() * 10000);
+            }
         };
     });

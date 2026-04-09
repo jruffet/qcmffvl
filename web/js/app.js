@@ -10,14 +10,12 @@ angular.module('qcmffvl', [
   'ng.deviceDetector',
   'pascalprecht.translate',
   'angular-clipboard',
-  'qcmffvl.filters',
   'qcmffvl.services',
   'qcmffvl.directives',
   'qcmffvl.controllers'
 ]).
   config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/load/:qcmid', { templateUrl: 'qcm.html', controller: 'LoadCtrl' });
-    $routeProvider.when('/load/:qcmid/:typeExamNum', { templateUrl: 'qcm.html', controller: 'LoadCtrl' });
     $routeProvider.when('/qcm', { templateUrl: 'qcm.html', controller: 'QCMCtrl' });
     $routeProvider.when('/about', { templateUrl: 'about.html', controller: 'AboutCtrl' });
     $routeProvider.otherwise({ redirectTo: '/qcm' });

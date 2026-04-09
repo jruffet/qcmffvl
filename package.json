@@ -1,0 +1,14 @@
+{
+  "name": "qcm-ffvl",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "(vite --host --no-open & npx nodemon --watch web/json/versions.json --exec \"node scripts/sync-data.js\" --quiet)",
+    "build": "node scripts/sync-data.js && vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0",
+    "nodemon": "^3.0.0"
+  }
+}

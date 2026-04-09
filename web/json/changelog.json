@@ -1,17 +1,10 @@
 [
   {
-    "version": "3.11.0",
+    "version": "4.0.0",
     "changes": [
-      "Améliorations internes de gestion du questionnaire et des filtres.",
-      "Mise à jour du questionnaire FFVL vers 3.3 (nouvelle structure interne)."
-    ],
-    "bugfixes": []
-  },
-  {
-    "version": "3.10.0",
-    "changes": [
+      "Réécriture complète du moteur du QCM.",
       "Refonte graphique des menus et du mode examen.",
-      "Le mode examen force dorénavant le nombres de questions et l'usage de toutes les catégories."
+      "Mise à jour du questionnaire FFVL vers 3.3 (nouvelle structure interne)."
     ],
     "bugfixes": []
   },

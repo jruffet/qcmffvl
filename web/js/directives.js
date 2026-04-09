@@ -10,7 +10,7 @@ angular.module('qcmffvl.directives', [])
       link: function (scope, element, attrs) {
         element.on('focus', function () {
           if (!$window.getSelection().toString()) {
-            this.setSelectionRange(0, this.value.length)
+            this.setSelectionRange(0, this.value.length);
           }
         });
       }

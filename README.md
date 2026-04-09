@@ -14,3 +14,14 @@ Official multiple-choice web application for the French paragliding and hang gli
 ## Usage
 - Access the latest stable version at: https://qcm.ffvl.fr/
 - Install on mobile devices by using "Add to home screen" (Brave/Firefox/etc.)
+
+## Local Development
+
+### Running with Docker Compose
+To start the development environment, run the following command from the project root:
+
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
+
+The application will be available at `http://localhost:3000`.
