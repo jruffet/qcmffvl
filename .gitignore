@@ -1,5 +1,4 @@
 web/json/qcm_ffvl.json
-web/json/versions.json
 node_modules/
 dist/
 package-lock.json
