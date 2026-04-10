@@ -22,6 +22,9 @@ angular.module('qcmffvl.services', [])
     .factory('API', function () {
         return {
             generateQCM: function (qcm, options, catDistrib) {
+                if (qcm === undefined) {
+                    return;
+                }
                 // console.log(options);
                 // console.log(catDistrib);
                 const activity = options.activity;
