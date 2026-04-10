@@ -2,6 +2,21 @@
 
 /* Services */
 
+const createPRNG = (seed) => {
+    let m_x = (seed | 0);
+    let m_y = 0x9E3779B9;
+
+    return {
+        next: () => {
+            // SplitMix32 implementation
+            m_x = (m_x + 0x9E3779B9) | 0;
+            let z = m_x | 0;
+            z = Math.imul(z ^ (z >>> 16), 0x85ebca6b);
+            z = Math.imul(z ^ (z >>> 13), 0xc2b2ae35);
+            return ((z ^ (z >>> 16)) >>> 0) / 4294967296;
+        }
+    };
+};
 
 angular.module('qcmffvl.services', [])
     .factory('API', function () {
@@ -14,7 +29,7 @@ angular.module('qcmffvl.services', [])
                 const category = options.category;
                 const seed = options.seed;
 
-                let mt = new MersenneTwister(seed);
+                let prng = createPRNG(seed);
                 const showAllCategories = category === "Toutes";
 
                 // Deep copy the filtered results so no references are shared with the original qcm
@@ -28,7 +43,7 @@ angular.module('qcmffvl.services', [])
 
                 const shuffle = (array) => {
                     for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(mt.random() * (i + 1));
+                        const j = Math.floor(prng.next() * (i + 1));
                         [array[i], array[j]] = [array[j], array[i]];
                     }
                 };
