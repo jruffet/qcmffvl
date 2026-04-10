@@ -113,13 +113,15 @@ with open(jsonfile, "w") as outfile:
             first_letter = code_group[1]
             last_letters = [x for x in code_group[3]]
 
-            content["questions"].append({
-                "code": code,
-                "question": question,
-                "answers": ans_array,
-                "activities": [x for x, y in pratique_to_letters.items() if first_letter in y],
-                "categories": [x for x, y in category_to_letters.items() if first_letter in y],
-                "levels": [x for x, y in niveau_to_letter.items() if y in last_letters],
-            })
+            content["questions"].append(
+                {
+                    "code": code,
+                    "question": question,
+                    "answers": ans_array,
+                    "activities": [x for x, y in pratique_to_letters.items() if first_letter in y],
+                    "categories": [x for x, y in category_to_letters.items() if first_letter in y],
+                    "levels": [x for x, y in niveau_to_letter.items() if y in last_letters],
+                }
+            )
 
     outfile.write(json.dumps(content, indent=2, ensure_ascii=False))
