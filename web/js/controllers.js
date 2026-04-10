@@ -144,17 +144,13 @@ angular.module('qcmffvl.controllers', [])
             let opt = [];
             opt[0] = $scope.main.conf.activity.options.indexOf($scope.$storage.conf.activity);
             opt[1] = $scope.main.conf.level.options.indexOf($scope.$storage.conf.level);
-            opt[2] = $scope.main.conf.nbquestions.options.indexOf($scope.$storage.conf.nbquestions.toString());
-            opt[3] = $scope.main.conf.category.options.indexOf($scope.$storage.conf.category);
+            opt[2] = $scope.main.conf.category.options.indexOf($scope.$storage.conf.category);
             return opt;
         }
         $scope.optionsArrToStorage = function (opt) {
             $scope.$storage.conf.activity = $scope.main.conf.activity.options[opt[0]];
             $scope.$storage.conf.level = $scope.main.conf.level.options[opt[1]];
-            if (!$scope.main.exam.enabled) {
-                $scope.$storage.conf.nbquestions = $scope.main.conf.nbquestions.options[opt[2]];
-            }
-            $scope.$storage.conf.category = $scope.main.conf.category.options[opt[3]];
+            $scope.$storage.conf.category = $scope.main.conf.category.options[opt[2]];
         }
 
         $scope.updateQCMID = function () {

@@ -127,7 +127,7 @@ angular.module('qcmffvl.services', [])
                 }
             },
             QCMID: function (seed, optArray, appVersion, qcmVersion) {
-                // Construct base string from 4-digit seed and 4-digit options array
+                // Construct base string from 4-digit seed and 3-digit options array
                 const baseStr = [
                     seed.toString().padStart(4, '0'),
                     ...optArray.map(n => n.toString().padStart(1, '0'))
@@ -141,14 +141,14 @@ angular.module('qcmffvl.services', [])
                 }
 
                 // Calculate 2-digit checksum for data integrity (baseStr + versionChecksum)
-                // This ensures the data checksum covers the entire 10-digit payload
+                // This ensures the data checksum covers the entire 9-digit payload
                 let dataChecksum = 0;
                 const payloadStr = baseStr + versionChecksum.toString().padStart(2, '0');
                 for (let i = 0; i < payloadStr.length; i++) {
                     dataChecksum = (dataChecksum + (parseInt(payloadStr[i], 10) * (i + 1))) % 100;
                 }
 
-                // Structure: [base_str:8][version_cs:2][data_cs:2]
+                // Structure: [base_str:7][version_cs:2][data_cs:2]
                 return baseStr +
                     versionChecksum.toString().padStart(2, '0') +
                     dataChecksum.toString().padStart(2, '0');
@@ -156,21 +156,20 @@ angular.module('qcmffvl.services', [])
             extractSeedAndOptionsFromQCMID: function (qcmid) {
                 const seed = parseInt(qcmid.substring(0, 4), 10);
                 // The optArray starts at index 4 and ends before the 4-character checksum suffix
-                // Since the original QCMID logic uses map(n => n.toString().padStart(1, '0')),
-                // we extract the middle part and convert digits back to an array.
-                const optionsStr = qcmid.substring(4, qcmid.length - 4);
+                // Base length is 7 (4 seed + 3 options)
+                const optionsStr = qcmid.substring(4, 7);
                 const optArray = optionsStr.split('').map(char => parseInt(char, 10));
 
                 return { seed, optArray };
             },
             isValidQCMID: function (qcmid) {
-                // Validates that the last 2 digits are a valid checksum of the first 10 digits
-                if (qcmid.length !== 12) {
+                // Validates that the last 2 digits are a valid checksum of the first 9 digits
+                if (qcmid.length !== 11) {
                     return false;
                 }
 
-                const payloadStr = qcmid.substring(0, 10);
-                const providedDataChecksum = parseInt(qcmid.substring(10, 12), 10);
+                const payloadStr = qcmid.substring(0, 9);
+                const providedDataChecksum = parseInt(qcmid.substring(9, 11), 10);
 
                 let calculatedDataChecksum = 0;
                 for (let i = 0; i < payloadStr.length; i++) {
@@ -180,12 +179,12 @@ angular.module('qcmffvl.services', [])
                 return calculatedDataChecksum === providedDataChecksum;
             },
             isQCMIDVersionMatch: function (qcmid, appVersion, qcmVersion) {
-                if (qcmid.length !== 12) {
+                if (qcmid.length !== 11) {
                     return false;
                 }
 
-                // Extract the version checksum from the middle 2 digits (index 8 and 9)
-                const providedVersionChecksum = parseInt(qcmid.substring(8, 10), 10);
+                // Extract the version checksum from the middle 2 digits (index 7 and 8)
+                const providedVersionChecksum = parseInt(qcmid.substring(7, 9), 10);
 
                 let calculatedVersionChecksum = 0;
                 const versionStr = appVersion.toString().replace(/\./g, '') + qcmVersion.toString().replace(/\./g, '');
