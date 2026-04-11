@@ -6,14 +6,16 @@
   "scripts": {
     "dev": "(vite --host --no-open & npx nodemon --watch web/json/versions.json --exec \"node scripts/sync-data.js\" --quiet)",
     "build": "node scripts/sync-data.js && vite build",
-    "lint": "eslint web/js/**/*.js --no-warn-ignored"
+    "lint": "eslint web/js/**/*.js --no-warn-ignored",
+    "test": "vitest"
   },
   "devDependencies": {
-    "vite": "^8.0.8",
-    "nodemon": "^3.1.14",
     "eslint": "^9.0.0",
     "eslint-plugin-angular": "^1.0.0",
     "eslint-plugin-import": "^2.29.1",
-    "npm-check-updates": "^20.0.1"
+    "nodemon": "^3.1.14",
+    "npm-check-updates": "^20.0.1",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
   }
 }
