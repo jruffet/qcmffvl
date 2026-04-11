@@ -10,9 +10,9 @@ describe('API_LOGIC', () => {
             levels: ['Brevet de Pilote'],
             categories: ['Météo'],
             answers: [
-                { text: 'A', pts: 6 },
-                { text: 'B', pts: 0 },
-                { text: 'C', pts: -3 }
+                { text: 'A', pts: 6, checked: false },
+                { text: 'B', pts: 0, checked: false },
+                { text: 'C', pts: -3, checked: false }
             ]
         },
         {
@@ -22,10 +22,10 @@ describe('API_LOGIC', () => {
             levels: ['Brevet de Pilote'],
             categories: ['Mécavol'],
             answers: [
-                { text: 'A', pts: 3 },
-                { text: 'B', pts: 3 },
-                { text: 'C', pts: -6 },
-                { text: 'D', pts: -6 }
+                { text: 'A', pts: 3, checked: false },
+                { text: 'B', pts: 3, checked: false },
+                { text: 'C', pts: -6, checked: false },
+                { text: 'D', pts: -6, checked: false }
             ]
         }
     ];
@@ -86,26 +86,33 @@ describe('API_LOGIC', () => {
             const userAnswers = { 'q1': [0] }; // index 0 for q1
             API_LOGIC.tickAnswers(qcm, userAnswers);
             expect(qcm[0].answers[0].checked).toBe(true);
-            expect(qcm[0].answers[1].checked).toBeUndefined();
-            expect(qcm[1].answers[0].checked).toBeUndefined();
+            expect(qcm[0].answers[1].checked).toBe(false);
+            expect(qcm[1].answers[0].checked).toBe(false);
         });
 
         it('should tick all positive point answers if no userAnswers provided', () => {
             const qcm = structuredClone(mockQcm);
             API_LOGIC.tickAnswers(qcm);
+
+            // q1: A(6), B(0), C(-3) -> A and B should be true
             expect(qcm[0].answers[0].checked).toBe(true);
             expect(qcm[0].answers[1].checked).toBe(true);
-            expect(qcm[0].answers[2].checked).toBe(undefined);
+            expect(qcm[0].answers[2].checked).toBe(false);
+
+            // q2: A(3), B(3), C(-6), D(-6) -> A and B should be true
             expect(qcm[1].answers[0].checked).toBe(true);
+            expect(qcm[1].answers[1].checked).toBe(true);
+            expect(qcm[1].answers[2].checked).toBe(false);
+            expect(qcm[1].answers[3].checked).toBe(false);
         });
     });
 
     describe('untickAnswers', () => {
-        it('should remove checked property from all answers', () => {
+        it('should set checked to false for all answers', () => {
             const qcm = [{ answers: [{ checked: true }, { checked: false }] }];
             API_LOGIC.untickAnswers(qcm);
-            expect(qcm[0].answers[0].checked).toBeUndefined();
-            expect(qcm[0].answers[1].checked).toBeUndefined();
+            expect(qcm[0].answers[0].checked).toBe(false);
+            expect(qcm[0].answers[1].checked).toBe(false);
         });
     });
 

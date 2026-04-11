@@ -135,7 +135,7 @@ const API_LOGIC = {
         if (qcm) {
             for (let i = 0; i < qcm.length; i++) {
                 for (let j = 0; j < qcm[i].answers.length; j++) {
-                    delete (qcm[i].answers[j].checked);
+                    qcm[i].answers[j].checked = false;
                 }
             }
         }

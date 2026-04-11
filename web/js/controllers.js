@@ -117,11 +117,17 @@ angular.module('qcmffvl.controllers', [])
                 $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
                     .success(function (data) {
                         $scope.qcmOrig = data.questions;
+                        // Initialize checked state for all answers in the template
+                        $scope.qcmOrig.forEach(q => {
+                            q.answers.forEach(a => a.checked = false);
+                        });
                         $scope.qcmOptions.catDistrib = data.catDistrib;
+                        console.log($scope.qcmOrig);
                     })
                     .error(function () {
                         dialogs.error('Erreur', 'Impossible de charger le JSON');
                     });
+
             }, 100);
         }
 
