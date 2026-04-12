@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('qcmffvl.controllers', [])
-    .controller('MainCtrl', function ($scope, API, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
+    .controller('MainCtrl', function ($scope, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
         $scope.version = __APP_VERSION__;
         $scope.qcmVersion = __QCM_VERSION__;
 
@@ -47,7 +47,7 @@ angular.module('qcmffvl.controllers', [])
                 enabled: false,
                 is_candidat: true
             },
-            // QCMID is set by API.generateQCM(), or from QCMIDUser when loading a previous QCM
+            // QCMID is set by QCM.generateQCM(), or from QCMIDUser when loading a previous QCM
             QCMID: "",
             // QCMIDUser is set by the user, via formattedQCMIDUser
             QCMIDUser: "",
@@ -122,7 +122,6 @@ angular.module('qcmffvl.controllers', [])
                             q.answers.forEach(a => a.checked = false);
                         });
                         $scope.qcmOptions.catDistrib = data.catDistrib;
-                        console.log($scope.qcmOrig);
                     })
                     .error(function () {
                         dialogs.error('Erreur', 'Impossible de charger le JSON');
@@ -133,12 +132,12 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.fillQCMAnswers = function () {
             $scope.main.checkAnswers = true;
-            API.tickAnswers($scope.qcm);
+            QCM.tickAnswers($scope.qcm);
         }
 
         $scope.unfillQCMAnswers = function () {
             $scope.main.checkAnswers = false;
-            API.untickAnswers($scope.qcm);
+            QCM.untickAnswers($scope.qcm);
         }
 
         $scope.deleteStoredAnswers = function () {
@@ -160,7 +159,8 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.updateQCMID = function () {
-            $scope.main.QCMID = API.QCMID($scope.$storage.conf.seed, $scope.optionsToArray(), $scope.version, $scope.qcmVersion);
+                $scope.main.QCMID = QCM.QCMID($scope.$storage.conf.seed, $scope.optionsToArray(), $scope.version, $scope.qcmVersion);
+
             $scope.main.QCMIDURL = `https://qcm.ffvl.fr/#/load/${$scope.main.QCMID}`;
         }
 
@@ -172,21 +172,21 @@ angular.module('qcmffvl.controllers', [])
 
             $timeout(function () {
                 if (renewSeed) {
-                    $scope.$storage.conf.seed = API.newSeed();
+                $scope.$storage.conf.seed = PRNG.newSeed();
                 }
                 if (!keepAnswers) {
                     $scope.unfillQCMAnswers();
                     $scope.deleteStoredAnswers();
                 }
-                const result = API.generateQCM($scope.qcmOrig, $scope.$storage.conf, $scope.qcmOptions.catDistrib);
+                const result = QCM.generateQCM($scope.qcmOrig, $scope.$storage.conf, $scope.qcmOptions.catDistrib);
                 $scope.qcm = result.qcm;
                 $scope.seed = result.seed;
 
                 if ($scope.main.exam.enabled && !$scope.main.exam.is_candidat) {
-                    API.tickAnswers($scope.qcm);
+                    QCM.tickAnswers($scope.qcm);
                 }
                 if (keepAnswers && Object.keys($scope.$storage.answers).length > 0) {
-                    API.tickAnswers($scope.qcm, $scope.$storage.answers);
+                    QCM.tickAnswers($scope.qcm, $scope.$storage.answers);
                 }
                 // Apply nbquestions limit after generation
                 $scope.updateFilteredResult();
@@ -199,9 +199,9 @@ angular.module('qcmffvl.controllers', [])
         $scope.loadQCMID = function (QCMID) {
             let errorMsg = null;
 
-            if (!API.isValidQCMID(QCMID)) {
+            if (!QCM.isValidQCMID(QCMID)) {
                 errorMsg = '<b>QCM ID invalide</b> (' + QCMID + ')';
-            } else if (!API.isQCMIDVersionMatch(QCMID, $scope.version, $scope.qcmVersion)) {
+            } else if (!QCM.isQCMIDVersionMatch(QCMID, $scope.version, $scope.qcmVersion)) {
                 errorMsg = "QCMID non compatible avec cette version<br>Le questionnaire courant a été rechargé";
             }
             if (errorMsg) {
@@ -210,7 +210,7 @@ angular.module('qcmffvl.controllers', [])
                 $scope.regenerateQCM(false, true);
                 return;
             }
-            const result = API.extractSeedAndOptionsFromQCMID(QCMID);
+            const result = QCM.extractSeedAndOptionsFromQCMID(QCMID);
             $scope.$storage.conf.seed = result.seed;
             $scope.optionsArrToStorage(result.optArray);
             $scope.regenerateQCM(false);
@@ -335,7 +335,7 @@ angular.module('qcmffvl.controllers', [])
                     $scope.headerExamPapier = newval ? $scope.headerExamPapierCandidat : $scope.headerExamPapierExaminateur;
                     $scope.unfillQCMAnswers();
                     if (!newval) {
-                        API.tickAnswers($scope.qcm);
+                        QCM.tickAnswers($scope.qcm);
                     }
                 }
             }
@@ -439,48 +439,34 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.getPoints = function (question) {
-            let total = 0;
-            for (let i = 0; i < question.answers.length; i++) {
-                if (question.answers[i].checked) {
-                    total += question.answers[i].pts;
-                }
-            }
-            return Math.max(0, total);
+            return QCM.getPoints(question);
         }
 
         $scope.getScore = function () {
-            let score = { user: 0, nb: 0, percentage: 0 };
-            for (let i = 0; i < $scope.filtered_qcm.length; i++) {
-                const question = $scope.filtered_qcm[i];
-                score.user += $scope.getPoints(question);
-            }
-            score.total = $scope.filtered_qcm.length * 6;
-            if (score.total > 0) {
-                score.percentage = Math.round(score.user / score.total * 100);
-            }
-            return score;
+            return QCM.getScore($scope.filtered_qcm);
         }
+
 
 
         $scope.successQuestion = function (question) {
             if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question)) {
                 return false;
             }
-            return ($scope.getPoints(question) === 6);
+            return (QCM.getPoints(question) === 6);
         }
 
         $scope.failedQuestion = function (question) {
             if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question)) {
                 return false;
             }
-            return ($scope.getPoints(question) === 0);
+            return (QCM.getPoints(question) === 0);
         }
 
         $scope.warningQuestion = function (question) {
             if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question)) {
                 return false;
             }
-            const points = $scope.getPoints(question);
+            const points = QCM.getPoints(question);
             return (points >= 1 && points <= 5);
         }
 
@@ -514,7 +500,7 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.updateScore = function () {
             if ($scope.main.checkAnswers) {
-                $scope.main.score = $scope.getScore();
+                $scope.main.score = QCM.getScore($scope.filtered_qcm);
             }
         }
 
@@ -590,7 +576,7 @@ angular.module('qcmffvl.controllers', [])
     })
 
 
-    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, API, clipboard, $timeout) {
+    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, clipboard, $timeout) {
         $scope.main = data;
         $scope.copyButtonText = '';
         $scope.copyButtonClass = '';
@@ -598,7 +584,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.main.userQCMID = angular.copy($scope.main.QCMID);
         $scope.verifyQCMID = function () {
             if ($scope.main.QCMID != $scope.main.userQCMID) {
-                return API.isValidQCMID($scope.main.userQCMID);
+                return QCM.isValidQCMID($scope.main.userQCMID);
             } else {
                 return true;
             }

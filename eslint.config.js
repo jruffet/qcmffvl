@@ -16,7 +16,9 @@ export default [
         console: 'readonly',
         jQuery: 'readonly',
         $: 'readonly',
-        angular: 'readonly'
+        angular: 'readonly',
+        PRNG: 'readonly',
+        QCM: 'readonly'
       }
     },
     plugins: {

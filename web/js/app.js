@@ -10,7 +10,6 @@ angular.module('qcmffvl', [
   'ng.deviceDetector',
   'pascalprecht.translate',
   'angular-clipboard',
-  'qcmffvl.services',
   'qcmffvl.directives',
   'qcmffvl.controllers'
 ]).

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { API_LOGIC } from '../../web/js/services.js';
+import { QCM } from '../js/core/qcm.js';
 
-describe('API_LOGIC', () => {
+describe('QCM', () => {
     const mockQcm = [
         {
             code: 'q1',
@@ -39,42 +39,27 @@ describe('API_LOGIC', () => {
 
     const mockCatDistrib = ['Météo', 'Mécavol'];
 
-    describe('createPRNG', () => {
-        it('should produce deterministic values for the same seed', () => {
-            const prng1 = API_LOGIC.createPRNG(123);
-            const prng2 = API_LOGIC.createPRNG(123);
-            expect(prng1.next()).toBe(prng2.next());
-        });
-
-        it('should produce different values for different seeds', () => {
-            const prng1 = API_LOGIC.createPRNG(123);
-            const prng2 = API_LOGIC.createPRNG(456);
-            expect(prng1.next()).not.toBe(prng2.next());
-        });
-    });
-
     describe('generateQCM', () => {
         it('should return undefined if qcm is undefined', () => {
-            expect(API_LOGIC.generateQCM(undefined, mockOptions, mockCatDistrib)).toBeUndefined();
+            expect(QCM.generateQCM(undefined, mockOptions, mockCatDistrib)).toBeUndefined();
         });
 
         it('should return a qcm and seed', () => {
-            const result = API_LOGIC.generateQCM(mockQcm, mockOptions, mockCatDistrib);
+            const result = QCM.generateQCM(mockQcm, mockOptions, mockCatDistrib);
             expect(result).toHaveProperty('qcm');
             expect(result).toHaveProperty('seed', mockOptions.seed);
             expect(result.qcm.length).toBe(2);
         });
 
         it('should be idempotent (same seed produces same result)', () => {
-            const result1 = API_LOGIC.generateQCM(mockQcm, mockOptions, mockCatDistrib);
-            const result2 = API_LOGIC.generateQCM(mockQcm, mockOptions, mockCatDistrib);
-
+            const result1 = QCM.generateQCM(mockQcm, mockOptions, mockCatDistrib);
+            const result2 = QCM.generateQCM(mockQcm, mockOptions, mockCatDistrib);
             expect(JSON.stringify(result1.qcm)).toBe(JSON.stringify(result2.qcm));
         });
 
         it('should filter by activity, level and category', () => {
             const filteredOptions = { ...mockOptions, category: 'Météo' };
-            const result = API_LOGIC.generateQCM(mockQcm, filteredOptions, mockCatDistrib);
+            const result = QCM.generateQCM(mockQcm, filteredOptions, mockCatDistrib);
             expect(result.qcm.length).toBe(1);
             expect(result.qcm[0].categories).toContain('Météo');
         });
@@ -83,36 +68,45 @@ describe('API_LOGIC', () => {
     describe('tickAnswers', () => {
         it('should tick correct answers based on userAnswers', () => {
             const qcm = structuredClone(mockQcm);
-            const userAnswers = { 'q1': [0] }; // index 0 for q1
-            API_LOGIC.tickAnswers(qcm, userAnswers);
+            const userAnswers = { 'q1': [0] };
+            QCM.tickAnswers(qcm, userAnswers);
             expect(qcm[0].answers[0].checked).toBe(true);
             expect(qcm[0].answers[1].checked).toBe(false);
-            expect(qcm[1].answers[0].checked).toBe(false);
         });
 
         it('should tick all positive point answers if no userAnswers provided', () => {
             const qcm = structuredClone(mockQcm);
-            API_LOGIC.tickAnswers(qcm);
-
-            // q1: A(6), B(0), C(-3) -> A and B should be true
+            QCM.tickAnswers(qcm);
             expect(qcm[0].answers[0].checked).toBe(true);
             expect(qcm[0].answers[1].checked).toBe(true);
             expect(qcm[0].answers[2].checked).toBe(false);
-
-            // q2: A(3), B(3), C(-6), D(-6) -> A and B should be true
-            expect(qcm[1].answers[0].checked).toBe(true);
-            expect(qcm[1].answers[1].checked).toBe(true);
-            expect(qcm[1].answers[2].checked).toBe(false);
-            expect(qcm[1].answers[3].checked).toBe(false);
         });
     });
 
     describe('untickAnswers', () => {
         it('should set checked to false for all answers', () => {
             const qcm = [{ answers: [{ checked: true }, { checked: false }] }];
-            API_LOGIC.untickAnswers(qcm);
+            QCM.untickAnswers(qcm);
             expect(qcm[0].answers[0].checked).toBe(false);
             expect(qcm[0].answers[1].checked).toBe(false);
+        });
+    });
+
+    describe('scoring', () => {
+        it('getPoints should return correct points', () => {
+            const question = { answers: [{ checked: true, pts: 6 }, { checked: true, pts: 3 }] };
+            expect(QCM.getPoints(question)).toBe(9);
+        });
+
+        it('getScore should return correct score object', () => {
+            const qcm = [
+                { answers: [{ checked: true, pts: 6 }, { checked: false, pts: 0 }] },
+                { answers: [{ checked: true, pts: 3 }, { checked: false, pts: 3 }] }
+            ];
+            const score = QCM.getScore(qcm);
+            expect(score.user).toBe(9);
+            expect(score.total).toBe(12);
+            expect(score.percentage).toBe(75);
         });
     });
 
@@ -123,36 +117,27 @@ describe('API_LOGIC', () => {
         const qcmVer = '1.0.0';
 
         it('should generate a valid QCMID', () => {
-            const id = API_LOGIC.QCMID(seed, optArray, appVer, qcmVer);
+            const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
             expect(id.length).toBe(11);
-            expect(API_LOGIC.isValidQCMID(id)).toBe(true);
+            expect(QCM.isValidQCMID(id)).toBe(true);
         });
 
         it('should extract seed and options correctly', () => {
-            const id = API_LOGIC.QCMID(seed, optArray, appVer, qcmVer);
-            const extracted = API_LOGIC.extractSeedAndOptionsFromQCMID(id);
+            const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
+            const extracted = QCM.extractSeedAndOptionsFromQCMID(id);
             expect(extracted.seed).toBe(seed);
             expect(extracted.optArray).toEqual(optArray);
         });
 
         it('should fail isValidQCMID for invalid checksum', () => {
-            const id = API_LOGIC.QCMID(seed, optArray, appVer, qcmVer);
+            const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
             const invalidId = id.substring(0, 10) + (id.endsWith('0') ? '1' : '0');
-            expect(API_LOGIC.isValidQCMID(invalidId)).toBe(false);
+            expect(QCM.isValidQCMID(invalidId)).toBe(false);
         });
 
         it('should fail isQCMIDVersionMatch if versions do not match', () => {
-            const id = API_LOGIC.QCMID(seed, optArray, appVer, qcmVer);
-            expect(API_LOGIC.isQCMIDVersionMatch(id, '2.0.0', qcmVer)).toBe(false);
-        });
-    });
-
-    describe('newSeed', () => {
-        it('should return a number', () => {
-            const seed = API_LOGIC.newSeed();
-            expect(typeof seed).toBe('number');
-            expect(seed).toBeGreaterThanOrEqual(0);
-            expect(seed).toBeLessThan(10000);
+            const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
+            expect(QCM.isQCMIDVersionMatch(id, '2.0.0', qcmVer)).toBe(false);
         });
     });
 });

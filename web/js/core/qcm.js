@@ -1,34 +1,16 @@
-'use strict';
+import { PRNG } from './prng.js';
 
-/* Services */
-
-const API_LOGIC = {
-    createPRNG: (seed) => {
-        let m_x = (seed | 0);
-
-        return {
-            next: () => {
-                // SplitMix32 implementation
-                m_x = (m_x + 0x9E3779B9) | 0;
-                let z = m_x | 0;
-                z = Math.imul(z ^ (z >>> 16), 0x85ebca6b);
-                z = Math.imul(z ^ (z >>> 13), 0xc2b2ae35);
-                return ((z ^ (z >>> 16)) >>> 0) / 4294967296;
-            }
-        };
-    },
+export const QCM = {
     generateQCM: function (qcm, options, catDistrib) {
         if (qcm === undefined) {
             return;
         }
-        // console.log(options);
-        // console.log(catDistrib);
         const activity = options.activity;
         const level = options.level;
         const category = options.category;
         const seed = options.seed;
 
-        let prng = this.createPRNG(seed);
+        let prng = PRNG.createPRNG(seed);
         const showAllCategories = category === "Toutes";
 
         // Deep copy the filtered results so no references are shared with the original qcm
@@ -208,24 +190,26 @@ const API_LOGIC = {
 
         return calculatedVersionChecksum === providedVersionChecksum;
     },
-    newSeed: function () {
-        return Math.floor(Math.random() * 10000);
+    // Extracted from QCMCtrl
+    getPoints: function (question) {
+        let total = 0;
+        for (let i = 0; i < question.answers.length; i++) {
+            if (question.answers[i].checked) {
+                total += question.answers[i].pts;
+            }
+        }
+        return Math.max(0, total);
+    },
+    getScore: function (filteredQCM) {
+        let score = { user: 0, nb: 0, percentage: 0 };
+        for (let i = 0; i < filteredQCM.length; i++) {
+            const question = filteredQCM[i];
+            score.user += QCM.getPoints(question);
+        }
+        score.total = filteredQCM.length * 6;
+        if (score.total > 0) {
+            score.percentage = Math.round(score.user / score.total * 100);
+        }
+        return score;
     }
 };
-
-// Export for testing
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { API_LOGIC: API_LOGIC };
-} else if (typeof define === 'function' && define.amd) {
-    define([], function () { return { API_LOGIC: API_LOGIC }; });
-} else {
-    // For browser environment
-    window.API_LOGIC = API_LOGIC;
-}
-
-if (typeof angular !== 'undefined') {
-    angular.module('qcmffvl.services', [])
-        .factory('API', function () {
-            return API_LOGIC;
-        });
-}
