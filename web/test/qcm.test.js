@@ -241,12 +241,71 @@ describe('QCM', () => {
                 let totalInChunk = 0;
                 actualCounts.forEach((count, cat) => {
                     totalInChunk += count;
-                    // console.log(`Block ${i + 1} - ${cat}: ${count}`);
                 });
                 expect(totalInChunk).toBe(10);
                 // Matériel should fallback to Mécavol, given this is the next category in mockCatDistrib
                 expect(actualCounts.get('Mécavol')).toEqual(3);
             }
+        });
+    });
+
+    describe('Shuffling', () => {
+        it('should shuffle questions and answers', () => {
+            const qcm = [
+                { code: 'q1', question: 'Q1', activities: ['A'], levels: ['L'], categories: ['C'], answers: [{ text: 'A1' }, { text: 'A2' }, { text: 'A3' }, { text: 'A4' }] },
+                { code: 'q2', question: 'Q2', activities: ['A'], levels: ['L'], categories: ['C'], answers: [{ text: 'B1' }, { text: 'B2' }, { text: 'B3' }, { text: 'B4' }] },
+                { code: 'q3', question: 'Q3', activities: ['A'], levels: ['L'], categories: ['C'], answers: [{ text: 'C1' }, { text: 'C2' }, { text: 'C3' }, { text: 'C4' }] },
+                { code: 'q4', question: 'Q4', activities: ['A'], levels: ['L'], categories: ['C'], answers: [{ text: 'D1' }, { text: 'D2' }, { text: 'D3' }, { text: 'D4' }] }
+            ];
+            const options = { activity: 'A', level: 'L', category: 'C', seed: 123 };
+            const catDistrib = ['C'];
+
+            // We use different seeds to ensure we don't get "lucky" and get the same order
+            const results = [];
+            for (let i = 0; i < 10; i++) {
+                results.push(QCM.generateQCM(qcm, { ...options, seed: i * 100 }, catDistrib).qcm);
+            }
+
+            // 1. Integrity Check: All questions and answers are present in every result
+            results.forEach(result => {
+                expect(result.length).toBe(qcm.length);
+
+                const questionCodes = result.map(q => q.code).sort();
+                const originalCodes = qcm.map(q => q.code).sort();
+                expect(questionCodes).toEqual(originalCodes);
+
+                result.forEach(q => {
+                    const originalQuestion = qcm.find(oq => oq.code === q.code);
+                    const originalAnswerTexts = originalQuestion.answers.map(a => a.text).sort();
+                    const resultAnswerTexts = q.answers.map(a => a.text).sort();
+                    expect(resultAnswerTexts).toEqual(originalAnswerTexts);
+                });
+            });
+
+            // 2. Shuffling Check: Questions must shuffle
+            const questionOrders = results.map(r => r.map(q => q.code).join(','));
+            const allQuestionOrdersIdentical = questionOrders.every(order => order === questionOrders[0]);
+            expect(allQuestionOrdersIdentical).toBe(false);
+
+            // 3. Shuffling Check: Answers must shuffle
+            // We check if at least one question has a different answer order in at least one result compared to the first result
+            let anyAnswerOrderChanged = false;
+            for (let i = 1; i < results.length; i++) {
+                for (let j = 0; j < results[i].length; j++) {
+                    const currentQuestion = results[i][j];
+                    const firstResultQuestion = results[0].find(rq => rq.code === currentQuestion.code);
+
+                    const currentAnswers = currentQuestion.answers.map(a => a.text).join('|');
+                    const firstAnswers = firstResultQuestion.answers.map(a => a.text).join('|');
+
+                    if (currentAnswers !== firstAnswers) {
+                        anyAnswerOrderChanged = true;
+                        break;
+                    }
+                }
+                if (anyAnswerOrderChanged) break;
+            }
+            expect(anyAnswerOrderChanged).toBe(true);
         });
     });
 });
