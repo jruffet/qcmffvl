@@ -12,20 +12,48 @@ export default defineConfig(({ mode }) => {
       __APP_VERSION__: JSON.stringify(versions.app_version),
       __QCM_VERSION__: JSON.stringify(versions.qcm_version),
     },
-    // css: {
-    //   lightningcss: {
-    //     errorRecovery: true,
-    //   },
-    // },
     build: {
       outDir: resolve(__dirname, 'dist'),
       emptyOutDir: true,
+      rollupOptions: {
+        output: {
+          entryFileNames: '[name]-[hash].js',
+          chunkFileNames: '[name]-[hash].js',
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name && assetInfo.name.includes('icon-512')) {
+              return 'assets/[name][extname]';
+            }
+            return 'assets/[name]-[hash][extname]';
+          },
+        },
+      },
     },
     server: {
       port: 3000,
       open: true,
     },
     plugins: [
+      {
+        name: 'copy-assets-files',
+        closeBundle() {
+          const dirsToCopy = [
+            { src: 'web/js/lib', dest: 'js/lib' },
+            { src: 'web/json', dest: 'json' },
+            { src: 'web/assets', dest: 'assets' }
+          ];
+
+          dirsToCopy.forEach(({ src, dest }) => {
+            const srcDir = resolve(__dirname, src);
+            const distDir = resolve(__dirname, 'dist', dest);
+
+            if (fs.existsSync(srcDir)) {
+              fs.mkdirSync(distDir, { recursive: true });
+              fs.cpSync(srcDir, distDir, { recursive: true });
+              console.log(`Successfully copied ${src} to dist/${dest}`);
+            }
+          });
+        }
+      },
       {
         name: 'version-injection',
         // This hook allows us to react to file changes in the watcher
@@ -39,10 +67,7 @@ export default defineConfig(({ mode }) => {
         },
         transformIndexHtml(html) {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
-          return html.replace(
-            /\?v=[^"]*/g,
-            `?v=${currentVersions.app_version}`
-          );
+          return html.replace(/(\?v=)[0-9.]+/g, `$1${currentVersions.app_version}`);
         },
         closeBundle() {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
@@ -51,8 +76,7 @@ export default defineConfig(({ mode }) => {
 
           if (fs.existsSync(manifestPath)) {
             let manifestContent = fs.readFileSync(manifestPath, 'utf-8');
-            manifestContent = manifestContent.replace(/\?v=[^"]*/g, `?v=${currentVersions.app_version}`);
-            fs.writeFileSync(distManifestPath, manifestContent);
+            manifestContent = manifestContent.replace(/(\?v=)[0-9.]+/g, `$1${currentVersions.app_version}`);
           }
         }
       },

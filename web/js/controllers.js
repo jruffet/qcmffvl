@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('qcmffvl.controllers', [])
-    .controller('MainCtrl', function ($scope, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
+    .controller('MainCtrl', ['$scope', '$location', '$timeout', '$http', '$filter', '$localStorage', 'dialogs', 'deviceDetector', function ($scope, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
         $scope.version = __APP_VERSION__;
         $scope.qcmVersion = __QCM_VERSION__;
 
@@ -392,16 +392,16 @@ angular.module('qcmffvl.controllers', [])
         } else if (!isLoadPath) {
             $scope.regenerateQCM();
         }
-    })
+    }])
 
 
-    .controller('LoadCtrl', function ($scope, $routeParams, $location) {
+    .controller('LoadCtrl', ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
         $scope.$parent.loadQCMID($routeParams.qcmid);
         $location.path("/qcm", false);
-    })
+    }])
 
 
-    .controller('QCMCtrl', function ($scope, $timeout, dialogs) {
+    .controller('QCMCtrl', ['$scope', '$timeout', 'dialogs', function ($scope, $timeout, dialogs) {
         $scope.questions = [];
         $scope.$parent.hideNavbarButtons = false;
 
@@ -533,19 +533,19 @@ angular.module('qcmffvl.controllers', [])
                 }
             }
         });
-    })
+    }])
 
 
-    .controller('AboutCtrl', function ($scope) {
+    .controller('AboutCtrl', ['$scope', function ($scope) {
         $scope.$parent.navCollapsed = true;
         $scope.$parent.loading = false;
         $scope.$parent.hideNavbarButtons = true;
 
         document.body.scrollTop = document.documentElement.scrollTop = 0;
-    })
+    }])
 
 
-    .controller('ffvldialogCtrl', function ($scope, $modalInstance, data) {
+    .controller('ffvldialogCtrl', ['$scope', '$modalInstance', 'data', function ($scope, $modalInstance, data) {
         $scope.q = data.q;
         const index = data.index;
 
@@ -573,10 +573,10 @@ angular.module('qcmffvl.controllers', [])
             const uri = `mailto:${encodeURIComponent(mailTo)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             window.location.href = uri;
         }
-    })
+    }])
 
 
-    .controller('QCMIDDialogCtrl', function ($scope, $modalInstance, data, clipboard, $timeout) {
+    .controller('QCMIDDialogCtrl', ['$scope', '$modalInstance', 'data', 'clipboard', '$timeout', function ($scope, $modalInstance, data, clipboard, $timeout) {
         $scope.main = data;
         $scope.copyButtonText = '';
         $scope.copyButtonClass = '';
@@ -611,10 +611,10 @@ angular.module('qcmffvl.controllers', [])
                 $scope.copyButtonClass = '';
             }, 500);
         }
-    })
+    }])
 
 
-    .controller('ParametersCtrl', function ($scope, $modalInstance, data) {
+    .controller('ParametersCtrl', ['$scope', '$modalInstance', 'data', function ($scope, $modalInstance, data) {
         $scope.main = data.main;
         $scope.$storage = data.$storage;
 
@@ -650,4 +650,4 @@ angular.module('qcmffvl.controllers', [])
             // Return array of changed keys for parent to handle regeneration
             $modalInstance.close(changedKeys.length > 0 ? changedKeys : []);
         }
-    });
+    }]);
