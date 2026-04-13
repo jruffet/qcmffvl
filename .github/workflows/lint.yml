@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run JS Linting
         run: npm run lint
@@ -44,4 +44,4 @@ jobs:
       - name: Run Python Linting (Black)
         run: |
           pip install black
-          black --check .
+          black --check --verbose --config pyproject.toml .

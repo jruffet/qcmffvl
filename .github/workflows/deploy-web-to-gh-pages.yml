@@ -1,4 +1,4 @@
-name: Deploy /web to GitHub Pages
+name: Deploy build to GitHub Pages
 
 on:
   repository_dispatch:
@@ -27,7 +27,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Set up Python
@@ -36,7 +36,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build application
         run: npm run build

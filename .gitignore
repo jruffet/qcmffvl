@@ -1,5 +1,4 @@
 web/json/qcm_ffvl.json
 node_modules/
 dist/
-package-lock.json
 .vite
