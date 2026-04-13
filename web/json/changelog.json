@@ -4,7 +4,7 @@
     "changes": [
       "Réécriture complète du moteur du QCM.",
       "Refonte graphique des menus et du mode examen.",
-      "Mise à jour du questionnaire FFVL vers 3.3 (nouvelle structure interne)."
+      "Mise à jour du questionnaire FFVL vers 3.3"
     ],
     "bugfixes": []
   },
