@@ -15,18 +15,6 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: resolve(__dirname, 'dist'),
       emptyOutDir: true,
-      rollupOptions: {
-        output: {
-          entryFileNames: '[name]-[hash].js',
-          chunkFileNames: '[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            if (assetInfo.name && assetInfo.name.includes('icon-512')) {
-              return 'assets/[name][extname]';
-            }
-            return 'assets/[name]-[hash][extname]';
-          },
-        },
-      },
     },
     server: {
       port: 3000,
@@ -72,7 +60,6 @@ export default defineConfig(({ mode }) => {
         closeBundle() {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
           const manifestPath = resolve(__dirname, 'web/manifest.json');
-          const distManifestPath = resolve(__dirname, 'dist/manifest.json');
 
           if (fs.existsSync(manifestPath)) {
             let manifestContent = fs.readFileSync(manifestPath, 'utf-8');
