@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: Build application
-        run: npm run build
+        run: BASE_URL=/qcmffvl/ npm run build
 
       - name: Set up Pages
         uses: actions/configure-pages@v5

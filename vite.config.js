@@ -4,9 +4,11 @@ import fs from 'fs';
 
 const versionsPath = resolve(__dirname, 'web/json/versions.json');
 const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
+const base = process.env.BASE_URL || '/';
 
 export default defineConfig(({ mode }) => {
   return {
+    base: base,
     root: resolve(__dirname, 'web'),
     define: {
       __APP_VERSION__: JSON.stringify(versions.app_version),
