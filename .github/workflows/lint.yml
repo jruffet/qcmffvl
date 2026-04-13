@@ -45,4 +45,4 @@ jobs:
       - name: Run Python Linting (Black)
         run: |
           pip install black
-          black --check --verbose --config pyproject.toml .
+          black --check --diff --config pyproject.toml .
