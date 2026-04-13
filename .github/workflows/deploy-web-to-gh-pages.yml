@@ -6,10 +6,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "web/**"
-      - "package.json"
-      - "scripts/**"
   workflow_dispatch:
 
 permissions:
