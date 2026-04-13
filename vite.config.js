@@ -15,6 +15,8 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: resolve(__dirname, 'dist'),
       emptyOutDir: true,
+      // Disable minification to prevent a 1-2px text shift in production caused by CSS bundling/minification
+      minify: false,
     },
     server: {
       port: 3000,
