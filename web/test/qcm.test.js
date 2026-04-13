@@ -230,12 +230,6 @@ describe('QCM', () => {
             const result = QCM.generateQCM(deficientQcm, options, mockCatDistrib);
             const qcm60 = result.qcm.slice(0, 60);
 
-            expect(qcm60.length).toBe(60);
-
-            for (const q of qcm60) {
-                expect(q.categories).not.toContain('Matériel');
-            }
-
             for (let i = 0; i < 6; i++) {
                 const chunk = qcm60.slice(i * 10, (i + 1) * 10);
                 const actualCounts = new Map();
@@ -245,10 +239,13 @@ describe('QCM', () => {
                 });
 
                 let totalInChunk = 0;
-                actualCounts.forEach(count => totalInChunk += count);
+                actualCounts.forEach((count, cat) => {
+                    totalInChunk += count;
+                    // console.log(`Block ${i + 1} - ${cat}: ${count}`);
+                });
                 expect(totalInChunk).toBe(10);
-
-                expect(actualCounts.get('Mécavol')).toBeGreaterThanOrEqual(2);
+                // Matériel should fallback to Mécavol, given this is the next category in mockCatDistrib
+                expect(actualCounts.get('Mécavol')).toEqual(3);
             }
         });
     });

@@ -38,28 +38,26 @@ export const QCM = {
         const distributedQCM = [];
         const usedIndices = new Set();
         const totalQuestions = filteredQCM.length;
-        let globalDistPointer = 0;
 
         while (usedIndices.size < totalQuestions) {
             const currentChunkSize = Math.min(10, totalQuestions - usedIndices.size);
             const currentChunk = [];
+            let chunkRequirementIndex = 0;
 
             for (let i = 0; i < currentChunkSize; i++) {
                 let found = false;
 
-                // Try to satisfy the next category in the distribution sequence
-                // We limit attempts to the length of catDistrib to ensure we "circle" through all requirements
+                // Try category, if exhausted try next category in order
                 for (let attempt = 0; attempt < catDistrib.length; attempt++) {
-                    const targetCat = catDistrib[globalDistPointer];
+                    const targetIdx = (chunkRequirementIndex + attempt) % catDistrib.length;
+                    const targetCat = catDistrib[targetIdx];
 
-                    // Search for an unused question matching targetCat
                     for (let j = 0; j < totalQuestions; j++) {
                         if (!usedIndices.has(j) && filteredQCM[j].categories.includes(targetCat)) {
                             currentChunk.push(filteredQCM[j]);
                             usedIndices.add(j);
+                            chunkRequirementIndex = (targetIdx + 1) % catDistrib.length;
                             found = true;
-                            // Successfully found a match, move pointer to next requirement in distribution
-                            globalDistPointer = (globalDistPointer + 1) % catDistrib.length;
                             break;
                         }
                     }
@@ -67,22 +65,10 @@ export const QCM = {
                     if (found) {
                         break;
                     }
-
-                    // If target category was not found, move to the next category in the circle
-                    globalDistPointer = (globalDistPointer + 1) % catDistrib.length;
                 }
 
-                // Fallback: If no category match was found after circling the whole distribution,
-                // take the first available question to ensure the chunk is filled.
                 if (!found) {
-                    for (let j = 0; j < totalQuestions; j++) {
-                        if (!usedIndices.has(j)) {
-                            currentChunk.push(filteredQCM[j]);
-                            usedIndices.add(j);
-                            found = true;
-                            break;
-                        }
-                    }
+                    throw new Error("Distribution error: No available categories match the requirements.");
                 }
             }
 
