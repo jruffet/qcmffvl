@@ -6,7 +6,6 @@ import sys
 import json
 import re
 
-
 """
 Codification des questions:
 ====================
