@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       {
         name: 'copy-assets-files',
-        apply: (cmd) => cmd === 'build',
+        apply: 'build',
         closeBundle() {
           const dirsToCopy = [
             { src: 'web/js/lib', dest: 'js/lib' },
