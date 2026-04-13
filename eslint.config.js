@@ -3,7 +3,7 @@ import importPlugin from 'eslint-plugin-import';
 
 export default [
   {
-    ignores: ["web/js/lib/**/*.js", "web/js/**/*.min.js"]
+    ignores: ["web/js/lib/**/*.js"]
   },
   {
     files: ['web/js/**/*.js'],
