@@ -14,8 +14,6 @@ angular.module('qcmffvl.controllers', [])
                 nbquestions: "30",
                 category: "Toutes",
                 seed: 42,
-                version: $scope.version,
-                qcmVersion: $scope.qcmVersion
             },
             answers: {}
         });
@@ -96,12 +94,9 @@ angular.module('qcmffvl.controllers', [])
         if (!nbq || $scope.main.conf.nbquestions.options.indexOf(nbq) === -1) {
             $scope.$storage.conf.nbquestions = "30";
         }
-        if ($scope.$storage.conf.seed === undefined)
+        if ($scope.$storage.conf.seed === undefined) {
             $scope.$storage.conf.seed = 42;
-        if ($scope.$storage.conf.version === undefined)
-            $scope.$storage.conf.version = $scope.version;
-        if ($scope.$storage.conf.qcmVersion === undefined)
-            $scope.$storage.conf.qcmVersion = $scope.qcmVersion;
+        }
         // ================================================
 
 
