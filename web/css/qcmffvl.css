@@ -78,10 +78,6 @@
         margin: 10px 5px 10px 65px;
         font-weight: bold;
     }
-
-    .btn-print {
-        display: none;
-    }
 }
 
 @media screen {
@@ -158,15 +154,6 @@
         margin-left: 5px;
     }
 
-    .form-group .navbar-search .form-control {
-        width: 45px;
-    }
-
-    .navbar-search .text {
-        display: inline-block;
-        margin: 7px 0 0 5px;
-    }
-
     .modal-open {
         overflow: auto;
     }
@@ -174,10 +161,6 @@
     .modal-title {
         font-weight: bold;
         font-size: 1em;
-    }
-
-    .navbar-questions-text {
-        margin-left: 0;
     }
 
     .qcmID .form-control {
@@ -281,20 +264,6 @@
         padding: 0 10px 15px;
     }
 
-    .qcm-subtitle {
-        padding: 0 10px;
-    }
-
-    .qcm-title-right {
-        text-align: right;
-    }
-
-    .qcm-title-noprint,
-    .qcm-title-category {
-        color: red;
-        text-align: center;
-    }
-
     .has-error {
         color: #C30B08;
     }
@@ -310,10 +279,6 @@
         cursor: not-allowed;
         min-width: 78px;
         pointer-events: none;
-    }
-
-    .btn-print {
-        margin-bottom: 15px;
     }
 
     .btn-load-ID {
@@ -415,10 +380,6 @@
         padding-right: 0;
     }
 
-    .navbar-form {
-        margin-right: 0;
-    }
-
     .good-answer-not-checked {
         color: #333;
     }
@@ -433,12 +394,6 @@
 @media screen and (max-width: 355px) {
     .hide-small-phone {
         display: none;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-    .form-inline .form-group {
-        margin-bottom: 15px;
     }
 }
 
