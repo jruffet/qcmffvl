@@ -113,8 +113,8 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.loadJSON = function () {
             $scope.loading = true;
-            $timeout(function () {
-                $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
+            return $timeout(function () {
+                return $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
                     .success(function (data) {
                         $scope.qcmOrig = data.questions;
                         // Initialize checked state for all answers in the template
@@ -159,7 +159,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.updateQCMID = function () {
-                $scope.main.QCMID = QCM.QCMID($scope.$storage.conf.seed, $scope.optionsToArray(), $scope.version, $scope.qcmVersion);
+            $scope.main.QCMID = QCM.QCMID($scope.$storage.conf.seed, $scope.optionsToArray(), $scope.version, $scope.qcmVersion);
 
             $scope.main.QCMIDURL = `https://qcm.ffvl.fr/#/load/${$scope.main.QCMID}`;
         }
@@ -172,15 +172,17 @@ angular.module('qcmffvl.controllers', [])
 
             $timeout(function () {
                 if (renewSeed) {
-                $scope.$storage.conf.seed = PRNG.newSeed();
+                    $scope.$storage.conf.seed = PRNG.newSeed();
                 }
                 if (!keepAnswers) {
                     $scope.unfillQCMAnswers();
                     $scope.deleteStoredAnswers();
                 }
                 const result = QCM.generateQCM($scope.qcmOrig, $scope.$storage.conf, $scope.qcmOptions.catDistrib);
-                $scope.qcm = result.qcm;
-                $scope.seed = result.seed;
+                if (result) {
+                    $scope.qcm = result.qcm;
+                    $scope.seed = result.seed;
+                }
 
                 if ($scope.main.exam.enabled && !$scope.main.exam.is_candidat) {
                     QCM.tickAnswers($scope.qcm);
@@ -367,31 +369,31 @@ angular.module('qcmffvl.controllers', [])
         }
 
         // ================== Start =====================
-        $scope.loadJSON();
+        $scope.loadJSON().then(function () {
+            // Determine if we are loading from a specific QCMID or starting fresh
+            const isLoadPath = $location.path().indexOf("/load/") !== -1;
 
-        // Determine if we are loading from a specific QCMID or starting fresh
-        const isLoadPath = $location.path().indexOf("/load/") !== -1;
+            // Load changelog and thanks data
+            $http.get('./json/changelog.json?v=' + $scope.version)
+                .then(function (resp) { $scope.changelog = resp.data; });
+            $http.get('./json/thanks.json?v=' + $scope.version)
+                .then(function (resp) { $scope.thanks = resp.data; });
 
-        // Load changelog and thanks data
-        $http.get('./json/changelog.json?v=' + $scope.version)
-            .then(function (resp) { $scope.changelog = resp.data; });
-        $http.get('./json/thanks.json?v=' + $scope.version)
-            .then(function (resp) { $scope.thanks = resp.data; });
-
-        // User has already set some answers in an unfinished QCM, see if he wants to go on
-        if (Object.keys($scope.$storage.answers).length > 0) {
-            $scope.showQCM = false;
-            const dlg = dialogs.confirm('Chargement du dernier QCM', 'Charger le dernier questionnaire inachevé (avec vos réponses) ?');
-            dlg.result.then(function () {
-                $scope.regenerateQCM(false, true);
-            }, function () {
+            // User has already set some answers in an unfinished QCM, see if he wants to go on
+            if (Object.keys($scope.$storage.answers).length > 0) {
+                $scope.showQCM = false;
+                const dlg = dialogs.confirm('Chargement du dernier QCM', 'Charger le dernier questionnaire inachevé (avec vos réponses) ?');
+                dlg.result.then(function () {
+                    $scope.regenerateQCM(false, true);
+                }, function () {
+                    $scope.regenerateQCM();
+                }).finally(function () {
+                    $scope.showQCM = true;
+                });
+            } else if (!isLoadPath) {
                 $scope.regenerateQCM();
-            }).finally(function () {
-                $scope.showQCM = true;
-            });
-        } else if (!isLoadPath) {
-            $scope.regenerateQCM();
-        }
+            }
+        });
     }])
 
 
