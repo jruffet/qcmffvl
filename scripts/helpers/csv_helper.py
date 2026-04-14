@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import argparse
 import csv
-import sys
 import re
-from typing import List, Dict, Optional, Callable
+import sys
+from typing import Callable, Dict, List, Optional
+
+from tabulate import tabulate
 
 DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
 CSV_HEADER = [
@@ -61,14 +63,6 @@ def parse_args():
     # stats command
     stats_parser = subparsers.add_parser("stats", help="Show statistics about the CSV file")
     stats_parser.add_argument("filename", help="CSV file to analyze")
-
-    # diff command
-    diff_parser = subparsers.add_parser("diff", help="Compare two CSV files")
-    diff_parser.add_argument("file1", help="First CSV file")
-    diff_parser.add_argument("file2", help="Second CSV file")
-    diff_parser.add_argument(
-        "--points", action="store_true", help="Output questions where points have changed"
-    )
 
     return parser.parse_args()
 
@@ -186,9 +180,8 @@ def stats_to_csv(stats: Dict[str, Dict[str, Dict[str, int]]]) -> List[Dict[str, 
 
 def csv_stats(rows: List[Dict]):
     catlist = sorted(CATEGORIES)
-    header = ["Pratique", "Brevet"] + catlist
-
     stats = {"Parapente": {}, "Delta": {}}
+
     for s in stats:
         for level in NIVEAUX.values():
             stats[s][level] = {}
@@ -209,24 +202,8 @@ def csv_stats(rows: List[Dict]):
                 level = NIVEAUX[letter]
                 stats[pratique][level][cat] += 1
 
-    write_csv_to_stdout(header=header, rows=stats_to_csv(stats))
-
-
-def csv_diff(rows1: List[Dict], rows2: List[Dict], check_points: bool):
-    duplicate_codes = set([x["code"] for x in csv_duplicate_rows(rows1)])
-    if check_points:
-        rows2_codes = [x["code"] for x in rows2]
-        for row1 in rows1:
-            if row1["code"] in rows2_codes and row1["code"] not in duplicate_codes:
-                row2 = get_question(rows2, row1["code"])
-                for i in range(1, 6):
-                    ans = f"ans{i}"
-                    pts = f"pts{i}"
-                    if ans in row1 and ans in row2:
-                        if row1[pts] != row2[pts]:
-                            write_csv_to_stdout(rows=[row1, row2])
-                            print()
-                            break
+    table_data = stats_to_csv(stats)
+    print(tabulate(table_data, headers="keys", tablefmt="grid"))
 
 
 def load_csv(filename: str) -> List[Dict]:
@@ -249,18 +226,15 @@ def write_csv_to_stdout(rows: List[Dict], header: Optional[List[str]] = None):
 def main():
     args = parse_args()
 
-    if args.command == "diff":
-        csv_diff(load_csv(args.file1), load_csv(args.file2), check_points=args.points)
-    else:
-        csv_content = load_csv(args.filename)
-        if args.command == "check":
-            ret = csv_check(csv_content)
-            # used in CI
-            sys.exit(not ret)
-        elif args.command == "format":
-            csv_format(csv_content)
-        elif args.command == "stats":
-            csv_stats(csv_content)
+    csv_content = load_csv(args.filename)
+    if args.command == "check":
+        ret = csv_check(csv_content)
+        # used in CI
+        sys.exit(not ret)
+    elif args.command == "format":
+        csv_format(csv_content)
+    elif args.command == "stats":
+        csv_stats(csv_content)
 
 
 if __name__ == "__main__":

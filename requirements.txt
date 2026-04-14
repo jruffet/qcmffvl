@@ -1,1 +1,2 @@
 black==26.3.1
+tabulate==0.10.0
