@@ -7,17 +7,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.version = __APP_VERSION__;
         $scope.qcmVersion = __QCM_VERSION__;
 
-        $scope.$storage = $localStorage.$default({
-            conf: {
-                activity: "Parapente",
-                level: "Brevet de Pilote",
-                nbquestions: "30",
-                category: "Toutes",
-                seed: 42,
-            },
-            answers: {}
-        });
-
         $scope.main = {
             conf: {
                 activity: {
@@ -76,27 +65,41 @@ angular.module('qcmffvl.controllers', [])
         $scope.filtered_qcm = [];
         $scope.showQCM = true;
 
-        // ============ Backward compatibility ============
-        if ($scope.$storage.conf.category == "Toutes les catégories") {
-            $scope.$storage.conf.category = "Toutes";
+        // ============ Storage init ============
+        const storage_default = {
+            conf: {
+                activity: "Parapente",
+                level: "Brevet de Pilote",
+                nbquestions: "30",
+                category: "Toutes",
+                seed: 42,
+            },
+            answers: {}
         }
-        if ($scope.$storage.conf.nbquestions == "Toutes les") {
-            $scope.$storage.conf.nbquestions = "Toutes";
-        }
-        // Migrate old 'sport' and 'pratique' to 'activity' if needed
-        if ($scope.$storage.conf.sport || $scope.$storage.conf.pratique) {
-            $scope.$storage.conf.activity = $scope.$storage.conf.sport || $scope.$storage.conf.pratique;
-            delete $scope.$storage.conf.sport;
-            delete $scope.$storage.conf.pratique;
-        }
-        // Validate nbquestions, reset to 30 if not in valid options
-        const nbq = $scope.$storage.conf.nbquestions ? $scope.$storage.conf.nbquestions.toString() : null;
-        if (!nbq || $scope.main.conf.nbquestions.options.indexOf(nbq) === -1) {
-            $scope.$storage.conf.nbquestions = "30";
-        }
-        if ($scope.$storage.conf.seed === undefined) {
-            $scope.$storage.conf.seed = 42;
-        }
+        $scope.$storage = $localStorage.$default(storage_default);
+
+        // Ensure all storage_default keys exist and are valid
+        Object.keys(storage_default.conf).forEach(key => {
+            // 1. Ensure key exists in $storage.conf
+            if (!(key in $scope.$storage.conf)) {
+                $scope.$storage.conf[key] = storage_default.conf[key];
+            }
+
+            const val = $scope.$storage.conf[key];
+            const config = $scope.main.conf[key];
+
+            // 2. If the config has options, ensure the current value is valid
+            if (config?.options?.indexOf(val) === -1) {
+                $scope.$storage.conf[key] = storage_default.conf[key];
+            }
+        });
+
+        // 3. Remove any extra keys not in storage_default.conf
+        Object.keys($scope.$storage.conf).forEach(key => {
+            if (!(key in storage_default.conf)) {
+                delete $scope.$storage.conf[key];
+            }
+        });
         // ================================================
 
 
