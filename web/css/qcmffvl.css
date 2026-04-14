@@ -1,36 +1,37 @@
+/* QCM FFVL - Custom Styles */
+
 @media print {
     .panel {
         width: 340px;
         min-height: 230px;
         float: left;
-        margin-left: 5px;
-        margin-right: 5px;
-        margin-bottom: 10px;
+        margin: 5px 5px 10px;
         page-break-inside: avoid !important;
+    }
+
+    .panel-default,
+    .panel-default > .panel-heading {
+        border-color: #555;
     }
 
     .panel-heading {
         padding: 5px 10px;
-        border-bottom: hidden;
-    }
-
-    .panel-default {
-        border-color: #555;
-    }
-
-    .panel-default>.panel-heading {
-        border-color: #555;
+        border-bottom: none;
     }
 
     .panel-body {
-        border-top: 1px solid;
-        border-color: #555;
+        border-top: 1px solid #555;
     }
 
-    .radio input[type=radio],
-    .radio-inline input[type=radio],
-    .checkbox input[type=checkbox],
-    .checkbox-inline input[type=checkbox] {
+    .checkbox,
+    .radio {
+        margin: 8px 17px 8px;
+    }
+
+    .checkbox input[type="checkbox"],
+    .checkbox-inline input[type="checkbox"],
+    .radio input[type="radio"],
+    .radio-inline input[type="radio"] {
         margin-left: -27px;
     }
 
@@ -43,35 +44,23 @@
         margin-left: -10px;
     }
 
-    .radio,
-    .checkbox {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        margin-left: 17px;
-    }
-
     .answer {
-        padding-right: 1px;
-        padding-top: 3px;
-        padding-left: 2px;
+        padding: 3px 1px 0 2px;
     }
 
     .question,
     .header-exam-title {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding: 0 10px;
     }
 
     .header-exam-item {
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding: 5px 0;
     }
 
     .col-lg-11,
     .col-xs-10 {
         width: 94%;
-        padding-left: 5px;
-        padding-right: 0px;
+        padding: 0 5px;
     }
 
     .col-lg-1,
@@ -80,26 +69,14 @@
     }
 
     .points {
-        padding-left: 0;
-        padding-right: 2px;
+        padding: 0 2px 0 0;
         font-weight: bold;
         text-align: right;
     }
 
     .qcm-title {
-        margin-bottom: 10px;
-        margin-left: 5px;
-        margin-right: 65px;
+        margin: 10px 5px 10px 65px;
         font-weight: bold;
-    }
-
-    .qcm-title-category {
-        text-align: center;
-        color: red;
-    }
-
-    .qcm-title-noprint {
-        display: none;
     }
 
     .btn-print {
@@ -108,11 +85,10 @@
 }
 
 @media screen {
-
-    /******** general ********/
+    /* ========== Layout ========== */
     body {
         max-width: 700px;
-        margin: 10px auto 0 auto;
+        margin: 10px auto 0;
         padding-top: 60px;
     }
 
@@ -128,7 +104,7 @@
         opacity: 0.3;
     }
 
-    /******** Custom dialog/modal ********/
+    /* ========== Modal/Dialog Headers ========== */
     .dialog-header-error {
         background-color: #d2322d;
     }
@@ -142,7 +118,7 @@
     }
 
     .dialog-header-confirm {
-        background-color: #333333;
+        background-color: #333;
     }
 
     .dialog-header-error span,
@@ -151,26 +127,17 @@
     .dialog-header-wait h4,
     .dialog-header-confirm span,
     .dialog-header-confirm h4 {
-        color: #ffffff;
+        color: #fff;
     }
 
-    .modal {
-        display: block;
-    }
-
-    /******** navbar ********/
+    /* ========== Navbar ========== */
     .navbar-brand {
         cursor: pointer;
     }
 
-    .navbar-default,
-    .btn-fifty-shades {
+    .navbar-default {
         background-color: #f2f2f2;
         border-color: #ccc;
-    }
-
-    .navbar-default,
-    .btn-informations {
         padding-right: 10px;
     }
 
@@ -184,23 +151,12 @@
 
     .navbar-text,
     .navbar-btn {
-        /* margin-right: 5px; */
         margin-left: 15px;
     }
 
-    /* .navbar-btn-right {
-        float: right;
-        margin-right: 8px;
-    } */
-
-    /* navbar-right not working for this button, in header */
     .navbar-collapsed-btn {
         margin-left: 5px;
     }
-
-    /* .navbar-nav .navbar-btn {
-        margin-left: 15px;
-    } */
 
     .form-group .navbar-search .form-control {
         width: 45px;
@@ -208,9 +164,7 @@
 
     .navbar-search .text {
         display: inline-block;
-
-        margin-left: 5px;
-        margin-top: 7px;
+        margin: 7px 0 0 5px;
     }
 
     .modal-open {
@@ -241,7 +195,7 @@
         max-height: 400px;
     }
 
-    /******** QCM stuff ********/
+    /* ========== QCM Elements ========== */
     .checkbox.row.header-exam-item {
         margin-left: -15px;
     }
@@ -262,25 +216,17 @@
     }
 
     .good-answer .points,
-    .bad-answer .points {
-        font-weight: bold;
-    }
-
+    .bad-answer .points,
     .question .points {
         font-weight: bold;
     }
 
     .good-answer {
-        text-shadow: 0 0;
         color: #3c763d;
     }
 
     .bad-answer {
         color: #AD3D3B;
-    }
-
-    .good-answer-not-checked {
-        text-shadow: 0 0;
     }
 
     .bad-answer-not-checked .answer-text,
@@ -298,60 +244,55 @@
         color: #31708f;
     }
 
+    .panel-warning {
+        border-color: #FED4AA;
+    }
+
     .panel-warning .panel-heading {
         background-color: #FFE5C1;
         color: #AA6C00;
         border-color: #FED4AA;
     }
 
-    .panel-warning {
-        border-color: #FED4AA;
+    .good-score,
+    .bad-score {
+        font-weight: bold;
     }
 
     .good-score {
         color: #5EA05F;
         border-color: #5EA05F;
-        font-weight: bold;
     }
 
     .bad-score {
         color: #CC5250;
         border-color: #CC5250;
-        font-weight: bold;
     }
 
     .loader {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 50px;
+        margin: 50px auto auto;
         text-align: center;
     }
 
+    /* ========== QCM Titles ========== */
     .qcm-title {
         font-size: 15px;
         font-weight: bold;
-        padding-bottom: 15px;
-        padding-right: 10px;
-        padding-left: 10px;
+        padding: 0 10px 15px;
     }
 
     .qcm-subtitle {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding: 0 10px;
     }
 
     .qcm-title-right {
         text-align: right;
     }
 
-    .qcm-title-noprint {
-        color: red;
-        text-align: center;
-    }
-
+    .qcm-title-noprint,
     .qcm-title-category {
-        text-align: center;
         color: red;
+        text-align: center;
     }
 
     .has-error {
@@ -363,6 +304,7 @@
         margin-left: 17px;
     }
 
+    /* ========== Buttons ========== */
     .btn-score {
         background-color: #f4f4f4;
         cursor: not-allowed;
@@ -384,6 +326,7 @@
         margin-right: 15px;
     }
 
+    /* ========== Help Elements ========== */
     .url {
         color: #337ab7;
     }
@@ -404,13 +347,12 @@
         margin-left: 8px;
     }
 
-    /******** about ********/
+    /* ========== About/Changelog ========== */
     .changelog-version-title,
     .about-category-title {
-        padding-bottom: 15px;
-        padding-top: 10px;
-        font-weight: bold;
         font-size: 16px;
+        font-weight: bold;
+        padding: 10px 0 15px;
     }
 
     .thanks-block {
@@ -444,9 +386,9 @@
     .about .panel-body {
         padding: 15px;
     }
-
 }
 
+/* ========== Responsive: Small Devices ========== */
 @media screen and (max-width: 767px) {
     .answer-text.smartphone {
         padding-left: 17px;
@@ -482,7 +424,6 @@
     }
 }
 
-/* XXS sized device */
 @media screen and (max-width: 319px) {
     .hide-xxs {
         display: none;
@@ -513,10 +454,9 @@
     }
 }
 
-/* @media screen or @media print */
-
+/* ========== Global Styles (all media) ========== */
 .panel-body {
-    padding: 0px 15px;
+    padding: 0 15px;
 }
 
 .panel-header-exam {
@@ -526,7 +466,7 @@
 .update-banner {
     width: 100%;
     background-color: #f0ad4e;
-    color: white;
+    color: #fff;
     padding: 10px 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -543,7 +483,7 @@
 }
 
 .update-refresh-btn {
-    background-color: white;
+    background-color: #fff;
     color: #f0ad4e;
     border: none;
     padding: 5px 15px;
@@ -557,7 +497,6 @@
     color: #f0ad4e;
 }
 
-/* Remove "dark block" effect on pressed (and not released) buttons */
 .btn:focus,
 .btn:active:focus {
     outline: none !important;
@@ -567,7 +506,7 @@
 .update-refresh-btn:focus {
     background-color: #f0f0f0 !important;
     color: #f0ad4e !important;
-    box-shadow: inset 0 3px 5px rgba(0,0,0,.125) !important;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
 }
 
 .filters-modal-body {
@@ -592,10 +531,6 @@
     gap: 5px;
 }
 
-.filter-buttons-header {
-    margin-bottom: 10px;
-}
-
 .filter-btn {
     min-width: 70px;
 }
@@ -603,9 +538,9 @@
 .filter-btn.active {
     background-color: #337ab7;
     border-color: #2e6da4;
-    color: white;
+    color: #fff;
 }
 
 .filter-category.disabled {
-  color: #6c757d;
+    color: #6c757d;
 }
