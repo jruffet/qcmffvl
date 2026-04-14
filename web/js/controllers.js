@@ -237,12 +237,18 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.reload = function () {
-            let nbText = $scope.$storage.conf.nbquestions === 'Toutes' ? 'toutes les questions' : $scope.$storage.conf.nbquestions.toString().toLowerCase() + ' questions';
-            let text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.activity + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + nbText + '</b>'
-            if ($scope.$storage.conf.category.indexOf("Toutes") == -1) {
-                text += ' de la catégorie <b>' + $scope.$storage.conf.category + '</b>';
-            }
-            text += ' (et effacer vos réponses) ?';
+            const { nbquestions, activity, level, category } = $scope.$storage.conf;
+
+            const nbText = nbquestions === 'Toutes'
+                ? 'toutes les questions'
+                : `${nbquestions.toString().toLowerCase()} questions`;
+
+            const categoryText = category.indexOf("Toutes") === -1
+                ? ` de la catégorie <b>${category}</b>`
+                : '';
+
+            const text = `Composer un nouveau questionnaire <b>${activity}</b> niveau <b>${level}</b> avec <b>${nbText}</b>${categoryText} (et effacer vos réponses) ?`;
+
             dialogs.confirm('Confirmation', text).result.then(function (btn) {
                 // wait for modal to close to avoid weird effects
                 $timeout(function () {
@@ -255,6 +261,7 @@ angular.module('qcmffvl.controllers', [])
                 }, 500);
             });
         }
+
         $scope.scoreClass = function (score) {
             if (score.percentage >= 75) {
                 return "good-score";
