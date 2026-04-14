@@ -50,21 +50,23 @@ angular.module('qcmffvl.controllers', [])
             QCMID: "",
             helpQuestion: ""
         }
-        $scope.headerExamPapierCandidat = [{
-            title: "Candidat",
-            items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
-        }, {
-            title: "Examen",
-            items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"]
-        }]
-        $scope.headerExamPapierExaminateur = [{
-            title: "Examinateur",
-            items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
-        }, {
-            title: "Examen",
-            items: ["Date", "Structure organisatrice"]
-        }]
-        $scope.headerExamPapier = $scope.headerExamPapierCandidat;
+        $scope.headerExam = {
+            candidat: [{
+                title: "Candidat",
+                items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
+            }, {
+                title: "Examen",
+                items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"]
+            }],
+            examinateur: [{
+                title: "Examinateur",
+                items: ["Nom", "Prénom", "Club / école", "Numéro de licence"]
+            }, {
+                title: "Examen",
+                items: ["Date", "Structure organisatrice"]
+            }]
+        };
+        $scope.headerExamPapier = $scope.headerExam.candidat;
 
         // automatically removed by a directive when the QCM is loaded
         $scope.loading = true;
@@ -338,7 +340,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.$watch('main.exam.is_candidat', function (newval, oldval) {
             if (newval != oldval) {
                 if ($scope.main.exam.enabled) {
-                    $scope.headerExamPapier = newval ? $scope.headerExamPapierCandidat : $scope.headerExamPapierExaminateur;
+                    $scope.headerExamPapier = newval ? $scope.headerExam.candidat : $scope.headerExam.examinateur;
                     $scope.unfillQCMAnswers();
                     if (!newval) {
                         QCM.tickAnswers($scope.qcm);
