@@ -184,7 +184,7 @@
       <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>
       <div class="form-group qcmID" ng-class="{ 'has-error': !verifyQCMID() }">
         <label class="control-label" for="qcm-id-input">QCM ID:</label>
-        <input type="text" id="qcm-id-input" name="ID" class="form-control" ng-model="main.userQCMID" ng-blur="QCMIDBlur()" select-on-focus>
+        <input type="text" id="qcm-id-input" name="ID" class="form-control" ng-model="main.userQCMID" select-on-focus>
         <button type="button" class="btn btn-primary btn-load-ID" ng-click="returnQCMID()" ng-disabled="!verifyQCMID() || main.QCMID == main.userQCMID">Charger le questionnaire</button>
       </div>
     </ng-form>

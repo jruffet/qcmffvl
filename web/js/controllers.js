@@ -47,10 +47,7 @@ angular.module('qcmffvl.controllers', [])
                 enabled: false,
                 is_candidat: true
             },
-            // QCMID is set by QCM.generateQCM(), or from QCMIDUser when loading a previous QCM
             QCMID: "",
-            // QCMIDUser is set by the user, via formattedQCMIDUser
-            QCMIDUser: "",
             helpQuestion: ""
         }
         $scope.headerExamPapierCandidat = [{
@@ -160,7 +157,6 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.updateQCMID = function () {
             $scope.main.QCMID = QCM.QCMID($scope.$storage.conf.seed, $scope.optionsToArray(), $scope.version, $scope.qcmVersion);
-
             $scope.main.QCMIDURL = `https://qcm.ffvl.fr/#/load/${$scope.main.QCMID}`;
         }
 
@@ -597,11 +593,6 @@ angular.module('qcmffvl.controllers', [])
                 return QCM.isValidQCMID($scope.main.userQCMID);
             } else {
                 return true;
-            }
-        }
-        $scope.QCMIDBlur = function () {
-            if (!$scope.verifyQCMID()) {
-                $scope.main.formattedQCMIDUser = angular.copy($scope.savedFormattedQCMIDUser);
             }
         }
         $scope.returnQCMID = function () {
