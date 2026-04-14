@@ -35,7 +35,7 @@ angular.module('qcmffvl.controllers', [])
                 is_candidat: true
             },
             QCMID: "",
-            helpQuestion: ""
+            helpQuestion: null
         }
         $scope.headerExam = {
             candidat: [{
@@ -163,7 +163,7 @@ angular.module('qcmffvl.controllers', [])
             $scope.loading = true;
             $scope.collapseNav();
             $scope.main.checkAnswers = false;
-            $scope.main.helpQuestion = "";
+            $scope.main.helpQuestion = null;
 
             $timeout(function () {
                 if (renewSeed) {
@@ -501,39 +501,27 @@ angular.module('qcmffvl.controllers', [])
             return (answer.pts < 0 && !answer.checked);
         }
 
-        $scope.updateScore = function () {
-            if ($scope.main.checkAnswers) {
-                $scope.main.score = QCM.getScore($scope.filtered_qcm);
-            }
-        }
-
         $scope.helpQuestionToggle = function (q) {
             if ($scope.navCollapsed && !$scope.main.exam.enabled) {
-                if ($scope.main.helpQuestion == q.code) {
-                    $scope.main.helpQuestion = "";
-                } else {
-                    $scope.main.helpQuestion = q.code;
-                }
+                $scope.main.helpQuestion = ($scope.main.helpQuestion === q.code) ? null : q.code;
             }
         }
 
         $scope.isHelpQuestion = function (q) {
             if (q && !$scope.main.exam.enabled) {
-                return (q.code == $scope.main.helpQuestion);
+                return (q.code === $scope.main.helpQuestion);
             } else {
                 return false;
             }
         }
         $scope.resetHelpQuestion = function () {
-            $scope.main.helpQuestion = "";
+            $scope.main.helpQuestion = null;
         }
 
         $scope.$watch('main.checkAnswers', function (newval, oldval) {
-            if (oldval != newval) {
-                $scope.updateScore();
-                if (newval == true) {
-                    $scope.$parent.deleteStoredAnswers();
-                }
+            if (oldval != newval && newval === true) {
+                $scope.main.score = QCM.getScore($scope.filtered_qcm);
+                $scope.$parent.deleteStoredAnswers();
             }
         });
     }])
