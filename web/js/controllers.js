@@ -237,7 +237,8 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.reload = function () {
-            let text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.activity + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + $scope.$storage.conf.nbquestions.toString().toLowerCase() + ' questions</b>'
+            let nbText = $scope.$storage.conf.nbquestions === 'Toutes' ? 'toutes les questions' : $scope.$storage.conf.nbquestions.toString().toLowerCase() + ' questions';
+            let text = 'Composer un nouveau questionnaire <b>' + $scope.$storage.conf.activity + '</b> niveau <b>' + $scope.$storage.conf.level + '</b> avec <b>' + nbText + '</b>'
             if ($scope.$storage.conf.category.indexOf("Toutes") == -1) {
                 text += ' de la catégorie <b>' + $scope.$storage.conf.category + '</b>';
             }
