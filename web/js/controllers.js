@@ -102,7 +102,6 @@ angular.module('qcmffvl.controllers', [])
         });
         // ================================================
 
-
         $scope.collapseNav = function () {
             $('html').trigger('click');
             $scope.navCollapsed = true;
@@ -407,7 +406,7 @@ angular.module('qcmffvl.controllers', [])
     }])
 
 
-    .controller('QCMCtrl', ['$scope', '$timeout', 'dialogs', function ($scope, $timeout, dialogs) {
+    .controller('QCMCtrl', ['$scope', function ($scope) {
         $scope.questions = [];
         $scope.$parent.hideNavbarButtons = false;
 
@@ -451,8 +450,6 @@ angular.module('qcmffvl.controllers', [])
         $scope.getScore = function () {
             return QCM.getScore($scope.filtered_qcm);
         }
-
-
 
         $scope.successQuestion = function (question) {
             if ($scope.main.exam.enabled || !$scope.main.checkAnswers || $scope.isHelpQuestion(question)) {
