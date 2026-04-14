@@ -4,7 +4,6 @@ import csv
 import re
 import sys
 from typing import Callable, Dict, List, Optional
-
 from tabulate import tabulate
 
 DO_NOT_FORMAT = ["P12BM", "A66M", "S109V", "S110V", "S132B", "S60M", "S69M"]
