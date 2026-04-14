@@ -10,7 +10,7 @@
     }
 
     .panel-default,
-    .panel-default > .panel-heading {
+    .panel-default>.panel-heading {
         border-color: #555;
     }
 
@@ -81,7 +81,24 @@
 }
 
 @media screen {
+
     /* ========== Layout ========== */
+    /* Was defined in HTML5 boilerplate */
+    html,
+    input,
+    button,
+    select,
+    textarea {
+        font-family: sans-serif;
+    }
+
+    dl,
+    menu,
+    ol,
+    ul {
+        margin: 1em 0;
+    }
+
     body {
         max-width: 700px;
         margin: 10px auto 0;
@@ -131,7 +148,8 @@
         cursor: pointer;
     }
 
-    .navbar-default {
+    .navbar-default,
+    .btn-informations {
         background-color: #f2f2f2;
         border-color: #ccc;
         padding-right: 10px;
@@ -315,9 +333,10 @@
     /* ========== About/Changelog ========== */
     .changelog-version-title,
     .about-category-title {
-        font-size: 16px;
+        padding-bottom: 15px;
+        padding-top: 10px;
         font-weight: bold;
-        padding: 10px 0 15px;
+        font-size: 16px;
     }
 
     .thanks-block {
