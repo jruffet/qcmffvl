@@ -69,15 +69,6 @@ export default defineConfig(({ mode }) => {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
           return html.replace(/\?v=__APP_VERSION__/g, `?v=${currentVersions.app_version}`);
         },
-        closeBundle() {
-          const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
-          const manifestPath = resolve(__dirname, 'web/manifest.json');
-
-          if (fs.existsSync(manifestPath)) {
-            let manifestContent = fs.readFileSync(manifestPath, 'utf-8');
-            manifestContent = manifestContent.replace(/(\?v=)[0-9.]+/g, `$1${currentVersions.app_version}`);
-          }
-        }
       },
     ],
   };
