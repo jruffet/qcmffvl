@@ -246,12 +246,8 @@ angular.module('qcmffvl.controllers', [])
 
             dialogs.confirm('Confirmation', text).result.then(function () {
                 // wait for modal to close to avoid weird effects
+                $scope.main.checkAnswers = false;
                 $timeout(function () {
-                    $scope.loading = true;
-                }, 300);
-                $timeout(function () {
-                    $scope.main.checkAnswers = false;
-                    $scope.main.QCMID = "";
                     $scope.regenerateQCM();
                 }, 500);
             });
