@@ -1,6 +1,56 @@
-import { PRNG } from './prng.js';
+import { PRNG } from './prng';
 
-export const QCM = {
+export interface QCMAnswer {
+    code: string;
+    pts: number;
+    checked: boolean;
+}
+
+export interface QCMQuestion {
+    code: string;
+    activities: string[];
+    levels: string[];
+    categories: string[];
+    answers: QCMAnswer[];
+}
+
+export interface QCMOptions {
+    activity: string;
+    level: string;
+    category: string;
+    seed: number;
+}
+
+export interface QCMResult {
+    qcm: QCMQuestion[];
+    seed: number;
+}
+
+export interface QCMScore {
+    user: number;
+    nb: number;
+    percentage: number;
+    total: number;
+}
+
+export interface QCMIDInfo {
+    seed: number;
+    optArray: number[];
+}
+
+export interface QCM {
+    generateQCM: (qcm: QCMQuestion[], options: QCMOptions, catDistrib: string[]) => QCMResult | undefined;
+    tickAnswers: (qcm: QCMQuestion[], userAnswers: Record<string, number[]>) => void;
+    untickAnswers: (qcm: QCMQuestion[]) => void;
+    QCMID: (seed: number, optArray: number[], appVersion: string, qcmVersion: string) => string;
+    extractSeedAndOptionsFromQCMID: (qcmid: string) => QCMIDInfo;
+    isValidQCMID: (qcmid: string) => boolean;
+    isQCMIDVersionMatch: (qcmid: string, appVersion: string, qcmVersion: string) => boolean;
+    getPoints: (question: QCMQuestion) => number;
+    getScore: (filteredQCM: QCMQuestion[]) => QCMScore;
+}
+
+export const QCM: QCM = {
     generateQCM: function (qcm, options, catDistrib) {
         if (qcm === undefined) {
             return;
@@ -22,7 +72,7 @@ export const QCM = {
             return activityMatch && levelMatch && categoryMatch;
         }));
 
-        const shuffle = (array) => {
+        const shuffle = (array: any[]) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(prng.next() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
@@ -35,13 +85,13 @@ export const QCM = {
             shuffle(q.answers);
         });
 
-        const distributedQCM = [];
-        const usedIndices = new Set();
+        const distributedQCM: QCMQuestion[] = [];
+        const usedIndices = new Set<number>();
         const totalQuestions = filteredQCM.length;
 
         while (usedIndices.size < totalQuestions) {
             const currentChunkSize = Math.min(10, totalQuestions - usedIndices.size);
-            const currentChunk = [];
+            const currentChunk: QCMQuestion[] = [];
             let chunkRequirementIndex = 0;
 
             for (let i = 0; i < currentChunkSize; i++) {
@@ -80,7 +130,7 @@ export const QCM = {
         return {
             qcm: distributedQCM,
             seed: seed
-        }
+        };
     },
     tickAnswers: function (qcm, userAnswers) {
         if (qcm) {
@@ -187,7 +237,7 @@ export const QCM = {
         return Math.max(0, total);
     },
     getScore: function (filteredQCM) {
-        let score = { user: 0, nb: 0, percentage: 0 };
+        let score: QCMScore = { user: 0, nb: 0, percentage: 0, total: 0 };
         for (let i = 0; i < filteredQCM.length; i++) {
             const question = filteredQCM[i];
             score.user += QCM.getPoints(question);

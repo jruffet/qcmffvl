@@ -1,5 +1,14 @@
-export const PRNG = {
-    createPRNG: (seed) => {
+export interface PRNGInstance {
+    next: () => number;
+}
+
+export interface PRNG {
+    createPRNG: (seed: number) => PRNGInstance;
+    newSeed: () => number;
+}
+
+export const PRNG: PRNG = {
+    createPRNG: (seed: number): PRNGInstance => {
         let m_x = (seed | 0);
 
         return {
@@ -13,7 +22,7 @@ export const PRNG = {
             }
         };
     },
-    newSeed: function () {
+    newSeed: function (): number {
         return Math.floor(Math.random() * 10000);
     }
 };
