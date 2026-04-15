@@ -17,7 +17,7 @@ Official multiple-choice web application for the French paragliding and hang gli
 
 ## Local Development
 ### Running with Docker Compose
-To start the development environment, run the following command from the project root:
+To start the development environment, run the following command from the project root (this essentially wraps `npm install && npm run dev` with no need to "trust me bro"):
 
 ```bash
 docker compose -f docker/docker-compose.yml up --build
