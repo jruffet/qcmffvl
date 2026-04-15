@@ -188,8 +188,10 @@
     }
 
     .glyphicon {
-        top: 2px;
         display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
         min-width: 1em;
         text-align: center;
     }

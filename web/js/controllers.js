@@ -161,9 +161,9 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.regenerateQCM = function (renewSeed = true, keepAnswers = false) {
             $scope.loading = true;
-            $scope.collapseNav();
             $scope.main.checkAnswers = false;
             $scope.main.helpQuestion = null;
+            $scope.collapseNav();
 
             $timeout(function () {
                 if (renewSeed) {

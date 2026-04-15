@@ -1,5 +1,12 @@
 [
   {
+    "version": "4.0.1",
+    "changes": [],
+    "bugfixes": [
+      "Diverses corrections graphiques mineures."
+    ]
+  },
+  {
     "version": "4.0.0",
     "changes": [
       "Réécriture complète du moteur du QCM.",
