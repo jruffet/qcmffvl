@@ -189,6 +189,9 @@
 
     .glyphicon {
         top: 2px;
+        display: inline-block;
+        min-width: 1em;
+        text-align: center;
     }
 
     .navbar-fixed-top .navbar-collapse,
