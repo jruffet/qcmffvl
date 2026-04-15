@@ -280,7 +280,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.gotoMainURL = function () {
             $scope.main.exam.enabled = false;
             $scope.collapseNav();
-            if ($location.url().indexOf("/qcm") == -1) {
+            if ($location.url().indexOf("/qcm") === -1) {
                 $location.url("/qcm/");
             }
         }
@@ -308,20 +308,20 @@ angular.module('qcmffvl.controllers', [])
 
 
         $scope.$watch('$storage.conf.nbquestions', function (newval, oldval) {
-            if (newval != oldval) {
+            if (newval !== oldval) {
                 $scope.updateFilteredResult();
             }
         });
 
         $scope.$watchGroup(['$storage.conf.nbquestions', '$storage.conf.level', '$storage.conf.category', '$storage.conf.activity'], function (newval, oldval) {
-            if (newval != oldval) {
+            if (newval !== oldval) {
                 $scope.updateQCMID();
             }
         });
 
 
         $scope.$watch('main.exam.enabled', function (newval, oldval) {
-            if (newval != oldval) {
+            if (newval !== oldval) {
                 $scope.unfillQCMAnswers();
                 if (newval) {
                     $scope.main.exam.is_candidat = true;
@@ -335,7 +335,7 @@ angular.module('qcmffvl.controllers', [])
             }
         });
         $scope.$watch('main.exam.is_candidat', function (newval, oldval) {
-            if (newval != oldval) {
+            if (newval !== oldval) {
                 if ($scope.main.exam.enabled) {
                     $scope.headerExamPapier = newval ? $scope.headerExam.candidat : $scope.headerExam.examinateur;
                     $scope.unfillQCMAnswers();
@@ -415,7 +415,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.categorySelected = function () {
-            return ($scope.$storage.conf.category.indexOf("Toutes") == -1);
+            return ($scope.$storage.conf.category.indexOf("Toutes") === -1);
         }
 
         $scope.toggleCheck = function (q, answer) {
@@ -519,7 +519,7 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.$watch('main.checkAnswers', function (newval, oldval) {
-            if (oldval != newval && newval === true) {
+            if (oldval !== newval && newval === true) {
                 $scope.main.score = QCM.getScore($scope.filtered_qcm);
                 $scope.$parent.deleteStoredAnswers();
             }
@@ -574,7 +574,7 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.main.userQCMID = angular.copy($scope.main.QCMID);
         $scope.verifyQCMID = function () {
-            if ($scope.main.QCMID != $scope.main.userQCMID) {
+            if ($scope.main.QCMID !== $scope.main.userQCMID) {
                 return QCM.isValidQCMID($scope.main.userQCMID);
             } else {
                 return true;
