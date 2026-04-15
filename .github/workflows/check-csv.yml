@@ -19,5 +19,8 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Run script in check mode
         run: python ./scripts/helpers/csv_helper.py check data/csv/qcm_ffvl.csv
