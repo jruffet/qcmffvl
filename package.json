@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "(vite --host --no-open & npx nodemon --watch web/json/versions.json --exec \"node scripts/sync-data.js\" --quiet)",
+    "dev": "node scripts/sync-data.js && vite --host --no-open",
     "build": "node scripts/sync-data.js && vite build",
-    "lint": "eslint \"web/js/**/*.{js,ts}\" --no-warn-ignored",
+    "lint": "eslint *.js \"web/js/**/*.{js,ts}\" --no-warn-ignored",
     "test": "vitest"
   },
   "devDependencies": {

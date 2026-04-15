@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import { execSync } from 'child_process';
 import fs from 'fs';
 
 const versionsPath = resolve(__dirname, 'web/json/versions.json');
@@ -53,14 +54,20 @@ export default defineConfig(({ mode }) => {
         configureServer(server) {
           server.watcher.on('change', (file) => {
             if (file.endsWith('versions.json')) {
-              console.log('Versions file changed, restarting server...');
+              console.log('Versions file changed, syncing data and restarting server...');
+              try {
+                execSync('node scripts/sync-data.js', { stdio: 'inherit' });
+                console.log('Data sync completed successfully.');
+              } catch (err) {
+                console.error('Failed to sync data:', err);
+              }
               server.restart();
             }
           });
         },
         transformIndexHtml(html) {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
-          return html.replace(/(\?v=)[0-9.]+/g, `$1${currentVersions.app_version}`);
+          return html.replace(/\?v=__APP_VERSION__/g, `?v=${currentVersions.app_version}`);
         },
         closeBundle() {
           const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
