@@ -11,7 +11,7 @@ Official multiple-choice web application for the French paragliding and hang gli
 - Offline support
 
 ## Usage
-- Live demo: http://jruffet.github.io/qcmffvl/
+- Live demo: https://jruffet.github.io/qcmffvl/
 - Latest stable version: https://qcm.ffvl.fr/
 - Install on mobile devices by using "Add to home screen" (Brave/Firefox/etc.)
 
