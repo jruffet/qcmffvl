@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "node scripts/sync-data.js && vite --host --no-open",
     "build": "node scripts/sync-data.js && vite build",
-    "lint": "eslint *.js \"web/js/**/*.{js,ts}\" --no-warn-ignored",
+    "lint": "eslint .",
     "test": "vitest"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
     "eslint": "^9.0.0",
     "eslint-plugin-angular": "^1.0.0",
     "eslint-plugin-import": "^2.29.1",

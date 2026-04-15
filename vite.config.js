@@ -7,7 +7,7 @@ const versionsPath = resolve(__dirname, 'web/json/versions.json');
 const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
 const base = process.env.BASE_URL || '/';
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
   return {
     base: base,
     root: resolve(__dirname, 'web'),

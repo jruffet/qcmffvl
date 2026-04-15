@@ -239,7 +239,7 @@ describe('QCM', () => {
                 });
 
                 let totalInChunk = 0;
-                actualCounts.forEach((count, cat) => {
+                actualCounts.forEach((count) => {
                     totalInChunk += count;
                 });
                 expect(totalInChunk).toBe(10);
