@@ -1,7 +1,9 @@
 [
   {
-    "version": "4.0.1",
-    "changes": [],
+    "version": "4.1.0",
+    "changes": [
+      "Le QCM ID intègre de nouveau le nombre de questions."
+    ],
     "bugfixes": [
       "Diverses corrections graphiques mineures."
     ]

@@ -50,6 +50,15 @@ export interface QCM {
     getScore: (filteredQCM: QCMQuestion[]) => QCMScore;
 }
 
+const getMajorMinor = (v: string) => {
+    const parts = v.split('.');
+    return parts.length >= 2 ? `${parts[0]}${parts[1]}` : v;
+};
+
+const getVersionString = (appVersion: string, qcmVersion: string) => {
+    return getMajorMinor(appVersion) + getMajorMinor(qcmVersion);
+};
+
 export const QCM: QCM = {
     generateQCM: function (qcm, options, catDistrib) {
         if (qcm === undefined) {
@@ -159,7 +168,7 @@ export const QCM: QCM = {
         }
     },
     QCMID: function (seed, optArray, appVersion, qcmVersion) {
-        // Construct base string from 4-digit seed and 3-digit options array
+        // Construct base string from 4-digit seed and 4-digit options array
         const baseStr = [
             seed.toString().padStart(4, '0'),
             ...optArray.map(n => n.toString().padStart(1, '0'))
@@ -167,7 +176,7 @@ export const QCM: QCM = {
 
         // Calculate 2-digit checksum for version integrity
         let versionChecksum = 0;
-        const versionStr = appVersion.toString().replace(/\./g, '') + qcmVersion.toString().replace(/\./g, '');
+        const versionStr = getVersionString(appVersion.toString(), qcmVersion.toString());
         for (let i = 0; i < versionStr.length; i++) {
             versionChecksum = (versionChecksum + (parseInt(versionStr[i], 10) * (i + 1))) % 100;
         }
@@ -188,20 +197,20 @@ export const QCM: QCM = {
     extractSeedAndOptionsFromQCMID: function (qcmid) {
         const seed = parseInt(qcmid.substring(0, 4), 10);
         // The optArray starts at index 4 and ends before the 4-character checksum suffix
-        // Base length is 7 (4 seed + 3 options)
-        const optionsStr = qcmid.substring(4, 7);
+        // Base length is 8 (4 seed + 4 options)
+        const optionsStr = qcmid.substring(4, 8);
         const optArray = optionsStr.split('').map(char => parseInt(char, 10));
 
         return { seed, optArray };
     },
     isValidQCMID: function (qcmid) {
-        // Validates that the last 2 digits are a valid checksum of the first 9 digits
-        if (qcmid.length !== 11) {
+        // Validates that the last 2 digits are a valid checksum of the first 10 digits
+        if (qcmid.length !== 12) {
             return false;
         }
 
-        const payloadStr = qcmid.substring(0, 9);
-        const providedDataChecksum = parseInt(qcmid.substring(9, 11), 10);
+        const payloadStr = qcmid.substring(0, 10);
+        const providedDataChecksum = parseInt(qcmid.substring(10, 12), 10);
 
         let calculatedDataChecksum = 0;
         for (let i = 0; i < payloadStr.length; i++) {
@@ -211,19 +220,19 @@ export const QCM: QCM = {
         return calculatedDataChecksum === providedDataChecksum;
     },
     isQCMIDVersionMatch: function (qcmid, appVersion, qcmVersion) {
-        if (qcmid.length !== 11) {
+        if (qcmid.length !== 12) {
             return false;
         }
 
-        // Extract the version checksum from the middle 2 digits (index 7 and 8)
-        const providedVersionChecksum = parseInt(qcmid.substring(7, 9), 10);
-
+        // Extract the version checksum from the middle 2 digits (index 8 and 9)
+        const providedVersionChecksum = parseInt(qcmid.substring(8, 10), 10);
+        
         let calculatedVersionChecksum = 0;
-        const versionStr = appVersion.toString().replace(/\./g, '') + qcmVersion.toString().replace(/\./g, '');
+        const versionStr = getVersionString(appVersion.toString(), qcmVersion.toString());
         for (let i = 0; i < versionStr.length; i++) {
             calculatedVersionChecksum = (calculatedVersionChecksum + (parseInt(versionStr[i], 10) * (i + 1))) % 100;
         }
-
+        
         return calculatedVersionChecksum === providedVersionChecksum;
     },
     // Extracted from QCMCtrl

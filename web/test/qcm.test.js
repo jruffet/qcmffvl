@@ -156,13 +156,13 @@ describe('QCM', () => {
 
     describe('QCMID and integrity', () => {
         const seed = 1234;
-        const optArray = [1, 2, 3];
+        const optArray = [1, 2, 3, 0];
         const appVer = '1.0.0';
         const qcmVer = '1.0.0';
 
         it('should generate a valid QCMID', () => {
             const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
-            expect(id.length).toBe(11);
+            expect(id.length).toBe(12);
             expect(QCM.isValidQCMID(id)).toBe(true);
         });
 
@@ -175,13 +175,18 @@ describe('QCM', () => {
 
         it('should fail isValidQCMID for invalid checksum', () => {
             const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
-            const invalidId = id.substring(0, 10) + (id.endsWith('0') ? '1' : '0');
+            const invalidId = id.substring(0, 11) + (id.endsWith('0') ? '1' : '0');
             expect(QCM.isValidQCMID(invalidId)).toBe(false);
         });
 
         it('should fail isQCMIDVersionMatch if versions do not match', () => {
             const id = QCM.QCMID(seed, optArray, appVer, qcmVer);
             expect(QCM.isQCMIDVersionMatch(id, '2.0.0', qcmVer)).toBe(false);
+        });
+
+        it('should match versions even if patch differs', () => {
+            const id = QCM.QCMID(seed, optArray, '1.0.5', '1.0.9');
+            expect(QCM.isQCMIDVersionMatch(id, '1.0.0', '1.0.0')).toBe(true);
         });
     });
 
