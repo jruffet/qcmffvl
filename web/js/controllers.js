@@ -126,11 +126,6 @@ angular.module('qcmffvl.controllers', [])
             }, 100);
         }
 
-        $scope.fillQCMAnswers = function () {
-            $scope.main.checkAnswers = true;
-            QCM.tickAnswers($scope.qcm);
-        }
-
         $scope.unfillQCMAnswers = function () {
             $scope.main.checkAnswers = false;
             QCM.untickAnswers($scope.qcm);
@@ -413,10 +408,6 @@ angular.module('qcmffvl.controllers', [])
             $scope.$parent.loadJSON();
         }
 
-        $scope.categorySelected = function () {
-            return ($scope.$storage.conf.category.indexOf("Toutes") === -1);
-        }
-
         $scope.toggleCheck = function (q, answer) {
             if ($scope.navCollapsed && !$scope.main.checkAnswers && !$scope.main.exam.enabled && !$scope.isHelpQuestion(q)) {
                 answer.checked = !answer.checked;
@@ -444,10 +435,6 @@ angular.module('qcmffvl.controllers', [])
 
         $scope.getPoints = function (question) {
             return QCM.getPoints(question);
-        }
-
-        $scope.getScore = function () {
-            return QCM.getScore($scope.filtered_qcm);
         }
 
         $scope.successQuestion = function (question) {

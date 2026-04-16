@@ -66,13 +66,6 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_question(rows: List[Dict], code: str) -> Dict:
-    for row in rows:
-        if row["code"] == code:
-            return row
-    return {}
-
-
 def short_code(code: str) -> str:
     return re.match(r"(\w\d+)", code).groups()[0]
 
@@ -212,12 +205,9 @@ def load_csv(filename: str) -> List[Dict]:
         return [{k: v for k, v in row.items() if v != ""} for row in reader]
 
 
-def write_csv_to_stdout(rows: List[Dict], header: Optional[List[str]] = None):
-    fieldnames = header if header else CSV_HEADER
-    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, lineterminator="\n")
-
-    if header:
-        writer.writeheader()
+def write_csv_to_stdout(rows: List[Dict]):
+    writer = csv.DictWriter(sys.stdout, fieldnames=CSV_HEADER, lineterminator="\n")
+    writer.writeheader()
     for row in rows:
         writer.writerow(row)
 
