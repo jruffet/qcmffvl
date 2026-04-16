@@ -110,7 +110,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.loadJSON = function () {
             $scope.loading = true;
             return $timeout(function () {
-                return $http.get('./json/qcm_ffvl.json?v=' + $scope.qcmVersion)
+                return $http.get('./generated/qcm_ffvl.json?v=' + $scope.qcmVersion)
                     .success(function (data) {
                         $scope.qcmOrig = data.questions;
                         // Initialize checked state for all answers in the template

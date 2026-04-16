@@ -23,12 +23,18 @@ The official [FFVL](https://ffvl.fr/) multiple-choice application for preparing 
 - Latest stable version: https://qcm.ffvl.fr/
 - Dev version: https://jruffet.github.io/qcmffvl/
 
-## Local Development
-### Running with Docker Compose
+## Local Development (Docker)
+### Dev environment
 To start the development environment, run the following command from the project root (this essentially wraps `npm install && npm run dev` with no need to "trust me bro"):
 
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
-
 The application will be available at `http://localhost:3000`.
+
+### Run commands in environment
+`docker exec -u node -it qcmffvl COMMAND`
+
+For example:
+- `docker exec -u node -it qcmffvl npm run lint`
+- `docker exec -u node -it qcmffvl npm run test`

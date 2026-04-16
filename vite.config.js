@@ -33,6 +33,7 @@ export default defineConfig(() => {
           const dirsToCopy = [
             { src: 'web/js/lib', dest: 'js/lib' },
             { src: 'web/json', dest: 'json' },
+            { src: 'web/generated', dest: 'generated' },
             { src: 'web/assets', dest: 'assets' }
           ];
 
