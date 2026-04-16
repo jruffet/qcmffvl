@@ -380,19 +380,20 @@ angular.module('qcmffvl.controllers', [])
             $http.get('./json/thanks.json?v=' + $scope.version)
                 .then(function (resp) { $scope.thanks = resp.data; });
 
-            // User has already set some answers in an unfinished QCM, see if he wants to go on
-            if (Object.keys($scope.$storage.answers).length > 0) {
-                $scope.showQCM = false;
-                const dlg = dialogs.confirm('Chargement du dernier QCM', 'Charger le dernier questionnaire inachevé (avec vos réponses) ?');
-                dlg.result.then(function () {
-                    $scope.regenerateQCM(false, true);
-                }, function () {
+            if (!wasLoadPath) {
+                if (Object.keys($scope.$storage.answers).length > 0) {
+                    $scope.showQCM = false;
+                    const dlg = dialogs.confirm('Chargement du dernier QCM', 'Charger le dernier questionnaire inachevé (avec vos réponses) ?');
+                    dlg.result.then(function () {
+                        $scope.regenerateQCM(false, true);
+                    }, function () {
+                        $scope.regenerateQCM();
+                    }).finally(function () {
+                        $scope.showQCM = true;
+                    });
+                } else {
                     $scope.regenerateQCM();
-                }).finally(function () {
-                    $scope.showQCM = true;
-                });
-            } else if (!wasLoadPath) {
-                $scope.regenerateQCM();
+                }
             }
         });
     }])
