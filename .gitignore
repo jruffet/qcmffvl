@@ -1,4 +1,4 @@
-web/generated/qcm_ffvl.json
+web/generated/*.json
 node_modules/
 dist/
 .vite

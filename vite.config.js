@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { execSync } from 'child_process';
 import fs from 'fs';
 
-const versionsPath = resolve(__dirname, 'web/json/versions.json');
+const versionsPath = resolve(__dirname, 'web/generated/versions.json');
 const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
 const base = process.env.BASE_URL || '/';
 
