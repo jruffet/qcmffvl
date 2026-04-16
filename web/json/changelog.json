@@ -5,6 +5,7 @@
       "Le QCM ID intègre de nouveau le nombre de questions."
     ],
     "bugfixes": [
+      "Les URLs /load chargent de nouveau correctement le QCM ID.",
       "Diverses corrections graphiques mineures."
     ]
   },

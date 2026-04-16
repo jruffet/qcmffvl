@@ -370,10 +370,10 @@ angular.module('qcmffvl.controllers', [])
         }
 
         // ================== Start =====================
-        $scope.loadJSON().then(function () {
-            // Determine if we are loading from a specific QCMID or starting fresh
-            const isLoadPath = $location.path().indexOf("/load/") !== -1;
+        // Capture the original path before LoadCtrl redirects (which happens in the same digest cycle)
+        const wasLoadPath = $location.path().indexOf("/load/") !== -1;
 
+        $scope.loadJSON().then(function () {
             // Load changelog and thanks data
             $http.get('./json/changelog.json?v=' + $scope.version)
                 .then(function (resp) { $scope.changelog = resp.data; });
@@ -391,7 +391,7 @@ angular.module('qcmffvl.controllers', [])
                 }).finally(function () {
                     $scope.showQCM = true;
                 });
-            } else if (!isLoadPath) {
+            } else if (!wasLoadPath) {
                 $scope.regenerateQCM();
             }
         });
