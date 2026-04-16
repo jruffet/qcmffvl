@@ -1,5 +1,5 @@
 # QCM FFVL
-The official [FFVL](https://ffvl.fr/) multiple-choice application for preparing and taking paragliding and hang gliding pilot license exams.
+The official [FFVL](https://ffvl.fr/) multiple-choice application for preparing and taking paragliding and hang gliding French pilot license exams.
 
 ## Features
 
@@ -9,7 +9,7 @@ The official [FFVL](https://ffvl.fr/) multiple-choice application for preparing 
 - **Printable Exams**: Generate formal exam headers for candidates and examiners.
 
 ### Custom Study Tools
-- **Tailored Sessions**: Filter questions by aircraft type (Parapente, Delta), license level, and subject category (e.g., Meteorology, Regulations).
+- **Tailored Sessions**: Filter questions by aircraft type (Paragliding, Hang gliding), license level, and subject category (e.g., Meteorology, Regulations).
 - **Session Sharing**: Generate and share unique questionnaires using a single QCM ID.
 - **Flexible Question Counts**: Choose from a set number of questions or study the entire database.
 
