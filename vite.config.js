@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import { execSync } from 'child_process';
 import fs from 'fs';
 
-const versionsPath = resolve(__dirname, 'web/generated/versions.json');
+const versionsPath = resolve(__dirname, 'web/json/versions.json');
 const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
 const base = process.env.BASE_URL || '/';
 
@@ -48,29 +47,6 @@ export default defineConfig(() => {
             }
           });
         }
-      },
-      {
-        name: 'version-injection',
-        // This hook allows us to react to file changes in the watcher
-        configureServer(server) {
-          server.watcher.on('change', (file) => {
-            if (file.endsWith('changelog.json')) {
-              console.log('Changelog file changed, regenerating versions and syncing data...');
-              try {
-                execSync('node scripts/gen-versions.js', { stdio: 'inherit' });
-                execSync('node scripts/sync-data.js', { stdio: 'inherit' });
-                console.log('Data sync completed successfully.');
-              } catch (err) {
-                console.error('Failed to sync data:', err);
-              }
-              server.restart();
-            }
-          });
-        },
-        transformIndexHtml(html) {
-          const currentVersions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
-          return html.replace(/\?v=__APP_VERSION__/g, `?v=${currentVersions.app_version}`);
-        },
       },
     ],
   };

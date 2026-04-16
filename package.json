@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/gen-versions.js && node scripts/sync-data.js && vite --host --no-open",
-    "build": "node scripts/gen-versions.js && node scripts/sync-data.js && vite build",
-    "gen-versions": "node scripts/gen-versions.js",
+    "dev": "node scripts/sync-data.js && vite --host --no-open",
+    "build": "node scripts/sync-data.js && vite build",
     "lint": "eslint .",
     "test": "vitest"
   },
