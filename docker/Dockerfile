@@ -1,8 +1,6 @@
-FROM node:24-slim
+FROM node:24-alpine
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends python3 python3-pip gosu tini && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache python3 py3-pip gosu tini
 
 ADD docker/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
