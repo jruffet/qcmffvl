@@ -8,7 +8,7 @@ async function syncData() {
   try {
     // 1. Sync CSV to JSON
     console.log('[+] Running csvref2json.py...');
-    const versionsPath = path.resolve(process.cwd(), 'web/json/versions.json');
+    const versionsPath = path.resolve(process.cwd(), 'web/generated/versions.json');
     const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf8'));
     const qcmVersion = versions.qcm_version;
 
