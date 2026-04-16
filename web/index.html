@@ -392,6 +392,7 @@
               <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
               <ul class="changelog-content">
                 <li ng-repeat="item in v.changes">{{item}}</li>
+                <li ng-if="v.qcm">Mise à jour du questionnaire FFVL vers {{v.qcm.version}}{{v.qcm.changes ? ' (' + v.qcm.changes + ')' : ''}}</li>
               </ul>
             </div>
             <div ng-if="v.bugfixes && v.bugfixes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
