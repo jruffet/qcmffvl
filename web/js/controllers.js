@@ -219,7 +219,7 @@ angular.module('qcmffvl.controllers', [])
         $scope.checkForUpdates = function () {
             // Only check when there is internet access
             if (navigator.onLine) {
-                $http.get('./json/versions.json?v=' + new Date().getTime())
+                $http.get('./generated/versions.json?v=' + new Date().getTime())
                     .then(function (resp) {
                         // Compare with stored versions
                         if (resp.data.app_version !== $scope.version || resp.data.qcm_version !== $scope.qcmVersion) {
