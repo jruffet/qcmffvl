@@ -181,6 +181,10 @@
         font-size: 1em;
     }
 
+    .form-group.qcmID {
+        padding-top: 10px;
+    }
+
     .qcmID .form-control {
         text-align: center;
         margin-right: 20px;
@@ -311,6 +315,7 @@
     .btn-load-ID {
         width: 140px;
     }
+
     .btn-retour-apropos {
         float: right;
         margin-right: 15px;
