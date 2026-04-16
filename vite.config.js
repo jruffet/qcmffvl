@@ -54,9 +54,10 @@ export default defineConfig(() => {
         // This hook allows us to react to file changes in the watcher
         configureServer(server) {
           server.watcher.on('change', (file) => {
-            if (file.endsWith('versions.json')) {
-              console.log('Versions file changed, syncing data and restarting server...');
+            if (file.endsWith('changelog.json')) {
+              console.log('Changelog file changed, regenerating versions and syncing data...');
               try {
+                execSync('node scripts/gen-versions.js', { stdio: 'inherit' });
                 execSync('node scripts/sync-data.js', { stdio: 'inherit' });
                 console.log('Data sync completed successfully.');
               } catch (err) {
