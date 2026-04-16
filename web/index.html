@@ -181,12 +181,12 @@
   </div>
   <div class="modal-body">
     <ng-form name="nameDialog" novalidate role="form">
-      <span class="help-block">Le numéro d'identification "ID" identifie de manière unique un questionnaire (pratique, niveau, categorie(s)...)</span>
-      <span class="help-block hide-xs">Vous pouvez le modifier avec un ID valide pour charger le questionnaire correspondant.</span>
+      <label class="control-label" for="qcm-id-input">QCM ID</label>
+      <span class="help-block">Numéro qui identifie de manière unique un questionnaire (pratique, niveau, categorie(s), version, nombre de questions)</span>
+      <span class="help-block hide-xs">Vous pouvez le partager ou le modifier pour charger le questionnaire correspondant.</span>
       <div class="form-group qcmID" ng-class="{ 'has-error': !verifyQCMID() }">
-        <label class="control-label" for="qcm-id-input">QCM ID:</label>
         <input type="text" id="qcm-id-input" name="ID" class="form-control" ng-model="main.userQCMID" select-on-focus>
-        <button type="button" class="btn btn-primary btn-load-ID" ng-click="returnQCMID()" ng-disabled="!verifyQCMID() || main.QCMID == main.userQCMID">Charger le questionnaire</button>
+        <button type="button" class="btn btn-primary btn-load-ID" ng-click="returnQCMID()" ng-disabled="!verifyQCMID() || main.QCMID == main.userQCMID">Charger</button>
       </div>
     </ng-form>
     <hr/>
@@ -203,7 +203,7 @@
 <!-- ######################################### Parameters Dialog ########################################## -->
 <!-- ###################################################################################################### -->
 
-  <script type="text/ng-template" id="parameters.html">
+<script type="text/ng-template" id="parameters.html">
   <div class="modal-header">
     <span class="modal-title"><span class="glyphicon glyphicon-cog"></span> Paramètres du QCM<span ng-show="main.exam.enabled"> (mode examen)</span></span>
   </div>

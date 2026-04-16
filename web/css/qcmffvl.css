@@ -182,7 +182,6 @@
     }
 
     .qcmID .form-control {
-        width: 180px;
         text-align: center;
         margin-right: 20px;
     }
@@ -306,9 +305,12 @@
 
     .btn-load-ID {
         margin-top: 15px;
-        width: 180px;
     }
 
+    .qcmID .form-control,
+    .btn-load-ID {
+        width: 140px;
+    }
     .btn-retour-apropos {
         float: right;
         margin-right: 15px;
