@@ -1,5 +1,13 @@
 [
   {
+    "version": "4.2.0",
+    "changes": [],
+    "bugfixes": [
+      "Correction du calcul du QCMID lors de changement de paramètres, en mode examen.",
+      "L'impression avec Firefox est de nouveau fonctionnelle."
+    ]
+  },
+  {
     "version": "4.1.0",
     "changes": [
       "Le QCM ID intègre de nouveau le nombre de questions."
