@@ -209,10 +209,6 @@
         margin-left: -15px;
     }
 
-    .score {
-        font-weight: bold;
-    }
-
     .answer-text,
     .dropdown {
         cursor: pointer;
@@ -366,7 +362,6 @@
     }
 
     .changelog-content,
-    .about-content,
     .thanks-content {
         padding-top: 15px;
     }

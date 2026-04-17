@@ -264,13 +264,13 @@
        </div>
       <div class="qcm-body">
         <div ng-show="main.exam.enabled" ng-repeat="header in headerExamPapier">
-          <div class="panel panel-default grid-item panel-header-exam" ng-class="{'examinateur':!main.exam.is_candidat}">
+          <div class="panel panel-default grid-item panel-header-exam">
             <div class="panel-heading">
               <div class="row header-exam-title">
                 <span class="col-lg-11 col-xs-11">{{header.title}}</span>
               </div>
             </div>
-            <div class="panel-body header-exam">
+            <div class="panel-body">
               <div ng-repeat="item in header.items">
                 <div class="checkbox row header-exam-item" >
                   <span class="col-lg-11 col-xs-11">{{item}} :</span>
@@ -283,7 +283,7 @@
           <div class="panel panel-default grid-item" ng-class="{'panel-success':successQuestion(q), 'panel-danger':failedQuestion(q), 'panel-warning': warningQuestion(q), 'panel-info':isHelpQuestion(q)}">
             <div class="panel-heading" ng-click="helpQuestionToggle(q)" ng-show="isHelpQuestion(q) && !main.exam.enabled">
               <div class="row question ">
-                <span class="col-lg-12 col-xs-12 help-header"><span class="help-msg">Contacter la FFVL au sujet de cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="ffvldialog(q, $index+1)"></a></span>
+                <span class="col-lg-12 col-xs-12 help-header"><span>Contacter la FFVL au sujet de cette question</span><span class="glyphicon glyphicon-arrow-right help-arrow"></span><a><span class="glyphicon glyphicon-envelope help-mailto" ng-click="ffvldialog(q, $index+1)"></a></span>
               </div>
             </div>
             <div class="panel-heading" ng-click="helpQuestionToggle(q)">
@@ -292,7 +292,7 @@
                 <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers && !main.exam.enabled"> {{getPoints(q)}}</span>
               </div>
             </div>
-            <div class="panel-body answers" ng-click="resetHelpQuestion()">
+            <div class="panel-body" ng-click="resetHelpQuestion()">
               <div ng-repeat="answer in q.answers">
                 <div class="checkbox" >
                   <input type="checkbox" ng-disabled="(main.exam.enabled && main.exam.is_candidat) ||
@@ -312,8 +312,7 @@
                     'help-answer':isHelpQuestion(q),
                     'smartphone':isSmartphone(),
                     'android':isAndroid(),
-                    'iphone':isIphone(),
-                    'checked-answer':answer.checked
+                    'iphone':isIphone()
                     }">
                     <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone(),'android':isAndroid(),'iphone':isIphone(),}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
                     <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || (main.exam.enabled && !main.exam.is_candidat)" ng-bind="answer.pts"></span>
@@ -363,9 +362,9 @@
         <br/><br/>
         N'hésitez pas à m'envoyer des rapports de bugs, problèmes d'affichage, des suggestions ou tout simplement un petit mail sympa !
         <br/>
-        <div class="about-category row">
+        <div class="row">
             <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Web</span>
-            <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-md-12 col-lg-12">
               La version web a été conçue pour être multi-support (mobile / tablette / desktop) et multi-OS (Linux / Windows / Mac...).
               <br/><br/>
               Elle a été testée comme fonctionnant correctement avec Brave et Firefox.
@@ -373,9 +372,9 @@
               Merci d'utiliser un de ces 2 navigateurs si vous expérimentez des soucis.
             </div>
         </div>
-        <div class="about-category row">
+        <div class="row">
           <span class="about-category-title col-xs-12 col-md-12 col-lg-12"><hr/>Version Mobile</span>
-          <div class="about-category-part col-xs-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-md-12 col-lg-12">
             Vous pouvez "installer" cette web app sur votre smartphone avec Brave / Firefox / Chrome / Etc. en utilisant "Ajouter à l'écran d'accueil".
           </div>
           </div>
@@ -387,14 +386,14 @@
         <div class="panel-body">
           <div ng-repeat="v in changelog" class="changelog-version row">
             <span class="changelog-version-title col-xs-12 col-md-12 col-lg-12">Version {{v.version}}</span>
-            <div ng-if="v.changes && v.changes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+            <div ng-if="v.changes && v.changes.length" class="col-xs-12 col-md-12 col-lg-12">
               <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Améliorations / Changements</div>
               <ul class="changelog-content">
                 <li ng-repeat="item in v.changes">{{item}}</li>
                 <li ng-if="v.qcm">Mise à jour du questionnaire FFVL vers {{v.qcm.version}}{{v.qcm.changes ? ' (' + v.qcm.changes + ')' : ''}}</li>
               </ul>
             </div>
-            <div ng-if="v.bugfixes && v.bugfixes.length" class="changelog-part col-xs-12 col-md-12 col-lg-12">
+            <div ng-if="v.bugfixes && v.bugfixes.length" class="col-xs-12 col-md-12 col-lg-12">
               <div class="changelog-title col-xs-12 col-md-12 col-lg-12">Bugfixes</div>
               <ul class="changelog-content">
                 <li ng-repeat="item in v.bugfixes">{{item}}</li>
