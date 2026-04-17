@@ -617,7 +617,7 @@ angular.module('qcmffvl.controllers', [])
             });
 
 
-            $scope.$storage.conf["nbquestions"] = $scope.parameter["nbquestions"];
+            $scope.$storage.conf["nbquestions"] = $scope.parameter["nbquestions"].toString();
 
             // Return array of changed keys for parent to handle regeneration
             $modalInstance.close(changedKeys.length > 0 ? changedKeys : []);
