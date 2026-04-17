@@ -4,15 +4,17 @@
 
 
 angular.module('qcmffvl.directives', [])
-  .directive('selectOnFocus', ['$window', function ($window) {
+  .directive('selectOnFocus', function () {
     return {
       restrict: 'A',
-      link: function (element) {
+      link: function (scope, element) {
         element.on('focus', function () {
-          if (!$window.getSelection().toString()) {
+          if (this.type === 'text' || this.type === 'password') {
+            this.select();
+          } else {
             this.setSelectionRange(0, this.value.length);
           }
         });
       }
     };
-  }]);
+  })
