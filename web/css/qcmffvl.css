@@ -2,7 +2,7 @@
 
 @media print {
     .panel {
-        width: 340px;
+        width: 330px;
         min-height: 230px;
         float: left;
         margin: 5px 5px 10px;
@@ -33,6 +33,7 @@
     .radio input[type="radio"],
     .radio-inline input[type="radio"] {
         margin-left: -27px;
+        vertical-align: middle;
     }
 
     .qcm-body {
@@ -75,7 +76,9 @@
     }
 
     .qcm-title {
-        margin: 10px 5px 10px 65px;
+        margin-left: 10px;
+        margin-right: 50px;
+        margin-bottom: 5px;
         font-weight: bold;
     }
 }
