@@ -608,11 +608,11 @@ angular
       };
       $scope.sendMail = function (mailTo) {
         const separator = "---------------------------------\n";
-        const subject = `Question ${q.code}   [QCM ${data.qcmVersion} / WebApp ${data.version} / QCMID ${data.main.QCMID}]`;
+        const subject = `Question ${$scope.q.code}   [QCM ${data.qcmVersion} / WebApp ${data.version} / QCMID ${data.main.QCMID}]`;
 
-        let body = `\n\n\n${separator}Question ${q.code}\n#${index} du questionnaire : ${data.main.QCMIDURL}\n${separator}${index}. ${q.question}\n\n`;
+        let body = `\n\n\n${separator}Question ${$scope.q.code}\n#${index} du questionnaire : ${data.main.QCMIDURL}\n${separator}${index}. ${$scope.q.question}\n\n`;
 
-        for (const answer of q.answers) {
+        for (const answer of $scope.q.answers) {
           body += `- ${answer.text} (${answer.pts})\n`;
         }
 
