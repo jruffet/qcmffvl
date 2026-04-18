@@ -63,35 +63,26 @@ angular
       };
       $scope.headerExam = {
         candidat: [
-          {
-            title: "Examen",
-            items: [
-              "Pratique",
-              "Date",
-              "Structure organisatrice",
-              "Points obtenus",
-              "QCM validé (oui / non)",
-            ],
-          },
-          { title: "Identification", items: ["Nom", "Prénom", "Club / école", "Numéro de licence"] },
+          ["QCMID", "Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"],
+          ["Nom", "Prénom", "Club / école", "Numéro de licence"],
         ],
         examinateur: [
-          { title: "Examen", items: ["Pratique", "Date", "Structure organisatrice"] },
-          { title: "Identification", items: ["Nom", "Prénom", "Club / école", "Numéro de licence"] },
+          ["QCMID", "Date", "Structure organisatrice"],
+          ["Nom", "Prénom", "Club / école", "Numéro de licence"],
         ],
       };
 
       $scope.getExamItemValue = function (item) {
         switch (item) {
-          case "Pratique":
-            return $scope.$storage.conf.activity + " - " + $scope.$storage.conf.level;
+          case "QCMID":
+            return $scope.main.QCMID;
           default:
             return "";
         }
       };
 
-      $scope.getExamHeading = function (header) {
-        return header.title;
+      $scope.getExamHeading = function () {
+        return "Examen " + $scope.$storage.conf.activity + " - " + $scope.$storage.conf.level;
       };
 
       $scope.headerExamPapier = $scope.headerExam.candidat;
