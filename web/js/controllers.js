@@ -679,9 +679,9 @@ angular
       $scope.$watch("parameter.level", function (newVal) {
         if ($scope.main.exam.enabled) {
           if (newVal === "Brevet de Pilote") {
-            $scope.parameter.nbquestions = 60;
+            $scope.parameter.nbquestions = "60";
           } else {
-            $scope.parameter.nbquestions = 30;
+            $scope.parameter.nbquestions = "30";
           }
         }
       });
@@ -697,7 +697,7 @@ angular
           }
         });
 
-        $scope.$storage.conf["nbquestions"] = $scope.parameter["nbquestions"].toString();
+        $scope.$storage.conf["nbquestions"] = $scope.parameter["nbquestions"];
 
         // Return array of changed keys for parent to handle regeneration
         $modalInstance.close(changedKeys.length > 0 ? changedKeys : []);
