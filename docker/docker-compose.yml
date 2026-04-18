@@ -9,18 +9,18 @@ services:
       - "3000:3000"
     volumes:
       # --- Root configuration files ---
-      - ../package.json:/app/package.json:rw
-      - ../package-lock.json:/app/package-lock.json:rw
-      - ../vite.config.js:/app/vite.config.js:ro
-      - ../eslint.config.js:/app/eslint.config.js:ro
-      - ../.prettierrc.json:/app/.prettierrc.json:ro
-      - ../pyproject.toml:/app/pyproject.toml:ro
-      - ../requirements.txt:/app/requirements.txt:ro
+      - ../package.json:/app/package.json
+      - ../package-lock.json:/app/package-lock.json
+      - ../vite.config.js:/app/vite.config.js
+      - ../eslint.config.js:/app/eslint.config.js
+      - ../.prettierrc.json:/app/.prettierrc.json
+      - ../pyproject.toml:/app/pyproject.toml
+      - ../requirements.txt:/app/requirements.txt
 
       # --- Source directories ---
-      - ../data:/app/data:ro
-      - ../scripts:/app/scripts:ro
-      - ../web:/app/web:ro
+      - ../data:/app/data
+      - ../scripts:/app/scripts
+      - ../web:/app/web
 
       # --- Persistent volumes ---
       - qcmffvl_node_modules:/app/node_modules
