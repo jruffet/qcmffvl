@@ -104,7 +104,10 @@
                 </button>
               </li>
               <li ng-show="main.exam.enabled">
-                <button ng-click="printQCM()" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-print"></span> Imprimer</button>
+                <button ng-click="printQCM()" class="btn btn-default navbar-btn">
+                  <span class="glyphicon glyphicon-print"></span>
+                  Imprimer
+                </button>
               </li>
               <li ng-show="main.exam.enabled">
                 <div class="btn-group navbar-btn">
@@ -115,18 +118,30 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="hideNavbarButtons">
               <li>
-                <button ng-click="dialogParameters()" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-cog"></span> Paramètres</button>
+                <button ng-click="dialogParameters()" class="btn btn-default navbar-btn">
+                  <span class="glyphicon glyphicon-cog"></span>
+                  Paramètres
+                </button>
               </li>
               <li>
-                <button ng-click="dialogShare()" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-share"></span> Partager</button>
+                <button ng-click="dialogShare()" class="btn btn-default navbar-btn">
+                  <span class="glyphicon glyphicon-share"></span>
+                  Partager
+                </button>
               </li>
               <li>
-                <button ng-click="toggleExamMode()" class="btn btn-default navbar-btn" ng-class="{'btn-danger': main.exam.enabled}"><span class="glyphicon glyphicon-education"></span> Examen</button>
+                <button ng-click="toggleExamMode()" class="btn btn-default navbar-btn" ng-class="{'btn-danger': main.exam.enabled}">
+                  <span class="glyphicon glyphicon-education"></span>
+                  Examen
+                </button>
               </li>
               <li>
                 <div class="text-center">
                   <a href="#about">
-                    <button class="btn btn-default navbar-btn btn-informations"><span class="glyphicon glyphicon-info-sign"></span> Informations</button>
+                    <button class="btn btn-default navbar-btn btn-informations">
+                      <span class="glyphicon glyphicon-info-sign"></span>
+                      Informations
+                    </button>
                   </a>
                 </div>
               </li>

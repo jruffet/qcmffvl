@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/sync-data.js && vite --host --no-open",
     "build": "node scripts/sync-data.js && vite build",
-    "lint": "eslint .",
+    "lint": "node scripts/lint.mjs",
     "test": "vitest"
   },
   "devDependencies": {
