@@ -1,64 +1,69 @@
-import angular from 'eslint-plugin-angular';
-import importPlugin from 'eslint-plugin-import';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
+import angular from "eslint-plugin-angular";
+import importPlugin from "eslint-plugin-import";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import eslintPluginPrettier from "eslint-plugin-prettier";
 
 export default [
   {
-    ignores: ["web/js/lib/*.js", "dist/**"]
+    ignores: ["web/js/lib/**/*.js", "dist/**"],
   },
   {
     // Configuration for JS files
-    files: ['**/*.js'],
+    files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        jQuery: 'readonly',
-        $: 'readonly',
-        angular: 'readonly',
-        PRNG: 'readonly',
-        QCM: 'readonly'
-      }
+        window: "readonly",
+        document: "readonly",
+        console: "readonly",
+        jQuery: "readonly",
+        $: "readonly",
+        angular: "readonly",
+        PRNG: "readonly",
+        QCM: "readonly",
+      },
     },
     plugins: {
       angular,
-      import: importPlugin
+      import: importPlugin,
+      prettier: eslintPluginPrettier,
     },
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'off',
-      'eqeqeq': 'error'
-    }
+      "no-unused-vars": "warn",
+      "no-console": "off",
+      eqeqeq: "error",
+      "prettier/prettier": "error",
+    },
   },
   {
     // Configuration for TS files
-    files: ['**/*.ts'],
+    files: ["**/*.ts"],
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        jQuery: 'readonly',
-        $: 'readonly',
-        angular: 'readonly',
-        PRNG: 'readonly',
-        QCM: 'readonly'
-      }
+        window: "readonly",
+        document: "readonly",
+        console: "readonly",
+        jQuery: "readonly",
+        $: "readonly",
+        angular: "readonly",
+        PRNG: "readonly",
+        QCM: "readonly",
+      },
     },
     plugins: {
-      '@typescript-eslint': tsPlugin
+      "@typescript-eslint": tsPlugin,
+      prettier: eslintPluginPrettier,
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': 'warn',
-      'no-console': 'off',
-      'eqeqeq': 'error'
-    }
-  }
+      "@typescript-eslint/no-unused-vars": "warn",
+      "no-console": "off",
+      eqeqeq: "error",
+      "prettier/prettier": "error",
+    },
+  },
 ];

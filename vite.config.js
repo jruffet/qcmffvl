@@ -1,21 +1,21 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import fs from 'fs';
+import { defineConfig } from "vite";
+import { resolve } from "path";
+import fs from "fs";
 
-const versionsPath = resolve(__dirname, 'web/json/versions.json');
-const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
-const base = process.env.BASE_URL || '/';
+const versionsPath = resolve(__dirname, "web/json/versions.json");
+const versions = JSON.parse(fs.readFileSync(versionsPath, "utf-8"));
+const base = process.env.BASE_URL || "/";
 
 export default defineConfig(() => {
   return {
     base: base,
-    root: resolve(__dirname, 'web'),
+    root: resolve(__dirname, "web"),
     define: {
       __APP_VERSION__: JSON.stringify(versions.app_version),
       __QCM_VERSION__: JSON.stringify(versions.qcm_version),
     },
     build: {
-      outDir: resolve(__dirname, 'dist'),
+      outDir: resolve(__dirname, "dist"),
       emptyOutDir: true,
       // Disable minification to prevent a 1-2px text shift in production caused by CSS bundling/minification
       minify: false,
@@ -26,19 +26,19 @@ export default defineConfig(() => {
     },
     plugins: [
       {
-        name: 'copy-assets-files',
-        apply: 'build',
+        name: "copy-assets-files",
+        apply: "build",
         closeBundle() {
           const dirsToCopy = [
-            { src: 'web/js/lib', dest: 'js/lib' },
-            { src: 'web/json', dest: 'json' },
-            { src: 'web/generated', dest: 'generated' },
-            { src: 'web/assets', dest: 'assets' }
+            { src: "web/js/lib", dest: "js/lib" },
+            { src: "web/json", dest: "json" },
+            { src: "web/generated", dest: "generated" },
+            { src: "web/assets", dest: "assets" },
           ];
 
           dirsToCopy.forEach(({ src, dest }) => {
             const srcDir = resolve(__dirname, src);
-            const distDir = resolve(__dirname, 'dist', dest);
+            const distDir = resolve(__dirname, "dist", dest);
 
             if (fs.existsSync(srcDir)) {
               fs.mkdirSync(distDir, { recursive: true });
@@ -46,7 +46,7 @@ export default defineConfig(() => {
               console.log(`Successfully copied ${src} to dist/${dest}`);
             }
           });
-        }
+        },
       },
     ],
   };
