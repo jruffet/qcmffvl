@@ -7,7 +7,6 @@ angular.module('qcmffvl', [
   'ngStorage',
   'ui.bootstrap',
   'dialogs.main',
-  'ng.deviceDetector',
   'pascalprecht.translate',
   'angular-clipboard',
   'qcmffvl.directives',

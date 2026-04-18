@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('qcmffvl.controllers', [])
-    .controller('MainCtrl', ['$scope', '$location', '$timeout', '$http', '$filter', '$localStorage', 'dialogs', 'deviceDetector', function ($scope, $location, $timeout, $http, $filter, $localStorage, dialogs, deviceDetector) {
+    .controller('MainCtrl', ['$scope', '$location', '$timeout', '$http', '$filter', '$localStorage', 'dialogs', '$window', function ($scope, $location, $timeout, $http, $filter, $localStorage, dialogs, $window) {
         $scope.version = __APP_VERSION__;
         $scope.qcmVersion = __QCM_VERSION__;
 
@@ -259,15 +259,14 @@ angular.module('qcmffvl.controllers', [])
         }
 
         $scope.isSmartphone = function () {
-            return deviceDetector.device === 'phone'
-                || deviceDetector.device === 'iphone'
-                || deviceDetector.device === 'android';
+            var ua = $window.navigator.userAgent;
+            return /Mobi|Android|iPhone/i.test(ua);
         }
         $scope.isAndroid = function () {
-            return deviceDetector.device === 'android';
+            return /Android/i.test($window.navigator.userAgent);
         }
         $scope.isIphone = function () {
-            return deviceDetector.device === 'iphone';
+            return /iPhone/i.test($window.navigator.userAgent);
         }
 
         $scope.gotoMainURL = function () {
