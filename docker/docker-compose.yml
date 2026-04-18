@@ -13,6 +13,7 @@ services:
       - ../package-lock.json:/app/package-lock.json:rw
       - ../vite.config.js:/app/vite.config.js:ro
       - ../eslint.config.js:/app/eslint.config.js:ro
+      - ../.prettierrc.json:/app/.prettierrc.json:ro
       - ../pyproject.toml:/app/pyproject.toml:ro
       - ../requirements.txt:/app/requirements.txt:ro
 
