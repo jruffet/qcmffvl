@@ -626,9 +626,8 @@ angular
     "$scope",
     "$modalInstance",
     "data",
-    "clipboard",
     "$timeout",
-    function ($scope, $modalInstance, data, clipboard, $timeout) {
+    function ($scope, $modalInstance, data, $timeout) {
       $scope.main = data;
       $scope.copyButtonText = "";
       $scope.copyButtonClass = "";
@@ -650,13 +649,16 @@ angular
         $modalInstance.dismiss();
       };
       $scope.copyAddress = function () {
-        clipboard.copyText($scope.main.QCMIDURL);
-        $scope.copyButtonText = "Copié !";
-        $scope.copyButtonClass = "btn-info";
-        $timeout(function () {
-          $scope.copyButtonText = "";
-          $scope.copyButtonClass = "";
-        }, 500);
+        navigator.clipboard.writeText($scope.main.QCMIDURL).then(function () {
+          $timeout(function () {
+            $scope.copyButtonText = "Copié !";
+            $scope.copyButtonClass = "btn-info";
+            $timeout(function () {
+              $scope.copyButtonText = "";
+              $scope.copyButtonClass = "";
+            }, 500);
+          });
+        });
       };
     },
   ])

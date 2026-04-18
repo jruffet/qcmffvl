@@ -8,7 +8,6 @@ angular
     "ui.bootstrap",
     "dialogs.main",
     "pascalprecht.translate",
-    "angular-clipboard",
     "qcmffvl.directives",
     "qcmffvl.controllers",
   ])
