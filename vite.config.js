@@ -2,6 +2,10 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs';
 
+function injectVersion(html, appVersion) {
+  return html.replace(/\?v=__APP_VERSION__/g, `?v=${appVersion}`);
+}
+
 const versionsPath = resolve(__dirname, 'web/json/versions.json');
 const versions = JSON.parse(fs.readFileSync(versionsPath, 'utf-8'));
 const base = process.env.BASE_URL || '/';
@@ -25,6 +29,35 @@ export default defineConfig(() => {
       open: true,
     },
     plugins: [
+      {
+        name: 'version-injection',
+        configureServer(server) {
+          // Watch versions.json and restart dev server when it changes
+          server.watcher.add(versionsPath);
+          server.watcher.on('change', (file) => {
+            if (file === versionsPath) {
+              console.log('versions.json changed, restarting dev server...');
+              server.restart().catch(() => {});
+            }
+          });
+        },
+        transformIndexHtml(html) {
+          return injectVersion(html, versions.app_version);
+        },
+      },
+      {
+        name: 'html-version-replace',
+        apply: 'build',
+        closeBundle() {
+          const outDir = resolve(__dirname, 'dist');
+          const indexPath = resolve(outDir, 'index.html');
+          if (fs.existsSync(indexPath)) {
+            let html = fs.readFileSync(indexPath, 'utf8');
+            html = injectVersion(html, versions.app_version);
+            fs.writeFileSync(indexPath, html, 'utf8');
+          }
+        },
+      },
       {
         name: 'copy-assets-files',
         apply: 'build',
