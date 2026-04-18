@@ -4,7 +4,8 @@
     "changes": [],
     "bugfixes": [
       "Correction du calcul du QCMID lors de changement de paramètres, en mode examen.",
-      "L'impression avec Firefox est de nouveau fonctionnelle."
+      "L'impression avec Firefox est de nouveau fonctionnelle.",
+      "Amélioration graphique du mode examen papier."
     ]
   },
   {

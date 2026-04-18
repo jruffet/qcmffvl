@@ -64,25 +64,36 @@ angular
       $scope.headerExam = {
         candidat: [
           {
-            title: "Candidat",
-            items: ["Nom", "Prénom", "Club / école", "Numéro de licence"],
-          },
-          {
             title: "Examen",
-            items: ["Date", "Structure organisatrice", "Points obtenus", "QCM validé (oui / non)"],
+            items: [
+              "Pratique",
+              "Date",
+              "Structure organisatrice",
+              "Points obtenus",
+              "QCM validé (oui / non)",
+            ],
           },
+          { title: "Identification", items: ["Nom", "Prénom", "Club / école", "Numéro de licence"] },
         ],
         examinateur: [
-          {
-            title: "Examinateur",
-            items: ["Nom", "Prénom", "Club / école", "Numéro de licence"],
-          },
-          {
-            title: "Examen",
-            items: ["Date", "Structure organisatrice"],
-          },
+          { title: "Examen", items: ["Pratique", "Date", "Structure organisatrice"] },
+          { title: "Identification", items: ["Nom", "Prénom", "Club / école", "Numéro de licence"] },
         ],
       };
+
+      $scope.getExamItemValue = function (item) {
+        switch (item) {
+          case "Pratique":
+            return $scope.$storage.conf.activity + " - " + $scope.$storage.conf.level;
+          default:
+            return "";
+        }
+      };
+
+      $scope.getExamHeading = function (header) {
+        return header.title;
+      };
+
       $scope.headerExamPapier = $scope.headerExam.candidat;
 
       // automatically removed by a directive when the QCM is loaded

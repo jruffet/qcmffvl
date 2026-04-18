@@ -227,22 +227,20 @@
     <div class="loader" ng-show="!loading && $parent.filtered_qcm.length === 0">Aucune question disponible avec ces filtres</div>
     <div ng-hide="loading">
       <div >
-        <div class="qcm-title" ng-show="main.exam.enabled">
-          <span>QCM FFVL {{$storage.conf.activity}} {{$storage.conf.level}} (Exemplaire <span ng-show="main.exam.is_candidat">Candidat</span><span ng-show="!main.exam.is_candidat">Examinateur</span>)</span>
-          <span class="pull-right">QCMID: {{main.QCMID}}</span>
-         </div>
         <div class="qcm-body">
           <div ng-show="main.exam.enabled" ng-repeat="header in headerExamPapier">
             <div class="panel panel-default grid-item panel-header-exam">
               <div class="panel-heading">
                 <div class="row header-exam-title">
-                  <span class="col-lg-11 col-xs-11">{{header.title}}</span>
+                  <span ng-show="header.title === 'Examen'" class="col-lg-7 col-xs-6">{{'Examen #' + $parent.main.QCMID}}</span>
+                  <span ng-show="header.title === 'Examen'" class="col-lg-5 col-xs-6 text-right">{{'Exemplaire ' + ($parent.main.exam.is_candidat ? 'Candidat' : 'Examinateur')}}</span>
+                  <span ng-hide="header.title === 'Examen'" class="col-lg-12 col-xs-12">{{getExamHeading(header)}}</span>
                 </div>
               </div>
               <div class="panel-body">
                 <div ng-repeat="item in header.items">
                   <div class="checkbox row header-exam-item" >
-                    <span class="col-lg-11 col-xs-11">{{item}} :</span>
+                    <span class="col-lg-11 col-xs-11">{{item}} : {{getExamItemValue(item)}}</span>
                   </div>
                 </div>
               </div>
