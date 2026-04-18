@@ -1,11 +1,13 @@
 [
   {
     "version": "4.2.0",
-    "changes": [],
+    "changes": [
+      "Amélioration graphique du mode examen papier."
+    ],
     "bugfixes": [
       "Correction du calcul du QCMID lors de changement de paramètres, en mode examen.",
       "L'impression avec Firefox est de nouveau fonctionnelle.",
-      "Amélioration graphique du mode examen papier."
+      "Multiples corrections graphiques."
     ]
   },
   {

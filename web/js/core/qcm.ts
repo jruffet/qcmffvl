@@ -235,7 +235,6 @@ export const QCM: QCM = {
 
     return calculatedVersionChecksum === providedVersionChecksum;
   },
-  // Extracted from QCMCtrl
   getPoints: function (question) {
     let total = 0;
     for (let i = 0; i < question.answers.length; i++) {
