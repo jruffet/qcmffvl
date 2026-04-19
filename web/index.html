@@ -52,7 +52,7 @@
               <span ng-hide="hideNavbarButtons">
                 <span class="hide-xxs" ng-hide="main.exam.enabled">
                   <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn">Corriger</button>
-                  <button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}}%</button>
+                  <button ng-show="main.checkAnswers" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn navbar-collapsed-btn btn-score">{{main.score.percentage}} %</button>
                 </span>
                 <button ng-click="reload()" class="btn btn-default navbar-btn navbar-collapsed-btn">
                   <span class="glyphicon glyphicon-refresh"></span>
@@ -97,7 +97,7 @@
               <li>
                 <span ng-hide="main.exam.enabled">
                   <button ng-hide="main.checkAnswers" ng-click="main.checkAnswers = true" class="btn btn-default navbar-left navbar-btn">Corriger</button>
-                  <button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}}%)</button>
+                  <button ng-show="main.checkAnswers" ng-click="reload()" ng-class="scoreClass(main.score)" class="btn btn-default navbar-left navbar-btn btn-score">Score : {{main.score.user}} / {{main.score.total}} ({{main.score.percentage}} %)</button>
                 </span>
                 <button ng-hide="!navCollapsed" ng-click="reload()" class="btn btn-default navbar-btn">
                   <span class="glyphicon glyphicon-refresh"></span>
