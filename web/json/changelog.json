@@ -1,5 +1,11 @@
 [
   {
+    "version": "4.2.1",
+    "changes": [
+      "Suppression du bouton \"reload\" du menu ouvert."
+    ]
+  },
+  {
     "version": "4.2.0",
     "changes": [
       "Amélioration graphique du mode examen papier."
@@ -26,7 +32,6 @@
       "Réécriture complète du moteur du QCM.",
       "Refonte graphique des menus et du mode examen."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "3.3"
     }
@@ -50,21 +55,18 @@
     "changes": [
       "Cette web app peut maintenant être installée via le navigateur (notamment sur Android)."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "3.1"
     }
   },
   {
     "version": "3.7.2",
-    "changes": [],
     "bugfixes": [
       "Correction de la balise de langue HTML pour éviter de déclencher la traduction automatique des navigateurs."
     ]
   },
   {
     "version": "3.7.1",
-    "changes": [],
     "bugfixes": [
       "Affichage des emails de contact FFVL au lieu d'enveloppes à cliquer."
     ]
@@ -76,7 +78,6 @@
       "Amélioration de la vitesse de chargement du questionnaire.",
       "Multiples améliorations visuelles."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "3.0",
       "changes": "ajout des catégories \"Facteurs humain\" et \"Milieu naturel\""
@@ -102,15 +103,12 @@
     "changes": [
       "Possibilité de contacter la FFVL via l'interface pour des explications sur une question."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "1.6"
     }
   },
   {
     "version": "3.5.1",
-    "changes": [],
-    "bugfixes": [],
     "qcm": {
       "version": "1.5"
     }
@@ -121,7 +119,6 @@
       "Quelques modifications de la partie Android pour coller aux exigences Google.",
       "Renommage d'une partie de la CSS pour éviter que des boutons disparaissent si adblock plus est actif."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "1.4"
     }
@@ -141,7 +138,6 @@
       "Nouvel affichage des réponses, plus intuitif.",
       "Ajout des entêtes en mode impression."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "1.3"
     }
@@ -151,15 +147,12 @@
     "changes": [
       "À la correction, les points en gras correspondent aux réponses cochées."
     ],
-    "bugfixes": [],
     "qcm": {
       "version": "1.2"
     }
   },
   {
     "version": "3.2.1",
-    "changes": [],
-    "bugfixes": [],
     "qcm": {
       "version": "1.1"
     }
@@ -169,19 +162,16 @@
     "changes": [
       "Ajout du choix de catégorie.",
       "Le QCM ID intègre maintenant le choix de catégorie, et n'est pas compatible avec les versions antérieures à 3.2 (la rétro-compatibilité est par contre assurée, le chargement d'un QCM ID de version >= 3.0 et < 3.2 fonctionnera)"
-    ],
-    "bugfixes": []
+    ]
   },
   {
     "version": "3.1.2",
-    "changes": [],
     "bugfixes": [
       "Android : La configuration et le questionnaire en cours ne seront plus \"oubliés\" lors d'une mise à jour de l'application."
     ]
   },
   {
     "version": "3.1.1",
-    "changes": [],
     "bugfixes": [
       "Correction d'une régression impactant le support de vieux navigateurs."
     ]
@@ -196,8 +186,7 @@
       "Changement de licence pour la MIT, très permissive toujours.",
       "Avertissement de la perte des réponses lors du passage en mode examen.",
       "Quelques petites améliorations d'affichage."
-    ],
-    "bugfixes": []
+    ]
   },
   {
     "version": "3.0.0",
@@ -219,16 +208,14 @@
     "changes": [
       "Simplification du code couleur : si une bonne réponse n'est pas cochée, alors l'afficher en gras (au lieu de orange/rouge).",
       "Ajout d'une modale pour partager le QCM ID, et permettre le chargement d'un questionnaire donné via une URL."
-    ],
-    "bugfixes": []
+    ]
   },
   {
     "version": "2.1.0",
     "changes": [
       "Suppression des boutons corriger / résultat en mode examen.",
       "Retour au début de la page quand le mode de questionnaire est modifié."
-    ],
-    "bugfixes": []
+    ]
   },
   {
     "version": "2.0.0",
@@ -248,7 +235,6 @@
   },
   {
     "version": "1.2.0",
-    "changes": [],
     "bugfixes": [
       "Changer les options en étant dans la page \"informations\" redirige vers la page QCM au lieu d'afficher \"Chargement...\" au milieu de la page."
     ]
@@ -257,14 +243,12 @@
     "version": "1.1.0",
     "changes": [
       "En mode smartphone/tablette, quand le formulaire est cliqué, la barre de menu se réduit (et rien ne se coche/décoche)"
-    ],
-    "bugfixes": []
+    ]
   },
   {
     "version": "1.0.0",
     "changes": [
       "Première version !"
-    ],
-    "bugfixes": []
+    ]
   }
 ]
