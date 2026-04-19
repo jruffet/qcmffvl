@@ -7,7 +7,10 @@ let failed = false;
 
 console.log(fixMode ? "Fixing JS/TS with ESLint..." : "Linting JS/TS with ESLint...");
 try {
-  execFileSync("npx", ["eslint", ".", ...(fixMode ? ["--fix"] : [])], { stdio: "inherit", cwd: process.cwd() });
+  execFileSync("npx", ["eslint", ".", ...(fixMode ? ["--fix"] : [])], {
+    stdio: "inherit",
+    cwd: process.cwd(),
+  });
 } catch {
   failed = true;
 }
