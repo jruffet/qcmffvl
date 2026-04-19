@@ -1,4 +1,4 @@
-import { execFileSync, execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { exit } from "process";
 
 const args = process.argv.slice(2);
@@ -15,10 +15,8 @@ try {
 const cssHtmlFiles = ["web/**/*.css", "web/**/*.html"];
 console.log(fixMode ? "Fixing CSS/HTML with Prettier..." : "Checking CSS/HTML with Prettier...");
 try {
-  execSync(
-    `npx prettier${fixMode ? " --write" : " --check"} --cache ${cssHtmlFiles.join(" ")}`,
-    { stdio: "inherit", cwd: process.cwd() },
-  );
+  const prettierArgs = ["prettier", ...(fixMode ? ["--write"] : ["--check"]), "--cache", ...cssHtmlFiles];
+  execFileSync("npx", prettierArgs, { stdio: "inherit", cwd: process.cwd() });
 } catch {
   failed = true;
 }
