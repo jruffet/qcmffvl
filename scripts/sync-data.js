@@ -14,8 +14,7 @@ async function syncData() {
 
     // Use execSync for simplicity and to avoid the execa dependency issue
     execSync(
-      "python3 scripts/helpers/csvref2json.py data/csv/qcm_ffvl.csv web/generated/qcm_ffvl.json " +
-        qcmVersion,
+      "python3 scripts/csvref2json.py data/csv/qcm_ffvl.csv web/generated/qcm_ffvl.json " + qcmVersion,
       { stdio: "inherit" },
     );
     console.log("[+] CSV synced to JSON.");
