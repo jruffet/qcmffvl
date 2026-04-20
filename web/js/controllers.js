@@ -96,11 +96,11 @@ angular
       $scope.qcmOptions = {};
       // show the QCM view ?
       $scope.qcm = [];
-      $scope.filtered_qcm = [];
+      $scope.filteredQcm = [];
       $scope.showQCM = true;
 
       // ============ Storage init ============
-      const storage_default = {
+      const storageDefault = {
         conf: {
           activity: "Parapente",
           level: "Brevet de Pilote",
@@ -110,13 +110,13 @@ angular
         },
         answers: {},
       };
-      $scope.$storage = $localStorage.$default(storage_default);
+      $scope.$storage = $localStorage.$default(storageDefault);
 
-      // Ensure all storage_default keys exist and are valid
-      Object.keys(storage_default.conf).forEach((key) => {
+      // Ensure all storageDefault keys exist and are valid
+      Object.keys(storageDefault.conf).forEach((key) => {
         // 1. Ensure key exists in $storage.conf
         if (!(key in $scope.$storage.conf)) {
-          $scope.$storage.conf[key] = storage_default.conf[key];
+          $scope.$storage.conf[key] = storageDefault.conf[key];
         }
 
         const val = $scope.$storage.conf[key];
@@ -124,13 +124,13 @@ angular
 
         // 2. If the config has options, ensure the current value is valid
         if (config?.options?.indexOf(val) === -1) {
-          $scope.$storage.conf[key] = storage_default.conf[key];
+          $scope.$storage.conf[key] = storageDefault.conf[key];
         }
       });
 
-      // 3. Remove any extra keys not in storage_default.conf
+      // 3. Remove any extra keys not in storageDefault.conf
       Object.keys($scope.$storage.conf).forEach((key) => {
-        if (!(key in storage_default.conf)) {
+        if (!(key in storageDefault.conf)) {
           delete $scope.$storage.conf[key];
         }
       });
@@ -331,7 +331,7 @@ angular
         if (limit === "Toutes") {
           limit = 10000;
         }
-        $scope.filtered_qcm = $filter("limitTo")($scope.qcm, limit);
+        $scope.filteredQcm = $filter("limitTo")($scope.qcm, limit);
       };
 
       $scope.$watch("$storage.conf.nbquestions", function (newval, oldval) {
@@ -571,7 +571,7 @@ angular
 
       $scope.$watch("main.checkAnswers", function (newval, oldval) {
         if (oldval !== newval && newval === true) {
-          $scope.main.score = QCM.getScore($scope.filtered_qcm);
+          $scope.main.score = QCM.getScore($scope.filteredQcm);
           $scope.$parent.deleteStoredAnswers();
         }
       });

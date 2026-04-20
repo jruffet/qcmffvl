@@ -241,7 +241,7 @@
 
   <script type="text/ng-template" id="qcm.html">
     <div class="loader" ng-show="loading">Chargement...</div>
-    <div class="loader" ng-show="!loading && $parent.filtered_qcm.length === 0">Aucune question disponible avec ces filtres</div>
+    <div class="loader" ng-show="!loading && $parent.filteredQcm.length === 0">Aucune question disponible avec ces filtres</div>
     <div ng-hide="loading">
       <div >
         <div class="qcm-body" ng-class="{'qcm-inactive': main.exam.enabled}">
@@ -262,7 +262,7 @@
               </div>
             </div>
           </div>
-          <div ng-repeat="q in $parent.filtered_qcm">
+          <div ng-repeat="q in $parent.filteredQcm">
             <div class="panel panel-default grid-item"
                  ng-class="{
                      'panel-success': successQuestion(q),
