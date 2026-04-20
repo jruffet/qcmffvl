@@ -56,7 +56,7 @@ angular
         },
         exam: {
           enabled: false,
-          is_candidat: true,
+          isCandidate: true,
         },
         QCMID: "",
         helpQuestion: null,
@@ -85,7 +85,9 @@ angular
         return "Examen " + $scope.$storage.conf.activity + " - " + $scope.$storage.conf.level;
       };
 
-      $scope.headerExamPapier = $scope.headerExam.candidat;
+      $scope.headerExamPapier = $scope.main.exam.isCandidate
+        ? $scope.headerExam.candidat
+        : $scope.headerExam.examinateur;
 
       // automatically removed by a directive when the QCM is loaded
       $scope.loading = true;
@@ -213,7 +215,7 @@ angular
             $scope.seed = result.seed;
           }
 
-          if ($scope.main.exam.enabled && !$scope.main.exam.is_candidat) {
+          if ($scope.main.exam.enabled && !$scope.main.exam.isCandidate) {
             QCM.tickAnswers($scope.qcm);
           }
           if (keepAnswers && Object.keys($scope.$storage.answers).length > 0) {
@@ -352,29 +354,28 @@ angular
         },
       );
 
+      $scope.setExamRole = function (isCandidat) {
+        $scope.main.exam.isCandidate = isCandidat;
+        if ($scope.main.exam.enabled) {
+          $scope.headerExamPapier = isCandidat ? $scope.headerExam.candidat : $scope.headerExam.examinateur;
+          $scope.unfillQCMAnswers();
+          if (!isCandidat) {
+            QCM.tickAnswers($scope.qcm);
+          }
+        }
+      };
+
       $scope.$watch("main.exam.enabled", function (newval, oldval) {
         if (newval !== oldval) {
-          $scope.unfillQCMAnswers();
           if (newval) {
-            $scope.main.exam.is_candidat = false;
+            $scope.setExamRole(false);
             $scope.applyExamConstraints();
             $scope.deleteStoredAnswers(false);
           } else {
-            $scope.deleteStoredAnswers();
+            $scope.unfillQCMAnswers();
           }
           document.body.scrollTop = document.documentElement.scrollTop = 0;
           $scope.navCollapsed = true;
-        }
-      });
-      $scope.$watch("main.exam.is_candidat", function (newval, oldval) {
-        if (newval !== oldval) {
-          if ($scope.main.exam.enabled) {
-            $scope.headerExamPapier = newval ? $scope.headerExam.candidat : $scope.headerExam.examinateur;
-            $scope.unfillQCMAnswers();
-            if (!newval) {
-              QCM.tickAnswers($scope.qcm);
-            }
-          }
         }
       });
 

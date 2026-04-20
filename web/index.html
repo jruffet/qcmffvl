@@ -67,8 +67,8 @@
                     <span class="glyphicon glyphicon-print"></span>
                   </button>
                   <div class="btn-group navbar-btn navbar-collapsed-btn">
-                    <button ng-click="main.exam.is_candidat = true" class="btn btn-default" ng-class="{'active': main.exam.is_candidat}">C</button>
-                    <button ng-click="main.exam.is_candidat = false" class="btn btn-default" ng-class="{'active': !main.exam.is_candidat}">E</button>
+                    <button ng-click="setExamRole(true)" class="btn btn-default" ng-class="{'active': main.exam.isCandidate}">C</button>
+                    <button ng-click="setExamRole(false)" class="btn btn-default" ng-class="{'active': !main.exam.isCandidate}">E</button>
                   </div>
                   <button ng-click="toggleExamMode()" class="btn btn-default navbar-btn navbar-collapsed-btn hide-small-phone" ng-class="{'btn-danger': main.exam.enabled}" ng-show="main.exam.enabled">
                     <span class="glyphicon glyphicon-education"></span>
@@ -113,8 +113,8 @@
               </li>
               <li ng-show="main.exam.enabled">
                 <div class="btn-group navbar-btn">
-                  <button ng-click="main.exam.is_candidat = true" class="btn btn-default" ng-class="{'active': main.exam.is_candidat}">Candidat</button>
-                  <button ng-click="main.exam.is_candidat = false" class="btn btn-default" ng-class="{'active': !main.exam.is_candidat}">Examinateur</button>
+                  <button ng-click="setExamRole(true)" class="btn btn-default" ng-class="{'active': main.exam.isCandidate}">Candidat</button>
+                  <button ng-click="setExamRole(false)" class="btn btn-default" ng-class="{'active': !main.exam.isCandidate}">Examinateur</button>
                 </div>
               </li>
             </ul>
@@ -250,7 +250,7 @@
               <div class="panel-heading">
                 <div class="row header-exam-title">
                   <span ng-show="$first" class="col-lg-12 col-xs-12">{{getExamHeading()}}</span>
-                  <span ng-hide="$first" class="col-lg-12 col-xs-12">{{'Exemplaire ' + (main.exam.is_candidat ? 'Candidat' : 'Examinateur')}}</span>
+                  <span ng-hide="$first" class="col-lg-12 col-xs-12">{{'Exemplaire ' + (main.exam.isCandidate ? 'Candidat' : 'Examinateur')}}</span>
                 </div>
               </div>
               <div class="panel-body">
@@ -299,7 +299,7 @@
                       'iphone':isIphone()
                       }">
                       <span class="col-lg-11 col-xs-11 answer-text" ng-class="{'smartphone':isSmartphone(),'android':isAndroid(),'iphone':isIphone(),}" ng-click="toggleCheck(q, answer)" ng-bind="answer.text"></span>
-                      <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || (main.exam.enabled && !main.exam.is_candidat)" ng-bind="answer.pts"></span>
+                      <span class="col-lg-1 col-xs-1 pull-right points" ng-show="main.checkAnswers || (main.exam.enabled && main.exam.isCandidate)" ng-bind="answer.pts"></span>
                     </div>
                   </div>
                 </div>
