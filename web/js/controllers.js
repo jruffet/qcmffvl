@@ -277,11 +277,10 @@ angular
         const text = `Composer un nouveau questionnaire <b>${activity}</b> niveau <b>${level}</b> avec <b>${nbText}</b>${categoryText} (et effacer vos réponses) ?`;
 
         dialogs.confirm("Confirmation", text).result.then(function () {
-          $scope.loading = true;
           // wait for modal to close to avoid weird effects
           $timeout(function () {
             $scope.regenerateQCM();
-          }, 500);
+          }, 200);
         });
       };
 
