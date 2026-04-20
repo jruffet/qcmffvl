@@ -356,7 +356,7 @@ angular
         if (newval !== oldval) {
           $scope.unfillQCMAnswers();
           if (newval) {
-            $scope.main.exam.is_candidat = true;
+            $scope.main.exam.is_candidat = false;
             $scope.applyExamConstraints();
             $scope.deleteStoredAnswers(false);
           } else {
