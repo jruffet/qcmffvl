@@ -1,9 +1,9 @@
 [
   {
-    "version": "4.2.1",
+    "version": "4.3.0",
     "changes": [
       "Suppression du bouton \"reload\" du menu ouvert.",
-      "Meilleur rendu de l'impression de l'examen papier"
+      "Multiples modifications graphiques du mode examen papier."
     ]
   },
   {

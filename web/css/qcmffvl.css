@@ -36,6 +36,10 @@
     vertical-align: middle;
   }
 
+  input[type="checkbox"] {
+    accent-color: #555;
+  }
+
   .qcm-body {
     padding-top: 0;
     font-size: 11px;
@@ -214,6 +218,13 @@
   /* ========== QCM Elements ========== */
   .checkbox.row.header-exam-item {
     margin-left: -15px;
+  }
+
+  .qcm-inactive {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+    filter: grayscale(100%);
   }
 
   .answer-text,
