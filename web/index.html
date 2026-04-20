@@ -26,14 +26,9 @@
 
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("sw.js")
-          .then(function () {
-            console.log("Service worker registered");
-          })
-          .catch(function (err) {
-            console.error("Service worker registration failed:", err);
-          });
+        navigator.serviceWorker.register("sw.js").catch((err) => {
+          console.error("Service worker registration failed:", err);
+        });
       }
     </script>
 
@@ -231,7 +226,7 @@
       </span>
     </div>
     <div class="modal-footer">
-          <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
+      <button type="button" class="btn btn-default" ng-click="ok()">Fermer</button>
     </div>
   </script>
 
