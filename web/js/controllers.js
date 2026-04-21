@@ -294,17 +294,6 @@ angular
         }
       };
 
-      $scope.isSmartphone = function () {
-        var ua = $window.navigator.userAgent;
-        return /Mobi|Android|iPhone/i.test(ua);
-      };
-      $scope.isAndroid = function () {
-        return /Android/i.test($window.navigator.userAgent);
-      };
-      $scope.isIphone = function () {
-        return /iPhone/i.test($window.navigator.userAgent);
-      };
-
       $scope.gotoMainURL = function () {
         $scope.main.exam.enabled = false;
         $scope.collapseNav();
@@ -409,6 +398,10 @@ angular
       };
 
       // ================== Start =====================
+      const ua = $window.navigator.userAgent;
+      $scope.isSmartphone = /Mobi|Android|iPhone/i.test(ua);
+      $scope.isAndroid = /Android/i.test(ua);
+      $scope.isIphone = /iPhone/i.test(ua);
       // Capture the original path before LoadCtrl redirects (which happens in the same digest cycle)
       const wasLoadPath = $location.path().indexOf("/load/") !== -1;
 
