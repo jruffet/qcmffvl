@@ -20,7 +20,6 @@ The official [FFVL](https://ffvl.fr/) multiple-choice application for preparing 
 - **Flexible Question Counts**: Choose from a set number of questions or study the entire database.
 
 ### User Experience
-- **Offline Support**: Study anytime, anywhere, even without an internet connection.
 - **Mobile Ready**: Fully responsive design with PWA support (install via "Add to home screen").
 - **Persistent Progress**: Automatically saves your settings and unfinished sessions.
 - **Question Reporting**: Easily report issues or request help with specific questions.
