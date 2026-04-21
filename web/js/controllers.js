@@ -56,7 +56,7 @@ angular
         },
         exam: {
           enabled: false,
-          isCandidate: true,
+          isCandidate: false,
         },
         QCMID: "",
         helpQuestion: null,
