@@ -359,7 +359,7 @@ angular
           if (newval) {
             $scope.setExamRole(false);
             $scope.applyExamConstraints();
-            $scope.deleteStoredAnswers(false);
+            $scope.deleteStoredAnswers();
           } else {
             $scope.unfillQCMAnswers();
           }

@@ -1,5 +1,11 @@
 [
   {
+    "version": "4.3.1",
+    "bugfixes": [
+      "En mode examen, les points par question sont de nouveau affichés correctement."
+    ]
+  },
+  {
     "version": "4.3.0",
     "changes": [
       "Suppression du bouton \"reload\" du menu ouvert.",
