@@ -308,6 +308,11 @@
     animation: spin 0.8s linear infinite;
   }
 
+  .no-data {
+    margin: 100px auto auto;
+    text-align: center;
+  }
+
   /* ========== QCM Titles ========== */
   .qcm-title {
     font-size: 15px;
