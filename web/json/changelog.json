@@ -3,7 +3,8 @@
     "version": "4.3.0",
     "changes": [
       "Suppression du bouton \"reload\" du menu ouvert.",
-      "Multiples modifications graphiques du mode examen papier."
+      "Refonte graphique du mode examen papier.",
+      "Plusieurs améliorations de rendu."
     ]
   },
   {

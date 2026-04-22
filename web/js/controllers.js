@@ -226,7 +226,7 @@ angular
           $scope.checkForUpdates();
           $scope.updateQCMID();
           $scope.loading = false;
-        }, 300);
+        }, 500);
       };
 
       $scope.loadQCMID = function (QCMID) {
